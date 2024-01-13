@@ -1,0 +1,146 @@
+import 'package:get/get.dart';
+import 'package:money_transfers/view/screen/create_account/create_account.dart';
+import 'package:money_transfers/view/screen/logIn/logIn_screen.dart';
+import 'package:money_transfers/view/screen/method/money_delivery_method.dart';
+import 'package:money_transfers/view/screen/method/money_delivery_method_cameroon.dart';
+import 'package:money_transfers/view/screen/method/money_delivery_resume.dart';
+import 'package:money_transfers/view/screen/notification/notification.dart';
+import 'package:money_transfers/view/screen/onboarding/onboarding_screen.dart';
+import 'package:money_transfers/view/screen/passcode/change_passcode/change_conform_passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/change_passcode/change_passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/change_passcode/new_passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/confrom_passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/enter_passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/reset_passcode/reset_passcode_screen.dart';
+import 'package:money_transfers/view/screen/password/create_password_successful/create_password_successful_screen.dart';
+import 'package:money_transfers/view/screen/password/forgot_password_screen.dart';
+import 'package:money_transfers/view/screen/phone_number/phone_number.dart';
+import 'package:money_transfers/view/screen/verification/sign_up_verification/sign_up_verification.dart';
+import 'package:money_transfers/view/screen/profile/appearance/appearance_screen.dart';
+import 'package:money_transfers/view/screen/profile/change_phone/change_phone_number.dart';
+import 'package:money_transfers/view/screen/profile/edit_email/edit_email_screen.dart';
+import 'package:money_transfers/view/screen/profile/language/language_screen.dart';
+import 'package:money_transfers/view/screen/profile/legal/legal_screen.dart';
+import 'package:money_transfers/view/screen/profile/profile_info/profile_info.dart';
+import 'package:money_transfers/view/screen/profile/profile_screen.dart';
+import 'package:money_transfers/view/screen/profile/security/security_screen.dart';
+import 'package:money_transfers/view/screen/recipient/amount_send.dart';
+import 'package:money_transfers/view/screen/recipient/payment_method_final.dart';
+import 'package:money_transfers/view/screen/recipient/recipient_information.dart';
+import 'package:money_transfers/view/screen/select_country/select_country.dart';
+import 'package:money_transfers/view/screen/setting/setting_screen.dart';
+import 'package:money_transfers/view/screen/splash_screen/splash_screen.dart';
+import 'package:money_transfers/view/screen/support/contact_support.dart';
+import 'package:money_transfers/view/screen/transaction_history/transaction_history.dart';
+import 'package:money_transfers/view/screen/transection/empty_transection.dart';
+import 'package:money_transfers/view/screen/transection/transaction.dart';
+import 'package:money_transfers/view/screen/transection/transaction_success_screen.dart';
+import 'package:money_transfers/view/screen/verification/change_email_varification/change_email_verification.dart';
+import 'package:money_transfers/view/screen/welcome_screen/welcome_screen.dart';
+
+import '../../view/screen/password/new_password/new_password_screen.dart';
+import '../../view/screen/verification/forgot_password_verification/forgot_password_verification.dart';
+
+class AppRoute {
+  static const String splashScreen = "/splash_screen";
+  static const String onboardScreen = "/onboard_screen";
+  static const String phoneNumber = "/phone_Number";
+  static const String phoneNumberOtp = "/phone_Number_otp";
+  static const String createAccount = "/create_account";
+  static const String passCode = "/passcode_screen";
+  static const String welcomeScreen = "/welcome_screen";
+  static const String emptyTransaction = "/empty_transaction";
+  static const String transaction = "/transaction";
+  static const String notification = "/notification";
+  static const String profile = "/profile_screen";
+  static const String profileInfo = "/profile_info";
+  static const String securityScreen = "/security_screen";
+  static const String languageScreen = "/language_screen";
+  static const String appearanceScreen = "/appearance_screen";
+  static const String legalScreen = "/legal_screen";
+  static const String transactionHistory = "/transaction_history";
+  static const String contactSupport = "/contact_support";
+  static const String selectCountry = "/select_country";
+  static const String moneyDeliveryMethod = "/money_delivery_method";
+  static const String recipient = "/recipient_information";
+  static const String moneyDeliveryResume = "/money_delivery_resume.dart";
+
+  static const String settingScreen = "/setting_screen.dart";
+  static const String transactionSuccessScreen =
+      "/transaction_success_screen.dart";
+  static const String transactionCancelScreen =
+      "/transaction_cancel_screen.dart";
+  static const String conformPassCode = "/confrom_passcode_screen.dart";
+  static const String amountSend = "/amount_send.dart";
+  static const String paymentMethodFinal = "/payment_method_final.dart";
+  static const String enterPassCode = "/enter_passcode_screen.dart";
+  static const String changePasscode = "/change_passcode_screen.dart";
+  static const String newPasscode = "/new_passcode_screen.dart";
+  static const String changeConformPasscode =
+      "/change_conform_passcode_screen.dart";
+  static const String logIn = "/logIn_screen.dart";
+  static const String forgotPassword = "/forgot_password_screen.dart";
+  static const String forgotPasswordVerify =
+      "/forgot_password_verification.dart";
+  static const String newPassword = "/new_password_screen.dart";
+  static const String createSuccessful =
+      "/create_password_successful_screen.dart";
+  static const String editEmail = "/edit_email_screen.dart";
+  static const String changeEmailVerify = "/change_email_verification.dart";
+  static const String changePhoneNumber = "/change_phone_number.dart";
+  static const String resetPasscode = "/reset_passcode_screen.dart";
+  static const String deliveryMethodCameroon = "/money_delivery_method_cameroon.dart";
+
+  static List<GetPage> routes = [
+    GetPage(name: splashScreen, page: () => const SplashScreen()),
+    GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
+    GetPage(name: phoneNumber, page: () => const PhoneNumber()),
+    GetPage(name: phoneNumberOtp, page: () => SignUpVerification()),
+    GetPage(name: createAccount, page: () => const CreateAccount()),
+    GetPage(name: passCode, page: () => PasscodeScreen()),
+    GetPage(name: welcomeScreen, page: () => const WelcomeScreen()),
+    GetPage(name: emptyTransaction, page: () => const EmptyTransaction()),
+    GetPage(name: transaction, page: () => const Transaction()),
+    GetPage(name: notification, page: () => Notification()),
+    GetPage(name: profile, page: () => const ProfileScreen()),
+    GetPage(name: profileInfo, page: () => const ProfileInfo()),
+    GetPage(name: securityScreen, page: () => const SecurityScreen()),
+    GetPage(name: languageScreen, page: () => const LanguageScreen()),
+    GetPage(name: appearanceScreen, page: () => const AppearanceScreen()),
+    GetPage(name: legalScreen, page: () => const LegalScreen()),
+    GetPage(name: transactionHistory, page: () => TransactionHistory()),
+    GetPage(name: contactSupport, page: () => const ContactSupport()),
+    GetPage(name: selectCountry, page: () => SelectCountry()),
+    GetPage(name: moneyDeliveryMethod, page: () => const MoneyDeliveryMethod()),
+    GetPage(name: recipient, page: () => RecipientInformation()),
+    GetPage(name: moneyDeliveryResume, page: () => const MoneyDeliveryResume()),
+    GetPage(name: settingScreen, page: () => const SettingScreen()),
+    GetPage(
+        name: transactionSuccessScreen,
+        page: () => const TransactionSuccessScreen()),
+    GetPage(name: conformPassCode, page: () => ConformPasscodeScreen()),
+    GetPage(name: amountSend, page: () => AmountSendScreen()),
+    GetPage(name: paymentMethodFinal, page: () => PaymentMethodFinal()),
+    GetPage(name: enterPassCode, page: () => EnterPasscodeScreen()),
+    GetPage(name: changePasscode, page: () => ChangePasscode()),
+    GetPage(name: newPasscode, page: () => NewPasscodeScreen()),
+    GetPage(
+        name: changeConformPasscode,
+        page: () => ChangeConformPasscodeScreen()),
+    GetPage(name: logIn, page: () => const LogInScreen()),
+    GetPage(name: forgotPassword, page: () => const ForgotPasswordScreen()),
+    GetPage(
+        name: forgotPasswordVerify, page: () => ForgotPasswordVerification()),
+    GetPage(name: newPassword, page: () => const NewPasswordScreen()),
+    GetPage(
+        name: createSuccessful,
+        page: () => const CreatePasswordSuccessfulScreen()),
+    GetPage(name: editEmail, page: () => const EditEmailScreen()),
+    GetPage(name: changeEmailVerify, page: () => ChangeEmailVerification()),
+    GetPage(
+        name: changePhoneNumber, page: () => const ChangePhoneNumberScreen()),
+    GetPage(name: resetPasscode, page: () => const ResetPasswordScreen()),
+    GetPage(name: deliveryMethodCameroon, page: () => const MoneyDeliveryMethodCameroon()),
+  ];
+}
