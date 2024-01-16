@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/sign_up/sign_up_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
@@ -15,7 +16,9 @@ import 'inner_widget/create_account_rich_Text.dart';
 import 'inner_widget/already_have_account.dart';
 
 class CreateAccount extends StatelessWidget {
-  const CreateAccount({super.key});
+  CreateAccount({super.key});
+
+  SignUpController signUpController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,7 @@ class CreateAccount extends StatelessWidget {
                   titleSize: 16.sp,
                   buttonWidth: double.infinity,
                   titleWeight: FontWeight.w700,
-                  onPressed: () => Get.toNamed(AppRoute.phoneNumberOtp)),
+                  onPressed: () => signUpController.signUp()),
               SizedBox(
                 height: 10 * h,
               ),

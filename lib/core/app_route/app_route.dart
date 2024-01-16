@@ -97,7 +97,7 @@ class AppRoute {
     GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
     GetPage(name: phoneNumber, page: () => const PhoneNumber()),
     GetPage(name: phoneNumberOtp, page: () => SignUpVerification()),
-    GetPage(name: createAccount, page: () => const CreateAccount()),
+    GetPage(name: createAccount, page: () => CreateAccount()),
     GetPage(name: passCode, page: () => PasscodeScreen()),
     GetPage(name: welcomeScreen, page: () => const WelcomeScreen()),
     GetPage(name: emptyTransaction, page: () => const EmptyTransaction()),
