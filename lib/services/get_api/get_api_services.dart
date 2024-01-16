@@ -7,12 +7,12 @@ import '../../core/app_route/app_route.dart';
 import '../../global/api_response_model.dart';
 
 class NetworkApiService {
-  Future<ApiResponseModel> postApi(String url, Map body, dynamic headers) async {
+  Future<ApiResponseModel> getApi(String url, Map<String, String> body ) async {
     dynamic responseJson;
 
     try {
       final response =
-          await http.post(Uri.parse(url), body: body, headers: headers);
+          await http.post(Uri.parse(url),body: body );
       responseJson = handleResponse(response);
     } on SocketException {
       return ApiResponseModel(503, "No internet connection", '');
