@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:money_transfers/view/screen/create_account/create_account.dart';
-import 'package:money_transfers/view/screen/logIn/logIn_screen.dart';
 import 'package:money_transfers/view/screen/method/money_delivery_method.dart';
 import 'package:money_transfers/view/screen/method/money_delivery_method_cameroon.dart';
 import 'package:money_transfers/view/screen/method/money_delivery_resume.dart';
@@ -11,7 +10,7 @@ import 'package:money_transfers/view/screen/passcode/change_passcode/change_pass
 import 'package:money_transfers/view/screen/passcode/change_passcode/new_passcode_screen.dart';
 import 'package:money_transfers/view/screen/passcode/confrom_passcode_screen.dart';
 import 'package:money_transfers/view/screen/passcode/enter_passcode_screen.dart';
-import 'package:money_transfers/view/screen/passcode/passcode_screen.dart';
+import 'package:money_transfers/view/screen/passcode/create_passcode_screen.dart';
 import 'package:money_transfers/view/screen/passcode/reset_passcode/reset_passcode_screen.dart';
 import 'package:money_transfers/view/screen/password/create_password_successful/create_password_successful_screen.dart';
 import 'package:money_transfers/view/screen/password/forgot_password_screen.dart';
@@ -40,13 +39,14 @@ import 'package:money_transfers/view/screen/verification/change_email_varificati
 import 'package:money_transfers/view/screen/welcome_screen/welcome_screen.dart';
 
 import '../../view/screen/password/new_password/new_password_screen.dart';
+import '../../view/screen/signIn/logIn_screen.dart';
 import '../../view/screen/verification/forgot_password_verification/forgot_password_verification.dart';
 
 class AppRoute {
   static const String splashScreen = "/splash_screen";
   static const String onboardScreen = "/onboard_screen";
   static const String phoneNumber = "/phone_Number";
-  static const String phoneNumberOtp = "/phone_Number_otp";
+  static const String signUpOtp = "/phone_Number_otp";
   static const String createAccount = "/create_account";
   static const String passCode = "/passcode_screen";
   static const String welcomeScreen = "/welcome_screen";
@@ -96,9 +96,9 @@ class AppRoute {
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
     GetPage(name: phoneNumber, page: () => const PhoneNumber()),
-    GetPage(name: phoneNumberOtp, page: () => SignUpVerification()),
+    GetPage(name: signUpOtp, page: () => SignUpVerification()),
     GetPage(name: createAccount, page: () => CreateAccount()),
-    GetPage(name: passCode, page: () => PasscodeScreen()),
+    GetPage(name: passCode, page: () => CreatePasscodeScreen()),
     GetPage(name: welcomeScreen, page: () => const WelcomeScreen()),
     GetPage(name: emptyTransaction, page: () => const EmptyTransaction()),
     GetPage(name: transaction, page: () => const Transaction()),
@@ -128,11 +128,11 @@ class AppRoute {
     GetPage(
         name: changeConformPasscode,
         page: () => ChangeConformPasscodeScreen()),
-    GetPage(name: logIn, page: () => const LogInScreen()),
-    GetPage(name: forgotPassword, page: () => const ForgotPasswordScreen()),
+    GetPage(name: logIn, page: () => LogInScreen()),
+    GetPage(name: forgotPassword, page: () => ForgotPasswordScreen()),
     GetPage(
         name: forgotPasswordVerify, page: () => ForgotPasswordVerification()),
-    GetPage(name: newPassword, page: () => const NewPasswordScreen()),
+    GetPage(name: newPassword, page: () => NewPasswordScreen()),
     GetPage(
         name: createSuccessful,
         page: () => const CreatePasswordSuccessfulScreen()),

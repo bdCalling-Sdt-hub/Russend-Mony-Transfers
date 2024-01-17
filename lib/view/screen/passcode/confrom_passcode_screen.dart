@@ -8,6 +8,9 @@ import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../controller/create_passcode_controller.dart';
+import '../../../controller/sign_up/sign_up_controller.dart';
+import '../../../models/sign_up_model.dart';
 import '../../widgets/keyboard/custom_keyboard.dart';
 
 class ConformPasscodeScreen extends StatelessWidget {
@@ -15,6 +18,11 @@ class ConformPasscodeScreen extends StatelessWidget {
 
   ConformPasscodeController conformPasscodeController =
       Get.put(ConformPasscodeController());
+
+  SignUpController signUpController = Get.put(SignUpController());
+
+  CreatePasscodeController createPasscodeController =
+      Get.put(CreatePasscodeController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +69,20 @@ class ConformPasscodeScreen extends StatelessWidget {
                       },
 
                       onChanged: (controllerLength) {
-                        if (controllerLength.length ==4) {
-                          Get.toNamed(AppRoute.welcomeScreen);
+                        if (controllerLength.length == 4) {
+                          if (createPasscodeController
+                                  .passcodeController.text ==
+                              conformPasscodeController
+                                  .passcodeController.text) {
+                            SignUpModel signUpModel =
+                                signUpController.signUpInfo[0];
+                            conformPasscodeController.createPasscodeRepo(
+                                signUpModel.data!.passcodeToken!,
+                                signUpModel.data!.attributes!.sId!,
+                                controllerLength);
+                          } else {
+                            Get.snackbar("passcode", "Passcode not match") ;
+                          }
                         }
                       },
                       keyboardType: TextInputType.none,

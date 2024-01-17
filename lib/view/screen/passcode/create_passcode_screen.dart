@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/create_passcode_controller.dart';
+import 'package:money_transfers/controller/sign_up/sign_up_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/models/sign_up_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
-import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../widgets/keyboard/custom_keyboard.dart';
 
-class PasscodeScreen extends StatelessWidget {
-  PasscodeScreen({super.key});
+class CreatePasscodeScreen extends StatelessWidget {
+  CreatePasscodeScreen({super.key});
 
-  CreatePasscodeController createPasscodeController = Get.put(CreatePasscodeController()) ;
+  CreatePasscodeController createPasscodeController =
+      Get.put(CreatePasscodeController());
+
+  SignUpController signUpController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +37,12 @@ class PasscodeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomText(
-                    text: "Create your passcode".tr,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    bottom: 24.h,top: 100.h,
+                  text: "Create your passcode".tr,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                  bottom: 24.h,
+                  top: 100.h,
                 ),
-
                 Flexible(
                   flex: 0,
                   child: Padding(
@@ -46,7 +50,8 @@ class PasscodeScreen extends StatelessWidget {
                     child: PinCodeTextField(
                       controller: createPasscodeController.passcodeController,
                       cursorColor: AppColors.black100,
-                      obscureText: true,enablePinAutofill: true,
+                      obscureText: true,
+                      enablePinAutofill: true,
                       obscuringCharacter: "*",
                       // controller: controller.otpController,
                       appContext: (context),
@@ -62,7 +67,7 @@ class PasscodeScreen extends StatelessWidget {
                       showCursor: false,
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
-                          Get.toNamed(AppRoute.conformPassCode) ;
+                         Get.toNamed(AppRoute.conformPassCode) ;
                         }
                       },
                       keyboardType: TextInputType.none,
@@ -71,7 +76,6 @@ class PasscodeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         fieldHeight: 12.h,
                         fieldWidth: 12.w,
-
                         activeFillColor: Colors.black,
                         selectedFillColor: AppColors.transparentColor,
                         inactiveFillColor: AppColors.transparentColor,

@@ -74,7 +74,7 @@ class PhoneNumber extends StatelessWidget {
         
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 24.h),
-          child: CustomButton(titleText: "Continue".tr,buttonRadius: 50.r,titleSize: 14.sp,onPressed: () => Get.toNamed(AppRoute.phoneNumberOtp),),
+          child: CustomButton(titleText: "Continue".tr,buttonRadius: 50.r,titleSize: 14.sp,onPressed: () => Get.toNamed(AppRoute.signUpOtp),),
         ),
       ),
     );

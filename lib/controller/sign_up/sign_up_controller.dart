@@ -1,125 +1,107 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/models/sign_up_model.dart';
+import '../../core/app_route/app_route.dart';
 import '../../global/api_url.dart';
-import 'package:http/http.dart' as http;
-import '../../services/get_api/get_api_services.dart';
+import '../../services/api_services/api_services.dart';
 
 class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
+  RxList signUpInfo = [].obs;
 
-  String otp = "";
+
+
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController numberController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  TextEditingController otpController = TextEditingController();
 
   NetworkApiService networkApiService = NetworkApiService();
 
 
-  RxList userList = [].obs;
+  Future<void> signUpRepo() async {
+    print("===================> object");
 
-  var accessToken  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWE2Mzg3YmY2OTk1Y2Q1NTJhMzAxOTIiLCJlbWFpbCI6ImRldmVsb3Blcm5haW11bDAwQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA1NDExMDkxLCJleHAiOjE3MDgwMDMwOTF9.ueDlH3JfrZwUEDDHCHndbeHhRUAoULsJ1Ui4euo71rE" ;
+    var body = {
+      "fullName": nameController.text,
+      "email": emailController.text,
+      "phoneNumber": numberController.text,
+      "password": passwordController.text
+    };
+    print("===================>$body");
+    Map<String, String> header = {
+      'Otp': 'OTP ',
+    };
 
-
-
-
-  // Future<void> signUp() async {
-  //   print("===================> object");
-  //
-  //   Map<String, String> header = {
-  //     'Authorization': "Bearer $accessToken"
-  //   };
-  //
-  //
-  //   networkApiService.getApi(ApiUrl.allTransactions, header)
-  //       .then((apiResponseModel) {
-  //
-  //        print( apiResponseModel.statusCode ) ;
-  //        print( apiResponseModel.message ) ;
-  //        print( apiResponseModel.responseJson ) ;
-  //   });
-
-    // Future<void> signUp() async {
-    //   print("object");
-    //
-    //   var body = {
-    //     "fullName": "Naimul Hassan",
-    //     "email": "nayem20012@gmail.com",
-    //     "phoneNumber": "01714455468",
-    //     "password": "hello123"
-    //   };
-    //
-    //   var header = {
-    //     "Otp": "OTP $otp",
-    //     "Content-Type": "application/json",
-    //   };
-    //
-    //   networkApiService.postApi(ApiUrl.signUp, body, header).then((value) {
-    //     ApiResponseModel apiResponseModel = value;
-    //     print(apiResponseModel.statusCode);
-    //
-    //     if (apiResponseModel.statusCode == 200) {
-    //       Get.toNamed(AppRoute.phoneNumberOtp);
-    //       print(apiResponseModel.message);
-    //       print(apiResponseModel.responseJson);
-    //
-    //     }
-    //   });
-    // }
-
-    Future<void> signUp() async {
-      try {
-        var headers = {
-          'Otp': 'OTP ',
-          'Content-Type': 'application/json',
-          'Cookie': 'i18next=en'
-        };
-        var request = http.Request('POST', Uri.parse('https://192.168.10.18:3000/api/users/sign-up'));
-        request.body = json.encode({
-          "fullName": "Naimul Hassan",
-          "email": "sdjfjihffffsjdjfdddj@gmail.com",
-          "phoneNumber": "01714455468",
-          "password": "hello123"
-        });
-        request.headers.addAll(headers);
-
-        http.StreamedResponse response = await request.send();
-
-        print("============> success") ;
-
-        if (response.statusCode == 200) {
-
-          print(await response.stream.bytesToString());
-        }
-        else {
-          print(response.reasonPhrase);
-        }
-        // var body = {
-        //   "fullName":"Naimul Hassan",
-        //   "email":"sdjfjfsjdjssfdddj@gmail.com",
-        //   "phoneNumber":"01714455468",
-        //   "password":"hello123"
-        // };
-        // print("===================>$body");
-        // Map<String, String> headers = {
-        //   "Content-Type": "application/json",
-        //   'Otp': 'OTP',
-        // };
-        //
-        // print("======================Url$headers");
-        // final url = Uri.parse(ApiUrl.signUp);
-        // print("======================Url$url");
-        // final response = await http.post(url, body: body);
-        // print("response");
-        // if (response.statusCode == 200) {
-        //   var data = jsonDecode(response.body);
-        //   print(data);
-        //   print(jsonDecode(response.body));
-        // }
-        //
-        // print("object");
-      } catch (e) {
-        print("============> error \n $e") ;
-
+    networkApiService
+        .postApi(ApiUrl.signUp, body, header)
+        .then((apiResponseModel) {
+      if (apiResponseModel.statusCode == 200) {
+        print(apiResponseModel.statusCode);
+        print(apiResponseModel.message);
+        print(apiResponseModel.responseJson);
+        Get.toNamed(AppRoute.signUpOtp);
+      } else if (apiResponseModel.statusCode == 201) {
+        print(apiResponseModel.statusCode);
+        print(apiResponseModel.message);
+        print(apiResponseModel.responseJson);
+        Get.toNamed(AppRoute.signUpOtp);
       }
-
-    }
+    });
   }
 
+  Future<void> signUpAuthRepo() async {
+    print("===================> object");
+
+    var body = {
+      "fullName": nameController.text,
+      "email": emailController.text,
+      "phoneNumber": numberController.text,
+      "password": passwordController.text
+    };
+    print("===================>$body");
+    Map<String, String> header = {
+      'Otp': 'OTP ${otpController.text}',
+    };
+
+    networkApiService
+        .postApi(ApiUrl.signUp, body, header)
+        .then((apiResponseModel) {
+      print(apiResponseModel.statusCode);
+      print(apiResponseModel.message);
+      print(apiResponseModel.responseJson);
+
+      if (apiResponseModel.statusCode == 200) {
+
+
+        var json = jsonDecode(apiResponseModel.responseJson);
+
+        print("===========================> ${json.runtimeType}");
+        signUpInfo.add(SignUpModel.fromJson(json)) ;
+        Get.toNamed(AppRoute.passCode);
+
+      } else if (apiResponseModel.statusCode == 201) {
+
+        var json = jsonDecode(apiResponseModel.responseJson);
+
+        print("===========================> ${json.runtimeType}");
+
+        signUpInfo.add(SignUpModel.fromJson(json)) ;
+        Get.toNamed(AppRoute.passCode);
+
+      } else if (apiResponseModel.statusCode == 400) {
+        Get.snackbar("Error", "OTP is invalid");
+      }
+
+    });
+  }
+}

@@ -1,25 +1,17 @@
-class SignUpModel {
+class SignInModel {
   String? status;
-  String? statusCode;
+  int? statusCode;
   String? message;
   Data? data;
 
-  SignUpModel(
-      {this.status, this.statusCode, this.message, this.data});
+  SignInModel(
+      {this.status, this.statusCode, this.message, this.data,});
 
-  SignUpModel.fromJson(Map<String, dynamic> json) {
-
+  SignInModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    if (json['errors'] != null) {
-      json['errors'].forEach((v) {
-
-      });
-    }
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -30,7 +22,6 @@ class SignUpModel {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-
     return data;
   }
 }

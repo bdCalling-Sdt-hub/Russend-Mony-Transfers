@@ -2,7 +2,34 @@
 
 
 
-class SharedPreferenceHelper{
+class SharedPreferenceHelper {
+
+
+
+
+
+
+  String accessToken = '';
+  String refreshToken = '';
+  String passcodeToken = '';
+  bool? isLogIn ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   static const String token = 'token';
   static const String rememberMeKey = 'remember me';

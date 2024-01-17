@@ -1,25 +1,17 @@
-class SignUpModel {
+class CreatePasscodeModel {
   String? status;
   String? statusCode;
   String? message;
   Data? data;
 
-  SignUpModel(
+  CreatePasscodeModel(
       {this.status, this.statusCode, this.message, this.data});
 
-  SignUpModel.fromJson(Map<String, dynamic> json) {
-
+  CreatePasscodeModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    if (json['errors'] != null) {
-      json['errors'].forEach((v) {
-
-      });
-    }
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -30,7 +22,6 @@ class SignUpModel {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-
     return data;
   }
 }
@@ -38,16 +29,14 @@ class SignUpModel {
 class Data {
   String? type;
   Attributes? attributes;
-  String? passcodeToken;
 
-  Data({this.type, this.attributes, this.passcodeToken});
+  Data({this.type, this.attributes});
 
   Data.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
-    passcodeToken = json['passcodeToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,7 +45,6 @@ class Data {
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
-    data['passcodeToken'] = this.passcodeToken;
     return data;
   }
 }

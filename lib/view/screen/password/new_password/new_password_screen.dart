@@ -2,17 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/models/forget_password_otp_model.dart';
 
-import '../../../../core/app_route/app_route.dart';
+import '../../../../controller/forget_password_controller.dart';
 import '../../../../utils/app_colors.dart';
-import '../../../widgets/app_bar/custom_app_bar.dart';
-import '../../../widgets/back/back.dart';
 import '../../../widgets/custom_button/custom_button.dart';
 import '../../../widgets/custom_text_field/custom_text_field.dart';
 import '../../../widgets/text/custom_text.dart';
 
 class NewPasswordScreen extends StatelessWidget {
-  const NewPasswordScreen({super.key});
+  NewPasswordScreen({super.key});
+
+  final formKey = GlobalKey<FormState>();
+
+  ForgetPasswordController forgetPasswordController =
+      Get.put(ForgetPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,44 +26,64 @@ class NewPasswordScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                text: "Reset Password".tr,
-                fontSize: 20.sp,
-                top: 29.h,
-                fontWeight: FontWeight.w600,
-                bottom: 32.h,
-              ),
-              CustomText(
-                text: "New password".tr,
-                fontSize: 14.r,
-                style: true,
-                fontWeight: FontWeight.w400,
-                textAlign: TextAlign.start,
-                bottom: 4.h,
-              ),
-              CustomTextField(
-                fillColor: AppColors.gray80,
-                isPassword: true,
-                hintText: "Enter your new password".tr,
-              ),
-              CustomText(
-                text: "Confirm password".tr,
-                fontSize: 14.r,
-                style: true,
-                fontWeight: FontWeight.w400,
-                textAlign: TextAlign.start,
-                top: 24.h,
-                bottom: 4.h,
-              ),
-              CustomTextField(
-                fillColor: AppColors.gray80,
-                isPassword: true,
-                hintText: "Confirm your new password".tr,
-              ),
-            ],
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: "Reset Password".tr,
+                  fontSize: 20.sp,
+                  top: 29.h,
+                  fontWeight: FontWeight.w600,
+                  bottom: 32.h,
+                ),
+                CustomText(
+                  text: "New password".tr,
+                  fontSize: 14.r,
+                  style: true,
+                  fontWeight: FontWeight.w400,
+                  textAlign: TextAlign.start,
+                  bottom: 4.h,
+                ),
+                CustomTextField(
+                  controller: forgetPasswordController.passwordController,
+                  fillColor: AppColors.gray80,
+                  isPassword: true,
+                  hintText: "Enter your new password".tr,
+                  validator: (value) {
+                    if (!(value.length >= 8) && value.isEmpty) {
+                      return "Password should contain more than 8 characters";
+                    }
+                  },
+                ),
+                CustomText(
+                  text: "Confirm password".tr,
+                  fontSize: 14.r,
+                  style: true,
+                  fontWeight: FontWeight.w400,
+                  textAlign: TextAlign.start,
+                  top: 24.h,
+                  bottom: 4.h,
+                ),
+                CustomTextField(
+                  controller: forgetPasswordController.confirmPasswordController,
+                  fillColor: AppColors.gray80,
+                  isPassword: true,
+                  hintText: "Confirm your new password".tr,
+                  validator: (value) {
+                    if (forgetPasswordController.passwordController.text ==
+                            forgetPasswordController
+                                .confirmPasswordController.text &&
+                        value.isNotEmpty) {
+                      return null;
+                    } else {
+                      return "password do not match";
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -69,7 +93,12 @@ class NewPasswordScreen extends StatelessWidget {
             titleText: "Reset Password".tr,
             buttonRadius: 10.r,
             onPressed: () {
-              Get.toNamed(AppRoute.createSuccessful);
+              if (formKey.currentState!.validate()) {
+                ForgetPasswordOtpModel forgetPasswordOtpModel =
+                    forgetPasswordController.forgetPasswordOtpInfo[0];
+                forgetPasswordController.resetPasswordRepo(
+                    forgetPasswordOtpModel.data!.forgetPasswordToken!);
+              }
             }),
       ),
     );

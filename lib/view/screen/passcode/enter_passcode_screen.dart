@@ -4,12 +4,15 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/controller/keyboard_controller.dart';
+import 'package:money_transfers/controller/sign_in_controller.dart';
+import 'package:money_transfers/models/sign_in_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/local_auth/local_auth_controller.dart';
-import '../../../core/app_route/app_route.dart';
+import '../../../helper/shared_preference_helper.dart';
 import '../../widgets/keyboard/custom_keyboard.dart';
 
 class EnterPasscodeScreen extends StatefulWidget {
@@ -28,16 +31,40 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
   LocalAuthController localAuthController = Get.put(LocalAuthController());
   final LocalAuthentication auth = LocalAuthentication();
 
+  SignInController signInController = Get.put(SignInController());
+
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
+
   @override
   void initState() {
     super.initState();
+
     auth.isDeviceSupported().then((bool isSupported) => setState(() {
           localAuthController.supportState =
               isSupported ? SupportState.supported : SupportState.unsupported;
 
           localAuthController.authenticateWithBiometrics(mounted);
         }));
+    getIsisLogIn() ;
   }
+
+
+
+
+  Future<void> getIsisLogIn() async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
+      sharedPreferenceHelper.refreshToken = pref.getString("refreshToken") ?? "";
+      sharedPreferenceHelper.passcodeToken = pref.getString("passcodeToken") ?? "";
+      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false ;
+
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +94,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                     child: PinCodeTextField(
-                      controller: enterPasscodeController.controller,
+                      controller: enterPasscodeController.enterController,
                       cursorColor: AppColors.black100,
                       obscureText: true,
                       enablePinAutofill: true,
@@ -86,7 +113,19 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       showCursor: false,
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
-                          Get.toNamed(AppRoute.welcomeScreen);
+                          if (sharedPreferenceHelper.isLogIn!) {
+                            enterPasscodeController.enterPasscodeRepo(
+                                sharedPreferenceHelper.passcodeToken);
+                            print(sharedPreferenceHelper.passcodeToken) ;
+
+                          } else {
+
+                            print(sharedPreferenceHelper.passcodeToken) ;
+                            // SignInModel signInModel =
+                            //     signInController.signInInfo[0];
+                            // enterPasscodeController.enterPasscodeRepo(
+                            //     signInModel.data!.passcodeToken!);
+                          }
                         }
                       },
                       pinTheme: PinTheme(
@@ -111,7 +150,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                 ),
                 const Spacer(),
                 CustomKeyboard(
-                  controller: enterPasscodeController.controller,
+                  controller: enterPasscodeController.enterController,
                   isForgot: true,
                 ),
               ],

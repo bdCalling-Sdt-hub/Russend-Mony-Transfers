@@ -6,20 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
+import '../../../../controller/sign_up/sign_up_controller.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../widgets/custom_text_field/custom_text_field.dart';
 import '../../../widgets/image/custom_image.dart';
 import '../../../widgets/text/custom_text.dart';
 
 class CreateAccountAllFiled extends StatelessWidget {
-  const CreateAccountAllFiled({super.key});
+  CreateAccountAllFiled({super.key});
+
+  SignUpController signUpController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
-
     var height = MediaQuery.of(context).size.height;
     var h = height / 852;
-
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,8 +38,14 @@ class CreateAccountAllFiled extends StatelessWidget {
         CustomTextField(
           hintText: "Enter your Full Name".tr,
           paddingHorizontal: 24.w,
+          controller: signUpController.nameController,
           paddingVertical: 18 * h,
           fillColor: AppColors.gray80,
+          validator: (value) {
+            if (value.isEmpty) {
+              return "please, Enter your Full Name";
+            }
+          },
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 18.w),
             child: const CustomImage(
@@ -59,9 +66,15 @@ class CreateAccountAllFiled extends StatelessWidget {
         ),
         CustomTextField(
           hintText: "Enter a valid email".tr,
+          controller: signUpController.emailController,
           paddingHorizontal: 24.w,
           paddingVertical: 18 * h,
           fillColor: AppColors.gray80,
+          validator: (value) {
+            if (value.isEmpty) {
+              return "please, Enter your Full Name";
+            }
+          },
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 18.w),
             child: const CustomImage(
@@ -80,6 +93,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           ),
         ),
         IntlPhoneField(
+          controller: signUpController.numberController,
           decoration: InputDecoration(
             hintText: "Mobile number".tr,
             fillColor: AppColors.gray80,
@@ -91,7 +105,7 @@ class CreateAccountAllFiled extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8))),
           ),
           initialCountryCode: "BD",
-          disableLengthCheck: true,
+          disableLengthCheck: false,
         ),
         Padding(
           padding: EdgeInsets.only(top: 16 * h, bottom: 4 * h),
@@ -105,8 +119,14 @@ class CreateAccountAllFiled extends StatelessWidget {
         ),
         CustomTextField(
           hintText: "Password".tr,
+          controller: signUpController.passwordController,
           paddingHorizontal: 24.w,
           paddingVertical: 18 * h,
+          validator: (value) {
+            if (!(value.length >= 8) && value.isEmpty) {
+              return "Password should contain more than 8 characters";
+            }
+          },
           fillColor: AppColors.gray80,
           isPassword: true,
         ),
@@ -123,8 +143,18 @@ class CreateAccountAllFiled extends StatelessWidget {
         CustomTextField(
           hintText: "Confirm Password".tr,
           paddingHorizontal: 24.w,
+          controller: signUpController.confirmPasswordController,
           paddingVertical: 18 * h,
           fillColor: AppColors.gray80,
+          validator: (value) {
+            if (signUpController.passwordController.text ==
+                    signUpController.confirmPasswordController.text &&
+                value.isNotEmpty) {
+              return null;
+            } else {
+              return "password do not match";
+            }
+          },
           isPassword: true,
         ),
         SizedBox(

@@ -19,10 +19,15 @@ class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
 
   SignUpController signUpController = Get.put(SignUpController());
+  final formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
     var h = height / 852;
 
     return Scaffold(
@@ -73,33 +78,43 @@ class CreateAccount extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 14.w),
           child: SingleChildScrollView(
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              CustomText(
-                text: "Create your account".tr,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-                bottom: 15 * h,
-              ),
-              const CreateAccountAllFiled(),
-              const Align(
-                  alignment: Alignment.center,
-                  child: CreateAccountTermsConditions()),
-              SizedBox(
-                height: 36 * h,
-              ),
-              CustomButton(
+            Form(
+              key: formKey,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                CustomText(
+                  text: "Create your account".tr,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                  bottom: 15 * h,
+                ),
+                CreateAccountAllFiled(),
+                const Align(
+                    alignment: Alignment.center,
+                    child: CreateAccountTermsConditions()),
+                SizedBox(
+                  height: 36 * h,
+                ),
+                CustomButton(
                   titleText: "Sign up",
                   buttonHeight: 60 * h,
                   titleSize: 16.sp,
                   buttonWidth: double.infinity,
                   titleWeight: FontWeight.w700,
-                  onPressed: () => signUpController.signUp()),
-              SizedBox(
-                height: 10 * h,
-              ),
-              const Align(
-                  alignment: Alignment.center, child: AlreadyHaveAccount()),
-            ]),
+                  onPressed: () {
+                    if(formKey.currentState!.validate()){
+                      signUpController.otpController.text = "" ;
+                      signUpController.signUpRepo() ;
+                    };
+                  },
+
+                ),
+                SizedBox(
+                  height: 10 * h,
+                ),
+                const Align(
+                    alignment: Alignment.center, child: AlreadyHaveAccount()),
+              ]),
+            ),
           ),
         ));
   }

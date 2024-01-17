@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/sign_in_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 
 import '../../../../utils/app_colors.dart';
@@ -12,7 +13,9 @@ import '../../../widgets/image/custom_image.dart';
 import '../../../widgets/text/custom_text.dart';
 
 class LogInFiled extends StatelessWidget {
-  const LogInFiled({super.key});
+  LogInFiled({super.key});
+
+  SignInController signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,13 @@ class LogInFiled extends StatelessWidget {
             top: 27.h),
         CustomTextField(
           fillColor: AppColors.gray80,
+          controller: signInController.emailController,
           hintText: "Enter your email".tr,
+          validator: (value) {
+            if (value.isEmpty) {
+              return "Enter your email".tr;
+            }
+          },
           suffixIcon: Padding(
               padding: EdgeInsets.all(14.w),
               child: CustomImage(
@@ -44,7 +53,7 @@ class LogInFiled extends StatelessWidget {
               )),
         ),
         CustomText(
-            text: "Password".tr,
+            text: "Enter your Password".tr,
             fontSize: 14.sp,
             style: true,
             fontWeight: FontWeight.w400,
@@ -53,7 +62,13 @@ class LogInFiled extends StatelessWidget {
         CustomTextField(
           fillColor: AppColors.gray80,
           isPassword: true,
-          hintText: "Password".tr,
+          controller: signInController.passwordController,
+          validator: (value) {
+            if (value.isEmpty) {
+              return "Enter your Password".tr;
+            }
+          },
+          hintText: "Enter your Password".tr,
         ),
         Align(
           alignment: Alignment.centerRight,

@@ -11,13 +11,16 @@ import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../controller/sign_up/sign_up_controller.dart';
 import '../../../widgets/resend_rich_text/resend_rich_text.dart';
 import '../../../widgets/rich_text/rich_text.dart';
 
 class SignUpVerification extends StatelessWidget {
   SignUpVerification({super.key});
 
-  RxBool _keyboardVisible = true.obs;
+
+  SignUpController signUpController = Get.put(SignUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,38 +58,39 @@ class SignUpVerification extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 0,
-                  child: Obx(() => PinCodeTextField(
-                        cursorColor: AppColors.black100,
-                        // controller: controller.otpController,
-                        appContext: (context),
+                  child: PinCodeTextField(
+                    cursorColor: AppColors.black100,
+                    controller: signUpController.otpController,
+                    appContext: (context),
 
-                        validator: (value) {
-                          if (value!.length < 6) {
-                            return "Please enter the OTP code.".tr;
-                          } else {}
-                        },
-                        autoFocus: true,
-                        pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(8),
-                          fieldHeight: 50.h,
-                          fieldWidth: 46.w,
-                          activeFillColor: AppColors.transparentColor,
-                          selectedFillColor: AppColors.transparentColor,
-                          inactiveFillColor: AppColors.transparentColor,
-                          borderWidth: 0.5.w,
-                          errorBorderColor: AppColors.primaryColor,
-                          selectedColor: AppColors.black100,
-                          activeColor: AppColors.black100,
-                          inactiveColor: AppColors.black100,
-                        ),
-                        length: 6,
-                        keyboardType: _keyboardVisible.value
-                            ? TextInputType.number
-                            : TextInputType.none,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        enableActiveFill: true,
-                      )),
+                    validator: (value) {
+                      if (value!.length < 6) {
+                        return "Please enter the OTP code.".tr;
+                      } else {
+
+                      }
+                    },
+                    autoFocus: true,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(8),
+                      fieldHeight: 50.h,
+                      fieldWidth: 46.w,
+                      activeFillColor: AppColors.transparentColor,
+                      selectedFillColor: AppColors.transparentColor,
+                      inactiveFillColor: AppColors.transparentColor,
+                      borderWidth: 0.5.w,
+                      errorBorderColor: AppColors.primaryColor,
+                      selectedColor: AppColors.black100,
+                      activeColor: AppColors.black100,
+                      inactiveColor: AppColors.black100,
+                    ),
+                    length: 6,
+                    keyboardType:TextInputType.number,
+
+                    autovalidateMode: AutovalidateMode.disabled,
+                    enableActiveFill: true,
+                  ),
                 ),
                 SizedBox(
                   height: 48.h,
@@ -98,7 +102,7 @@ class SignUpVerification extends StatelessWidget {
                         buttonRadius: 10.r,
                         titleSize: 14.sp,
                         onPressed: () {
-                          Get.toNamed(AppRoute.passCode);
+                          signUpController.signUpAuthRepo();
                         })),
                 SizedBox(
                   height: 50.h,
