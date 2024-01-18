@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
+import 'package:money_transfers/controller/transaction_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/models/transaction_details_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -17,8 +20,14 @@ class TransactionHistory extends StatelessWidget {
 
   AmountSendController amountSendController = Get.put(AmountSendController());
 
+  TransactionController transactionController =
+      Get.put(TransactionController());
+
   @override
   Widget build(BuildContext context) {
+    var item =
+        transactionController.transactionDetailsModelInfo!.data!.attributes;
+
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -28,7 +37,7 @@ class TransactionHistory extends StatelessWidget {
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(vertical: 24.h),
+          padding: EdgeInsets.only(bottom: 24.h),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Column(
@@ -57,16 +66,15 @@ class TransactionHistory extends StatelessWidget {
                         width: 24.w,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: AssetImage(AppIcons.flag),
-                              fit: BoxFit.fill),
                         ),
+                        child:
+                            SvgPicture.network("${item!.country!.countryFlag}"),
                       ),
                     ),
                   ],
                 ),
                 CustomText(
-                    text: "ADRIEN WANDJI NGAHA",
+                    text: "${item!.sender!.fullName}",
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w400,
                     top: 8.h,
@@ -76,14 +84,16 @@ class TransactionHistory extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
-                        text: "1500 RUB",
+                        text:
+                            "${item.amountToSent} ${item.ammountToSentCurrency}",
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         right: 4.w),
                     Icon(Icons.arrow_forward_outlined,
                         size: 18.h, color: AppColors.black100),
                     CustomText(
-                        text: "12 350 XAF ",
+                        text:
+                            "${item.amountToReceive} ${item.amountToReceiveCurrency}",
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         left: 4.w),
@@ -94,11 +104,35 @@ class TransactionHistory extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomImage(
-                        imageSrc: AppIcons.success,
-                        size: 20.h,
-                        imageColor: AppColors.black100),
-                    CustomText(text: "Sent".tr, fontSize: 18.sp, left: 4.w)
+                    Center(
+                        child: item.status == "pending"
+                            ? SizedBox(
+                                width: 12.w,
+                                height: 12.h,
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : item.status == "cancelled"
+                                ? CustomImage(
+                                    imageSrc: AppIcons.cancelled,
+                                    size: 20.h,
+                                    imageColor: AppColors.black100)
+                                : item.status == "transferred"
+                                    ? CustomImage(
+                                        imageSrc: AppIcons.success,
+                                        size: 20.h,
+                                        imageColor: AppColors.black100)
+                                    : CustomImage(
+                                        imageSrc: AppIcons.transferred,
+                                        imageType: ImageType.png,
+                                        size: 20.h,
+                                        imageColor: AppColors.black100)),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    CustomText(
+                        text: "${item.status}", fontSize: 18.sp, left: 4.w)
                   ],
                 ),
                 SizedBox(height: 24.h),
@@ -160,9 +194,9 @@ class TransactionHistory extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 24.h),
-                      RowText(title: "Date".tr, value: "01 Nov 2023 At 17:22"),
+                      RowText(title: "Date".tr, value: "${item.createdAt}"),
                       SizedBox(height: 24.h),
-                      RowText(title: "Rate".tr, value: "1.00RUB = 6.44 RUB"),
+                      RowText(title: "Rate".tr, value: "${item.exchangeRate}"),
                       SizedBox(height: 24.h),
                       RowText(
                           title: "Fee".tr,
@@ -170,9 +204,12 @@ class TransactionHistory extends StatelessWidget {
                               amountSendController.amountController.value.text),
                       SizedBox(height: 24.h),
                       RowText(
-                          title: "Recipient".tr, value: "ADRIEN WANDJI NGAHA"),
+                          title: "Recipient".tr,
+                          value: "${item.firstName} ${item.lastName}"),
                       SizedBox(height: 24.h),
-                      RowText(title: "Delivery".tr, value: "To mobile .. 8060"),
+                      RowText(
+                          title: "Delivery".tr,
+                          value: "To mobile: ${item.phoneNumber}"),
                     ],
                   ),
                 ),

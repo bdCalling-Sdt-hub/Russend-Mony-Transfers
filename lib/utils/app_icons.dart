@@ -48,4 +48,6 @@ class AppIcons {
   // static const String cross = "$basePath/cross.svg";
   static const String cross = "$basePath/cross.png";
   static const String kazakhstan = "$basePath/kazakhstan.svg";
+  static const String cancelled = "$basePath/cancelled.svg";
+  static const String transferred = "$basePath/transferred.png";
 }

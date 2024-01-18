@@ -1,100 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/add_transactions_controller.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
+import 'package:money_transfers/controller/select_country_controller.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/screen/select_country/inner_widget/list_item.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/recipent_information_controller.dart';
 import '../../../core/app_route/app_route.dart';
 
-class SelectCountry extends StatelessWidget {
+class SelectCountry extends StatefulWidget {
   SelectCountry({super.key});
 
-  RecipientInformationController recipientInformationController = Get.put(RecipientInformationController()) ;
+  @override
+  State<SelectCountry> createState() => _SelectCountryState();
+}
 
-  AmountSendController amountSendController = Get.put(AmountSendController()) ;
+class _SelectCountryState extends State<SelectCountry> {
+  RecipientInformationController recipientInformationController =
+      Get.put(RecipientInformationController());
 
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
-  List countryList = [
-    {
-      "name": "Cameroon",
-      "countryToken": "XAF",
-      "flag": AppIcons.cameroon,
-      "isPay": "Cameroon",
-      "countryCode": "+237",
-    },
-    {
-      "name": "Central African R",
-      "countryToken": "XAF",
-      "flag": AppIcons.centralAfrican,
-      "isPay": "available",
-      "countryCode": "+236",
-
-    },
-    {
-      "name": "Chad",
-      "countryToken": "XAF",
-      "flag": AppIcons.chad,
-      "isPay": "available",
-      "countryCode": "+235",
-
-    },
-    {
-      "name": "Republic of Congo",
-      "countryToken": "XAF",
-      "flag": AppIcons.congo,
-      "isPay": "available",
-      "countryCode": "+243",
+  SelectCountryController selectCountryController =
+      Get.put(SelectCountryController());
 
 
-    },
-    {
-      "name": "Equatorial Guinea",
-      "countryToken": "XAF",
-      "flag": AppIcons.equatorialQuinea,
-      "isPay": "available",
-      "countryCode": "+240",
+  @override
+  void initState() {
+    selectCountryController.allCountriesRepo();
+    // TODO: implement initState
+    super.initState();
+  }
 
-    },
-    {
-      "name": "Gabon",
-      "countryToken": "XAF",
-      "flag": AppIcons.gabon,
-      "isPay": "available",
-    "countryCode": "+241",
 
-    },
-    {
-      "name": "Belarus",
-      "countryToken": "BYN",
-      "flag": AppIcons.belarus,
-      "isPay": "Not available",
-      "countryCode": "+375",
-
-    },
-    {
-      "name": "Tajikistan",
-      "countryToken": "TJS",
-      "flag": AppIcons.tajikistan,
-      "isPay": "Not available",
-      "countryCode": "+992",
-
-    },
-    {
-      "name": "Kazakhstan",
-      "countryToken": "KZT",
-      "flag": AppIcons.kazakhstan,
-      "isPay": "Not available",
-      "countryCode": "+7",
-
-    },
-  ];
-
+  // List countryList = [
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -118,38 +65,42 @@ class SelectCountry extends StatelessWidget {
                     fontSize: 26.sp,
                     maxLines: 2,
                     bottom: 24.h),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: countryList.length,
-                  itemBuilder: (context, index) {
-                    var item = countryList[index];
-                    return GestureDetector(
+                Obx(() => selectCountryController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: selectCountryController
+                            .countryList!.data!.attributes!.length,
+                        itemBuilder: (context, index) {
+                          var item = selectCountryController
+                              .countryList!.data!.attributes![index];
+                          return GestureDetector(
+                            onTap: () {
+                              recipientInformationController
+                                  .numberPrefix.value = item.countryCode!;
+                              amountSendController.exchangeRates();
 
-
-                      onTap: () {
-                        recipientInformationController.numberPrefix.value = item['countryCode'] ;
-                        amountSendController.exchangeRates() ;
-
-                        if(item['isPay'] == "Cameroon") {
-                          Get.toNamed(AppRoute.deliveryMethodCameroon) ;
-                        }  else if(item['isPay'] == "available") {
-                          Get.toNamed(AppRoute.moneyDeliveryMethod) ;
-                        } else if(item['isPay'] == "Not available") {
-                          Get.toNamed(AppRoute.moneyDeliveryResume) ;
-                        }
-                      },
-                      // onTap: item['isPay']
-                      //     ? () => Get.toNamed(AppRoute.moneyDeliveryMethod)
-                      //     : () => Get.toNamed(AppRoute.moneyDeliveryResume),
-                      child: ListItem(
-                        countryName: item['name'],
-                        countryToken: item['countryToken'],
-                        flag: item['flag'],
-                      ),
-                    );
-                  },
-                ),
+                              if (item.isPaymentAvailable!) {
+                                if (item.paymentGateways!.length == 2) {
+                                  Get.toNamed(AppRoute.deliveryMethodCameroon);
+                                } else {
+                                  Get.toNamed(AppRoute.moneyDeliveryMethod);
+                                }
+                              } else {
+                                Get.toNamed(AppRoute.moneyDeliveryResume);
+                              }
+                            },
+                            child: ListItem(
+                              countryName: item.name!,
+                              countryToken: item.currency!,
+                              flag: item.countryFlag!,
+                            ),
+                          );
+                        },
+                      )),
               ],
             ),
           ),

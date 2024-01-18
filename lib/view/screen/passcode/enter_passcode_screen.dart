@@ -45,26 +45,22 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
           localAuthController.authenticateWithBiometrics(mounted);
         }));
-    getIsisLogIn() ;
+    getIsisLogIn();
   }
-
-
-
 
   Future<void> getIsisLogIn() async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.refreshToken = pref.getString("refreshToken") ?? "";
-      sharedPreferenceHelper.passcodeToken = pref.getString("passcodeToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false ;
-
+      sharedPreferenceHelper.refreshToken =
+          pref.getString("refreshToken") ?? "";
+          pref.getString("refreshToken") ?? "";
+      sharedPreferenceHelper.email = pref.getString("email") ?? "";
+      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
     } catch (e) {
       print(e.toString());
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -114,17 +110,15 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
                           if (sharedPreferenceHelper.isLogIn!) {
-                            enterPasscodeController.enterPasscodeRepo(
-                                sharedPreferenceHelper.passcodeToken);
-                            print(sharedPreferenceHelper.passcodeToken) ;
-
+                            enterPasscodeController.signInWithPasscodeRepo(
+                                sharedPreferenceHelper.email);
+                            print(sharedPreferenceHelper.email);
                           } else {
-
-                            print(sharedPreferenceHelper.passcodeToken) ;
-                            // SignInModel signInModel =
-                            //     signInController.signInInfo[0];
-                            // enterPasscodeController.enterPasscodeRepo(
-                            //     signInModel.data!.passcodeToken!);
+                            print(sharedPreferenceHelper.passcodeToken);
+                            SignInModel signInModel =
+                                signInController.signInInfo[0];
+                            enterPasscodeController.enterPasscodeRepo(
+                                signInModel.data!.passcodeToken!);
                           }
                         }
                       },

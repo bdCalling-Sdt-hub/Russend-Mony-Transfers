@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/models/sign_up_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/app_route/app_route.dart';
 import '../../global/api_url.dart';
 import '../../services/api_services/api_services.dart';
@@ -73,6 +74,7 @@ class SignUpController extends GetxController {
       'Otp': 'OTP ${otpController.text}',
     };
 
+
     networkApiService
         .postApi(ApiUrl.signUp, body, header)
         .then((apiResponseModel) {
@@ -96,7 +98,15 @@ class SignUpController extends GetxController {
         print("===========================> ${json.runtimeType}");
 
         signUpInfo.add(SignUpModel.fromJson(json)) ;
+
+
+
+
+
         Get.toNamed(AppRoute.passCode);
+
+
+
 
       } else if (apiResponseModel.statusCode == 400) {
         Get.snackbar("Error", "OTP is invalid");

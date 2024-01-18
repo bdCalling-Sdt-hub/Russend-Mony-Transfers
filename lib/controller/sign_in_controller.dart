@@ -28,6 +28,7 @@ class SignInController extends GetxController {
     };
     print("===================>$body");
     Map<String, String> header = {};
+
     SharedPreferences pref = await SharedPreferences.getInstance();
 
 
@@ -43,12 +44,9 @@ class SignInController extends GetxController {
 
         signInInfo.add(SignInModel.fromJson(json));
 
+        SignInModel signInModel = signInInfo[0];
 
-
-        SignInModel signInModel  = signInInfo[0] ;
-
-
-        pref.setString("passcodeToken", signInModel.data!.passcodeToken!);
+        pref.setString("email", emailController.text);
 
 
         Get.toNamed(AppRoute.enterPassCode);

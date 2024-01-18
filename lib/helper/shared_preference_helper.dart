@@ -12,6 +12,7 @@ class SharedPreferenceHelper {
   String accessToken = '';
   String refreshToken = '';
   String passcodeToken = '';
+  String email = '';
   bool? isLogIn ;
 
 

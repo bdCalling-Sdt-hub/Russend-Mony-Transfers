@@ -6,10 +6,10 @@ import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/app_bar/custom_app_bar.dart';
 import '../../../widgets/back/back.dart';
-import '../../../widgets/keyboard/custom_keyboard.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});
@@ -32,7 +32,15 @@ class ResetPasswordScreen extends StatelessWidget {
               bottom: 100.h,
             ),
             GestureDetector(
-              onTap: () => Get.toNamed(AppRoute.logIn),
+              onTap: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+
+                pref.setString("email", "");
+                pref.setString("refreshToken", "");
+                pref.setBool("isLogIn", false);
+
+                Get.toNamed(AppRoute.logIn);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

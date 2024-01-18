@@ -32,6 +32,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                     text: "Continue".tr,
                     fontSize: 20.sp,
                     bottom: 7.h,
+                    top: 16.h,
                     fontWeight: FontWeight.w700,
                     textAlign: TextAlign.right,
                     color: Colors.white,

@@ -45,7 +45,7 @@ class ListItem extends StatelessWidget {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                   ),
-                  child: ClipOval(child: SvgPicture.asset(flag),),
+                  child: ClipOval(child: SvgPicture.network(flag),),
                 ),
                 Flexible(child: CustomText(text: countryName ,fontSize: 22.sp,left: 14.w,maxLines: 2,textAlign: TextAlign.start)),
               ],

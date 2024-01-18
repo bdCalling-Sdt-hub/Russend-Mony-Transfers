@@ -108,7 +108,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           disableLengthCheck: false,
         ),
         Padding(
-          padding: EdgeInsets.only(top: 16 * h, bottom: 4 * h),
+          padding: EdgeInsets.only(bottom: 4 * h),
           child: Text(
             "Password".tr,
             style: GoogleFonts.plusJakartaSans(

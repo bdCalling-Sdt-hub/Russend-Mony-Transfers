@@ -101,7 +101,7 @@ class AppRoute {
     GetPage(name: passCode, page: () => CreatePasscodeScreen()),
     GetPage(name: welcomeScreen, page: () => const WelcomeScreen()),
     GetPage(name: emptyTransaction, page: () => const EmptyTransaction()),
-    GetPage(name: transaction, page: () => const Transaction()),
+    GetPage(name: transaction, page: () => Transaction()),
     GetPage(name: notification, page: () => Notification()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: profileInfo, page: () => const ProfileInfo()),

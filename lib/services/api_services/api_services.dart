@@ -10,7 +10,7 @@ class NetworkApiService {
 
 
   Future<ApiResponseModel> postApi(
-      String url, Map<String, String> body, Map<String, String> header,
+      String url, Map<String, dynamic> body, Map<String, String> header,
       {isHeader = true}) async {
     dynamic responseJson;
 

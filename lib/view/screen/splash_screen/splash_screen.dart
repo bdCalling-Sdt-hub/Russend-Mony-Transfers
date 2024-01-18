@@ -32,9 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.refreshToken = pref.getString("refreshToken") ?? "";
-      sharedPreferenceHelper.passcodeToken = pref.getString("passcodeToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false ;
+      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
 
       if (sharedPreferenceHelper.isLogIn!) {
         Get.toNamed(AppRoute.enterPassCode);
