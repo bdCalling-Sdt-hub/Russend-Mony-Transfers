@@ -45,6 +45,7 @@ dependencies:
   flutter_advanced_switch: ^3.0.1
   http: ^1.1.2
   shared_preferences: ^2.2.2
+  flutter_html:
 
 dev_dependencies:
   flutter_test:

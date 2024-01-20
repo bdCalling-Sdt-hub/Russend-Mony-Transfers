@@ -28,6 +28,10 @@ class ApiUrl {
   static const String transaction = "$baseUrl/api/transactions" ;
   static const String countries = "$baseUrl/api/countries" ;
   static const String hiddenFee = "$baseUrl/api/hidden-fees" ;
+  static const String termsOfMoneyTransfer = "$baseUrl/api/terms-of-money-transfers" ;
+  static const String termsOfService = "$baseUrl/api/terms-of-services" ;
+  static const String personalDataPolicies = "$baseUrl/api/personal-data-policies" ;
+  static const String refundAndCancellationPolicy = "$baseUrl/api/refund-and-cancellation-policies" ;
 
 
 }

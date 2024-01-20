@@ -135,7 +135,13 @@
   "Your  order has been cancelled": "Your  order has been cancelled",
   "Don’t have an account? ": "Don’t have an account? ",
   "Enter your Password": "Enter your Password",
-  "Enter phone number": "Enter your new phone number"
+  "Enter phone number": "Enter your new phone number",
+  "No internet connection": "No internet connection",
+  "Bad Response Request": "Bad Response Request",
+  "Request Time Out": "Request Time Out",
+  "Success": "Success",
+  "Unauthorized": "Unauthorized",
+  "Internal Server Error": "Internal Server Error"
 
 
 

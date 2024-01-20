@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/utils/app_colors.dart';
-import 'package:money_transfers/view/screen/recipient/widget/rich_text.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../../core/app_route/app_route.dart';

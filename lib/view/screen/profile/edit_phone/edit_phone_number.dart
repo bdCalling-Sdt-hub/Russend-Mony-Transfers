@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:money_transfers/controller/edit_number_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
@@ -9,8 +10,10 @@ import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../widgets/back/back.dart';
 
-class ChangePhoneNumberScreen extends StatelessWidget {
-  const ChangePhoneNumberScreen({super.key});
+class EditPhoneNumberScreen extends StatelessWidget {
+  EditPhoneNumberScreen({super.key});
+
+  EditNumberController editNumberController = Get.put(EditNumberController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,11 @@ class ChangePhoneNumberScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                   bottom: 30.h),
               IntlPhoneField(
+                controller: editNumberController.numberController,
+                onChanged: (value) {
+                  editNumberController.countryCode.value = value.countryCode ;
+                  print(value.countryCode) ;
+                },
                 decoration: InputDecoration(
                   labelText: "Phone Number".tr,
                   border: const OutlineInputBorder(
@@ -41,7 +49,7 @@ class ChangePhoneNumberScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8))),
                 ),
                 initialCountryCode: "BD",
-                disableLengthCheck: true,
+                // disableLengthCheck: true,
               ),
             ],
           ),
@@ -56,6 +64,7 @@ class ChangePhoneNumberScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   buttonWidth: 150.w,
                   onPressed: () {
+
                     Get.snackbar(
                         "Change Number", "Change Phone Number Successfully");
                     Navigator.pop(

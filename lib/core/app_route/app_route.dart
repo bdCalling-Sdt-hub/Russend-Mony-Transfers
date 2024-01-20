@@ -17,7 +17,6 @@ import 'package:money_transfers/view/screen/password/forgot_password_screen.dart
 import 'package:money_transfers/view/screen/phone_number/phone_number.dart';
 import 'package:money_transfers/view/screen/verification/sign_up_verification/sign_up_verification.dart';
 import 'package:money_transfers/view/screen/profile/appearance/appearance_screen.dart';
-import 'package:money_transfers/view/screen/profile/change_phone/change_phone_number.dart';
 import 'package:money_transfers/view/screen/profile/edit_email/edit_email_screen.dart';
 import 'package:money_transfers/view/screen/profile/language/language_screen.dart';
 import 'package:money_transfers/view/screen/profile/legal/legal_screen.dart';
@@ -39,6 +38,7 @@ import 'package:money_transfers/view/screen/verification/change_email_varificati
 import 'package:money_transfers/view/screen/welcome_screen/welcome_screen.dart';
 
 import '../../view/screen/password/new_password/new_password_screen.dart';
+import '../../view/screen/profile/edit_phone/edit_phone_number.dart';
 import '../../view/screen/signIn/logIn_screen.dart';
 import '../../view/screen/verification/forgot_password_verification/forgot_password_verification.dart';
 
@@ -88,7 +88,7 @@ class AppRoute {
       "/create_password_successful_screen.dart";
   static const String editEmail = "/edit_email_screen.dart";
   static const String changeEmailVerify = "/change_email_verification.dart";
-  static const String changePhoneNumber = "/change_phone_number.dart";
+  static const String changePhoneNumber = "/edit_phone_number.dart";
   static const String resetPasscode = "/reset_passcode_screen.dart";
   static const String deliveryMethodCameroon = "/money_delivery_method_cameroon.dart";
 
@@ -108,7 +108,7 @@ class AppRoute {
     GetPage(name: securityScreen, page: () => const SecurityScreen()),
     GetPage(name: languageScreen, page: () => const LanguageScreen()),
     GetPage(name: appearanceScreen, page: () => const AppearanceScreen()),
-    GetPage(name: legalScreen, page: () => const LegalScreen()),
+    GetPage(name: legalScreen, page: () => LegalScreen()),
     GetPage(name: transactionHistory, page: () => TransactionHistory()),
     GetPage(name: contactSupport, page: () => const ContactSupport()),
     GetPage(name: selectCountry, page: () => SelectCountry()),
@@ -139,7 +139,7 @@ class AppRoute {
     GetPage(name: editEmail, page: () => const EditEmailScreen()),
     GetPage(name: changeEmailVerify, page: () => ChangeEmailVerification()),
     GetPage(
-        name: changePhoneNumber, page: () => const ChangePhoneNumberScreen()),
+        name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
     GetPage(name: resetPasscode, page: () => const ResetPasswordScreen()),
     GetPage(name: deliveryMethodCameroon, page: () => const MoneyDeliveryMethodCameroon()),
   ];

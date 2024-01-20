@@ -25,11 +25,15 @@ class AmountSendController extends GetxController {
   TextEditingController receiveController = TextEditingController();
 
   Future<void> exchangeRates() async {
+    print("exchangeRates");
+
     try {
-      print("call");
+
       final url = Uri.parse(ApiUrl.exchangeApi);
 
       var response = await http.get(url);
+      print(response.statusCode.toString());
+
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
@@ -43,7 +47,9 @@ class AmountSendController extends GetxController {
         print(rubRate.toString());
         print(xafRate.toString());
         print(success.toString());
-      } else {}
+      } else {
+
+      }
     } catch (e) {
       print("error");
     }
