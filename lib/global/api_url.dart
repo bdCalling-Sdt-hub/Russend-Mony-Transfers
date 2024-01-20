@@ -32,6 +32,8 @@ class ApiUrl {
   static const String termsOfService = "$baseUrl/api/terms-of-services" ;
   static const String personalDataPolicies = "$baseUrl/api/personal-data-policies" ;
   static const String refundAndCancellationPolicy = "$baseUrl/api/refund-and-cancellation-policies" ;
+  static const String user = "$baseUrl/api/users" ;
+  static const String localAuth = "$baseUrl/api/users/sign-in-with-refresh-token" ;
 
 
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:money_transfers/controller/edit_number_controller.dart';
+import 'package:money_transfers/controller/personal_info_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
@@ -13,7 +13,8 @@ import '../../../widgets/back/back.dart';
 class EditPhoneNumberScreen extends StatelessWidget {
   EditPhoneNumberScreen({super.key});
 
-  EditNumberController editNumberController = Get.put(EditNumberController()) ;
+  PersonalInfoController personalInfoController =
+      Get.put(PersonalInfoController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,10 @@ class EditPhoneNumberScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                   bottom: 30.h),
               IntlPhoneField(
-                controller: editNumberController.numberController,
+                controller: personalInfoController.numberController,
                 onChanged: (value) {
-                  editNumberController.countryCode.value = value.countryCode ;
-                  print(value.countryCode) ;
+                  personalInfoController.countryCode.value = value.countryCode;
+                  print(value);
                 },
                 decoration: InputDecoration(
                   labelText: "Phone Number".tr,
@@ -64,15 +65,7 @@ class EditPhoneNumberScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   buttonWidth: 150.w,
                   onPressed: () {
-
-                    Get.snackbar(
-                        "Change Number", "Change Phone Number Successfully");
-                    Navigator.pop(
-                      context,
-                    );
-                    Navigator.pop(
-                      context,
-                    );
+                    personalInfoController.getIsisLogIn();
                   }),
             ],
           ),

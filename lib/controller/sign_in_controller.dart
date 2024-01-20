@@ -11,7 +11,7 @@ import '../services/api_services/api_services.dart';
 
 class SignInController extends GetxController {
   RxBool isLoading = false.obs;
-  RxList signInInfo = [].obs;
+  SignInModel? signInModelInfo ;
 
   TextEditingController emailController = TextEditingController();
 
@@ -42,11 +42,11 @@ class SignInController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        signInInfo.add(SignInModel.fromJson(json));
+        signInModelInfo = SignInModel.fromJson(json);
 
-        SignInModel signInModel = signInInfo[0];
 
         pref.setString("email", emailController.text);
+        pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
 
 
         Get.toNamed(AppRoute.enterPassCode);

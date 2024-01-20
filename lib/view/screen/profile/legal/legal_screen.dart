@@ -10,7 +10,7 @@ import 'package:money_transfers/view/widgets/text/custom_text.dart';
 class LegalScreen extends StatelessWidget {
   LegalScreen({super.key});
 
-  LegalController legalController = Get.put(LegalController()) ;
+  LegalController legalController = Get.put(LegalController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,34 +26,60 @@ class LegalScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(text: "Legal".tr, fontSize: 24.sp,),
-              const SizedBox(height: 24,),
+             Obx(() =>  Center(
+               child: legalController.isLoading.value
+                   ? const CircularProgressIndicator()
+                   : const SizedBox(),
+             ),),
+              CustomText(
+                text: "Legal".tr,
+                fontSize: 24.sp,
+              ),
+              const SizedBox(
+                height: 24,
+              ),
               InkWell(
-                  onTap:()=> legalController.termsOfServiceRepo(),
-
-                  child: CustomText(text: "Terms of Services".tr, fontSize: 18.sp, color: AppColors.primaryColor,)),
-              const SizedBox(height: 24,),
-
+                  onTap: () => legalController.termsOfServiceRepo(),
+                  child: CustomText(
+                    text: "Terms of Services".tr,
+                    fontSize: 18.sp,
+                    color: AppColors.primaryColor,
+                  )),
+              const SizedBox(
+                height: 24,
+              ),
               InkWell(
-                  onTap:()=> legalController.termsOfMoneyTransferRepo(),
-                  child: CustomText(text: "Terms of money transfer".tr, fontSize: 18.sp, color: AppColors.primaryColor,)),
-              const SizedBox(height: 24,),
-
-
+                  onTap: () => legalController.termsOfMoneyTransferRepo(),
+                  child: CustomText(
+                    text: "Terms of money transfer".tr,
+                    fontSize: 18.sp,
+                    color: AppColors.primaryColor,
+                  )),
+              const SizedBox(
+                height: 24,
+              ),
               InkWell(
-                  onTap:()=> legalController.personDataPolicyRepo(),
-
-                  child: CustomText(text: "Personal Data Policy".tr, fontSize: 18.sp, color: AppColors.primaryColor,)),
-              const SizedBox(height: 24,),
+                  onTap: () => legalController.personDataPolicyRepo(),
+                  child: CustomText(
+                    text: "Personal Data Policy".tr,
+                    fontSize: 18.sp,
+                    color: AppColors.primaryColor,
+                  )),
+              const SizedBox(
+                height: 24,
+              ),
               InkWell(
-                  onTap:()=> legalController.refundAndCancellationPolicyRepo(),
-
-                  child: CustomText(text: "Refund and Cancellation Policy".tr, fontSize: 18.sp, color: AppColors.primaryColor,)),
-
-              SizedBox(height: 24.h,)
-
+                  onTap: () =>
+                      legalController.refundAndCancellationPolicyRepo(),
+                  child: CustomText(
+                    text: "Refund and Cancellation Policy".tr,
+                    fontSize: 18.sp,
+                    color: AppColors.primaryColor,
+                  )),
+              SizedBox(
+                height: 24.h,
+              )
             ],
-
           ),
         ),
       ),

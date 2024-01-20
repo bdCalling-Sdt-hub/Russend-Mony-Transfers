@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
+import '../app_bar/custom_app_bar.dart';
+import '../back/back.dart';
 import 'flutter_content.dart';
 
 class ContentScreen extends StatelessWidget {
@@ -10,31 +13,30 @@ class ContentScreen extends StatelessWidget {
   // @override
   bool isLoading = true;
 
-  String data ;
+  String data;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: AppColors.background,
-          body: SafeArea(
-            child: CustomContainer(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: 20, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Html(
-                      data: data,
-                    ),
-                  ],
-                ),
+      backgroundColor: AppColors.background,
+      appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
+      body: CustomContainer(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 20, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Html(
+                data: data,
               ),
-            ),
+            ],
           ),
-        );
+        ),
+      ),
+    );
   }
 }

@@ -1,9 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/models/enter_passcode_model.dart';
+import 'package:money_transfers/services/api_services/api_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../global/api_url.dart';
 
 class LocalAuthController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
@@ -13,13 +21,18 @@ class LocalAuthController extends GetxController {
   RxString authorized = 'Not Authorized'.obs;
   RxBool isAuthenticating = false.obs;
 
+  RxBool isLoading = false.obs;
+
+  NetworkApiService networkApiService = NetworkApiService();
 
 
+  EnterPasscodeController enterPasscodeController = Get.put(EnterPasscodeController()) ;
 
-  Future<void> authenticateWithBiometrics(bool mounted) async {
+  Future<void> authenticateWithBiometrics(bool mounted,String token) async {
     bool authenticated = false;
+    print("======================> authenticateWithBiometrics");
+
     try {
-      print("object");
       isAuthenticating.value = true;
       authorized.value = 'Authenticating';
 
@@ -28,8 +41,6 @@ class LocalAuthController extends GetxController {
             'Scan your fingerprint (or face or whatever) to authenticate',
         options: const AuthenticationOptions(
           stickyAuth: true,
-
-
         ),
       );
       isAuthenticating.value = false;
@@ -45,10 +56,47 @@ class LocalAuthController extends GetxController {
       return;
     }
 
-     authenticated ? Get.toNamed(AppRoute.welcomeScreen) : const SizedBox();
+    authenticated ? localAuthRepo(token) : const SizedBox();
     authorized.value = "message";
   }
 
+
+
+
+  Future<void> localAuthRepo(String refreshToken) async {
+    print("===================> localAuthRepo");
+
+    Map<String, String> header = {
+      'Refresh-token': "Refresh-token $refreshToken"
+    };
+
+    isLoading.value = true;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+
+    networkApiService.getApi(ApiUrl.localAuth, header).then((apiResponseModel) {
+      print(apiResponseModel.statusCode);
+      print(apiResponseModel.message);
+      print(apiResponseModel.responseJson);
+
+      isLoading.value = false;
+
+      if (apiResponseModel.statusCode == 200) {
+        var json = jsonDecode(apiResponseModel.responseJson);
+
+
+        enterPasscodeController.enterPasscodeModelInfo = EnterPasscodeModel.fromJson(json) ;
+
+        pref.setString("accessToken", enterPasscodeController.enterPasscodeModelInfo!.data!.accessToken!);
+        pref.setBool("isLogIn", true);
+
+        Get.toNamed(AppRoute.welcomeScreen) ;
+      } else {
+        Get.snackbar(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
+      }
+    });
+  }
 }
 
 enum SupportState {

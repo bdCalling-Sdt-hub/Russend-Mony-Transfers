@@ -1,13 +1,12 @@
-class SignInModel {
+class UserDetailsModel {
   String? status;
-  String? statusCode;
+  int? statusCode;
   String? message;
   Data? data;
-
-  SignInModel(
+  UserDetailsModel(
       {this.status, this.statusCode, this.message, this.data});
 
-  SignInModel.fromJson(Map<String, dynamic> json) {
+  UserDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
@@ -27,27 +26,21 @@ class SignInModel {
 }
 
 class Data {
-  String? type;
   Attributes? attributes;
-  String? passcodeToken;
 
-  Data({this.type, this.attributes, this.passcodeToken});
+  Data({this.attributes});
 
   Data.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
-    passcodeToken = json['passcodeToken'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
-    data['passcodeToken'] = this.passcodeToken;
     return data;
   }
 }

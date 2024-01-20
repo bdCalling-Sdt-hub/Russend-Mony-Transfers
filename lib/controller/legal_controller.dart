@@ -41,14 +41,14 @@ class LegalController extends GetxController {
         print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
 
         Get.to(ContentScreen(
-            data: termsOfMoneyTransferInfo!.data!.attributes!.content.toString()));
+            data: termsOfMoneyTransferInfo!.data!.attributes!.content
+                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     });
   }
-
 
   Future<void> termsOfServiceRepo() async {
     print("===================> termsOfServiceRepo");
@@ -74,16 +74,14 @@ class LegalController extends GetxController {
         print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
 
         Get.to(ContentScreen(
-            data: termsOfMoneyTransferInfo!.data!.attributes!.content.toString()));
+            data: termsOfMoneyTransferInfo!.data!.attributes!.content
+                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     });
   }
-
-
-
 
   Future<void> personDataPolicyRepo() async {
     print("===================> personDataPolicyRepo");
@@ -109,16 +107,14 @@ class LegalController extends GetxController {
         print(personalDataPolicyInfo!.data!.attributes!.content.toString());
 
         Get.to(ContentScreen(
-            data: personalDataPolicyInfo!.data!.attributes!.content.toString()));
+            data:
+                personalDataPolicyInfo!.data!.attributes!.content.toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     });
   }
-
-
-
 
   Future<void> refundAndCancellationPolicyRepo() async {
     print("===================> refundAndCancellationPolicyRepo");
@@ -141,10 +137,12 @@ class LegalController extends GetxController {
 
         refundAndCancellationPolicyInfo = ContentModel.fromJson(json);
 
-        print(refundAndCancellationPolicyInfo!.data!.attributes!.content.toString());
+        print(refundAndCancellationPolicyInfo!.data!.attributes!.content
+            .toString());
 
         Get.to(ContentScreen(
-            data: refundAndCancellationPolicyInfo!.data!.attributes!.content.toString()));
+            data: refundAndCancellationPolicyInfo!.data!.attributes!.content
+                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

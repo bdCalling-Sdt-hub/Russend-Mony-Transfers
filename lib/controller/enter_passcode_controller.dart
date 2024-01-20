@@ -12,7 +12,9 @@ import '../services/api_services/api_services.dart';
 class EnterPasscodeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLogIn = false.obs;
-  RxList enterPasscodeInfo = [].obs;
+
+  EnterPasscodeModel? enterPasscodeModelInfo ;
+
   String accessToken = "" ;
 
   TextEditingController enterController = TextEditingController();
@@ -45,9 +47,9 @@ class EnterPasscodeController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        enterPasscodeInfo.add(EnterPasscodeModel.fromJson(json));
+        enterPasscodeModelInfo = EnterPasscodeModel.fromJson(json);
 
-        EnterPasscodeModel enterPasscodeModel = enterPasscodeInfo[0];
+        EnterPasscodeModel enterPasscodeModel = enterPasscodeModelInfo!;
 
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setString("refreshToken", enterPasscodeModel.data!.refreshToken!);
@@ -92,9 +94,9 @@ class EnterPasscodeController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        enterPasscodeInfo.add(EnterPasscodeModel.fromJson(json));
+        enterPasscodeModelInfo = EnterPasscodeModel.fromJson(json);
 
-        EnterPasscodeModel enterPasscodeModel = enterPasscodeInfo[0];
+        EnterPasscodeModel enterPasscodeModel = enterPasscodeModelInfo!;
 
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setBool("isLogIn", true);

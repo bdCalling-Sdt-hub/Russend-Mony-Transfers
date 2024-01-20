@@ -39,12 +39,6 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
   void initState() {
     super.initState();
 
-    auth.isDeviceSupported().then((bool isSupported) => setState(() {
-          localAuthController.supportState =
-              isSupported ? SupportState.supported : SupportState.unsupported;
-
-          localAuthController.authenticateWithBiometrics(mounted);
-        }));
     getIsisLogIn();
   }
 
@@ -54,9 +48,16 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
       sharedPreferenceHelper.refreshToken =
           pref.getString("refreshToken") ?? "";
-          pref.getString("refreshToken") ?? "";
       sharedPreferenceHelper.email = pref.getString("email") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
+
+      auth.isDeviceSupported().then((bool isSupported) => setState(() {
+            localAuthController.supportState =
+                isSupported ? SupportState.supported : SupportState.unsupported;
+
+            localAuthController.authenticateWithBiometrics(
+                mounted, sharedPreferenceHelper.refreshToken);
+          }));
     } catch (e) {
       print(e.toString());
     }
@@ -116,7 +117,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                           } else {
                             print(sharedPreferenceHelper.passcodeToken);
                             SignInModel signInModel =
-                                signInController.signInInfo[0];
+                                signInController.signInModelInfo!;
                             enterPasscodeController.enterPasscodeRepo(
                                 signInModel.data!.passcodeToken!);
                           }

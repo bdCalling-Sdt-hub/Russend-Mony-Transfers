@@ -26,11 +26,15 @@ class NetworkApiService {
         responseJson = handleResponse(response);
       }
     } on SocketException {
+      Get.snackbar(
+          "No internet".tr, "please, check your internet connection".tr);
       return ApiResponseModel(503, "No internet connection", '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request", '');
     } on TimeoutException {
-      return ApiResponseModel(408, "Request Time Out", "");
+      Get.snackbar(
+          "Request Time Out".tr, "please, check your internet connection".tr);
+      return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 
     return responseJson;
@@ -52,10 +56,14 @@ class NetworkApiService {
         responseJson = handleResponse(response);
       }
     } on SocketException {
+      Get.snackbar(
+          "No internet".tr, "please, check your internet connection".tr);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
     } on TimeoutException {
+      Get.snackbar(
+          "Request Time Out".tr, "please, check your internet connection".tr);
       return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 
@@ -63,19 +71,22 @@ class NetworkApiService {
   }
 
   Future<ApiResponseModel> putApi(
-      String url,Map<String, String> body, Map<String, String> header) async {
+      String url, Map<String, String> body, Map<String, String> header) async {
     dynamic responseJson;
 
     try {
       final response = await http
-          .put(Uri.parse(url),body: body, headers: header)
+          .put(Uri.parse(url), body: body, headers: header)
           .timeout(const Duration(seconds: 30));
       responseJson = handleResponse(response);
     } on SocketException {
+      Get.snackbar("No internet".tr, "please, check your internet connection");
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
     } on TimeoutException {
+      Get.snackbar(
+          "Request Time Out".tr, "please, check your internet connection".tr);
       return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 

@@ -141,7 +141,10 @@
   "Request Time Out": "Request Time Out",
   "Success": "Success",
   "Unauthorized": "Unauthorized",
-  "Internal Server Error": "Internal Server Error"
+  "Internal Server Error": "Internal Server Error",
+  "please, check your internet connection": "please, check your internet connection",
+  "No internet": "No internet"
+
 
 
 
