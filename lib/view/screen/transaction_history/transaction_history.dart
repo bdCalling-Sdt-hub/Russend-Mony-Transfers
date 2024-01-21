@@ -74,7 +74,7 @@ class TransactionHistory extends StatelessWidget {
                   ],
                 ),
                 CustomText(
-                    text: "${item!.sender!.fullName}",
+                    text: item.sender!.fullName!.toUpperCase(),
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w400,
                     top: 8.h,

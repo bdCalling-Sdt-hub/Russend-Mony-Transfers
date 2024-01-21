@@ -95,144 +95,170 @@ class _TransactionState extends State<Transaction> {
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: transactionController.isLoading.value
-                          ? transactionController.transactionModelInfo!.data!
-                                  .attributes!.transactionList!.length +
-                              1
-                          : transactionController.transactionModelInfo!.data!
-                              .attributes!.transactionList!.length,
-                      itemBuilder: (context, index) {
-                        var transactionModel = transactionController
-                            .transactionModelInfo!
-                            .data!
-                            .attributes!
-                            .transactionList![index];
+                  : transactionController.transactionModelInfo == null
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: transactionController.isLoading.value
+                              ? transactionController
+                                      .transactionModelInfo!
+                                      .data!
+                                      .attributes!
+                                      .transactionList!
+                                      .length +
+                                  1
+                              : transactionController.transactionModelInfo!
+                                  .data!.attributes!.transactionList!.length,
+                          itemBuilder: (context, index) {
+                            var transactionModel = transactionController
+                                .transactionModelInfo!
+                                .data!
+                                .attributes!
+                                .transactionList![index];
 
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 24.h),
-                          child: InkWell(
-                            onTap: () {
-                              transactionController.transactionDetailsRepo(
-                                  sharedPreferenceHelper.accessToken,
-                                  transactionModel.sId!);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Stack(
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 24.h),
+                              child: InkWell(
+                                onTap: () {
+                                  transactionController.transactionDetailsRepo(
+                                      sharedPreferenceHelper.accessToken,
+                                      transactionModel.sId!);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 50.h,
-                                      width: 50.w,
-                                      padding: EdgeInsets.all(4.h),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: AppColors.primaryColor,
-                                              width: 1.w,
-                                              style: BorderStyle.solid),
-                                          shape: BoxShape.circle,
-                                          color: AppColors.gray20),
-                                      child: const CustomImage(
-                                          imageSrc: AppIcons.arrow),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: Container(
-                                        height: 15.h,
-                                        width: 15.w,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 50.h,
+                                          width: 50.w,
+                                          padding: EdgeInsets.all(4.h),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: AppColors.primaryColor,
+                                                  width: 1.w,
+                                                  style: BorderStyle.solid),
+                                              shape: BoxShape.circle,
+                                              color: AppColors.gray20),
+                                          child: const CustomImage(
+                                              imageSrc: AppIcons.arrow),
                                         ),
-                                        child: SvgPicture.network(
-                                            "${transactionModel.country!.countryFlag}",
-                                            fit: BoxFit.fill),
-                                      ),
+                                        Positioned(
+                                          bottom: 0,
+                                          right: 0,
+                                          child: Container(
+                                            height: 15.h,
+                                            width: 15.w,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: SvgPicture.network(
+                                                "${transactionModel.country!.countryFlag}",
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                    SizedBox(width: 8.w),
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                  child: CustomText(
+                                                      text:
+                                                          "${transactionModel.firstName} ${transactionModel.lastName}",
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      right: 24.h,
+                                                      textAlign:
+                                                          TextAlign.start)),
+                                              CustomText(
+                                                  text:
+                                                      "${transactionModel.amountToSent} ${transactionModel.amountToReceiveCurrency}",
+                                                  fontSize: 18.sp,
+                                                  fontWeight: FontWeight.w600),
+                                            ],
+                                          ),
+                                          SizedBox(height: 4.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              CustomText(
+                                                  text:
+                                                      "To mobile : ${transactionModel.phoneNumber}",
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.black50,
+                                                  textAlign: TextAlign.start),
+                                              Center(
+                                                  child: transactionModel
+                                                              .status ==
+                                                          "pending"
+                                                      ? SizedBox(
+                                                          width: 12.w,
+                                                          height: 12.h,
+                                                          child:
+                                                              const CircularProgressIndicator(
+                                                            strokeWidth: 2,
+                                                          ),
+                                                        )
+                                                      : transactionModel
+                                                                  .status ==
+                                                              "cancelled"
+                                                          ? CustomImage(
+                                                              imageSrc:
+                                                                  AppIcons
+                                                                      .cancelled,
+                                                              size: 20.h,
+                                                              imageColor: AppColors
+                                                                  .black100)
+                                                          : transactionModel
+                                                                      .status ==
+                                                                  "transferred"
+                                                              ? CustomImage(
+                                                                  imageSrc:
+                                                                      AppIcons
+                                                                          .success,
+                                                                  size: 20.h,
+                                                                  imageColor: AppColors
+                                                                      .black100)
+                                                              : CustomImage(
+                                                                  imageSrc: AppIcons
+                                                                      .transferred,
+                                                                  imageType:
+                                                                      ImageType
+                                                                          .png,
+                                                                  size: 20.h,
+                                                                  imageColor:
+                                                                      AppColors
+                                                                          .black100)),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                                SizedBox(width: 8.w),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                              child: CustomText(
-                                                  text:
-                                                      "${transactionModel.firstName} ${transactionModel.lastName}",
-                                                  fontSize: 18.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  right: 24.h,
-                                                  textAlign: TextAlign.start)),
-                                          CustomText(
-                                              text:
-                                                  "${transactionModel.amountToSent} ${transactionModel.amountToReceiveCurrency}",
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w600),
-                                        ],
-                                      ),
-                                      SizedBox(height: 4.h),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          CustomText(
-                                              text:
-                                                  "To mobile : ${transactionModel.phoneNumber}",
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.black50,
-                                              textAlign: TextAlign.start),
-                                          Center(
-                                            child: transactionModel.status == "pending"
-                                                ? SizedBox(
-                                              width: 12.w,
-                                              height: 12.h,
-                                              child: const CircularProgressIndicator(
-                                                strokeWidth: 2,
-                                              ),
-                                            )
-                                                : transactionModel.status == "cancelled" ?
-                                              CustomImage(
-                                                imageSrc: AppIcons.cancelled,
-                                                size: 20.h,
-                                                imageColor: AppColors.black100)  :
-                                            transactionModel.status == "transferred" ?
-                                            CustomImage(
-                                                imageSrc: AppIcons.success,
-                                                size: 20.h,
-                                                imageColor: AppColors.black100) :
-                                            CustomImage(
-                                                imageSrc: AppIcons.transferred,
-                                                imageType: ImageType.png,
-                                                size: 20.h,
-                                                imageColor: AppColors.black100)
-                                          ),
-
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ))
+                              ),
+                            );
+                          },
+                        ))
             ],
           ),
         ),

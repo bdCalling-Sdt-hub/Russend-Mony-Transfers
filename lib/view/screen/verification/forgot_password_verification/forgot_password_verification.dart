@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
+import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -19,8 +21,8 @@ class ForgotPasswordVerification extends StatelessWidget {
   ForgotPasswordVerification({super.key});
 
   final formKey = GlobalKey<FormState>();
-  ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController()) ;
-
+  ForgetPasswordController forgetPasswordController =
+      Get.put(ForgetPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,37 +96,57 @@ class ForgotPasswordVerification extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 24.h),
-                    child: CustomButton(
-                      titleText: "Verify".tr,
-                      buttonRadius: 10.r,
-                      titleSize: 16.sp,
-                      buttonWidth: 220.w,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          forgetPasswordController.verifyOtpRepo() ;
-
-                        }
-                      },
-                    ),
+                    child: Obx(() => forgetPasswordController.isLoading.value
+                        ? LoadingContainer(
+                            width: 220.w,
+                          )
+                        : CustomButton(
+                            titleText: "Verify".tr,
+                            buttonRadius: 10.r,
+                            titleSize: 16.sp,
+                            buttonWidth: 220.w,
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                forgetPasswordController.verifyOtpRepo();
+                              }
+                            },
+                          )),
                   ),
                   SizedBox(
                     height: 50.h,
                   ),
-                  const Row(
+                  Row(
                     children: [
                       Flexible(
                           child: Align(
                               alignment: Alignment.center,
-                              child: ResendRichText())),
+                              child: Obx(() => ResendRichText(
+                                    onTap:
+                                        forgetPasswordController.isResend.value
+                                            ? () {
+                                                forgetPasswordController
+                                                    .forgetPasswordRepo();
+                                                Utils.snackBarMessage(
+                                                    "Resend", "Resend Code");
+                                              }
+                                            : () {
+                                                Utils.toastMessage(
+                                                    "please wait ${forgetPasswordController.time}");
+                                              },
+                                  )))),
                     ],
                   ),
-                  CustomText(
-                      text: "You can resend the code in 00:59".tr,
-                      fontSize: 16.sp,
-                      top: 8.h,
-                      style: true,
-                      color: AppColors.black40,
-                      maxLines: 2),
+                  Obx(
+                    () => CustomText(
+                        text:
+                            "You can resend the code in  ${forgetPasswordController.time}"
+                                .tr,
+                        fontSize: 16.sp,
+                        top: 8.h,
+                        style: true,
+                        color: AppColors.black40,
+                        maxLines: 2),
+                  )
                 ],
               ),
             ),

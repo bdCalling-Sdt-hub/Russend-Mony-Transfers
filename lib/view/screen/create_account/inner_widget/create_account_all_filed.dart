@@ -123,7 +123,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           paddingHorizontal: 24.w,
           paddingVertical: 18 * h,
           validator: (value) {
-            if (!(value.length >= 8) && value.isEmpty) {
+            if (value.length < 8) {
               return "Password should contain more than 8 characters";
             }
           },

@@ -9,7 +9,12 @@ import '../../../../utils/app_colors.dart';
 import '../text/custom_text.dart';
 
 class ResendRichText extends StatelessWidget {
-  const ResendRichText({super.key});
+  ResendRichText({
+    super.key,
+    required this.onTap
+  });
+
+  Function() onTap ;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class ResendRichText extends StatelessWidget {
           TextSpan(
               recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.snackbar("Resend", "Resend Code") ;
+                onTap() ;
               },
               text: "Send Again".tr,
               style: GoogleFonts.plusJakartaSans(

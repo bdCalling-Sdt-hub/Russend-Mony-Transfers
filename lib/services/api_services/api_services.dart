@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:money_transfers/utils/app_utils.dart';
 
 import '../../core/app_route/app_route.dart';
 import '../../global/api_response_model.dart';
@@ -26,14 +27,13 @@ class NetworkApiService {
         responseJson = handleResponse(response);
       }
     } on SocketException {
-      Get.snackbar(
-          "No internet".tr, "please, check your internet connection".tr);
+      Utils.toastMessage("please, check your internet connection".tr) ;
+
       return ApiResponseModel(503, "No internet connection", '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request", '');
     } on TimeoutException {
-      Get.snackbar(
-          "Request Time Out".tr, "please, check your internet connection".tr);
+      Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 
@@ -56,14 +56,12 @@ class NetworkApiService {
         responseJson = handleResponse(response);
       }
     } on SocketException {
-      Get.snackbar(
-          "No internet".tr, "please, check your internet connection".tr);
+      Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
     } on TimeoutException {
-      Get.snackbar(
-          "Request Time Out".tr, "please, check your internet connection".tr);
+      Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 
@@ -80,13 +78,12 @@ class NetworkApiService {
           .timeout(const Duration(seconds: 30));
       responseJson = handleResponse(response);
     } on SocketException {
-      Get.snackbar("No internet".tr, "please, check your internet connection");
+      Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
     } on TimeoutException {
-      Get.snackbar(
-          "Request Time Out".tr, "please, check your internet connection".tr);
+      Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(408, "Request Time Out".tr, "");
     }
 
@@ -100,9 +97,16 @@ class NetworkApiService {
       case 201:
         return ApiResponseModel(201, 'Success'.tr, response.body);
       case 401:
-        Get.offAllNamed(AppRoute.logIn);
+        // Get.offAllNamed(AppRoute.logIn);
         return ApiResponseModel(401, "Unauthorized".tr, response.body);
+      case 400:
+      // Get.offAllNamed(AppRoute.logIn);
+        return ApiResponseModel(400, "Unauthorized".tr, response.body);
+      case 404:
+      // Get.offAllNamed(AppRoute.logIn);
+        return ApiResponseModel(404, "Error".tr, response.body);
       default:
+        print(response.statusCode) ;
         return ApiResponseModel(500, "Internal Server Error".tr, response.body);
     }
   }

@@ -1,8 +1,9 @@
 class UserDetailsModel {
   String? status;
-  int? statusCode;
+  String? statusCode;
   String? message;
   Data? data;
+
   UserDetailsModel(
       {this.status, this.statusCode, this.message, this.data});
 
@@ -26,11 +27,13 @@ class UserDetailsModel {
 }
 
 class Data {
+  String? type;
   Attributes? attributes;
 
-  Data({this.attributes});
+  Data({this.type, this.attributes});
 
   Data.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
@@ -38,6 +41,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
@@ -53,11 +57,11 @@ class Attributes {
   String? password;
   Image? image;
   String? role;
+  String? passcode;
   bool? isBlocked;
+  int? iV;
   String? createdAt;
   String? updatedAt;
-  int? iV;
-  String? passcode;
 
   Attributes(
       {this.sId,
@@ -67,11 +71,11 @@ class Attributes {
         this.password,
         this.image,
         this.role,
+        this.passcode,
         this.isBlocked,
-        this.createdAt,
-        this.updatedAt,
         this.iV,
-        this.passcode});
+        this.createdAt,
+        this.updatedAt});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -81,11 +85,11 @@ class Attributes {
     password = json['password'];
     image = json['image'] != null ? new Image.fromJson(json['image']) : null;
     role = json['role'];
+    passcode = json['passcode'];
     isBlocked = json['isBlocked'];
+    iV = json['__v'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    iV = json['__v'];
-    passcode = json['passcode'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,11 +103,11 @@ class Attributes {
       data['image'] = this.image!.toJson();
     }
     data['role'] = this.role;
+    data['passcode'] = this.passcode;
     data['isBlocked'] = this.isBlocked;
+    data['__v'] = this.iV;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['passcode'] = this.passcode;
     return data;
   }
 }

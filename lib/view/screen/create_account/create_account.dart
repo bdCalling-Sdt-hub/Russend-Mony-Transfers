@@ -7,6 +7,7 @@ import 'package:money_transfers/controller/sign_up/sign_up_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/screen/create_account/inner_widget/create_account_all_filed.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
@@ -21,13 +22,9 @@ class CreateAccount extends StatelessWidget {
   SignUpController signUpController = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var height = MediaQuery.of(context).size.height;
     var h = height / 852;
 
     return Scaffold(
@@ -77,43 +74,47 @@ class CreateAccount extends StatelessWidget {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 14.w),
           child: SingleChildScrollView(
-            child:
-            Form(
+            child: Form(
               key: formKey,
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                CustomText(
-                  text: "Create your account".tr,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  bottom: 15 * h,
-                ),
-                CreateAccountAllFiled(),
-                const Align(
-                    alignment: Alignment.center,
-                    child: CreateAccountTermsConditions()),
-                SizedBox(
-                  height: 36 * h,
-                ),
-                CustomButton(
-                  titleText: "Sign up",
-                  buttonHeight: 60 * h,
-                  titleSize: 16.sp,
-                  buttonWidth: double.infinity,
-                  titleWeight: FontWeight.w700,
-                  onPressed: () {
-                    if(formKey.currentState!.validate()){
-                      signUpController.otpController.text = "" ;
-                      signUpController.signUpRepo() ;
-                    };
-                  },
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: "Create your account".tr,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      bottom: 15 * h,
+                    ),
+                    CreateAccountAllFiled(),
+                    const Align(
+                        alignment: Alignment.center,
+                        child: CreateAccountTermsConditions()),
+                    SizedBox(
+                      height: 36 * h,
+                    ),
+                    Obx(() => signUpController.isLoadingSignUpScreen.value
+                        ? const Center(child: CircularProgressIndicator())
+                        : CustomButton(
+                      titleText: "Sign up",
+                      buttonHeight: 60 * h,
+                      titleSize: 16.sp,
+                      buttonWidth: double.infinity,
+                      titleWeight: FontWeight.w700,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          signUpController.otpController.text = "";
+                          signUpController.signUpRepo();
+                        }
 
-                ),
-                SizedBox(
-                  height: 10 * h,
-                ),
-                const Align(
-                    alignment: Alignment.center, child: AlreadyHaveAccount()),
-              ]),
+                      },
+                    )),
+                    SizedBox(
+                      height: 10 * h,
+                    ),
+                    const Align(
+                        alignment: Alignment.center,
+                        child: AlreadyHaveAccount()),
+                  ]),
             ),
           ),
         ));

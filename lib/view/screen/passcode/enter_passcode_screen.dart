@@ -50,14 +50,18 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
           pref.getString("refreshToken") ?? "";
       sharedPreferenceHelper.email = pref.getString("email") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
+      sharedPreferenceHelper.isLocalAuth = pref.getBool("isLocalAuth") ?? false;
 
-      auth.isDeviceSupported().then((bool isSupported) => setState(() {
-            localAuthController.supportState =
-                isSupported ? SupportState.supported : SupportState.unsupported;
+      if (sharedPreferenceHelper.isLocalAuth!) {
+        auth.isDeviceSupported().then((bool isSupported) => setState(() {
+              localAuthController.supportState = isSupported
+                  ? SupportState.supported
+                  : SupportState.unsupported;
 
-            localAuthController.authenticateWithBiometrics(
-                mounted, sharedPreferenceHelper.refreshToken);
-          }));
+              localAuthController.authenticateWithBiometrics(
+                  mounted, sharedPreferenceHelper.refreshToken);
+            }));
+      }
     } catch (e) {
       print(e.toString());
     }
@@ -65,6 +69,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -96,9 +101,10 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       obscureText: true,
                       enablePinAutofill: true,
                       obscuringCharacter: "*",
-                      // controller: controller.otpController,
                       appContext: (context),
-
+                      onTap: () {
+                        enterPasscodeController.disableKeyboard.value = false;
+                      },
                       validator: (value) {
                         if (value!.length != 4) {
                           return null;
@@ -110,12 +116,11 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       showCursor: false,
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
+                          enterPasscodeController.disableKeyboard.value = true;
                           if (sharedPreferenceHelper.isLogIn!) {
                             enterPasscodeController.signInWithPasscodeRepo(
                                 sharedPreferenceHelper.email);
-                            print(sharedPreferenceHelper.email);
                           } else {
-                            print(sharedPreferenceHelper.passcodeToken);
                             SignInModel signInModel =
                                 signInController.signInModelInfo!;
                             enterPasscodeController.enterPasscodeRepo(
@@ -126,8 +131,9 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.circle,
                         borderRadius: BorderRadius.circular(8),
-                        fieldHeight: 12.h,
-                        fieldWidth: 12.w,
+                        fieldHeight: 12.sp,
+                        fieldWidth: 12.sp,
+                        fieldOuterPadding: EdgeInsets.all(10.sp),
                         activeFillColor: Colors.black,
                         selectedFillColor: AppColors.transparentColor,
                         inactiveFillColor: AppColors.transparentColor,
@@ -143,11 +149,18 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                     ),
                   ),
                 ),
+
+
+                Obx(() => enterPasscodeController.isLoading.value ? const Center(child: CircularProgressIndicator(),) : const SizedBox()),
                 const Spacer(),
-                CustomKeyboard(
-                  controller: enterPasscodeController.enterController,
-                  isForgot: true,
-                ),
+                Obx(
+                  () => enterPasscodeController.disableKeyboard.value
+                      ? const SizedBox()
+                      : CustomKeyboard(
+                          controller: enterPasscodeController.enterController,
+                          isForgot: true,
+                        ),
+                )
               ],
             ),
           ),

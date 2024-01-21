@@ -11,6 +11,7 @@ import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../utils/app_utils.dart';
 import '../../../widgets/resend_rich_text/resend_rich_text.dart';
 import '../../../widgets/rich_text/rich_text.dart';
 
@@ -110,11 +111,17 @@ class ChangeEmailVerification extends StatelessWidget {
                 SizedBox(
                   height: 50.h,
                 ),
-                const Row(
+                Row(
                   children: [
                     Flexible(child: Align(
                         alignment: Alignment.center,
-                        child: ResendRichText())),
+                        child: ResendRichText(
+                            onTap: (){
+                              // forgetPasswordController.forgetPasswordRepo() ;
+                              Utils.snackBarMessage("Resend", "Resend Code") ;
+
+                            }
+                        ))),
                   ],
                 ),
                 CustomText(

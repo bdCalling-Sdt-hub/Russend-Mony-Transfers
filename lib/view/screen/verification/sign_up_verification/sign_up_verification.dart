@@ -2,28 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
+import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../controller/sign_up/sign_up_controller.dart';
+import '../../../../utils/app_utils.dart';
 import '../../../widgets/resend_rich_text/resend_rich_text.dart';
 import '../../../widgets/rich_text/rich_text.dart';
 
 class SignUpVerification extends StatelessWidget {
   SignUpVerification({super.key});
 
-
   SignUpController signUpController = Get.put(SignUpController());
-
 
   @override
   Widget build(BuildContext context) {
+
+    signUpController.isLoading.value = false;
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -49,7 +49,7 @@ class SignUpVerification extends StatelessWidget {
                     firstText:
                         "Please enter the 6-digit code sent to your email ".tr,
                     firstColor: AppColors.black50,
-                    secondText: "hemmykhom@gmail.com",
+                    secondText: signUpController.emailController.text,
                     secondColor: AppColors.black75,
                     thirdText: " to verify your email.".tr,
                     thirdColor: AppColors.black50),
@@ -62,13 +62,10 @@ class SignUpVerification extends StatelessWidget {
                     cursorColor: AppColors.black100,
                     controller: signUpController.otpController,
                     appContext: (context),
-
                     validator: (value) {
                       if (value!.length < 6) {
                         return "Please enter the OTP code.".tr;
-                      } else {
-
-                      }
+                      } else {}
                     },
                     autoFocus: true,
                     pinTheme: PinTheme(
@@ -86,8 +83,7 @@ class SignUpVerification extends StatelessWidget {
                       inactiveColor: AppColors.black100,
                     ),
                     length: 6,
-                    keyboardType:TextInputType.number,
-
+                    keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.disabled,
                     enableActiveFill: true,
                   ),
@@ -95,33 +91,49 @@ class SignUpVerification extends StatelessWidget {
                 SizedBox(
                   height: 48.h,
                 ),
-                Center(
-                    child: CustomButton(
-                        titleText: "Verify".tr,
-                        buttonWidth: 200.w,
-                        buttonRadius: 10.r,
-                        titleSize: 14.sp,
-                        onPressed: () {
-                          signUpController.signUpAuthRepo();
-                        })),
+                Obx(() => Center(
+                      child: signUpController.isLoading.value
+                          ? LoadingContainer()
+                          : CustomButton(
+                              titleText: "Verify".tr,
+                              buttonWidth: 200.w,
+                              buttonRadius: 10.r,
+                              titleSize: 14.sp,
+                              onPressed: () {
+                                signUpController.signUpAuthRepo();
+                              }),
+                    )),
                 SizedBox(
                   height: 50.h,
                 ),
-                const Row(
+                Row(
                   children: [
                     Flexible(
                         child: Align(
                             alignment: Alignment.center,
-                            child: ResendRichText())),
+                            child: Obx(() => ResendRichText(
+                              onTap:
+                              signUpController.isResend.value
+                                  ? () {
+                                signUpController
+                                    .signUpRepo();
+                                Utils.snackBarMessage(
+                                    "Resend", "Resend Code");
+                              }
+                                  : () {
+                                Utils.toastMessage(
+                                    "please wait ${signUpController.time}");
+                              },
+                            )))),
                   ],
                 ),
-                CustomText(
-                    text: "You can resend the code in 00:59".tr,
+                Obx(() => CustomText(
+                    text: "You can resend the code in  ${signUpController.time}",
                     fontSize: 16.sp,
                     top: 8.h,
                     style: true,
                     color: AppColors.black40,
-                    maxLines: 2),
+                    maxLines: 2)),
               ],
             ),
           ),

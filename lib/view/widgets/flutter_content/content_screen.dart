@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/legal_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
 import '../app_bar/custom_app_bar.dart';
@@ -8,12 +9,9 @@ import '../back/back.dart';
 import 'flutter_content.dart';
 
 class ContentScreen extends StatelessWidget {
-  ContentScreen({super.key, required this.data});
+  ContentScreen({super.key});
 
-  // @override
-  bool isLoading = true;
-
-  String data;
+  LegalController legalController = Get.put(LegalController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +21,25 @@ class ContentScreen extends StatelessWidget {
       body: CustomContainer(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsetsDirectional.symmetric(
-              horizontal: 20, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Html(
-                data: data,
-              ),
-            ],
-          ),
-        ),
+        child: Obx(() => legalController.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 20, vertical: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Html(
+                      data: legalController
+                          .termsOfMoneyTransferInfo!.data!.attributes!.content
+                          .toString(),
+                    ),
+                  ],
+                ),
+              )),
       ),
     );
   }

@@ -8,12 +8,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
+import '../utils/app_icons.dart';
 
 class PersonalInfoController extends GetxController {
   UserDetailsModel? userDetailsModelInfo;
 
   RxBool isLoading = false.obs;
   RxBool isLoadingEditNumber = false.obs;
+
+
+  List<Map<String, String>> profile = [
+    {
+      "icon": AppIcons.profile,
+      "title": "Personal info".tr,
+    },
+    {"icon": AppIcons.security, "title": "Security".tr},
+    {"icon": AppIcons.language, "title": "Language".tr},
+    // {
+    //   "icon" : AppIcons.appearance,
+    //   "title" : "Appearance".tr
+    // },
+    {"icon": AppIcons.legal, "title": "Legal".tr}
+  ];
+
 
   NetworkApiService networkApiService = NetworkApiService();
 
@@ -80,9 +97,7 @@ class PersonalInfoController extends GetxController {
     networkApiService
         .putApi(ApiUrl.user, body, header)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
+
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

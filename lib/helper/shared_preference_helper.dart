@@ -15,6 +15,7 @@ class SharedPreferenceHelper {
   String email = '';
   String id = '';
   bool? isLogIn ;
+  bool? isLocalAuth ;
 
 
 

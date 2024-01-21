@@ -59,6 +59,9 @@ class ConformPasscodeScreen extends StatelessWidget {
                       obscuringCharacter: "*",
                       // controller: controller.otpController,
                       appContext: (context),
+                      onTap: () {
+                        conformPasscodeController.disableKeyboard.value = false;
+                      },
 
                       validator: (value) {
                         if (value!.length != 4) {
@@ -70,6 +73,8 @@ class ConformPasscodeScreen extends StatelessWidget {
 
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
+                          conformPasscodeController.disableKeyboard.value =
+                              true;
                           if (createPasscodeController
                                   .passcodeController.text ==
                               conformPasscodeController
@@ -81,7 +86,7 @@ class ConformPasscodeScreen extends StatelessWidget {
                                 signUpModel.data!.attributes!.sId!,
                                 controllerLength);
                           } else {
-                            Get.snackbar("passcode", "Passcode not match") ;
+                            Get.snackbar("passcode", "Passcode not match");
                           }
                         }
                       },
@@ -109,9 +114,12 @@ class ConformPasscodeScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                CustomKeyboard(
-                  controller: conformPasscodeController.passcodeController,
-                )
+                Obx(() => conformPasscodeController.disableKeyboard.value
+                    ? const SizedBox()
+                    : CustomKeyboard(
+                        controller:
+                            conformPasscodeController.passcodeController,
+                      ))
               ],
             ),
           ),

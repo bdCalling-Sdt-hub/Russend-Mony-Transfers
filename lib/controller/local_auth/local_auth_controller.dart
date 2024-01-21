@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:money_transfers/services/api_services/api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../global/api_url.dart';
+import '../../utils/app_utils.dart';
 
 class LocalAuthController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
@@ -21,14 +23,13 @@ class LocalAuthController extends GetxController {
   RxString authorized = 'Not Authorized'.obs;
   RxBool isAuthenticating = false.obs;
 
-  RxBool isLoading = false.obs;
 
   NetworkApiService networkApiService = NetworkApiService();
 
+  EnterPasscodeController enterPasscodeController =
+      Get.put(EnterPasscodeController());
 
-  EnterPasscodeController enterPasscodeController = Get.put(EnterPasscodeController()) ;
-
-  Future<void> authenticateWithBiometrics(bool mounted,String token) async {
+  Future<void> authenticateWithBiometrics(bool mounted, String token) async {
     bool authenticated = false;
     print("======================> authenticateWithBiometrics");
 
@@ -60,9 +61,6 @@ class LocalAuthController extends GetxController {
     authorized.value = "message";
   }
 
-
-
-
   Future<void> localAuthRepo(String refreshToken) async {
     print("===================> localAuthRepo");
 
@@ -70,27 +68,58 @@ class LocalAuthController extends GetxController {
       'Refresh-token': "Refresh-token $refreshToken"
     };
 
-    isLoading.value = true;
+    enterPasscodeController.isLoading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-
-    networkApiService.getApi(ApiUrl.localAuth, header).then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
-      isLoading.value = false;
+    networkApiService
+        .getApi(ApiUrl.localAuth, header)
+        .then((apiResponseModel) async {
+      enterPasscodeController.isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
+        enterPasscodeController.enterPasscodeModelInfo =
+            EnterPasscodeModel.fromJson(json);
 
-        enterPasscodeController.enterPasscodeModelInfo = EnterPasscodeModel.fromJson(json) ;
-
-        pref.setString("accessToken", enterPasscodeController.enterPasscodeModelInfo!.data!.accessToken!);
+        pref.setString("accessToken",
+            enterPasscodeController.enterPasscodeModelInfo!.data!.accessToken!);
         pref.setBool("isLogIn", true);
 
-        Get.toNamed(AppRoute.welcomeScreen) ;
+        Get.toNamed(AppRoute.welcomeScreen);
+      } else if (apiResponseModel.statusCode == 201) {
+        var json = jsonDecode(apiResponseModel.responseJson);
+
+        enterPasscodeController.enterPasscodeModelInfo =
+            EnterPasscodeModel.fromJson(json);
+
+        pref.setString("accessToken",
+            enterPasscodeController.enterPasscodeModelInfo!.data!.accessToken!);
+        pref.setBool("isLogIn", true);
+
+        Get.toNamed(AppRoute.welcomeScreen);
+      } else if (apiResponseModel.statusCode == 401) {
+        Utils.toastMessage("passcode is incorrect, please try again later");
+        Get.offAllNamed(AppRoute.logIn);
+        SharedPreferences pref = await SharedPreferences.getInstance();
+
+        pref.setString("email", "");
+        pref.setString("refreshToken", "");
+        pref.setBool("isLogIn", false);
+        pref.setBool("isLocalAuth", false);
+
+
+
+      } else if (apiResponseModel.statusCode == 404) {
+        Get.offAllNamed(AppRoute.logIn);
+        Utils.toastMessage("passcode is incorrect, please try again later");
+        SharedPreferences pref = await SharedPreferences.getInstance();
+
+        pref.setString("email", "");
+        pref.setString("refreshToken", "");
+        pref.setBool("isLogIn", false);
+        pref.setBool("isLocalAuth", false);
+
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

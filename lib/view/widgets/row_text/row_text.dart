@@ -19,8 +19,8 @@ class RowText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Flexible(child: CustomText(text: title.tr,color: AppColors.black50,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 24.w)),
-        CustomText(text: value.tr,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 2),
+        CustomText(text: title.tr,color: AppColors.black50,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 24.w),
+        Flexible(child: CustomText(text: value.tr,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 1)),
       ],
     );
   }

@@ -12,44 +12,14 @@ import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileInfo extends StatefulWidget {
-  const ProfileInfo({super.key});
+class ProfileInfo extends StatelessWidget {
+  ProfileInfo({super.key});
 
-  @override
-  State<ProfileInfo> createState() => _ProfileInfoState();
-}
-
-class _ProfileInfoState extends State<ProfileInfo> {
   PersonalInfoController personalInfoController =
       Get.put(PersonalInfoController());
 
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
-
-  @override
-  void initState() {
-    getIsisLogIn();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.id = pref.getString("id") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "Personal Info  ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
-
-      personalInfoController.userDetailsRepo(
-          sharedPreferenceHelper.accessToken, sharedPreferenceHelper.id);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,20 +121,21 @@ class _ProfileInfoState extends State<ProfileInfo> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CustomText(
-                                text: personalInfoController
-                                        .userDetailsModelInfo
-                                        ?.data
-                                        ?.attributes
-                                        ?.email ??
-                                    "",
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w400,
+                              Flexible(
+                                child: CustomText(
+                                  text: personalInfoController
+                                          .userDetailsModelInfo
+                                          ?.data
+                                          ?.attributes
+                                          ?.email ??
+                                      "",
+                                  fontSize: 18.sp,
+                                  maxLines: 1,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                              GestureDetector(
-                                  onTap: () => Get.toNamed(AppRoute.editEmail),
-                                  child: CustomImage(
-                                      imageSrc: AppIcons.edit, size: 18.h))
+                              CustomImage(
+                                  imageSrc: AppIcons.edit, size: 18.h)
                             ],
                           ),
                         ],

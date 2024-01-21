@@ -10,8 +10,10 @@ import '../services/api_services/api_services.dart';
 
 class ConformPasscodeController extends GetxController {
 
+  RxBool disableKeyboard = false.obs ;
 
-  RxList createPasscodeInfo =[].obs ;
+
+  CreatePasscodeModel? createPasscodeInfo ;
 
   TextEditingController passcodeController = TextEditingController() ;
 
@@ -31,6 +33,7 @@ class ConformPasscodeController extends GetxController {
       'Pass-code': 'Pass-code $passcodeToken',
     };
 
+
     networkApiService
         .postApi(ApiUrl.createPasscode, body, header)
         .then((apiResponseModel) {
@@ -44,9 +47,8 @@ class ConformPasscodeController extends GetxController {
         print("===========================> ${json.runtimeType}");
 
 
-        createPasscodeInfo.add(CreatePasscodeModel.fromJson(json)) ;
+        createPasscodeInfo = CreatePasscodeModel.fromJson(json) ;
 
-        print(createPasscodeInfo[0].status) ;
         Get.toNamed(AppRoute.logIn);
 
       }  else if (apiResponseModel.statusCode == 400) {

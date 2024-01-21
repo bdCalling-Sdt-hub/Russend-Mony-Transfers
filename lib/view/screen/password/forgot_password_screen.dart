@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/forget_password_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
+import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../core/app_route/app_route.dart';
@@ -16,7 +17,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
 
-  ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController()) ;
+  ForgetPasswordController forgetPasswordController =
+      Get.put(ForgetPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +90,21 @@ class ForgotPasswordScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomButton(
-                          titleText: "Reset Password".tr,
-                          buttonRadius: 12.r,
-                          buttonWidth: double.infinity,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              forgetPasswordController.forgetPasswordRepo() ;
-                            }
-                            // Get.toNamed(AppRoute.forgotPasswordVerify);
-                          }),
+                      Obx(
+                        () => forgetPasswordController.isLoadingEmailScreen.value
+                            ? LoadingContainer()
+                            : CustomButton(
+                                titleText: "Reset Password".tr,
+                                buttonRadius: 12.r,
+                                buttonWidth: double.infinity,
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    forgetPasswordController
+                                        .forgetPasswordRepo();
+                                  }
+                                  // Get.toNamed(AppRoute.forgotPasswordVerify);
+                                }),
+                      ),
                       SizedBox(
                         height: 16.h,
                       ),

@@ -18,6 +18,9 @@ class LegalController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> termsOfMoneyTransferRepo() async {
+
+    Get.to(ContentScreen());
+
     print("===================> termsOfMoneyTransferRepo");
 
     Map<String, String> header = {};
@@ -27,9 +30,7 @@ class LegalController extends GetxController {
     networkApiService
         .getApi(ApiUrl.termsOfMoneyTransfer, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
+
 
       isLoading.value = false;
 
@@ -40,9 +41,6 @@ class LegalController extends GetxController {
 
         print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
 
-        Get.to(ContentScreen(
-            data: termsOfMoneyTransferInfo!.data!.attributes!.content
-                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -50,8 +48,13 @@ class LegalController extends GetxController {
     });
   }
 
+
+
   Future<void> termsOfServiceRepo() async {
     print("===================> termsOfServiceRepo");
+
+    Get.to(ContentScreen());
+
 
     Map<String, String> header = {};
 
@@ -73,9 +76,6 @@ class LegalController extends GetxController {
 
         print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
 
-        Get.to(ContentScreen(
-            data: termsOfMoneyTransferInfo!.data!.attributes!.content
-                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -85,6 +85,9 @@ class LegalController extends GetxController {
 
   Future<void> personDataPolicyRepo() async {
     print("===================> personDataPolicyRepo");
+
+    Get.to(ContentScreen());
+
 
     Map<String, String> header = {};
 
@@ -106,9 +109,6 @@ class LegalController extends GetxController {
 
         print(personalDataPolicyInfo!.data!.attributes!.content.toString());
 
-        Get.to(ContentScreen(
-            data:
-                personalDataPolicyInfo!.data!.attributes!.content.toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -118,6 +118,8 @@ class LegalController extends GetxController {
 
   Future<void> refundAndCancellationPolicyRepo() async {
     print("===================> refundAndCancellationPolicyRepo");
+    Get.to(ContentScreen());
+
 
     Map<String, String> header = {};
 
@@ -140,9 +142,6 @@ class LegalController extends GetxController {
         print(refundAndCancellationPolicyInfo!.data!.attributes!.content
             .toString());
 
-        Get.to(ContentScreen(
-            data: refundAndCancellationPolicyInfo!.data!.attributes!.content
-                .toString()));
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

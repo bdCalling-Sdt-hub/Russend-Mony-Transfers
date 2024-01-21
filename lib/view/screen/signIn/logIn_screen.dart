@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/sign_in_controller.dart';
+import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 
 import '../../../core/app_route/app_route.dart';
 import '../../../utils/app_colors.dart';
@@ -47,15 +48,21 @@ class LogInScreen extends StatelessWidget {
                   LogInFiled(),
                   Column(
                     children: [
-                      CustomButton(
-                          titleText: "Log in".tr,
-                          buttonRadius: 12.r,
-                          buttonWidth: double.infinity,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              signInController.signInRepo();
-                            }
-                          }),
+                      Obx(
+                        () => Center(
+                          child: signInController.isLoading.value
+                              ? LoadingContainer()
+                              : CustomButton(
+                                  titleText: "Log in".tr,
+                                  buttonRadius: 12.r,
+                                  buttonWidth: double.infinity,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      signInController.signInRepo();
+                                    }
+                                  }),
+                        ),
+                      ),
                       SizedBox(
                         height: 12.h,
                       ),
