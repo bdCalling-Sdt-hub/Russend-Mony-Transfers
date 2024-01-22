@@ -8,10 +8,8 @@ import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
 
 class LegalController extends GetxController {
-  ContentModel? termsOfMoneyTransferInfo;
-  ContentModel? termsOfServiceInfo;
-  ContentModel? personalDataPolicyInfo;
-  ContentModel? refundAndCancellationPolicyInfo;
+  ContentModel? contentModelInfo;
+
 
   RxBool isLoading = false.obs;
 
@@ -19,6 +17,7 @@ class LegalController extends GetxController {
 
   Future<void> termsOfMoneyTransferRepo() async {
 
+    contentModelInfo = null ;
     Get.to(ContentScreen());
 
     print("===================> termsOfMoneyTransferRepo");
@@ -37,9 +36,9 @@ class LegalController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        termsOfMoneyTransferInfo = ContentModel.fromJson(json);
+        contentModelInfo = ContentModel.fromJson(json);
 
-        print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
+        print(contentModelInfo!.data!.attributes!.content.toString());
 
       } else {
         Get.snackbar(
@@ -52,6 +51,8 @@ class LegalController extends GetxController {
 
   Future<void> termsOfServiceRepo() async {
     print("===================> termsOfServiceRepo");
+
+    contentModelInfo = null ;
 
     Get.to(ContentScreen());
 
@@ -72,9 +73,9 @@ class LegalController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        termsOfMoneyTransferInfo = ContentModel.fromJson(json);
+        contentModelInfo = ContentModel.fromJson(json);
 
-        print(termsOfMoneyTransferInfo!.data!.attributes!.content.toString());
+        print(contentModelInfo!.data!.attributes!.content.toString());
 
       } else {
         Get.snackbar(
@@ -85,6 +86,8 @@ class LegalController extends GetxController {
 
   Future<void> personDataPolicyRepo() async {
     print("===================> personDataPolicyRepo");
+
+    contentModelInfo = null ;
 
     Get.to(ContentScreen());
 
@@ -105,9 +108,9 @@ class LegalController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        personalDataPolicyInfo = ContentModel.fromJson(json);
+        contentModelInfo = ContentModel.fromJson(json);
 
-        print(personalDataPolicyInfo!.data!.attributes!.content.toString());
+        print(contentModelInfo!.data!.attributes!.content.toString());
 
       } else {
         Get.snackbar(
@@ -118,6 +121,8 @@ class LegalController extends GetxController {
 
   Future<void> refundAndCancellationPolicyRepo() async {
     print("===================> refundAndCancellationPolicyRepo");
+    contentModelInfo = null ;
+
     Get.to(ContentScreen());
 
 
@@ -137,9 +142,9 @@ class LegalController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        refundAndCancellationPolicyInfo = ContentModel.fromJson(json);
+        contentModelInfo = ContentModel.fromJson(json);
 
-        print(refundAndCancellationPolicyInfo!.data!.attributes!.content
+        print(contentModelInfo!.data!.attributes!.content
             .toString());
 
       } else {

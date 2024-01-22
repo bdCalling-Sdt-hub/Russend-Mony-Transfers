@@ -34,8 +34,8 @@ class ContentScreen extends StatelessWidget {
                   children: [
                     Html(
                       data: legalController
-                          .termsOfMoneyTransferInfo!.data!.attributes!.content
-                          .toString(),
+                          .contentModelInfo?.data?.attributes?.content
+                          .toString() ?? "No Data Found",
                     ),
                   ],
                 ),

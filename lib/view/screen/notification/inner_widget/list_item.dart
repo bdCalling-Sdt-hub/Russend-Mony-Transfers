@@ -24,6 +24,8 @@ class ListItem extends StatelessWidget {
         CustomText(
             text: title,
             fontSize: 14.sp,
+            maxLines: 2,
+            textAlign: TextAlign.start,
             fontWeight: FontWeight.w400),
         CustomText(
             text: time,

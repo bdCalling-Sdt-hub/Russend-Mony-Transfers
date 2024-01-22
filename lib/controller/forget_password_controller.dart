@@ -14,7 +14,6 @@ class ForgetPasswordController extends GetxController {
   RxBool isLoadingEmailScreen = false.obs;
   RxBool isLoading = false.obs;
 
-
   RxBool isResend = false.obs;
   Duration duration = const Duration();
   Timer? timer;
