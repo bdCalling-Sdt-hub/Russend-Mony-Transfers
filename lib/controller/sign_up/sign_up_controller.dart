@@ -12,7 +12,7 @@ import '../../services/api_services/api_services.dart';
 class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingSignUpScreen = false.obs;
-  RxList signUpInfo = [].obs;
+  SignUpModel? signUpModelInfo ;
 
   RxBool isResend= false.obs ;
   Duration duration = const Duration();
@@ -93,6 +93,7 @@ class SignUpController extends GetxController {
       };
 
 
+
     networkApiService
           .postApi(ApiUrl.signUp, body, header)
           .then((apiResponseModel) {
@@ -103,7 +104,7 @@ class SignUpController extends GetxController {
         if (apiResponseModel.statusCode == 200) {
 
           var json = jsonDecode(apiResponseModel.responseJson);
-          signUpInfo.add(SignUpModel.fromJson(json));
+          signUpModelInfo =SignUpModel.fromJson(json);
           Get.toNamed(AppRoute.passCode);
           nameController.clear() ;
           emailController.clear() ;
@@ -114,7 +115,7 @@ class SignUpController extends GetxController {
         } else if (apiResponseModel.statusCode == 201) {
 
           var json = jsonDecode(apiResponseModel.responseJson);
-          signUpInfo.add(SignUpModel.fromJson(json));
+          signUpModelInfo = SignUpModel.fromJson(json);
           Get.toNamed(AppRoute.passCode);
           nameController.clear() ;
           emailController.clear() ;

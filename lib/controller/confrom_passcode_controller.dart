@@ -34,6 +34,8 @@ class ConformPasscodeController extends GetxController {
     };
 
 
+
+
     networkApiService
         .postApi(ApiUrl.createPasscode, body, header)
         .then((apiResponseModel) {
@@ -51,7 +53,8 @@ class ConformPasscodeController extends GetxController {
 
         Get.toNamed(AppRoute.logIn);
 
-      }  else if (apiResponseModel.statusCode == 400) {
+      }  else  {
+        Get.toNamed(AppRoute.createAccount);
         Get.snackbar("Error", "Some Thing is Wrong");
       }
 

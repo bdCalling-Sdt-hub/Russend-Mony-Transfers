@@ -28,7 +28,6 @@ class NetworkApiService {
       }
     } on SocketException {
       Utils.toastMessage("please, check your internet connection".tr) ;
-
       return ApiResponseModel(503, "No internet connection", '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request", '');

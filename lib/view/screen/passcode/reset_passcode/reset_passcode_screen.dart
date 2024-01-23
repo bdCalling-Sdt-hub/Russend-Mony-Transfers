@@ -36,9 +36,10 @@ class ResetPasswordScreen extends StatelessWidget {
                 SharedPreferences pref = await SharedPreferences.getInstance();
 
                 pref.setString("email", "");
+                pref.setString("accessToken", "");
                 pref.setString("refreshToken", "");
                 pref.setBool("isLogIn", false);
-
+                pref.setBool("isLocalAuth", false);
                 Get.toNamed(AppRoute.logIn);
               },
               child: Row(

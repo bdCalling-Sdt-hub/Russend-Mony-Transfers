@@ -152,7 +152,7 @@ class AmountSendScreen extends StatelessWidget {
                   color: AppColors.black50,
                 ),
                 CustomText(
-                  text: "0.00 RUB".tr,
+                  text: "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage.toString()} RUB",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,

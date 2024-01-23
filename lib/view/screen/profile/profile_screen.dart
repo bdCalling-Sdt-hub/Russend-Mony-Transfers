@@ -84,14 +84,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ?.data
                                     ?.attributes
                                     ?.fullName?[0] ??
-                                    "",
+                                    "U",
                                 fontSize: 40.sp,
                                 fontWeight: FontWeight.w400)),
                       ),
                       CustomText(
                           text: personalInfoController.userDetailsModelInfo
                               ?.data?.attributes?.fullName ??
-                              "",
+                              "User",
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
                           top: 16.h,

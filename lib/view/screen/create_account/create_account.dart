@@ -95,19 +95,26 @@ class CreateAccount extends StatelessWidget {
                     Obx(() => signUpController.isLoadingSignUpScreen.value
                         ? const Center(child: CircularProgressIndicator())
                         : CustomButton(
-                      titleText: "Sign up",
-                      buttonHeight: 60 * h,
-                      titleSize: 16.sp,
-                      buttonWidth: double.infinity,
-                      titleWeight: FontWeight.w700,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          signUpController.otpController.text = "";
-                          signUpController.signUpRepo();
-                        }
+                            titleText: "Sign up",
+                            buttonHeight: 60 * h,
+                            titleSize: 16.sp,
+                            buttonWidth: double.infinity,
+                            titleWeight: FontWeight.w700,
+                            onPressed: () {
+                              if (signUpController
+                                  .numberController.text.isEmpty) {
+                                Utils.toastMessage("Invalid Mobile Number".tr);
+                              }
 
-                      },
-                    )),
+                              if (formKey.currentState!.validate()) {
+                                if (signUpController
+                                    .numberController.text.isNotEmpty) {
+                                  signUpController.otpController.text = "";
+                                  signUpController.signUpRepo();
+                                }
+                              }
+                            },
+                          )),
                     SizedBox(
                       height: 10 * h,
                     ),

@@ -110,7 +110,7 @@ class AppRoute {
     GetPage(name: appearanceScreen, page: () => const AppearanceScreen()),
     GetPage(name: legalScreen, page: () => LegalScreen()),
     GetPage(name: transactionHistory, page: () => TransactionHistory()),
-    GetPage(name: contactSupport, page: () => const ContactSupport()),
+    GetPage(name: contactSupport, page: () => ContactSupport()),
     GetPage(name: selectCountry, page: () => SelectCountry()),
     GetPage(name: moneyDeliveryMethod, page: () => const MoneyDeliveryMethod()),
     GetPage(name: recipient, page: () => RecipientInformation()),

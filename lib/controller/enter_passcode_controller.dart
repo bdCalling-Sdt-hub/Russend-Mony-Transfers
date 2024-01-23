@@ -38,6 +38,8 @@ class EnterPasscodeController extends GetxController {
     isLoading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
 
+
+
     networkApiService
         .postApi(ApiUrl.verifyPasscode, body, header)
         .then((apiResponseModel) {

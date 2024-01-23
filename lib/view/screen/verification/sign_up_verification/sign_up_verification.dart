@@ -93,7 +93,7 @@ class SignUpVerification extends StatelessWidget {
                 ),
                 Obx(() => Center(
                       child: signUpController.isLoading.value
-                          ? LoadingContainer()
+                          ? LoadingContainer(width: 200.w,)
                           : CustomButton(
                               titleText: "Verify".tr,
                               buttonWidth: 200.w,

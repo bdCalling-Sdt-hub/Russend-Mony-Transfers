@@ -24,14 +24,11 @@ class SelectCountry extends StatefulWidget {
 }
 
 class _SelectCountryState extends State<SelectCountry> {
-  RecipientInformationController recipientInformationController =
-      Get.put(RecipientInformationController());
 
   AmountSendController amountSendController = Get.put(AmountSendController());
 
   SelectCountryController selectCountryController =
       Get.put(SelectCountryController());
-
 
   @override
   void initState() {
@@ -39,7 +36,6 @@ class _SelectCountryState extends State<SelectCountry> {
     // TODO: implement initState
     super.initState();
   }
-
 
   // List countryList = [
   @override
@@ -69,38 +65,43 @@ class _SelectCountryState extends State<SelectCountry> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: selectCountryController
-                            .countryList!.data!.attributes!.length,
-                        itemBuilder: (context, index) {
-                          var item = selectCountryController
-                              .countryList!.data!.attributes![index];
-                          return GestureDetector(
-                            onTap: () {
-                              recipientInformationController
-                                  .numberPrefix.value = item.countryCode!;
-                              amountSendController.exchangeRates();
+                    : selectCountryController.countryList == null
+                        ? const SizedBox()
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: selectCountryController
+                                .countryList!.data!.attributes!.length,
+                            itemBuilder: (context, index) {
+                              var item = selectCountryController
+                                  .countryList!.data!.attributes![index];
+                              return GestureDetector(
+                                onTap: () {
+                                  amountSendController
+                                      .countryCode.value = item.countryCode!;
+                                  amountSendController
+                                      .countryId.value = item.sId!;
+                                  amountSendController.exchangeRates();
 
-                              if (item.isPaymentAvailable!) {
-                                if (item.paymentGateways!.length == 2) {
-                                  Get.toNamed(AppRoute.deliveryMethodCameroon);
-                                } else {
-                                  Get.toNamed(AppRoute.moneyDeliveryMethod);
-                                }
-                              } else {
-                                Get.toNamed(AppRoute.moneyDeliveryResume);
-                              }
+                                  if (item.isPaymentAvailable!) {
+                                    if (item.paymentGateways!.length == 2) {
+                                      Get.toNamed(
+                                          AppRoute.deliveryMethodCameroon);
+                                    } else {
+                                      Get.toNamed(AppRoute.moneyDeliveryMethod);
+                                    }
+                                  } else {
+                                    Get.toNamed(AppRoute.moneyDeliveryResume);
+                                  }
+                                },
+                                child: ListItem(
+                                  countryName: item.name!,
+                                  countryToken: item.currency!,
+                                  flag: item.countryFlag!,
+                                ),
+                              );
                             },
-                            child: ListItem(
-                              countryName: item.name!,
-                              countryToken: item.currency!,
-                              flag: item.countryFlag!,
-                            ),
-                          );
-                        },
-                      )),
+                          )),
               ],
             ),
           ),

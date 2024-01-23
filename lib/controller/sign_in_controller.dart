@@ -33,34 +33,30 @@ class SignInController extends GetxController {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-
     networkApiService
         .postApi(ApiUrl.signIn, body, header, isHeader: false)
         .then((apiResponseModel) {
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
-
         var json = jsonDecode(apiResponseModel.responseJson);
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
         Get.toNamed(AppRoute.enterPassCode);
-
+        emailController.clear();
       } else if (apiResponseModel.statusCode == 201) {
-
         var json = jsonDecode(apiResponseModel.responseJson);
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
         Get.toNamed(AppRoute.enterPassCode);
-
+        emailController.clear();
       } else if (apiResponseModel.statusCode == 401) {
-
         var data = jsonDecode(apiResponseModel.responseJson);
 
         Utils.toastMessage(data['message'] ??
-            "Email or password is incorrect, please try again later");
+            "Email or password is incorrect, please try again later".tr);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

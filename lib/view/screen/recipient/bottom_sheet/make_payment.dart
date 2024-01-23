@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
@@ -12,6 +13,9 @@ import '../../../widgets/text/custom_text.dart';
 
 class MakePayment {
   makePaymentSheet(BuildContext context) {
+
+    AmountSendController amountSendController = Get.put(AmountSendController()) ;
+
     return showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
@@ -85,7 +89,8 @@ class MakePayment {
                       titleSize: 24.sp,
                       buttonWidth: double.infinity,
                       onPressed: () {
-                        Get.toNamed(AppRoute.paymentMethodFinal);
+                        amountSendController.paymentInfoRepo() ;
+                        // Get.toNamed(AppRoute.paymentMethodFinal);
                       }),
                 ),
                 SizedBox(

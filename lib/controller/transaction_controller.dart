@@ -9,10 +9,9 @@ import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
 
 class TransactionController extends GetxController {
+  TransactionModel? transactionModelInfo;
 
-  TransactionModel? transactionModelInfo ;
-
-  TransactionDetailsModel? transactionDetailsModelInfo  ;
+  TransactionDetailsModel? transactionDetailsModelInfo;
 
   RxBool isLoading = false.obs;
 
@@ -28,10 +27,6 @@ class TransactionController extends GetxController {
     networkApiService
         .getApi(ApiUrl.transaction, header)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
@@ -47,10 +42,11 @@ class TransactionController extends GetxController {
     });
   }
 
-
-
   Future<void> transactionDetailsRepo(String token, String id) async {
     print("===================> transactionDetailsRepo");
+
+    transactionDetailsModelInfo = null ;
+    Get.toNamed(AppRoute.transactionHistory);
 
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
@@ -59,27 +55,15 @@ class TransactionController extends GetxController {
     networkApiService
         .getApi("${ApiUrl.transaction}/$id", header)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
-
         var json = jsonDecode(apiResponseModel.responseJson);
-        transactionDetailsModelInfo = TransactionDetailsModel.fromJson(json) ;
-        Get.toNamed(AppRoute.transactionHistory) ;
-
-      }else if (apiResponseModel.statusCode == 201) {
-
+        transactionDetailsModelInfo = TransactionDetailsModel.fromJson(json);
+      } else if (apiResponseModel.statusCode == 201) {
         var json = jsonDecode(apiResponseModel.responseJson);
-        transactionDetailsModelInfo = TransactionDetailsModel.fromJson(json) ;
-        Get.toNamed(AppRoute.transactionHistory);
-
-      }
-
-      else {
+        transactionDetailsModelInfo = TransactionDetailsModel.fromJson(json);
+      } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }

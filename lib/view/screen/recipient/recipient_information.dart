@@ -24,8 +24,7 @@ class RecipientInformation extends StatefulWidget {
 }
 
 class _RecipientInformationState extends State<RecipientInformation> {
-  RecipientInformationController recipientInformationController =
-      Get.put(RecipientInformationController());
+
 
   AmountSendController amountSendController = Get.put(AmountSendController());
 
@@ -148,7 +147,7 @@ class _RecipientInformationState extends State<RecipientInformation> {
                     ),
                   ),
                   prefixSvgIcon: CustomText(
-                      text: recipientInformationController.numberPrefix.value,
+                      text: amountSendController.countryCode.value,
                       color: AppColors.black50,
                       top: 16.h,
                       left: 8.w,

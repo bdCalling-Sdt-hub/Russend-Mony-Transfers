@@ -5,6 +5,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/controller/keyboard_controller.dart';
 import 'package:money_transfers/controller/sign_in_controller.dart';
+import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/models/sign_in_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
@@ -69,7 +70,6 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -121,6 +121,10 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                             enterPasscodeController.signInWithPasscodeRepo(
                                 sharedPreferenceHelper.email);
                           } else {
+                            if (signInController.signInModelInfo == null) {
+                              Get.toNamed(AppRoute.logIn);
+                            }
+
                             SignInModel signInModel =
                                 signInController.signInModelInfo!;
                             enterPasscodeController.enterPasscodeRepo(
@@ -149,9 +153,11 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                     ),
                   ),
                 ),
-
-
-                Obx(() => enterPasscodeController.isLoading.value ? const Center(child: CircularProgressIndicator(),) : const SizedBox()),
+                Obx(() => enterPasscodeController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : const SizedBox()),
                 const Spacer(),
                 Obx(
                   () => enterPasscodeController.disableKeyboard.value

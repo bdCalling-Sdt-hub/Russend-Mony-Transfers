@@ -5,7 +5,7 @@ class TransactionDetailsModel {
   Data? data;
 
   TransactionDetailsModel(
-      {this.status, this.statusCode, this.message, this.data});
+      {this.status, this.statusCode, this.message, this.data,});
 
   TransactionDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -59,6 +59,7 @@ class Attributes {
   String? paymentMethod;
   Country? country;
   String? status;
+  String? transactionId;
   Sender? sender;
   String? createdAt;
   String? updatedAt;
@@ -77,6 +78,7 @@ class Attributes {
         this.paymentMethod,
         this.country,
         this.status,
+        this.transactionId,
         this.sender,
         this.createdAt,
         this.updatedAt,
@@ -96,6 +98,7 @@ class Attributes {
     country =
     json['country'] != null ? new Country.fromJson(json['country']) : null;
     status = json['status'];
+    transactionId = json['transactionId'];
     sender =
     json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
     createdAt = json['createdAt'];
@@ -119,6 +122,7 @@ class Attributes {
       data['country'] = this.country!.toJson();
     }
     data['status'] = this.status;
+    data['transactionId'] = this.transactionId;
     if (this.sender != null) {
       data['sender'] = this.sender!.toJson();
     }

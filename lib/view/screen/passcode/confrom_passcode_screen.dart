@@ -80,7 +80,7 @@ class ConformPasscodeScreen extends StatelessWidget {
                               conformPasscodeController
                                   .passcodeController.text) {
                             SignUpModel signUpModel =
-                                signUpController.signUpInfo[0];
+                                signUpController.signUpModelInfo!;
                             conformPasscodeController.createPasscodeRepo(
                                 signUpModel.data!.passcodeToken!,
                                 signUpModel.data!.attributes!.sId!,

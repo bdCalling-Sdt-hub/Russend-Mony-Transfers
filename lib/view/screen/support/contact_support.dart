@@ -3,13 +3,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ContactSupport extends StatelessWidget {
-  const ContactSupport({super.key});
+  ContactSupport({super.key});
+
+  emailTo() async {
+    Uri dialEmail = Uri(scheme: 'mailto', path: "developernaimul00@gmail.com" );
+    await launchUrl(dialEmail);
+  }
+
+  whatsAppTo() async {
+    Uri whatsappUrl = Uri.parse("https://wa.me/+881865965581");
+    await launchUrl(whatsappUrl);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +53,32 @@ class ContactSupport extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 35.h),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryColor,width: 1.w,style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: AppColors.white50
+                        child: InkWell(
+                          onTap: whatsAppTo,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 35.h),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor,width: 1.w,style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: AppColors.white50
+                            ),
+                            child: CustomImage(imageSrc: AppIcons.whatsapp,size: 50.h),
                           ),
-                          child: CustomImage(imageSrc: AppIcons.whatsapp,size: 50.h),
                         ),
                       ),
                       SizedBox(width: 16.w),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 35.h),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryColor,width: 1.w,style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: AppColors.white50
+                        child: InkWell(
+                          onTap: emailTo,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 35.h),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor,width: 1.w,style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: AppColors.white50
+                            ),
+                            child: CustomImage(imageSrc: AppIcons.email,size: 50.h),
                           ),
-                          child: CustomImage(imageSrc: AppIcons.email,size: 50.h),
                         ),
                       ),
                     ],

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/services/notification_services.dart';
+import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SocketServices socketServices = SocketServices();
+  NotificationService notificationService = NotificationService() ;
+  notificationService.initLocalNotification() ;
+  socketServices.connectToSocket();
   runApp(const MyApp());
 }
 

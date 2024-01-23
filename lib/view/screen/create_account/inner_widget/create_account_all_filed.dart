@@ -43,7 +43,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           fillColor: AppColors.gray80,
           validator: (value) {
             if (value.isEmpty) {
-              return "please, Enter your Full Name";
+              return "Enter your Full Name".tr;
             }
           },
           suffixIcon: Padding(
@@ -71,8 +71,10 @@ class CreateAccountAllFiled extends StatelessWidget {
           paddingVertical: 18 * h,
           fillColor: AppColors.gray80,
           validator: (value) {
-            if (value.isEmpty) {
-              return "please, Enter your Full Name";
+            if (value.contains("@")) {
+              return null;
+            } else {
+              return "Enter a valid email".tr;
             }
           },
           suffixIcon: Padding(
@@ -94,6 +96,11 @@ class CreateAccountAllFiled extends StatelessWidget {
         ),
         IntlPhoneField(
           controller: signUpController.numberController,
+          validator: (value) {
+            if (value!.number.isEmpty) {
+              return "Invalid Mobile Number".tr;
+            }
+          },
           decoration: InputDecoration(
             hintText: "Mobile number".tr,
             fillColor: AppColors.gray80,
@@ -104,7 +111,7 @@ class CreateAccountAllFiled extends StatelessWidget {
                 borderSide: BorderSide(),
                 borderRadius: BorderRadius.all(Radius.circular(8))),
           ),
-          initialCountryCode: "BD",
+          initialCountryCode: "CM",
           disableLengthCheck: false,
         ),
         Padding(
@@ -124,7 +131,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           paddingVertical: 18 * h,
           validator: (value) {
             if (value.length < 8) {
-              return "Password should contain more than 8 characters";
+              return "Password should contain more than 8 characters".tr;
             }
           },
           fillColor: AppColors.gray80,
@@ -152,7 +159,7 @@ class CreateAccountAllFiled extends StatelessWidget {
                 value.isNotEmpty) {
               return null;
             } else {
-              return "password do not match";
+              return "password do not match".tr;
             }
           },
           isPassword: true,

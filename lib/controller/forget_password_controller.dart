@@ -39,9 +39,7 @@ class ForgetPasswordController extends GetxController {
     networkApiService
         .postApi(ApiUrl.forgetPassword, body, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
+
 
       isLoadingEmailScreen.value = false;
 

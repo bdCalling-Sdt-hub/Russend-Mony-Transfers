@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/amoun_send_controller.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../widgets/text/custom_text.dart';
@@ -12,11 +13,14 @@ import '../../../widgets/text/custom_text.dart';
 class PaymentInformation extends StatelessWidget {
   PaymentInformation({super.key});
 
-  String receiverName = "ричард манни в";
+  // String receiverName = "ричард манни в";
+  //
+  // String amountRub = "1500 RUB";
+  // String paymentId = "Сбербанк (sberbank)";
+  // String number = "+79050048977";
 
-  String amountRub = "1500 RUB";
-  String paymentId = "Сбербанк (sberbank)";
-  String number = "+79050048977";
+  AmountSendController amountSendController = Get.put(AmountSendController()) ;
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: paymentId,
+                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.bankName!.toString(),
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
@@ -70,20 +74,20 @@ class PaymentInformation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                text: number,
+                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
                 textAlign: TextAlign.start,
                 bottom: 15.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  final value = ClipboardData(text: number) ;
+              IconButton(
+                onPressed: () {
+                  final value = ClipboardData(text: amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!) ;
                   Clipboard.setData(value) ;
-                  Get.snackbar("Copy", "Copied to Clipboard") ;
+                  Get.snackbar("Copy", "Copied to phone Number") ;
                 },
-                  child: SvgPicture.asset(AppIcons.copy))
+                  icon: SvgPicture.asset(AppIcons.copy))
             ],
           ),
           Row(
@@ -100,7 +104,7 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: receiverName,
+                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.name!.toString(),
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
@@ -123,7 +127,7 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: amountRub,
+                text: "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,

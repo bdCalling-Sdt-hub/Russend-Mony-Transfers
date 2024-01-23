@@ -90,11 +90,11 @@ class TransactionList {
   int? amountToReceive;
   String? amountToReceiveCurrency;
   int? exchangeRate;
-  int? hiddenFees;
   String? paymentMethod;
   Country? country;
   String? status;
-  String? sender;
+  String? transactionId;
+  Sender? sender;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -109,10 +109,10 @@ class TransactionList {
         this.amountToReceive,
         this.amountToReceiveCurrency,
         this.exchangeRate,
-        this.hiddenFees,
         this.paymentMethod,
         this.country,
         this.status,
+        this.transactionId,
         this.sender,
         this.createdAt,
         this.updatedAt,
@@ -128,12 +128,13 @@ class TransactionList {
     amountToReceive = json['amountToReceive'];
     amountToReceiveCurrency = json['amountToReceiveCurrency'];
     exchangeRate = json['exchangeRate'];
-    hiddenFees = json['hiddenFees'];
     paymentMethod = json['paymentMethod'];
     country =
     json['country'] != null ? new Country.fromJson(json['country']) : null;
     status = json['status'];
-    sender = json['sender'];
+    transactionId = json['transactionId'];
+    sender =
+    json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -150,13 +151,15 @@ class TransactionList {
     data['amountToReceive'] = this.amountToReceive;
     data['amountToReceiveCurrency'] = this.amountToReceiveCurrency;
     data['exchangeRate'] = this.exchangeRate;
-    data['hiddenFees'] = this.hiddenFees;
     data['paymentMethod'] = this.paymentMethod;
     if (this.country != null) {
       data['country'] = this.country!.toJson();
     }
     data['status'] = this.status;
-    data['sender'] = this.sender;
+    data['transactionId'] = this.transactionId;
+    if (this.sender != null) {
+      data['sender'] = this.sender!.toJson();
+    }
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
@@ -166,19 +169,71 @@ class TransactionList {
 
 class Country {
   String? sId;
+  String? name;
   String? countryFlag;
 
-  Country({this.sId, this.countryFlag});
+  Country({this.sId, this.name, this.countryFlag});
 
   Country.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    name = json['name'];
     countryFlag = json['countryFlag'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
+    data['name'] = this.name;
     data['countryFlag'] = this.countryFlag;
+    return data;
+  }
+}
+
+class Sender {
+  String? sId;
+  String? fullName;
+  String? email;
+  String? phoneNumber;
+  Image? image;
+
+  Sender({this.sId, this.fullName, this.email, this.phoneNumber, this.image});
+
+  Sender.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    fullName = json['fullName'];
+    email = json['email'];
+    phoneNumber = json['phoneNumber'];
+    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['fullName'] = this.fullName;
+    data['email'] = this.email;
+    data['phoneNumber'] = this.phoneNumber;
+    if (this.image != null) {
+      data['image'] = this.image!.toJson();
+    }
+    return data;
+  }
+}
+
+class Image {
+  String? publicFileUrl;
+  String? path;
+
+  Image({this.publicFileUrl, this.path});
+
+  Image.fromJson(Map<String, dynamic> json) {
+    publicFileUrl = json['publicFileUrl'];
+    path = json['path'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['publicFileUrl'] = this.publicFileUrl;
+    data['path'] = this.path;
     return data;
   }
 }
