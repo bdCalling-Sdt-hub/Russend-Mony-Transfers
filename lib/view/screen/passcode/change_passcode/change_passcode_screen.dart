@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/change_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -14,7 +15,8 @@ import '../../../widgets/back/back.dart';
 class ChangePasscode extends StatelessWidget {
   ChangePasscode({super.key});
 
-  TextEditingController controller = TextEditingController();
+  ChangePasscodeController changePasscodeController =
+      Get.put(ChangePasscodeController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,6 @@ class ChangePasscode extends StatelessWidget {
         extendBody: true,
         backgroundColor: AppColors.background,
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
-
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
@@ -43,13 +44,22 @@ class ChangePasscode extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.h),
                   child: PinCodeTextField(
-                    controller: controller,
+                    controller: changePasscodeController.passcodeController,
                     cursorColor: AppColors.black100,
                     obscureText: true,
                     enablePinAutofill: true,
                     obscuringCharacter: "*",
                     // controller: controller.otpController,
                     appContext: (context),
+                    onTap: () {
+                      changePasscodeController.disableKeyboard.value = false;
+                    },
+                    onChanged: (value) {
+                      print(value) ;
+                      if (value.length == 4) {
+                        changePasscodeController.disableKeyboard.value = true;
+                      }
+                    },
 
                     validator: (value) {
                       if (value!.length != 4) {
@@ -80,7 +90,7 @@ class ChangePasscode extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom: 24.h),
                 child: CustomButton(
@@ -88,11 +98,13 @@ class ChangePasscode extends StatelessWidget {
                   buttonRadius: 50.r,
                   titleSize: 14.sp,
                   buttonWidth: 150.w,
-
                   onPressed: () => Get.toNamed(AppRoute.newPasscode),
                 ),
               ),
-              CustomKeyboard(controller: controller)
+              Obx(() => changePasscodeController.disableKeyboard.value
+                  ? const SizedBox()
+                  : CustomKeyboard(
+                      controller: changePasscodeController.passcodeController))
             ],
           ),
         ),

@@ -36,6 +36,7 @@ class ApiUrl {
   static const String localAuth = "$baseUrl/api/users/sign-in-with-refresh-token" ;
   static const String notification = "$baseUrl/api/notifications" ;
   static const String paymentInfo = "$baseUrl/api/payment-info" ;
+  static const String verifyOldPasscode = "$baseUrl/api/users/verify-old-passcode" ;
 
 
 }

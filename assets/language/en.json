@@ -148,7 +148,8 @@
   "Password should contain more than 8 characters": "Password should contain more than 8 characters",
   "password do not match": "password do not match",
   "data not found": "data not found",
-  "Email or password is incorrect, please try again later": "Email or password is incorrect, please try again later"
+  "Email or password is incorrect, please try again later": "Email or password is incorrect, please try again later",
+  "passcode not match": "passcode not match"
 
 
 
