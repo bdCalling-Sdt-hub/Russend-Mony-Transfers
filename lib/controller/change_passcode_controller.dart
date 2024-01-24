@@ -13,13 +13,12 @@ import '../utils/app_utils.dart';
 class ChangePasscodeController extends GetxController {
   RxBool disableKeyboard = false.obs;
   RxBool isLoading = false.obs;
-  RxString passcodeToken = "".obs ;
+  RxString passcodeToken = "".obs;
 
   TextEditingController enterPasscodeController = TextEditingController();
 
-
   NetworkApiService networkApiService = NetworkApiService();
-  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
   Future<void> getIsisLogIn() async {
     try {
@@ -27,15 +26,12 @@ class ChangePasscodeController extends GetxController {
 
       sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "accessToken ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
 
       changePasscodeRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {
       print(e.toString());
     }
   }
-
 
   Future<void> changePasscodeRepo(String token) async {
     print("===================> changePasscodeRepo");
@@ -51,17 +47,11 @@ class ChangePasscodeController extends GetxController {
         .postApi(ApiUrl.verifyOldPasscode, body, header)
         .then((apiResponseModel) {
       isLoading.value = false;
-      print(apiResponseModel.statusCode) ;
-      print(apiResponseModel.message) ;
-      print(apiResponseModel.responseJson) ;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
-        passcodeToken.value = json["data"]["passcodeToken"] ;
-
-        print(passcodeToken) ;
-
+        passcodeToken.value = json["data"]["passcodeToken"];
 
         Get.toNamed(AppRoute.newPasscode);
       } else if (apiResponseModel.statusCode == 404) {
@@ -72,5 +62,4 @@ class ChangePasscodeController extends GetxController {
       }
     });
   }
-
 }

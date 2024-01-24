@@ -47,8 +47,6 @@ class _TransactionState extends State<Transaction> {
       sharedPreferenceHelper.accessToken =
           pref.getString("accessToken") ?? "aa";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "Transaction ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
 
       transactionController.transactionRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {

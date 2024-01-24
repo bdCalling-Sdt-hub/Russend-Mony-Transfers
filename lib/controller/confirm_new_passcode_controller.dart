@@ -22,7 +22,7 @@ class ConfirmPasscodeController extends GetxController {
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
   ChangePasscodeController changePasscodeController =
-      ChangePasscodeController();
+      Get.put(ChangePasscodeController());
 
   Future<void> getIsisLogIn() async {
     try {
@@ -30,8 +30,6 @@ class ConfirmPasscodeController extends GetxController {
 
       sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "accessToken ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
 
       changePasscodeRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {
@@ -43,12 +41,11 @@ class ConfirmPasscodeController extends GetxController {
     print("===================> changePasscodeRepo");
     isLoading.value = true;
     var body = {
-      "passcode": confirmPasscodeController.text,
+      "newPasscode": confirmPasscodeController.text,
     };
-    print("===================>$body");
 
     Map<String, String> header = {
-      'Pass-code': "Pass-code  ${changePasscodeController.passcodeToken.value}",
+      'Pass-code': "Pass-code ${changePasscodeController.passcodeToken.value}",
       'Authorization': "Bearer $token"
     };
 
@@ -56,18 +53,11 @@ class ConfirmPasscodeController extends GetxController {
         .patchApi(ApiUrl.changePasscode, body, header)
         .then((apiResponseModel) {
       isLoading.value = false;
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
 
       if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-
-        // passcodeToken.value = json["data"]["passcodeToken"] ;
-        //
-        // print(passcodeToken) ;
-
-        Get.toNamed(AppRoute.transaction) ;
+        Get.toNamed(AppRoute.transaction);
+      } else if (apiResponseModel.statusCode == 401) {
+        Utils.toastMessage("passcode not match".tr);
       } else if (apiResponseModel.statusCode == 404) {
         Utils.toastMessage("passcode not match".tr);
       } else {

@@ -6,15 +6,14 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/view/screen/recipient/bottom_sheet/make_payment.dart';
-import 'package:money_transfers/view/widgets/keyboard/custom_keyboard.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../widgets/back/back.dart';
 import '../../widgets/custom_button/custom_button.dart';
+import 'widget/custom_keyboard.dart';
 
 class AmountSendScreen extends StatelessWidget {
   AmountSendScreen({super.key});
@@ -22,8 +21,6 @@ class AmountSendScreen extends StatelessWidget {
   MakePayment makePayment = MakePayment();
 
   AmountSendController amountSendController = Get.put(AmountSendController());
-
-  RxBool isPay = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +63,8 @@ class AmountSendScreen extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     autofocus: true,
-                    onChanged: (amount) {
-                      print(amount);
-                      amountSendController.youPay(amount);
-                    },
-                    onTap: () => isPay.value = true,
-                    keyboardType: TextInputType.number,
+                    onTap: () => amountSendController.isPay.value = true,
+                    keyboardType: TextInputType.none,
                     textAlign: TextAlign.center,
                     controller: amountSendController.amountController,
                     decoration: InputDecoration(
@@ -93,12 +86,8 @@ class AmountSendScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: TextFormField(
-                    onChanged: (amount) {
-                      amountSendController.receiveAmount(amount);
-                      print(amount);
-                    },
-                    onTap: () => isPay.value = false,
-                    keyboardType: TextInputType.number,
+                    onTap: () => amountSendController.isPay.value = false,
+                    keyboardType: TextInputType.none,
                     textAlign: TextAlign.center,
                     controller: amountSendController.receiveController,
                     decoration: InputDecoration(
@@ -152,7 +141,8 @@ class AmountSendScreen extends StatelessWidget {
                   color: AppColors.black50,
                 ),
                 CustomText(
-                  text: "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage.toString()} RUB",
+                  text:
+                      "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage.toString()} RUB",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -183,13 +173,18 @@ class AmountSendScreen extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Obx(
-              () => CustomKeyboard(
-                  isPoint: true,
-                  controller: isPay.value
-                      ? amountSendController.amountController
-                      : amountSendController.receiveController),
-            ),
+            Obx(() => amountSendCustomKeyboard(
+                controller: amountSendController.isPay.value
+                    ? amountSendController.amountController
+                    : amountSendController.receiveController,
+                onTap: amountSendController.isPay.value
+                    ? amountSendController.youPay
+                    : amountSendController.receiveAmount,
+                isPoint: true)),
+
+            // amountSendCustomKeyboard(
+            //       isPoint: true, amountSendController.amountController
+            //          ),
             Align(
               alignment: Alignment.centerRight,
               child: CustomButton(

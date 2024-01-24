@@ -7,7 +7,7 @@ class SecurityController extends GetxController {
 
   @override
   void onInit() {
-    getLocalAuth() ;
+    getLocalAuth();
     controller.addListener(() {
       setLocalAuth(controller.value);
     });

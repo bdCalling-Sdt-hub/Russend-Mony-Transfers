@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:money_transfers/controller/confirm_new_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/keyboard/custom_keyboard.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
@@ -12,7 +13,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class ChangeConformPasscodeScreen extends StatelessWidget {
   ChangeConformPasscodeScreen({super.key});
 
-  ConfirmPasscodeController confirmPasscodeController = Get.put(ConfirmPasscodeController()) ;
+  ConfirmPasscodeController confirmPasscodeController =
+      Get.put(ConfirmPasscodeController());
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -39,13 +42,23 @@ class ChangeConformPasscodeScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.h),
                   child: PinCodeTextField(
-                    controller: confirmPasscodeController.confirmPasscodeController,
+                    controller:
+                        confirmPasscodeController.confirmPasscodeController,
                     cursorColor: AppColors.black100,
                     obscureText: true,
                     enablePinAutofill: true,
                     obscuringCharacter: "*",
                     // controller: controller.otpController,
                     appContext: (context),
+                    onTap: () {
+                      confirmPasscodeController.disableKeyboard.value = false;
+                    },
+                    onChanged: (value) {
+                      print(value);
+                      if (value.length == 4) {
+                        confirmPasscodeController.disableKeyboard.value = true;
+                      }
+                    },
 
                     validator: (value) {
                       if (value!.length != 4) {
@@ -84,10 +97,22 @@ class ChangeConformPasscodeScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   titleSize: 14.sp,
                   buttonWidth: 150.w,
-                  onPressed: () => confirmPasscodeController.getIsisLogIn(),
+                  onPressed: () {
+                    if (confirmPasscodeController.newPasscodeController.value ==
+                        confirmPasscodeController
+                            .confirmPasscodeController.value) {
+                      confirmPasscodeController.getIsisLogIn();
+                    } else {
+                      Utils.toastMessage("passcode not match".tr) ;
+                    }
+                  },
                 ),
               ),
-              CustomKeyboard(controller: confirmPasscodeController.confirmPasscodeController)
+              Obx(() => confirmPasscodeController.disableKeyboard.value
+                  ? const SizedBox()
+                  : CustomKeyboard(
+                      controller:
+                          confirmPasscodeController.confirmPasscodeController))
             ],
           ),
         ),

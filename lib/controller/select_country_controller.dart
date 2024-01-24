@@ -23,10 +23,6 @@ class SelectCountryController extends GetxController {
     networkApiService
         .getApi(ApiUrl.countries, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {

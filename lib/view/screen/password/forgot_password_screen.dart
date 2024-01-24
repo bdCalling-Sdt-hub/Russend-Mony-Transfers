@@ -70,7 +70,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                         controller: forgetPasswordController.emailController,
                         hintText: "Enter your email".tr,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value.contains("@")) {
+                            return null ;
+                          } else {
                             return "Enter your email".tr;
                           }
                         },

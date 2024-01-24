@@ -45,7 +45,7 @@ class TransactionController extends GetxController {
   Future<void> transactionDetailsRepo(String token, String id) async {
     print("===================> transactionDetailsRepo");
 
-    transactionDetailsModelInfo = null ;
+    transactionDetailsModelInfo = null;
     Get.toNamed(AppRoute.transactionHistory);
 
     Map<String, String> header = {'Authorization': "Bearer $token"};

@@ -13,7 +13,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class NewPasscodeScreen extends StatelessWidget {
   NewPasscodeScreen({super.key});
 
-  ConfirmPasscodeController confirmPasscodeController = Get.put(ConfirmPasscodeController()) ;
+  ConfirmPasscodeController confirmPasscodeController =
+      Get.put(ConfirmPasscodeController());
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -47,6 +49,15 @@ class NewPasscodeScreen extends StatelessWidget {
                     obscuringCharacter: "*",
                     // controller: controller.otpController,
                     appContext: (context),
+                    onTap: () {
+                      confirmPasscodeController.disableKeyboard.value = false;
+                    },
+                    onChanged: (value) {
+                      print(value);
+                      if (value.length == 4) {
+                        confirmPasscodeController.disableKeyboard.value = true;
+                      }
+                    },
 
                     validator: (value) {
                       if (value!.length != 4) {
@@ -85,10 +96,18 @@ class NewPasscodeScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   buttonWidth: 150.w,
                   titleSize: 14.sp,
-                  onPressed: () => Get.toNamed(AppRoute.changeConformPasscode),
+                  onPressed: () {
+                    confirmPasscodeController.disableKeyboard.value = false ;
+                    Get.toNamed(AppRoute.changeConformPasscode) ;
+
+                  }
                 ),
               ),
-              CustomKeyboard(controller: confirmPasscodeController.newPasscodeController)
+              Obx(() => confirmPasscodeController.disableKeyboard.value
+                  ? const SizedBox()
+                  : CustomKeyboard(
+                      controller:
+                          confirmPasscodeController.newPasscodeController))
             ],
           ),
         ),

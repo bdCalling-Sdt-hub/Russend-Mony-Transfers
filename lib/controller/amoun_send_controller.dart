@@ -19,6 +19,8 @@ class AmountSendController extends GetxController {
   RxDouble xafRate = 6.80.obs;
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
+  RxBool isPay = true.obs;
+
   HiddenFeesModel? hiddenFeesModelInfo;
   PaymentInfoModel? paymentInfoModelInfo;
 
@@ -67,33 +69,6 @@ class AmountSendController extends GetxController {
       } else {}
     } catch (e) {
       print("error");
-    }
-  }
-
-  Future<void> youPay(String stringAmount) async {
-    print(stringAmount);
-
-    // if (success.value) {
-      var amount = double.parse(stringAmount);
-      var rate = xafRate.value / rubRate.value;
-      var receiveAmount = rate * amount;
-      print("================================> $receiveAmount") ;
-      receiveController.text = receiveAmount.toString();
-    // } else {
-    //   print("api not hit");
-    // }
-  }
-
-  Future<void> receiveAmount(String stringAmount) async {
-    print(stringAmount);
-
-    if (success.value) {
-      var amount = double.parse(stringAmount);
-      var rate = rubRate.value / xafRate.value;
-      var receiveAmount = rate * amount;
-      amountController.text = receiveAmount.toString();
-    } else {
-      print("api not hit");
     }
   }
 
@@ -184,7 +159,6 @@ class AmountSendController extends GetxController {
   Future<void> addTransactionRepo(String token) async {
     print("===================> object");
 
-
     var body = {
       "firstName": "Shakib",
       "lastName": "Elahi",
@@ -194,9 +168,9 @@ class AmountSendController extends GetxController {
       "amountToReceive": 15000,
       "amountToReceiveCurrency": "XAF",
       "exchangeRate": 30,
-      "hiddenFees": 3,
+      "hiddenFees": 30,
       "paymentMethod": "Orange Money",
-      "country": "65aa15210b9179adf1c4b6b7",
+      "country": "65aa15210b9179adf1c4b6b7"
     };
 
     dynamic encodedBody = jsonEncode(body);
@@ -204,12 +178,10 @@ class AmountSendController extends GetxController {
     print("===================>$encodedBody\n \n\n\n");
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
+    var response = await http.post(Uri.parse("http://192.168.10.18:3000/api/transactions"),
+        body: body, headers: header);
 
-    var response =await http.post(Uri.parse(ApiUrl.allTransactions), body: body, headers: header) ;
-
-    print(response) ;
-    print(response.statusCode) ;
-
+    print(response.body);
 
     ///=========================================> Postman Code <============================================
 
@@ -243,7 +215,7 @@ class AmountSendController extends GetxController {
     //   print(response.reasonPhrase);
     // }
 
-///=========================================> Postman Code <============================================
+    ///=========================================> Postman Code <============================================
     // var body = {
     //   "firstName": "Shakib",
     //   "lastName": "Elahi",
@@ -292,7 +264,95 @@ class AmountSendController extends GetxController {
     print("===================>fdhfhfd");
   }
 
+  ///=================================================> Amount Send Keyboard <==========================================
 
+  // Future<void> youPay(String stringAmount) async {
+  //   print(stringAmount);
+  //
+  //   // if (success.value) {
+  //   var amount = double.parse(stringAmount);
+  //   var rate = xafRate.value / rubRate.value;
+  //   var receiveAmount = rate * amount;
+  //   print("================================> $receiveAmount") ;
+  //   receiveController.text = receiveAmount.toString();
+  //   // } else {
+  //   //   print("api not hit");
+  //   // }
+  // }
 
+  // Future<void> receiveAmount(String stringAmount) async {
+  //   print(stringAmount);
+  //
+  //   if (success.value) {
+  //     var amount = double.parse(stringAmount);
+  //     var rate = rubRate.value / xafRate.value;
+  //     var receiveAmount = rate * amount;
+  //     amountController.text = receiveAmount.toString();
+  //   } else {
+  //     print("api not hit");
+  //   }
+  // }
 
+  void youPay(String value, TextEditingController textController) {
+    if (value == 'Forgot') {
+      Get.toNamed(AppRoute.resetPasscode);
+    } else if (value == '<') {
+      if (textController.text.isNotEmpty) {
+        textController.text =
+            textController.text.substring(0, textController.text.length - 1);
+        if (textController.text.isNotEmpty) {
+          var amount = double.parse(textController.text);
+          var rate = xafRate.value / rubRate.value;
+          var receiveAmount = rate * amount;
+          receiveController.text = receiveAmount.toString();
+        } else {
+          receiveController.text = "0";
+        }
+
+        print("================================> $receiveAmount");
+      } else {
+        receiveController.text = "0";
+      }
+    } else {
+      textController.text += value;
+
+      var amount = double.parse(textController.text);
+      var rate = xafRate.value / rubRate.value;
+      var receiveAmount = rate * amount;
+      print("================================> $receiveAmount");
+      receiveController.text = receiveAmount.toString();
+    }
+  }
+
+  void receiveAmount(String value, TextEditingController textController) {
+    if (value == 'Forgot') {
+      Get.toNamed(AppRoute.resetPasscode);
+    } else if (value == '<') {
+      if (textController.text.isNotEmpty) {
+        textController.text =
+            textController.text.substring(0, textController.text.length - 1);
+
+        if (textController.text.isNotEmpty) {
+          var amount = double.parse(textController.text);
+          var rate = rubRate.value / xafRate.value;
+          var receiveAmount = rate * amount;
+          amountController.text = receiveAmount.toString();
+        } else {
+          amountController.text = "0";
+        }
+      } else {
+        amountController.text = "0";
+      }
+    } else {
+      if (textController.text.contains(".") && value == ".") {
+        print("point is ");
+      } else {
+        textController.text += value;
+        var amount = double.parse(textController.text);
+        var rate = rubRate.value / xafRate.value;
+        var receiveAmount = rate * amount;
+        amountController.text = receiveAmount.toString();
+      }
+    }
+  }
 }

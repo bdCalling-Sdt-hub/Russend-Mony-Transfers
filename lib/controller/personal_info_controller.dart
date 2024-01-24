@@ -16,7 +16,6 @@ class PersonalInfoController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingEditNumber = false.obs;
 
-
   List<Map<String, String>> profile = [
     {
       "icon": AppIcons.profile,
@@ -31,7 +30,6 @@ class PersonalInfoController extends GetxController {
     {"icon": AppIcons.legal, "title": "Legal".tr}
   ];
 
-
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> userDetailsRepo(String token, String id) async {
@@ -40,16 +38,10 @@ class PersonalInfoController extends GetxController {
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
     isLoading.value = true;
-    print("===================> ${ApiUrl.user}/$id");
-
 
     networkApiService
         .getApi("${ApiUrl.user}/$id", header)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
@@ -77,8 +69,6 @@ class PersonalInfoController extends GetxController {
       sharedPreferenceHelper.accessToken =
           pref.getString("accessToken") ?? "aa";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "Transaction ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
 
       editNumberRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {
@@ -92,15 +82,10 @@ class PersonalInfoController extends GetxController {
     var body = {
       "phoneNumber": "${countryCode.value}${numberController.text}",
     };
-    print("===================>$body");
     Map<String, String> header = {'Authorization': "Bearer $token"};
-    print("===================>$header");
-
     networkApiService
         .putApi(ApiUrl.user, body, header)
         .then((apiResponseModel) {
-
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 

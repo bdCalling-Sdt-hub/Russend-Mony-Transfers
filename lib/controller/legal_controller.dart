@@ -10,14 +10,12 @@ import '../services/api_services/api_services.dart';
 class LegalController extends GetxController {
   ContentModel? contentModelInfo;
 
-
   RxBool isLoading = false.obs;
 
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> termsOfMoneyTransferRepo() async {
-
-    contentModelInfo = null ;
+    contentModelInfo = null;
     Get.to(ContentScreen());
 
     print("===================> termsOfMoneyTransferRepo");
@@ -29,17 +27,12 @@ class LegalController extends GetxController {
     networkApiService
         .getApi(ApiUrl.termsOfMoneyTransfer, header, isHeader: false)
         .then((apiResponseModel) {
-
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         contentModelInfo = ContentModel.fromJson(json);
-
-        print(contentModelInfo!.data!.attributes!.content.toString());
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -47,15 +40,12 @@ class LegalController extends GetxController {
     });
   }
 
-
-
   Future<void> termsOfServiceRepo() async {
     print("===================> termsOfServiceRepo");
 
-    contentModelInfo = null ;
+    contentModelInfo = null;
 
     Get.to(ContentScreen());
-
 
     Map<String, String> header = {};
 
@@ -64,19 +54,12 @@ class LegalController extends GetxController {
     networkApiService
         .getApi(ApiUrl.termsOfService, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         contentModelInfo = ContentModel.fromJson(json);
-
-        print(contentModelInfo!.data!.attributes!.content.toString());
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -87,10 +70,9 @@ class LegalController extends GetxController {
   Future<void> personDataPolicyRepo() async {
     print("===================> personDataPolicyRepo");
 
-    contentModelInfo = null ;
+    contentModelInfo = null;
 
     Get.to(ContentScreen());
-
 
     Map<String, String> header = {};
 
@@ -99,19 +81,12 @@ class LegalController extends GetxController {
     networkApiService
         .getApi(ApiUrl.personalDataPolicies, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         contentModelInfo = ContentModel.fromJson(json);
-
-        print(contentModelInfo!.data!.attributes!.content.toString());
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -121,10 +96,9 @@ class LegalController extends GetxController {
 
   Future<void> refundAndCancellationPolicyRepo() async {
     print("===================> refundAndCancellationPolicyRepo");
-    contentModelInfo = null ;
+    contentModelInfo = null;
 
     Get.to(ContentScreen());
-
 
     Map<String, String> header = {};
 
@@ -133,20 +107,12 @@ class LegalController extends GetxController {
     networkApiService
         .getApi(ApiUrl.refundAndCancellationPolicy, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         contentModelInfo = ContentModel.fromJson(json);
-
-        print(contentModelInfo!.data!.attributes!.content
-            .toString());
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

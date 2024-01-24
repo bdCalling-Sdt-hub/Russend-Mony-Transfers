@@ -35,12 +35,11 @@ class ForgetPasswordController extends GetxController {
     print("===================>$body");
 
     Map<String, String> header = {};
+    Get.toNamed(AppRoute.forgotPasswordVerify);
 
     networkApiService
         .postApi(ApiUrl.forgetPassword, body, header, isHeader: false)
         .then((apiResponseModel) {
-
-
       isLoadingEmailScreen.value = false;
 
       if (apiResponseModel.statusCode == 200) {
@@ -71,7 +70,6 @@ class ForgetPasswordController extends GetxController {
     print("===================>$body");
 
     Map<String, String> header = {};
-    Get.toNamed(AppRoute.newPassword);
 
     networkApiService
         .postApi(ApiUrl.verifyOtp, body, header, isHeader: false)
@@ -133,7 +131,6 @@ class ForgetPasswordController extends GetxController {
       const addSeconds = 1;
       final seconds = duration.inSeconds - addSeconds;
       duration = Duration(seconds: seconds);
-      print(duration);
       if (time.value != 0) {
         time.value = seconds;
       } else {

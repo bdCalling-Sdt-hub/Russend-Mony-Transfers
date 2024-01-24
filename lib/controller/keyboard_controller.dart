@@ -6,6 +6,7 @@ import '../core/app_route/app_route.dart';
 class KeyboardController extends GetxController {
 
 
+
   void onKeyPressed(String value, TextEditingController textController) {
     if (value == 'Forgot') {
       Get.toNamed(AppRoute.resetPasscode);
@@ -17,6 +18,5 @@ class KeyboardController extends GetxController {
     } else {
       textController.text += value;
     }
-
   }
 }

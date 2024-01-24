@@ -14,21 +14,19 @@ class NotificationController extends GetxController {
   RxBool isLoading = false.obs;
 
   NetworkApiService networkApiService = NetworkApiService();
+
   Future<void> getIsisLogIn() async {
     try {
-      SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
+      SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(sharedPreferenceHelper.accessToken) ;
-      notificationRepo(sharedPreferenceHelper.accessToken) ;
-
+      notificationRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {
       print(e.toString());
     }
   }
-
 
   Future<void> notificationRepo(String token) async {
     print("===================> transactionDetailsRepo");
@@ -38,12 +36,11 @@ class NotificationController extends GetxController {
     isLoading.value = true;
 
     networkApiService
-        .getApi(ApiUrl.notification, header,)
+        .getApi(
+      ApiUrl.notification,
+      header,
+    )
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {

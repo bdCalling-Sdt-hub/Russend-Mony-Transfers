@@ -15,7 +15,6 @@ class EnterPasscodeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool disableKeyboard = false.obs;
 
-
   EnterPasscodeModel? enterPasscodeModelInfo;
 
   String accessToken = "";
@@ -37,8 +36,6 @@ class EnterPasscodeController extends GetxController {
 
     isLoading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
-
-
 
     networkApiService
         .postApi(ApiUrl.verifyPasscode, body, header)
@@ -65,10 +62,12 @@ class EnterPasscodeController extends GetxController {
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 401) {
         disableKeyboard.value = false;
+        enterController.clear();
 
         Utils.toastMessage("passcode is incorrect, please try again later");
       } else if (apiResponseModel.statusCode == 404) {
         disableKeyboard.value = false;
+        enterController.clear();
 
         Utils.toastMessage("passcode is incorrect, please try again later");
       } else {
@@ -123,10 +122,12 @@ class EnterPasscodeController extends GetxController {
 
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 401) {
+        enterController.clear();
         disableKeyboard.value = false;
         Utils.toastMessage("passcode is incorrect, please try again later");
       } else if (apiResponseModel.statusCode == 404) {
         disableKeyboard.value = false;
+        enterController.clear();
         Utils.toastMessage("passcode is incorrect, please try again later");
       } else {
         Get.snackbar(
@@ -134,17 +135,4 @@ class EnterPasscodeController extends GetxController {
       }
     });
   }
-
-
-
-
-  }
-
-
-
-
-
-
-
-
-
+}
