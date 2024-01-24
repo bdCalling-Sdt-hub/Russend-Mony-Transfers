@@ -184,50 +184,115 @@ class AmountSendController extends GetxController {
   Future<void> addTransactionRepo(String token) async {
     print("===================> object");
 
-    Map<String, String> body = {
+
+    var body = {
       "firstName": "Shakib",
       "lastName": "Elahi",
       "phoneNumber": "01745589658",
-      "amountToSent": 5000.toString(),
+      "amountToSent": 5000,
       "ammountToSentCurrency": "RUB",
-      "amountToReceive": 15000.toString(),
+      "amountToReceive": 15000,
       "amountToReceiveCurrency": "XAF",
-      "exchangeRate": 30.toString(),
-      "hiddenFees": 3.toString(),
+      "exchangeRate": 30,
+      "hiddenFees": 3,
       "paymentMethod": "Orange Money",
-      "country": "65aa15210b9179adf1c4b6b7"
+      "country": "65aa15210b9179adf1c4b6b7",
     };
 
-    print("===================>$body");
+    dynamic encodedBody = jsonEncode(body);
+
+    print("===================>$encodedBody\n \n\n\n");
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
-    try {
-      var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
-      print("apiResponseModel");
-      print(apiResponseModel.statusCode.toString());
-      print(apiResponseModel.message.toString());
-      print(apiResponseModel.responseJson.toString());
+    var response =await http.post(Uri.parse(ApiUrl.allTransactions), body: body, headers: header) ;
 
-      if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-        // Get.toNamed(AppRoute.enterPassCode);
-      } else if (apiResponseModel.statusCode == 201) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-        // Get.toNamed(AppRoute.enterPassCode);
-      } else if (apiResponseModel.statusCode == 401) {
-        var data = jsonDecode(apiResponseModel.responseJson);
-      } else {
-        Get.snackbar(
-            apiResponseModel.statusCode.toString(), apiResponseModel.message);
-      }
-    } catch (error) {
-      // Handle any exceptions that might occur during the API call
-      print("Error: $error");
-      Get.snackbar("Error", "An error occurred during the API call");
-    }
+    print(response) ;
+    print(response.statusCode) ;
+
+
+    ///=========================================> Postman Code <============================================
+
+    // var headers = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFiNDYzNDdjMzc0MDU0NjM5OTlmZmEiLCJlbWFpbCI6ImRldmVsb3Blcm5haW11bDAwQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA2MDY2NDkxLCJleHAiOjE3MDg2NTg0OTF9.k7ty1SXNoAL-jG5VhKGNI8IHmwFz90WSwGsd7KP3Yfs',
+    //   'Cookie': 'i18next=en'
+    // };
+    // var request = http.Request('POST', Uri.parse('192.168.10.18:3000/api/transactions'));
+    // request.body = json.encode({
+    //   "firstName": "Shakib",
+    //   "lastName": "Elahi",
+    //   "phoneNumber": "01745589658",
+    //   "amountToSent": 5000,
+    //   "ammountToSentCurrency": "RUB",
+    //   "amountToReceive": 15000,
+    //   "amountToReceiveCurrency": "XAF",
+    //   "exchangeRate": 30,
+    //   "hiddenFees": 3,
+    //   "paymentMethod": "Orange Money",
+    //   "country": "65aa15210b9179adf1c4b6b7"
+    // });
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    // }
+    // else {
+    //   print(response.reasonPhrase);
+    // }
+
+///=========================================> Postman Code <============================================
+    // var body = {
+    //   "firstName": "Shakib",
+    //   "lastName": "Elahi",
+    //   "phoneNumber": "01745589658",
+    //   "amountToSent": 5000,
+    //   "ammountToSentCurrency": "RUB",
+    //   "amountToReceive": 15000,
+    //   "amountToReceiveCurrency": "XAF",
+    //   "exchangeRate": 30,
+    //   "hiddenFees": 3,
+    //   "paymentMethod": "Orange Money",
+    //   "country": "65aa15210b9179adf1c4b6b7",
+    // };
+    //
+    // String encodedBody = jsonEncode(body);
+    //
+    // print("===================>$encodedBody\n \n\n\n");
+    // Map<String, String> header = {'Authorization': "Bearer $token"};
+    //
+    // try {
+    //   var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, encodedBody, header);
+    //
+    //   print("apiResponseModel");
+    //   print(apiResponseModel.statusCode.toString());
+    //   print(apiResponseModel.message.toString());
+    //   print(apiResponseModel.responseJson.toString());
+    //
+    //   if (apiResponseModel.statusCode == 200) {
+    //     var json = jsonDecode(apiResponseModel.responseJson);
+    //     // Get.toNamed(AppRoute.enterPassCode);
+    //   } else if (apiResponseModel.statusCode == 201) {
+    //     var json = jsonDecode(apiResponseModel.responseJson);
+    //     // Get.toNamed(AppRoute.enterPassCode);
+    //   } else if (apiResponseModel.statusCode == 401) {
+    //     var data = jsonDecode(apiResponseModel.responseJson);
+    //   } else {
+    //     Get.snackbar(
+    //         apiResponseModel.statusCode.toString(), apiResponseModel.message);
+    //   }
+    // } catch (error) {
+    //   // Handle any exceptions that might occur during the API call
+    //   print("Error: $error");
+    //   Get.snackbar("Error", "An error occurred during the API call");
+    // }
 
     print("===================>fdhfhfd");
   }
+
+
+
 
 }

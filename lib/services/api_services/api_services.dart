@@ -10,7 +10,7 @@ import '../../global/api_response_model.dart';
 
 class NetworkApiService {
   Future<ApiResponseModel> postApi(
-      String url, Map<String, dynamic> body, Map<String, String> header,
+      String url, body, header,
       {isHeader = true}) async {
     dynamic responseJson;
 
@@ -74,6 +74,28 @@ class NetworkApiService {
     try {
       final response = await http
           .put(Uri.parse(url), body: body, headers: header)
+          .timeout(const Duration(seconds: 30));
+      responseJson = handleResponse(response);
+    } on SocketException {
+      Utils.toastMessage("please, check your internet connection".tr) ;
+      return ApiResponseModel(503, "No internet connection".tr, '');
+    } on FormatException {
+      return ApiResponseModel(400, "Bad Response Request".tr, '');
+    } on TimeoutException {
+      Utils.toastMessage("please, check your internet connection".tr) ;
+      return ApiResponseModel(408, "Request Time Out".tr, "");
+    }
+
+    return responseJson;
+  }
+
+  Future<ApiResponseModel> patchApi(
+      String url, Map<String, String> body, Map<String, String> header) async {
+    dynamic responseJson;
+
+    try {
+      final response = await http
+          .patch(Uri.parse(url), body: body, headers: header)
           .timeout(const Duration(seconds: 30));
       responseJson = handleResponse(response);
     } on SocketException {

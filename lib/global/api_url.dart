@@ -37,6 +37,7 @@ class ApiUrl {
   static const String notification = "$baseUrl/api/notifications" ;
   static const String paymentInfo = "$baseUrl/api/payment-info" ;
   static const String verifyOldPasscode = "$baseUrl/api/users/verify-old-passcode" ;
+  static const String changePasscode = "$baseUrl/api/users/change-passcode" ;
 
 
 }

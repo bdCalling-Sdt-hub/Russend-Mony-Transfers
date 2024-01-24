@@ -44,7 +44,7 @@ class ChangePasscode extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.h),
                   child: PinCodeTextField(
-                    controller: changePasscodeController.passcodeController,
+                    controller: changePasscodeController.enterPasscodeController,
                     cursorColor: AppColors.black100,
                     obscureText: true,
                     enablePinAutofill: true,
@@ -98,13 +98,16 @@ class ChangePasscode extends StatelessWidget {
                   buttonRadius: 50.r,
                   titleSize: 14.sp,
                   buttonWidth: 150.w,
-                  onPressed: () => Get.toNamed(AppRoute.newPasscode),
+                  onPressed: () {
+                    changePasscodeController.getIsisLogIn() ;
+                    // Get.toNamed(AppRoute.newPasscode),
+                  }
                 ),
               ),
               Obx(() => changePasscodeController.disableKeyboard.value
                   ? const SizedBox()
                   : CustomKeyboard(
-                      controller: changePasscodeController.passcodeController))
+                      controller: changePasscodeController.enterPasscodeController))
             ],
           ),
         ),

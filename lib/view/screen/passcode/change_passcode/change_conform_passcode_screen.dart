@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/confirm_new_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
@@ -11,8 +12,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class ChangeConformPasscodeScreen extends StatelessWidget {
   ChangeConformPasscodeScreen({super.key});
 
-  TextEditingController controller = TextEditingController();
-
+  ConfirmPasscodeController confirmPasscodeController = Get.put(ConfirmPasscodeController()) ;
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -39,7 +39,7 @@ class ChangeConformPasscodeScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.h),
                   child: PinCodeTextField(
-                    controller: controller,
+                    controller: confirmPasscodeController.confirmPasscodeController,
                     cursorColor: AppColors.black100,
                     obscureText: true,
                     enablePinAutofill: true,
@@ -84,10 +84,10 @@ class ChangeConformPasscodeScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   titleSize: 14.sp,
                   buttonWidth: 150.w,
-                  onPressed: () => Get.toNamed(AppRoute.transaction),
+                  onPressed: () => confirmPasscodeController.getIsisLogIn(),
                 ),
               ),
-              CustomKeyboard(controller: controller)
+              CustomKeyboard(controller: confirmPasscodeController.confirmPasscodeController)
             ],
           ),
         ),

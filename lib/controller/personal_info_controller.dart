@@ -40,6 +40,8 @@ class PersonalInfoController extends GetxController {
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
     isLoading.value = true;
+    print("===================> ${ApiUrl.user}/$id");
+
 
     networkApiService
         .getApi("${ApiUrl.user}/$id", header)
