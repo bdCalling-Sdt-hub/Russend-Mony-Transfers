@@ -107,19 +107,24 @@ class PaymentMethodFinal extends StatelessWidget {
                         SizedBox(
                           height: 8.h,
                         ),
-                        CustomButton(
-                            titleText: "I Made the payment".tr,
-                            buttonRadius: 20.r,
-                            titleColor: AppColors.white85,
-                            buttonWidth: double.infinity,
-                            titleSize: 24.sp,
-                            onPressed: () {
-                              amountSendController.getIsisLogIn() ;
-                              // Get.toNamed(AppRoute.transactionSuccessScreen);
-                            })
+
                       ],
                     ),
         ),
+
+      ),
+      bottomNavigationBar:  Padding(
+        padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w, top: 10.h),
+        child: CustomButton(
+            titleText: "I Made the payment".tr,
+            buttonRadius: 20.r,
+            titleColor: AppColors.white85,
+            buttonWidth: double.infinity,
+            titleSize: 24.sp,
+            onPressed: () {
+              amountSendController.getIsisLogIn() ;
+              // Get.toNamed(AppRoute.transactionSuccessScreen);
+            }),
       ),
     );
   }

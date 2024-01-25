@@ -20,6 +20,7 @@ class AmountSendController extends GetxController {
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
+  RxString paymentMethod = "Orange Money".obs ;
 
   HiddenFeesModel? hiddenFeesModelInfo;
   PaymentInfoModel? paymentInfoModelInfo;
@@ -45,6 +46,20 @@ class AmountSendController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
+  Future<void> getIsLogIn() async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
+      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
+
+      hiddenFeeRepo(sharedPreferenceHelper.accessToken);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+
   Future<void> exchangeRates() async {
     print("exchangeRates");
 
@@ -52,7 +67,6 @@ class AmountSendController extends GetxController {
       final url = Uri.parse(ApiUrl.exchangeApi);
 
       var response = await http.get(url);
-      print(response.statusCode.toString());
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
@@ -63,12 +77,10 @@ class AmountSendController extends GetxController {
         xafRate.value = data["XAF"];
         rubRate.value = data["RUB"];
 
-        print(rubRate.toString());
-        print(xafRate.toString());
-        print(success.toString());
+
       } else {}
     } catch (e) {
-      print("error");
+      print("error $e");
     }
   }
 
@@ -79,29 +91,33 @@ class AmountSendController extends GetxController {
   Future<void> hiddenFeeRepo(String token) async {
     print("===================> hiddenFeeRepo");
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
 
-    isLoading.value = true;
+    if(hiddenFeesModelInfo == null) {
+      Map<String, String> header = {'Authorization': "Bearer $token"};
 
-    networkApiService.getApi(ApiUrl.hiddenFee, header).then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
+      isLoading.value = true;
 
-      isLoading.value = false;
 
-      if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-        hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
-      } else if (apiResponseModel.statusCode == 201) {
-        var json = jsonDecode(apiResponseModel.responseJson);
+      networkApiService.getApi(ApiUrl.hiddenFee, header).then((apiResponseModel) {
 
-        hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
-      } else {
-        Get.snackbar(
-            apiResponseModel.statusCode.toString(), apiResponseModel.message);
-      }
-    });
+
+        isLoading.value = false;
+
+        if (apiResponseModel.statusCode == 200) {
+          var json = jsonDecode(apiResponseModel.responseJson);
+          hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
+        } else if (apiResponseModel.statusCode == 201) {
+          var json = jsonDecode(apiResponseModel.responseJson);
+
+          hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
+        } else {
+          Get.snackbar(
+              apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        }
+      });
+    }
+
+
   }
 
   ///========================> payment method final Screen <=====================
@@ -125,9 +141,7 @@ class AmountSendController extends GetxController {
     networkApiService
         .getApi(ApiUrl.paymentInfo, header, isHeader: false)
         .then((apiResponseModel) {
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
+
       isLoadingFinalScreen.value = false;
 
       if (apiResponseModel.statusCode == 200) {
@@ -147,8 +161,6 @@ class AmountSendController extends GetxController {
 
       sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
       sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "Transaction ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
 
       addTransactionRepo(sharedPreferenceHelper.accessToken);
     } catch (e) {
@@ -159,139 +171,58 @@ class AmountSendController extends GetxController {
   Future<void> addTransactionRepo(String token) async {
     print("===================> object");
 
+    ///=========================================> main Code <============================================
     var body = {
-      "firstName": "Shakib",
-      "lastName": "Elahi",
-      "phoneNumber": "01745589658",
-      "amountToSent": 5000,
-      "ammountToSentCurrency": "RUB",
-      "amountToReceive": 15000,
-      "amountToReceiveCurrency": "XAF",
-      "exchangeRate": 30,
-      "hiddenFees": 30,
-      "paymentMethod": "Orange Money",
-      "country": "65aa15210b9179adf1c4b6b7"
+      "firstName": firstNameController.text,
+      "lastName": lastNameController.text,
+      "phoneNumber": "$countryCode${numberController.text}",
+      "amountToSent": amountController.text,
+      "ammountToSentCurrency": amountToSentCurrency,
+      "amountToReceive": receiveController.text,
+      "amountToReceiveCurrency": amountToReceiveCurrency,
+      "exchangeRate": xafRate.round().toString(),
+      "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive! ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()! : " ",
+      "paymentMethod":  paymentMethod.value,
+      "country": "$countryId",
     };
 
-    dynamic encodedBody = jsonEncode(body);
 
-    print("===================>$encodedBody\n \n\n\n");
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
-    var response = await http.post(Uri.parse("http://192.168.10.18:3000/api/transactions"),
-        body: body, headers: header);
+    try {
+      var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
-    print(response.body);
+      if (apiResponseModel.statusCode == 200) {
+        Get.toNamed(AppRoute.transactionSuccessScreen);
+        amountController.clear() ;
+        receiveController.clear() ;
+        firstNameController.clear() ;
+        lastNameController.clear() ;
+        numberController.clear() ;
+      } else if (apiResponseModel.statusCode == 201) {
+        Get.toNamed(AppRoute.transactionSuccessScreen);
+        amountController.clear() ;
+        receiveController.clear() ;
+        firstNameController.clear() ;
+        lastNameController.clear() ;
+        numberController.clear() ;
+      } else if (apiResponseModel.statusCode == 401) {
+        var data = jsonDecode(apiResponseModel.responseJson);
+      } else {
+        Get.snackbar(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
+      }
+    } catch (error) {
+      // Handle any exceptions that might occur during the API call
+      print("Error: $error");
+      Get.snackbar("Error", "An error occurred during the API call");
+    }
 
-    ///=========================================> Postman Code <============================================
 
-    // var headers = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFiNDYzNDdjMzc0MDU0NjM5OTlmZmEiLCJlbWFpbCI6ImRldmVsb3Blcm5haW11bDAwQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA2MDY2NDkxLCJleHAiOjE3MDg2NTg0OTF9.k7ty1SXNoAL-jG5VhKGNI8IHmwFz90WSwGsd7KP3Yfs',
-    //   'Cookie': 'i18next=en'
-    // };
-    // var request = http.Request('POST', Uri.parse('192.168.10.18:3000/api/transactions'));
-    // request.body = json.encode({
-    //   "firstName": "Shakib",
-    //   "lastName": "Elahi",
-    //   "phoneNumber": "01745589658",
-    //   "amountToSent": 5000,
-    //   "ammountToSentCurrency": "RUB",
-    //   "amountToReceive": 15000,
-    //   "amountToReceiveCurrency": "XAF",
-    //   "exchangeRate": 30,
-    //   "hiddenFees": 3,
-    //   "paymentMethod": "Orange Money",
-    //   "country": "65aa15210b9179adf1c4b6b7"
-    // });
-    // request.headers.addAll(headers);
-    //
-    // http.StreamedResponse response = await request.send();
-    //
-    // if (response.statusCode == 200) {
-    //   print(await response.stream.bytesToString());
-    // }
-    // else {
-    //   print(response.reasonPhrase);
-    // }
-
-    ///=========================================> Postman Code <============================================
-    // var body = {
-    //   "firstName": "Shakib",
-    //   "lastName": "Elahi",
-    //   "phoneNumber": "01745589658",
-    //   "amountToSent": 5000,
-    //   "ammountToSentCurrency": "RUB",
-    //   "amountToReceive": 15000,
-    //   "amountToReceiveCurrency": "XAF",
-    //   "exchangeRate": 30,
-    //   "hiddenFees": 3,
-    //   "paymentMethod": "Orange Money",
-    //   "country": "65aa15210b9179adf1c4b6b7",
-    // };
-    //
-    // String encodedBody = jsonEncode(body);
-    //
-    // print("===================>$encodedBody\n \n\n\n");
-    // Map<String, String> header = {'Authorization': "Bearer $token"};
-    //
-    // try {
-    //   var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, encodedBody, header);
-    //
-    //   print("apiResponseModel");
-    //   print(apiResponseModel.statusCode.toString());
-    //   print(apiResponseModel.message.toString());
-    //   print(apiResponseModel.responseJson.toString());
-    //
-    //   if (apiResponseModel.statusCode == 200) {
-    //     var json = jsonDecode(apiResponseModel.responseJson);
-    //     // Get.toNamed(AppRoute.enterPassCode);
-    //   } else if (apiResponseModel.statusCode == 201) {
-    //     var json = jsonDecode(apiResponseModel.responseJson);
-    //     // Get.toNamed(AppRoute.enterPassCode);
-    //   } else if (apiResponseModel.statusCode == 401) {
-    //     var data = jsonDecode(apiResponseModel.responseJson);
-    //   } else {
-    //     Get.snackbar(
-    //         apiResponseModel.statusCode.toString(), apiResponseModel.message);
-    //   }
-    // } catch (error) {
-    //   // Handle any exceptions that might occur during the API call
-    //   print("Error: $error");
-    //   Get.snackbar("Error", "An error occurred during the API call");
-    // }
-
-    print("===================>fdhfhfd");
   }
 
   ///=================================================> Amount Send Keyboard <==========================================
 
-  // Future<void> youPay(String stringAmount) async {
-  //   print(stringAmount);
-  //
-  //   // if (success.value) {
-  //   var amount = double.parse(stringAmount);
-  //   var rate = xafRate.value / rubRate.value;
-  //   var receiveAmount = rate * amount;
-  //   print("================================> $receiveAmount") ;
-  //   receiveController.text = receiveAmount.toString();
-  //   // } else {
-  //   //   print("api not hit");
-  //   // }
-  // }
-
-  // Future<void> receiveAmount(String stringAmount) async {
-  //   print(stringAmount);
-  //
-  //   if (success.value) {
-  //     var amount = double.parse(stringAmount);
-  //     var rate = rubRate.value / xafRate.value;
-  //     var receiveAmount = rate * amount;
-  //     amountController.text = receiveAmount.toString();
-  //   } else {
-  //     print("api not hit");
-  //   }
-  // }
 
   void youPay(String value, TextEditingController textController) {
     if (value == 'Forgot') {
@@ -303,23 +234,21 @@ class AmountSendController extends GetxController {
         if (textController.text.isNotEmpty) {
           var amount = double.parse(textController.text);
           var rate = xafRate.value / rubRate.value;
-          var receiveAmount = rate * amount;
+          var receiveAmount = (rate * amount).round();
           receiveController.text = receiveAmount.toString();
         } else {
-          receiveController.text = "0";
+          receiveController.text = "";
         }
 
-        print("================================> $receiveAmount");
       } else {
-        receiveController.text = "0";
+        receiveController.text = "";
       }
     } else {
       textController.text += value;
 
       var amount = double.parse(textController.text);
       var rate = xafRate.value / rubRate.value;
-      var receiveAmount = rate * amount;
-      print("================================> $receiveAmount");
+      var receiveAmount = (rate * amount).round();
       receiveController.text = receiveAmount.toString();
     }
   }
@@ -335,22 +264,21 @@ class AmountSendController extends GetxController {
         if (textController.text.isNotEmpty) {
           var amount = double.parse(textController.text);
           var rate = rubRate.value / xafRate.value;
-          var receiveAmount = rate * amount;
+          var receiveAmount = (rate * amount).round();
           amountController.text = receiveAmount.toString();
         } else {
-          amountController.text = "0";
+          amountController.text = "";
         }
       } else {
-        amountController.text = "0";
+        amountController.text = "";
       }
     } else {
       if (textController.text.contains(".") && value == ".") {
-        print("point is ");
       } else {
         textController.text += value;
         var amount = double.parse(textController.text);
         var rate = rubRate.value / xafRate.value;
-        var receiveAmount = rate * amount;
+        var receiveAmount = (rate * amount).round();
         amountController.text = receiveAmount.toString();
       }
     }

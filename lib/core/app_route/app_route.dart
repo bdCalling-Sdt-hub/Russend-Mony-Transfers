@@ -112,7 +112,7 @@ class AppRoute {
     GetPage(name: transactionHistory, page: () => TransactionHistory()),
     GetPage(name: contactSupport, page: () => ContactSupport()),
     GetPage(name: selectCountry, page: () => SelectCountry()),
-    GetPage(name: moneyDeliveryMethod, page: () => const MoneyDeliveryMethod()),
+    GetPage(name: moneyDeliveryMethod, page: () => MoneyDeliveryMethod()),
     GetPage(name: recipient, page: () => RecipientInformation()),
     GetPage(name: moneyDeliveryResume, page: () => const MoneyDeliveryResume()),
     GetPage(name: settingScreen, page: () => const SettingScreen()),
@@ -141,6 +141,6 @@ class AppRoute {
     GetPage(
         name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
     GetPage(name: resetPasscode, page: () => const ResetPasswordScreen()),
-    GetPage(name: deliveryMethodCameroon, page: () => const MoneyDeliveryMethodCameroon()),
+    GetPage(name: deliveryMethodCameroon, page: () => MoneyDeliveryMethodCameroon()),
   ];
 }

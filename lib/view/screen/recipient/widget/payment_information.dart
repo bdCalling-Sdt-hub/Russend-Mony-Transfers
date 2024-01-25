@@ -85,7 +85,7 @@ class PaymentInformation extends StatelessWidget {
                 onPressed: () {
                   final value = ClipboardData(text: amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!) ;
                   Clipboard.setData(value) ;
-                  Get.snackbar("Copy", "Copied to phone Number") ;
+                  Get.snackbar("Copy", "Copied to ${amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!}") ;
                 },
                   icon: SvgPicture.asset(AppIcons.copy))
             ],

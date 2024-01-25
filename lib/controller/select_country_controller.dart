@@ -14,27 +14,34 @@ class SelectCountryController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> allCountriesRepo() async {
-    print("===================> countriesRepo");
 
-    Map<String, String> header = {};
+    if(countryList == null) {
+      print("===================> countriesRepo");
 
-    isLoading.value = true;
+      Map<String, String> header = {};
 
-    networkApiService
-        .getApi(ApiUrl.countries, header, isHeader: false)
-        .then((apiResponseModel) {
-      isLoading.value = false;
+      isLoading.value = true;
 
-      if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-        countryList = CountryListModel.fromJson(json);
-      } else if (apiResponseModel.statusCode == 201) {
-        var json = jsonDecode(apiResponseModel.responseJson);
-        countryList = CountryListModel.fromJson(json);
-      } else {
-        Get.snackbar(
-            apiResponseModel.statusCode.toString(), apiResponseModel.message);
-      }
-    });
+
+      networkApiService
+          .getApi(ApiUrl.countries, header, isHeader: false)
+          .then((apiResponseModel) {
+        isLoading.value = false;
+
+        if (apiResponseModel.statusCode == 200) {
+          var json = jsonDecode(apiResponseModel.responseJson);
+          countryList = CountryListModel.fromJson(json);
+        } else if (apiResponseModel.statusCode == 201) {
+          var json = jsonDecode(apiResponseModel.responseJson);
+          countryList = CountryListModel.fromJson(json);
+        } else {
+          Get.snackbar(
+              apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        }
+      });
+    } else {
+
+    }
+
   }
 }

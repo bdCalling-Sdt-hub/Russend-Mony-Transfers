@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_images.dart';
@@ -10,7 +11,9 @@ import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 class MoneyDeliveryMethodCameroon extends StatelessWidget {
-  const MoneyDeliveryMethodCameroon({super.key});
+  MoneyDeliveryMethodCameroon({super.key});
+
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,11 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRoute.recipient),
+                        onTap: () {
+                          amountSendController.paymentMethod.value =
+                              "Orange Money";
+                          Get.toNamed(AppRoute.recipient);
+                        },
                         child: Container(
                           height: 100.h,
                           width: 150.w,
@@ -60,7 +67,11 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRoute.recipient),
+                        onTap: () {
+                          amountSendController.paymentMethod.value =
+                              "MTN Mobile Money";
+                          Get.toNamed(AppRoute.recipient);
+                        },
                         child: Container(
                           height: 100.h,
                           width: 150.w,
@@ -95,7 +106,11 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(text: "0%".tr, color: AppColors.primaryColor),
+                      Obx(() => CustomText(
+                          text: amountSendController.isLoading.value
+                              ? "%"
+                              : "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %",
+                          color: AppColors.primaryColor)),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

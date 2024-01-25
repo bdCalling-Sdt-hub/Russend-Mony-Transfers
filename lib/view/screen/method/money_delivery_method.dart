@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_images.dart';
@@ -9,7 +10,9 @@ import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 class MoneyDeliveryMethod extends StatelessWidget {
-  const MoneyDeliveryMethod({super.key});
+  MoneyDeliveryMethod({super.key});
+
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class MoneyDeliveryMethod extends StatelessWidget {
         backgroundColor: AppColors.background,
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 24.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -33,24 +36,36 @@ class MoneyDeliveryMethod extends StatelessWidget {
                   CustomText(
                     text: "Select how to deliver money to recipient".tr,
                     fontSize: 26.sp,
-                    bottom: 24.h,maxLines: 2,
+                    bottom: 24.h,
+                    maxLines: 2,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => Get.toNamed(AppRoute.recipient),
+                          onTap: () {
+                            amountSendController.paymentMethod.value =
+                                "Orange Money";
+                            Get.toNamed(AppRoute.recipient);
+                          },
                           child: Container(
                             height: 180.h,
                             decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.primaryColor,width: 1.w,style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(10.r),
-                                color: AppColors.white,
+                              border: Border.all(
+                                  color: AppColors.primaryColor,
+                                  width: 1.w,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: AppColors.white,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                              child: Image.asset(AppImages.orangeMoney, fit: BoxFit.fill,),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              child: Image.asset(
+                                AppImages.orangeMoney,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -68,14 +83,19 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomText(text: "Should arrive in".tr),
-                      CustomText(text: " a few minutes".tr,color: AppColors.primaryColor),
+                      CustomText(
+                          text: " a few minutes".tr,
+                          color: AppColors.primaryColor),
                     ],
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(text: "0%".tr,color: AppColors.primaryColor),
+                      Obx(() => CustomText(text: amountSendController.isLoading.value
+                          ? "%"
+                          : "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %",
+                          color: AppColors.primaryColor),),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

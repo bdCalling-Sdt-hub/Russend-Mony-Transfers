@@ -32,25 +32,11 @@ class _RecipientInformationState extends State<RecipientInformation> {
 
   @override
   void initState() {
-    getIsisLogIn();
+    amountSendController.exchangeRates() ;
     // TODO: implement initState
     super.initState();
   }
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      print(
-          "accessToken ====================================> ${sharedPreferenceHelper.accessToken.toString()}");
-
-      amountSendController.hiddenFeeRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   final formKey = GlobalKey<FormState>();
 
