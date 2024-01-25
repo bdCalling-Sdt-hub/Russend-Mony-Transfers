@@ -38,6 +38,7 @@ class CustomText extends StatelessWidget {
       padding:
           EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
       child: Text(
+
         textAlign: textAlign,
         text,
         maxLines: maxLines,

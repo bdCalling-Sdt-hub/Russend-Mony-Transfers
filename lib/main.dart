@@ -9,8 +9,8 @@ import 'package:money_transfers/utils/app_colors.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SocketServices socketServices = SocketServices();
-  NotificationService notificationService = NotificationService() ;
-  notificationService.initLocalNotification() ;
+  // NotificationService notificationService = NotificationService() ;
+  // notificationService.initLocalNotification() ;
   socketServices.connectToSocket();
   runApp(const MyApp());
 }

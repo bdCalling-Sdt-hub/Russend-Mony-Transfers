@@ -11,7 +11,7 @@ class SocketServices{
   late io.Socket socket;
   bool show = false;
 
-  NotificationService notificationService = NotificationService() ;
+  // NotificationService notificationService = NotificationService() ;
 
 
 
@@ -34,7 +34,7 @@ class SocketServices{
 
     socket.on('user-notification::65aa15210b9179adf1c4b6ae', (data) {
       print("================> get Data on socket: $data");
-      notificationService.showNotification(data) ;
+      // notificationService.showNotification(data) ;
     });
   }
 

@@ -6,16 +6,13 @@ import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/controller/transaction_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
-import 'package:money_transfers/models/transaction_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../models/enter_passcode_model.dart';
 
 class Transaction extends StatefulWidget {
   Transaction({super.key});
@@ -32,27 +29,6 @@ class _TransactionState extends State<Transaction> {
 
   EnterPasscodeController enterPasscodeController =
       Get.put(EnterPasscodeController());
-
-  @override
-  void initState() {
-    getIsisLogIn();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken =
-          pref.getString("accessToken") ?? "aa";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      transactionController.transactionRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +52,7 @@ class _TransactionState extends State<Transaction> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+        body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,179 +64,177 @@ class _TransactionState extends State<Transaction> {
                   color: AppColors.black50,
                   top: 24.h,
                   bottom: 30.h),
-              Obx(() => transactionController.isLoading.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : transactionController.transactionModelInfo == null
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+              Expanded(
+                child: Obx(() => transactionController.transactionList.isEmpty
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Obx(() => ListView.builder(
+                          controller: transactionController.scrollController,
                           itemCount: transactionController.isLoading.value
-                              ? transactionController
-                                      .transactionModelInfo!
-                                      .data!
-                                      .attributes!
-                                      .transactionList!
-                                      .length +
-                                  1
-                              : transactionController.transactionModelInfo!
-                                  .data!.attributes!.transactionList!.length,
+                              ? transactionController.transactionList.length + 1
+                              : transactionController.transactionList.length,
                           itemBuilder: (context, index) {
-                            var transactionModel = transactionController
-                                .transactionModelInfo!
-                                .data!
-                                .attributes!
-                                .transactionList![index];
-
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 24.h),
-                              child: InkWell(
-                                onTap: () {
-                                  transactionController.transactionDetailsRepo(
-                                      sharedPreferenceHelper.accessToken,
-                                      transactionModel.sId!);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          height: 50.h,
-                                          width: 50.w,
-                                          padding: EdgeInsets.all(4.h),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: AppColors.primaryColor,
-                                                  width: 1.w,
-                                                  style: BorderStyle.solid),
-                                              shape: BoxShape.circle,
-                                              color: AppColors.gray20),
-                                          child: const CustomImage(
-                                              imageSrc: AppIcons.arrow),
-                                        ),
-                                        Positioned(
-                                          bottom: 0,
-                                          right: 0,
-                                          child: Container(
-                                            height: 15.h,
-                                            width: 15.w,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: SvgPicture.network(
-                                                "${transactionModel.country!.countryFlag}",
-                                                fit: BoxFit.fill),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: 8.w),
-                                    Flexible(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                            if (index <
+                                transactionController.transactionList.length) {
+                              var transactionModel =
+                                  transactionController.transactionList[index];
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 24.h),
+                                child: InkWell(
+                                  onTap: () {
+                                    transactionController
+                                        .transactionDetailsRepo(
+                                            sharedPreferenceHelper.accessToken,
+                                            transactionModel.sId!);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Stack(
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Flexible(
-                                                  child: CustomText(
-                                                      text:
-                                                          "${transactionModel.firstName} ${transactionModel.lastName}",
-                                                      fontSize: 18.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      right: 24.h,
-                                                      textAlign:
-                                                          TextAlign.start)),
-                                              CustomText(
-                                                  text:
-                                                      "${transactionModel.amountToSent} ${transactionModel.amountToReceiveCurrency}",
-                                                  fontSize: 18.sp,
-                                                  fontWeight: FontWeight.w600),
-                                            ],
+                                          Container(
+                                            height: 50.h,
+                                            width: 50.w,
+                                            padding: EdgeInsets.all(4.h),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color:
+                                                        AppColors.primaryColor,
+                                                    width: 1.w,
+                                                    style: BorderStyle.solid),
+                                                shape: BoxShape.circle,
+                                                color: AppColors.gray20),
+                                            child: const CustomImage(
+                                                imageSrc: AppIcons.arrow),
                                           ),
-                                          SizedBox(height: 4.h),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              CustomText(
-                                                  text:
-                                                      "To mobile : ${transactionModel.phoneNumber}",
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.black50,
-                                                  textAlign: TextAlign.start),
-                                              Center(
-                                                  child: transactionModel
-                                                              .status ==
-                                                          "pending"
-                                                      ? SizedBox(
-                                                          width: 12.w,
-                                                          height: 12.h,
-                                                          child:
-                                                              const CircularProgressIndicator(
-                                                            strokeWidth: 2,
-                                                          ),
-                                                        )
-                                                      : transactionModel
-                                                                  .status ==
-                                                              "cancelled"
-                                                          ? CustomImage(
-                                                              imageSrc:
-                                                                  AppIcons
-                                                                      .cancelled,
-                                                              size: 20.h,
-                                                              imageColor: AppColors
-                                                                  .black100)
-                                                          : transactionModel
-                                                                      .status ==
-                                                                  "transferred"
-                                                              ? CustomImage(
-                                                                  imageSrc:
-                                                                      AppIcons
-                                                                          .success,
-                                                                  size: 20.h,
-                                                                  imageColor: AppColors
-                                                                      .black100)
-                                                              : CustomImage(
-                                                                  imageSrc: AppIcons
-                                                                      .transferred,
-                                                                  imageType:
-                                                                      ImageType
-                                                                          .png,
-                                                                  size: 20.h,
-                                                                  imageColor:
-                                                                      AppColors
-                                                                          .black100)),
-                                            ],
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: Container(
+                                              height: 15.h,
+                                              width: 15.w,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: SvgPicture.network(
+                                                  "${transactionModel.country!.countryFlag}",
+                                                  fit: BoxFit.fill),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                  ],
+                                      SizedBox(width: 8.w),
+                                      Flexible(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Flexible(
+                                                    child: CustomText(
+                                                        text:
+                                                            "${transactionModel.firstName} ${transactionModel.lastName}",
+                                                        fontSize: 18.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        right: 24.h,
+                                                        textAlign:
+                                                            TextAlign.start)),
+                                                CustomText(
+                                                    text:
+                                                        "${transactionModel.amountToSent} ${transactionModel.amountToReceiveCurrency}",
+                                                    fontSize: 18.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ],
+                                            ),
+                                            SizedBox(height: 4.h),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                CustomText(
+                                                    text:
+                                                        "To mobile : ${transactionModel.phoneNumber}",
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.black50,
+                                                    textAlign: TextAlign.start),
+                                                Center(
+                                                    child: transactionModel
+                                                                .status ==
+                                                            "pending"
+                                                        ? SizedBox(
+                                                            width: 12.w,
+                                                            height: 12.h,
+                                                            child:
+                                                                const CircularProgressIndicator(
+                                                              strokeWidth: 2,
+                                                            ),
+                                                          )
+                                                        : transactionModel
+                                                                    .status ==
+                                                                "cancelled"
+                                                            ? CustomImage(
+                                                                imageSrc: AppIcons
+                                                                    .cancelled,
+                                                                size: 20.h,
+                                                                imageColor:
+                                                                    AppColors
+                                                                        .black100)
+                                                            : transactionModel
+                                                                        .status ==
+                                                                    "transferred"
+                                                                ? CustomImage(
+                                                                    imageSrc: AppIcons
+                                                                        .success,
+                                                                    size: 20.h,
+                                                                    imageColor: AppColors
+                                                                        .black100)
+                                                                : CustomImage(
+                                                                    imageSrc:
+                                                                        AppIcons
+                                                                            .transferred,
+                                                                    imageType:
+                                                                        ImageType
+                                                                            .png,
+                                                                    size: 20.h,
+                                                                    imageColor:
+                                                                        AppColors
+                                                                            .black100)),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
                           },
-                        ))
+                        ))),
+              )
             ],
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+          padding: EdgeInsets.only(bottom: 24.h, left: 20.w, right: 20.w),
           child: CustomButton(
             titleText: "Send".tr,
             buttonRadius: 25.r,

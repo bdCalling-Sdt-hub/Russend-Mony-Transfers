@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
+                              InkWell(
                                 onTap: () {
                                   if (profile[index]["title"] ==
                                       "Personal info".tr) {

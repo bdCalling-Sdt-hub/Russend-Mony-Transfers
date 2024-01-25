@@ -44,7 +44,6 @@ class _RecipientInformationState extends State<RecipientInformation> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       extendBody: true,
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
@@ -149,18 +148,20 @@ class _RecipientInformationState extends State<RecipientInformation> {
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: CustomButton(
-              titleText: "Continue".tr,
-              buttonRadius: 50.r,
-              buttonHeight: 56,
-              buttonWidth: 155.w,
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  Get.toNamed(AppRoute.amountSend);
-                }
-              }),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomButton(
+                titleText: "Continue".tr,
+                buttonRadius: 50.r,
+                buttonHeight: 56,
+                buttonWidth: 155.w,
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Get.toNamed(AppRoute.amountSend);
+                  }
+                }),
+          ],
         ),
       ),
     );
