@@ -15,6 +15,7 @@ import 'package:money_transfers/view/screen/passcode/reset_passcode/reset_passco
 import 'package:money_transfers/view/screen/password/create_password_successful/create_password_successful_screen.dart';
 import 'package:money_transfers/view/screen/password/forgot_password_screen.dart';
 import 'package:money_transfers/view/screen/phone_number/phone_number.dart';
+import 'package:money_transfers/view/screen/test_screen/test_screen.dart';
 import 'package:money_transfers/view/screen/verification/sign_up_verification/sign_up_verification.dart';
 import 'package:money_transfers/view/screen/profile/appearance/appearance_screen.dart';
 import 'package:money_transfers/view/screen/profile/edit_email/edit_email_screen.dart';
@@ -43,6 +44,14 @@ import '../../view/screen/signIn/logIn_screen.dart';
 import '../../view/screen/verification/forgot_password_verification/forgot_password_verification.dart';
 
 class AppRoute {
+  static const String test = "/test_screen.dart";
+
+
+
+
+
+
+
   static const String splashScreen = "/splash_screen";
   static const String onboardScreen = "/onboard_screen";
   static const String phoneNumber = "/phone_Number";
@@ -93,6 +102,10 @@ class AppRoute {
   static const String deliveryMethodCameroon = "/money_delivery_method_cameroon.dart";
 
   static List<GetPage> routes = [
+    GetPage(name: test, page: () => TestScreen()),
+
+
+
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
     GetPage(name: phoneNumber, page: () => const PhoneNumber()),

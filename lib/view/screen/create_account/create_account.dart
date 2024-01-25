@@ -95,7 +95,7 @@ class CreateAccount extends StatelessWidget {
                     Obx(() => signUpController.isLoadingSignUpScreen.value
                         ? const Center(child: CircularProgressIndicator())
                         : CustomButton(
-                            titleText: "Sign up",
+                            titleText: "Sign up".tr,
                             buttonHeight: 60 * h,
                             titleSize: 16.sp,
                             buttonWidth: double.infinity,
@@ -121,6 +121,8 @@ class CreateAccount extends StatelessWidget {
                     const Align(
                         alignment: Alignment.center,
                         child: AlreadyHaveAccount()),
+              SizedBox(
+                  height: 16 * h,),
                   ]),
             ),
           ),

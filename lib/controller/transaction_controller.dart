@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
+import 'package:intl/intl.dart';
+
 
 class TransactionController extends GetxController {
   TransactionModel? transactionModelInfo;
@@ -19,6 +21,7 @@ class TransactionController extends GetxController {
 
   RxBool isLoading = false.obs;
   int page = 1;
+
 
   ScrollController scrollController = ScrollController();
 
@@ -117,4 +120,19 @@ class TransactionController extends GetxController {
       }
     });
   }
+
+
+
+
+  String formattedDate() {
+    DateTime currentTime = DateTime.now();
+    // Assuming transactionController.currentTime is a DateTime object
+    DateTime originalDate = currentTime;
+    return DateFormat.yMMMM().format(originalDate);
+  }
+
+
+
+
+
 }

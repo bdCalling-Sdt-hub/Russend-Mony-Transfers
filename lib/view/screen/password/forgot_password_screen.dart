@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:money_transfers/controller/forget_password_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
@@ -71,7 +73,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         hintText: "Enter your email".tr,
                         validator: (value) {
                           if (value.contains("@")) {
-                            return null ;
+                            return null;
                           } else {
                             return "Enter your email".tr;
                           }
@@ -93,43 +95,47 @@ class ForgotPasswordScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Obx(
-                        () => forgetPasswordController.isLoadingEmailScreen.value
-                            ? LoadingContainer()
-                            : CustomButton(
-                                titleText: "Reset Password".tr,
-                                buttonRadius: 12.r,
-                                buttonWidth: double.infinity,
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    forgetPasswordController
-                                        .forgetPasswordRepo();
-                                  }
-                                  // Get.toNamed(AppRoute.forgotPasswordVerify);
-                                }),
+                        () =>
+                            forgetPasswordController.isLoadingEmailScreen.value
+                                ? LoadingContainer()
+                                : CustomButton(
+                                    titleText: "Reset Password".tr,
+                                    buttonRadius: 12.r,
+                                    buttonWidth: double.infinity,
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        forgetPasswordController
+                                            .forgetPasswordRepo();
+                                      }
+                                    }),
                       ),
                       SizedBox(
                         height: 16.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomText(
-                            text: "Already have an account? ".tr,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          SizedBox(
-                            width: 4.w,
-                          ),
-                          GestureDetector(
-                              onTap: () => Get.toNamed(AppRoute.createAccount),
-                              child: CustomText(
-                                text: "Sign in".tr,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Already have an account? ".tr,
+                              style: GoogleFonts.poppins(
+                                color: AppColors.black100,
                                 fontSize: 15.sp,
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w600,
-                              ))
-                        ],
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap =
+                                      () => Get.toNamed(AppRoute.createAccount),
+                                text: "Log in".tr,
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.primaryColor!,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                ))
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),

@@ -29,9 +29,9 @@ class _TransactionState extends State<Transaction> {
 
   EnterPasscodeController enterPasscodeController =
       Get.put(EnterPasscodeController());
-
   @override
   Widget build(BuildContext context) {
+
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -59,11 +59,12 @@ class _TransactionState extends State<Transaction> {
             children: [
               CustomText(text: "Recent transaction".tr, fontSize: 26.sp),
               CustomText(
-                  text: "OCTOBER 2023".tr,
-                  fontSize: 16.sp,
-                  color: AppColors.black50,
-                  top: 24.h,
-                  bottom: 30.h),
+                text: transactionController.formattedDate(), // Use the formatted date here
+                fontSize: 16.sp,
+                color: AppColors.black50,
+                top: 24.h,
+                bottom: 30.h,
+              ),
               Expanded(
                 child: Obx(() => transactionController.transactionList.isEmpty
                     ? const Center(

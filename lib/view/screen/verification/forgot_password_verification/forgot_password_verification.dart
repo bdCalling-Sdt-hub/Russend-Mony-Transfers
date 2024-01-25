@@ -53,7 +53,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                           "Please enter the 6-digit code sent to your email "
                               .tr,
                       firstColor: AppColors.black50,
-                      secondText: "hemmykhom@gmail.com",
+                      secondText: forgetPasswordController.emailController.text,
                       secondColor: AppColors.black75,
                       thirdText: " to verify your email.".tr,
                       thirdColor: AppColors.black50),
@@ -139,8 +139,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                   Obx(
                     () => CustomText(
                         text:
-                            "You can resend the code in  ${forgetPasswordController.time}"
-                                .tr,
+                            "${"YouCanResendTheCodeIn".tr}   ${forgetPasswordController.time}",
                         fontSize: 16.sp,
                         top: 8.h,
                         style: true,

@@ -29,7 +29,7 @@ class AlreadyHaveAccount extends StatelessWidget {
           TextSpan(
               recognizer: TapGestureRecognizer()
                 ..onTap = () => Get.toNamed(AppRoute.logIn),
-              text: "Sign in".tr,
+              text: "Log in".tr,
               style: GoogleFonts.poppins(
                 color: AppColors.primaryColor!,
                 fontSize: 15.sp,

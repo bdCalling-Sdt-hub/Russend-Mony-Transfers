@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
-import 'package:money_transfers/services/notification_services.dart';
+import 'package:money_transfers/laguages.dart';
 import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
@@ -27,13 +27,16 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.noTransition,
+          locale: const Locale("fr", "FR"),
+          fallbackLocale: const Locale("fr", "FR"),
+          translations: Languages(),
           theme: ThemeData(
               appBarTheme: const AppBarTheme(
             elevation: 0,
             backgroundColor: AppColors.background,
           )),
           transitionDuration: const Duration(milliseconds: 200),
-          initialRoute: AppRoute.splashScreen,
+          initialRoute: AppRoute.test,
           navigatorKey: Get.key,
           getPages: AppRoute.routes,
         );

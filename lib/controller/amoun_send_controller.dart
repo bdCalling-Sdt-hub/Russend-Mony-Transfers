@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,9 @@ class AmountSendController extends GetxController {
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
+  final duration = const Duration(minutes: 10).obs ;
+  Timer? timer;
+  RxInt time = (10*60).obs;
   RxString paymentMethod = "Orange Money".obs ;
 
   HiddenFeesModel? hiddenFeesModelInfo;
@@ -32,7 +36,6 @@ class AmountSendController extends GetxController {
 
   RxString countryCode = "+237".obs;
   RxString countryId = "".obs;
-  String time = "9 : 25";
   RxBool isLoadingFinalScreen = false.obs;
   RxBool isLoadingFinalScreenButton = false.obs;
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
@@ -283,4 +286,20 @@ class AmountSendController extends GetxController {
       }
     }
   }
+
+
+  startTime() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      const addSeconds = 1;
+      final seconds = duration.value.inSeconds - addSeconds;
+      duration.value = Duration(seconds: seconds);
+      if (time.value != 0) {
+        time.value = seconds;
+        print(time.value) ;
+      } else {
+        timer?.cancel();
+      }
+    });
+  }
+
 }

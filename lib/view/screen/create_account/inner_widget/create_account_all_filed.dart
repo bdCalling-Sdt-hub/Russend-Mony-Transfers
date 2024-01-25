@@ -140,7 +140,7 @@ class CreateAccountAllFiled extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 16 * h, bottom: 4 * h),
           child: Text(
-            "Confirm Password".tr,
+            "ConfirmPassword".tr,
             style: GoogleFonts.plusJakartaSans(
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
@@ -148,7 +148,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           ),
         ),
         CustomTextField(
-          hintText: "Confirm Password".tr,
+          hintText: "ConfirmPassword".tr,
           paddingHorizontal: 24.w,
           controller: signUpController.confirmPasswordController,
           paddingVertical: 18 * h,

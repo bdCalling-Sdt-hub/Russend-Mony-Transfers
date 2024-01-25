@@ -19,6 +19,7 @@ class PaymentMethodFinal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    amountSendController.startTime() ;
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
@@ -68,8 +69,7 @@ class PaymentMethodFinal extends StatelessWidget {
                       children: [
                         PaymentTextRich(
                           firstText:
-                              "To make the payment you should log in your bank app (sberbank online) and send "
-                                  .tr,
+                              "To make the payment you should log in your bank app (sberbank online) and send".tr,
                           secondText:
                               "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           thirdText:
@@ -97,13 +97,13 @@ class PaymentMethodFinal extends StatelessWidget {
                         SizedBox(
                           height: 24.h,
                         ),
-                        RichTextWidget(
+                        Obx(() => RichTextWidget(
                           firstText: "You have ".tr,
                           secondColor: AppColors.redDark,
-                          secondText: amountSendController.time,
+                          secondText: "${amountSendController.duration}",
                           thirdText: " left to make the payment".tr,
                           textAlign: TextAlign.center,
-                        ),
+                        )),
                         SizedBox(
                           height: 8.h,
                         ),
