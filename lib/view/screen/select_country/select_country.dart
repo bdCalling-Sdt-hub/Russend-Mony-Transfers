@@ -81,7 +81,7 @@ class _SelectCountryState extends State<SelectCountry> {
                                       .countryCode.value = item.countryCode!;
                                   amountSendController
                                       .countryId.value = item.sId!;
-                                  amountSendController.getIsLogIn();
+                                  amountSendController.hiddenFeeRepo();
 
                                   if (item.isPaymentAvailable!) {
                                     if (item.paymentGateways!.length == 2) {

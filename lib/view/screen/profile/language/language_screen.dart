@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LanguageScreen extends StatefulWidget {
-  const LanguageScreen({super.key});
+class LanguageScreen extends StatelessWidget {
+  LanguageScreen({super.key});
 
-  @override
-  State<LanguageScreen> createState() => _LanguageScreenState();
-}
-
-class _LanguageScreenState extends State<LanguageScreen> {
-  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
-    List<String> language = ["English", "Francais"];
-
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -37,29 +31,65 @@ class _LanguageScreenState extends State<LanguageScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(text: "Language".tr, fontSize: 24.sp, bottom: 42.h),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(
-                      text: "English".tr,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w400),
-                  CustomImage(imageSrc: AppIcons.success, size: 18.h),
-                ],
+              InkWell(
+                onTap: () async {
+                  Get.updateLocale(const Locale("en", "US"));
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  pref.setString("languageCode", "en");
+                  pref.setString("countryCode", "US");
+                  SharedPreferenceHelper.localizationCountryCode = "US" ;
+                  SharedPreferenceHelper.localizationLanguageCode = "en" ;
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                        text: "English",
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w400),
+                    Center(
+                        child:
+                        SharedPreferenceHelper.localizationCountryCode ==
+                            "US"
+                            ? CustomImage(
+                            imageSrc: AppIcons.success,
+                            size: 18.h)
+                            : const SizedBox())
+                  ],
+                ),
               ),
               SizedBox(
                 height: 32.h,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(
-                      text: "Francais".tr,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w400),
-                ],
+              InkWell(
+                onTap: () async {
+                  Get.updateLocale(const Locale("fr", "FR"));
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  pref.setString("languageCode", "fr");
+                  pref.setString("countryCode", "FR");
+                  SharedPreferenceHelper.localizationCountryCode = "FR" ;
+                  SharedPreferenceHelper.localizationLanguageCode = "fr" ;
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                        text: "Francais",
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w400),
+                    Center(
+                        child:
+                        SharedPreferenceHelper.localizationCountryCode ==
+                            "FR"
+                            ? CustomImage(
+                            imageSrc: AppIcons.success,
+                            size: 18.h)
+                            : const SizedBox())
+                  ],
+                ),
               )
             ],
           ),

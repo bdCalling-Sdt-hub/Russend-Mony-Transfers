@@ -19,7 +19,6 @@ class PaymentMethodFinal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    amountSendController.startTime() ;
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
@@ -100,7 +99,7 @@ class PaymentMethodFinal extends StatelessWidget {
                         Obx(() => RichTextWidget(
                           firstText: "You have ".tr,
                           secondColor: AppColors.redDark,
-                          secondText: "${amountSendController.duration}",
+                          secondText: amountSendController.formattedDuration(),
                           thirdText: " left to make the payment".tr,
                           textAlign: TextAlign.center,
                         )),
@@ -122,7 +121,7 @@ class PaymentMethodFinal extends StatelessWidget {
             buttonWidth: double.infinity,
             titleSize: 24.sp,
             onPressed: () {
-              amountSendController.getIsisLogIn() ;
+              amountSendController.addTransactionRepo() ;
               // Get.toNamed(AppRoute.transactionSuccessScreen);
             }),
       ),

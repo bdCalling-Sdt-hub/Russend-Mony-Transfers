@@ -11,6 +11,7 @@ import 'package:money_transfers/view/screen/recipient/bottom_sheet/make_payment.
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../utils/app_colors.dart';
+import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/back/back.dart';
 import '../../widgets/custom_button/custom_button.dart';
 import 'widget/custom_keyboard.dart';
@@ -27,9 +28,7 @@ class AmountSendScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        leading: const Back(),
-      ),
+      appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         child: Column(

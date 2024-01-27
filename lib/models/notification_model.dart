@@ -5,7 +5,7 @@ class NotificationModel {
   Data? data;
 
   NotificationModel(
-      {this.status, this.statusCode, this.message, this.data});
+      {this.status, this.statusCode, this.message, this.data,});
 
   NotificationModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -82,7 +82,7 @@ class NotificationList {
   String? message;
   String? linkId;
   String? type;
-  String? role;
+  List<String>? role;
   String? receiver;
   String? createdAt;
   String? updatedAt;
@@ -104,7 +104,7 @@ class NotificationList {
     message = json['message'];
     linkId = json['linkId'];
     type = json['type'];
-    role = json['role'];
+    role = json['role'].cast<String>();
     receiver = json['receiver'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

@@ -9,7 +9,6 @@ class Languages extends Translations {
               "Transfer money quickly with Russend",
           "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.":
               "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.",
-          "English": "English",
           "Legal terms": "Legal terms",
           "Get started with Russend": "Get started with Russend",
           "Insert your phone number to get the verification code":
@@ -18,8 +17,7 @@ class Languages extends Translations {
           "Enter the verification code": "Enter the verification code",
           "We sent an SMS to +7 (913) 137-82-62":
               "We sent an SMS to +7 (913) 137-82-62",
-          "YouCanResendTheCodeIn":
-              "You can resend the code in",
+          "YouCanResendTheCodeIn": "You can resend the code in",
           "Create your account": "Create your account",
           "Last Name": "Last Name",
           "First Name": "First Name",
@@ -182,25 +180,23 @@ class Languages extends Translations {
           "Terms": "Terms",
           "and": " and ",
           "Conditions": "Conditions",
-          "Sign in": "Sign in"
-
+          "Sign in": "Sign in",
+          "Select the recipient's country": "Select the recipient's country"
         },
-
-
-
         'fr_FR': {
-          "Transfer money quickly with Russend": "Transférez de l'argent rapidement avec Russend",
-          "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.": "Faites l'expérience de transferts d'argent sans tracas avec Max Send ! Envoyez des fonds sans effort à vos amis et à votre famille depuis le confort de votre appareil mobile.",
-          "English": "French",
+          "Transfer money quickly with Russend":
+              "Transférez de l'argent rapidement avec Russend",
+          "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.":
+              "Faites l'expérience de transferts d'argent sans tracas avec Max Send ! Envoyez des fonds sans effort à vos amis et à votre famille depuis le confort de votre appareil mobile.",
           "Legal terms": "Termes légaux",
           "Get started with Russend": "Commencez avec Russend",
-          "Insert your phone number to get the verification code": "Insérez votre numéro de téléphone pour obtenir le code de vérification",
+          "Insert your phone number to get the verification code":
+              "Insérez votre numéro de téléphone pour obtenir le code de vérification",
           "Continue": "Continuer",
           "Enter the verification code": "Entrer le code de vérification",
           "We sent an SMS to +7 (913) 137-82-62":
               "Nous avons envoyé un SMS au +7 (913) 137-82-62",
-          "YouCanResendTheCodeIn":
-              "  Vous pouvez renvoyer le code dans",
+          "YouCanResendTheCodeIn": "  Vous pouvez renvoyer le code dans",
           "Create your account": "Créez votre compte",
           "Last Name": "Nom de famille",
           "First Name": "Prénom",
@@ -208,7 +204,8 @@ class Languages extends Translations {
           "Register": "Registre",
           "Welcome back, Adrien!": "Bon retour Adrien !",
           "Recent transaction": "Transaction récente",
-          "You have no recent transaction": "Vous n'avez aucune transaction récente",
+          "You have no recent transaction":
+              "Vous n'avez aucune transaction récente",
           "Send": "Envoyer",
           "Sent": "Envoyée",
           "Transaction ID": "identifiant de transaction",
@@ -222,13 +219,16 @@ class Languages extends Translations {
           "To help us serve you better, kindly have your transaction ID ready. This unique identifier can be found in your transaction located on your account dashboard.":
               "Pour nous aider à mieux vous servir, veuillez préparer votre identifiant de transaction. Cet identifiant unique se retrouve dans votre transaction située sur le tableau de bord de votre compte.",
           "Notification": "Notification",
-          "Select how to deliver money to recipient": "Sélectionnez comment remettre l'argent au destinataire",
+          "Select how to deliver money to recipient":
+              "Sélectionnez comment remettre l'argent au destinataire",
           "Should arrive in": "Devrait arriver dans",
-          " a few minutes": "quelques minutes",
+          " a few minutes": " quelques minutes",
           " Fee": " Frais",
-          "The transfers to this country will resume soon": "Les transferts vers ce pays reprendront bientôt",
+          "The transfers to this country will resume soon":
+              "Les transferts vers ce pays reprendront bientôt",
           "Back to main menu": "Retour au menu principal",
-          "Add recipient’s information": "Ajouter les informations du destinataire",
+          "Add recipient’s information":
+              "Ajouter les informations du destinataire",
           "Phone number": "Numéro de téléphone",
           "Personal info": "Informations personnelles",
           "Security": "Sécurité",
@@ -237,7 +237,8 @@ class Languages extends Translations {
           "Legal": "Légal",
           "Mobile number": "Numéro de portable",
           "Email": "E-mail",
-          "Fingerprint/ Face id to unlock": "Empreinte digitale/identification faciale pour déverrouiller",
+          "Fingerprint/ Face id to unlock":
+              "Empreinte digitale/identification faciale pour déverrouiller",
           "Change passcode": "Changer le mot de passe",
           "Log out": "Se déconnecter",
           "Dark mode": "Mode sombre",
@@ -297,7 +298,8 @@ class Languages extends Translations {
           "Terms of Services": "Conditions de services",
           "Terms of money transfer": "Conditions de services",
           "Personal Data Policy": "Politique de données personnelles",
-          "Refund and Cancellation Policy": "Politique de remboursement et d'annulation",
+          "Refund and Cancellation Policy":
+              "Politique de remboursement et d'annulation",
           "Create new passcode": "Créer un nouveau mot de passe",
           "Confirm passcode": "Confirmer le mot de passe",
           "Log in": "Se connecter",
@@ -323,7 +325,8 @@ class Languages extends Translations {
               "Votre mot de passe a été réinitialisé avec succès. Vous pouvez désormais vous connecter en utilisant votre nouveau mot de passe..",
           "Enter your new email": "Entrez votre nouvel email",
           "Save": "Sauvegarder",
-          "Enter your new phone number": "Entrez votre nouveau numéro de téléphone",
+          "Enter your new phone number":
+              "Entrez votre nouveau numéro de téléphone",
           "Full Name": "Nom et prénom",
           "Enter your Full Name": "Entrez votre nom complet",
           "Enter a valid email": "Entrer un email valide",
@@ -333,8 +336,10 @@ class Languages extends Translations {
           "Enter your current passcode": "Entrez votre mot de passe actuel",
           "Enter your new passcode": "Entrez votre nouveau mot de passe",
           "Confirm your new passcode": "Confirmez votre nouveau mot de passe",
-          "Enter the recipient’s First Name": "Saisissez le prénom du destinataire",
-          "Enter the recipient’s Last Name": "Entrez le nom de famille du destinataire",
+          "Enter the recipient’s First Name":
+              "Saisissez le prénom du destinataire",
+          "Enter the recipient’s Last Name":
+              "Entrez le nom de famille du destinataire",
           "Your  order has been cancelled": "Votre commande a été annulée",
           "Don’t have an account? ": "Vous n'avez pas de compte ? ",
           "Enter your Password": "Tapez votre mot de passe",
@@ -356,13 +361,14 @@ class Languages extends Translations {
           "Email or password is incorrect, please try again later":
               "L'e-mail ou le mot de passe est incorrect, veuillez réessayer plus tard",
           "passcode not match": "le mot de passe ne correspond pas",
-          "By signing up you agree to our ": "En vous inscrivant, vous acceptez notre ",
+          "By signing up you agree to our ":
+              "En vous inscrivant, vous acceptez notre ",
           "Terms": "Termes",
           "and": " et ",
           "Conditions": "Conditions",
-          "Sign in": "Se connecter"
-
-
+          "Sign in": "Se connecter",
+          "Select the recipient's country":
+              "Sélectionnez le pays du destinataire"
         }
       };
 }

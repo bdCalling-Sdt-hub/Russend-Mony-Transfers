@@ -65,7 +65,7 @@ class EditPhoneNumberScreen extends StatelessWidget {
                   buttonRadius: 50.r,
                   buttonWidth: 150.w,
                   onPressed: () {
-                    personalInfoController.getIsisLogIn();
+                    personalInfoController.editNumberRepo();
                   }),
             ],
           ),

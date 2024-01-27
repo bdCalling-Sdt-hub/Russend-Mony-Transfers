@@ -20,20 +20,8 @@ class ChangePasscodeController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
 
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      changePasscodeRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> changePasscodeRepo(String token) async {
+  Future<void> changePasscodeRepo() async {
     print("===================> changePasscodeRepo");
     isLoading.value = true;
     var body = {
@@ -41,7 +29,7 @@ class ChangePasscodeController extends GetxController {
     };
     print("===================>$body");
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
     networkApiService
         .postApi(ApiUrl.verifyOldPasscode, body, header)

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
@@ -12,7 +13,9 @@ import '../../../widgets/app_bar/custom_app_bar.dart';
 import '../../../widgets/back/back.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  ResetPasswordScreen({super.key});
+
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +35,7 @@ class ResetPasswordScreen extends StatelessWidget {
               bottom: 100.h,
             ),
             GestureDetector(
-              onTap: () async {
-                SharedPreferences pref = await SharedPreferences.getInstance();
-
-                pref.setString("email", "");
-                pref.setString("accessToken", "");
-                pref.setString("refreshToken", "");
-                pref.setBool("isLogIn", false);
-                pref.setBool("isLocalAuth", false);
-                Get.toNamed(AppRoute.logIn);
-              },
+              onTap: () => sharedPreferenceHelper.logOut(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -24,20 +24,9 @@ class ConfirmPasscodeController extends GetxController {
   ChangePasscodeController changePasscodeController =
       Get.put(ChangePasscodeController());
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
 
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
 
-      changePasscodeRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> changePasscodeRepo(String token) async {
+  Future<void> changePasscodeRepo() async {
     print("===================> changePasscodeRepo");
     isLoading.value = true;
     var body = {
@@ -46,7 +35,7 @@ class ConfirmPasscodeController extends GetxController {
 
     Map<String, String> header = {
       'Pass-code': "Pass-code ${changePasscodeController.passcodeToken.value}",
-      'Authorization': "Bearer $token"
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
     };
 
     networkApiService
@@ -55,7 +44,7 @@ class ConfirmPasscodeController extends GetxController {
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
-        Get.toNamed(AppRoute.transaction);
+        Get.offAllNamed(AppRoute.transaction);
       } else if (apiResponseModel.statusCode == 401) {
         Utils.toastMessage("passcode not match".tr);
       } else if (apiResponseModel.statusCode == 404) {

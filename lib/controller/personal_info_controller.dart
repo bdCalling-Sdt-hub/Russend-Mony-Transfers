@@ -32,15 +32,15 @@ class PersonalInfoController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
-  Future<void> userDetailsRepo(String token, String id) async {
+  Future<void> userDetailsRepo() async {
     print("===================> userDetailsRepo");
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
     isLoading.value = true;
 
     networkApiService
-        .getApi("${ApiUrl.user}/$id", header)
+        .getApi("${ApiUrl.user}/${SharedPreferenceHelper.id}", header)
         .then((apiResponseModel) {
       isLoading.value = false;
 
@@ -60,29 +60,14 @@ class PersonalInfoController extends GetxController {
 
   TextEditingController numberController = TextEditingController();
 
-  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken =
-          pref.getString("accessToken") ?? "aa";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      editNumberRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> editNumberRepo(String token) async {
+  Future<void> editNumberRepo() async {
     print("===================> editNumberRepo");
 
     var body = {
       "phoneNumber": "${countryCode.value}${numberController.text}",
     };
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
     networkApiService
         .putApi(ApiUrl.user, body, header)
         .then((apiResponseModel) {

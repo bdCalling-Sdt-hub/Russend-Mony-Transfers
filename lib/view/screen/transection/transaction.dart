@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,13 +8,13 @@ import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/controller/transaction_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
+import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
-
 
 class Transaction extends StatefulWidget {
   Transaction({super.key});
@@ -29,9 +31,22 @@ class _TransactionState extends State<Transaction> {
 
   EnterPasscodeController enterPasscodeController =
       Get.put(EnterPasscodeController());
+
+  SocketServices socketServices = SocketServices();
+
+  @override
+  void initState() {
+    sharedPreferenceHelper.getSharedPreferenceData();
+
+    Timer(const Duration(seconds: 3), () {
+      socketServices.connectToSocket();
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -59,7 +74,8 @@ class _TransactionState extends State<Transaction> {
             children: [
               CustomText(text: "Recent transaction".tr, fontSize: 26.sp),
               CustomText(
-                text: transactionController.formattedDate(), // Use the formatted date here
+                text: transactionController.formattedDate(),
+                // Use the formatted date here
                 fontSize: 16.sp,
                 color: AppColors.black50,
                 top: 24.h,
@@ -86,7 +102,7 @@ class _TransactionState extends State<Transaction> {
                                   onTap: () {
                                     transactionController
                                         .transactionDetailsRepo(
-                                            sharedPreferenceHelper.accessToken,
+                                            SharedPreferenceHelper.accessToken,
                                             transactionModel.sId!);
                                   },
                                   child: Row(

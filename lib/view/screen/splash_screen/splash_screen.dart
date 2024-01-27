@@ -21,20 +21,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    sharedPreferenceHelper.getSharedPreferenceData() ;
     Timer(const Duration(seconds: 3), () {
-      getIsisLogIn();
+      getIsLogIn();
     });
     super.initState();
   }
 
-  Future<void> getIsisLogIn() async {
+  Future<void> getIsLogIn() async {
     try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      if (sharedPreferenceHelper.isLogIn!) {
+      if (SharedPreferenceHelper.isLogIn) {
         Get.toNamed(AppRoute.enterPassCode);
       } else {
         Get.offAllNamed(AppRoute.onboardScreen);

@@ -8,24 +8,11 @@ import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
-class Notification extends StatefulWidget {
-  const Notification({super.key});
+class Notification extends StatelessWidget {
+  Notification({super.key});
 
-  @override
-  State<Notification> createState() => _NotificationState();
-}
-
-class _NotificationState extends State<Notification> {
-  // List notificationList = [
   NotificationController notificationController =
       Get.put(NotificationController());
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    notificationController.getIsisLogIn();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,32 +28,36 @@ class _NotificationState extends State<Notification> {
             text: "Notification".tr,
           )),
           body: Obx(
-            () => notificationController.isLoading.value
+            () => notificationController.notificationList.isEmpty
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : SingleChildScrollView(
+                : Padding(
                     padding:
                         EdgeInsets.only(left: 20.w, right: 20.w, bottom: 24.h),
-                    physics: const BouncingScrollPhysics(),
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          notificationController.notificationModelInfo != null
-                              ? notificationController.notificationModelInfo!
-                                  .data!.attributes!.notificationList!.length
-                              : 0,
+                      physics: const BouncingScrollPhysics(),
+                      controller: notificationController.scrollController,
+                      itemCount: notificationController.isLoading.value
+                          ? notificationController.notificationList.length + 1
+                          : notificationController.notificationList.length,
                       itemBuilder: (context, index) {
-                        var item = notificationController.notificationModelInfo!
-                            .data!.attributes!.notificationList![index];
-                        var createdAtTime = item.createdAt!.split(".")[0];
-                        var date = createdAtTime.split("T")[0];
-                        var time = createdAtTime.split("T")[1];
-                        return ListItem(
-                          title: item.message!,
-                          time: "$date at $time",
-                        );
+                        if (index <
+                            notificationController.notificationList.length) {
+                          var item =
+                              notificationController.notificationList[index];
+                          var createdAtTime = item.createdAt!.split(".")[0];
+                          var date = createdAtTime.split("T")[0];
+                          var time = createdAtTime.split("T")[1];
+
+                          return ListItem(
+                            title: item.message!,
+                            time: "$date at $time",
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
                       },
                     ),
                   ),

@@ -21,9 +21,9 @@ class AmountSendController extends GetxController {
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
-  final duration = const Duration(minutes: 10).obs ;
+  final duration = const Duration(minutes: 10).obs;
   Timer? timer;
-  RxInt time = (10*60).obs;
+  RxString time = "0:10:00.000000".obs;
   RxString paymentMethod = "Orange Money".obs ;
 
   HiddenFeesModel? hiddenFeesModelInfo;
@@ -49,18 +49,6 @@ class AmountSendController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
-  Future<void> getIsLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      hiddenFeeRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
 
   Future<void> exchangeRates() async {
@@ -91,12 +79,12 @@ class AmountSendController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
-  Future<void> hiddenFeeRepo(String token) async {
+  Future<void> hiddenFeeRepo() async {
     print("===================> hiddenFeeRepo");
 
 
     if(hiddenFeesModelInfo == null) {
-      Map<String, String> header = {'Authorization': "Bearer $token"};
+      Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
       isLoading.value = true;
 
@@ -150,6 +138,7 @@ class AmountSendController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
+        startTime() ;
         Get.toNamed(AppRoute.paymentMethodFinal);
       } else {
         Get.snackbar(
@@ -158,20 +147,8 @@ class AmountSendController extends GetxController {
     });
   }
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
 
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      addTransactionRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> addTransactionRepo(String token) async {
+  Future<void> addTransactionRepo() async {
     print("===================> object");
 
     ///=========================================> main Code <============================================
@@ -190,7 +167,7 @@ class AmountSendController extends GetxController {
     };
 
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
     try {
       var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, body, header);
@@ -294,12 +271,31 @@ class AmountSendController extends GetxController {
       final seconds = duration.value.inSeconds - addSeconds;
       duration.value = Duration(seconds: seconds);
       if (time.value != 0) {
-        time.value = seconds;
-        print(time.value) ;
+        time.value = duration.toString();
       } else {
         timer?.cancel();
       }
     });
   }
+
+
+  String formattedDuration() {
+    // Parse the duration string
+    List<String> parts = time.value.split(':');
+    Duration duration = Duration(
+      hours: int.parse(parts[0]),
+      minutes: int.parse(parts[1]),
+      seconds: int.parse(
+          parts[2].split('.')[0]), // Extract seconds without milliseconds
+    );
+
+    // Format the duration as needed
+    String formattedDuration =
+        "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+
+
+    return formattedDuration;
+  }
+
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/security_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -18,6 +19,7 @@ class SecurityScreen extends StatelessWidget {
   SecurityScreen({super.key});
 
   SecurityController securityController = Get.put(SecurityController());
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -53,28 +55,6 @@ class SecurityScreen extends StatelessWidget {
                               maxLines: 2,
                               textAlign: TextAlign.start,
                               right: 24.w)),
-                      // Container(
-                      //   height: 40 * height,
-                      //   width: 64 * width,
-                      //   child: FittedBox(
-                      //     fit: BoxFit.fill,
-                      //     child: Switch(
-                      //       value: switchOn,
-                      //       activeColor: AppColors.primaryColor,
-                      //       activeTrackColor: AppColors.primaryColor,
-                      //       inactiveTrackColor: AppColors.black50,
-                      //       thumbColor:
-                      //           const MaterialStatePropertyAll(AppColors.white),
-                      //       onChanged: (value) {
-                      //         setState(() {
-                      //           switchOn = value;
-                      //         });
-                      //       },
-                      //     ),
-                      //   ),
-                      // ),
-                      // ...
-// ...
                       AdvancedSwitch(
                         controller: securityController.controller,
                         activeColor: AppColors.primaryColor,
@@ -100,28 +80,10 @@ class SecurityScreen extends StatelessWidget {
                         top: 12.h,
                         color: AppColors.primaryColor),
                   ),
-
-                  // ValueListenableBuilder(
-                  //     valueListenable: securityController.controller,
-                  //     builder: (context, value, _) {
-                  //       securityController.isFingerprintValue(value) ;
-                  //       return Text('count: $value');
-                  //     })
                 ],
               ),
               InkWell(
-                onTap: () async {
-                  SharedPreferences pref = await SharedPreferences.getInstance();
-
-                  pref.setString("email", "");
-                  pref.setString("accessToken", "");
-                  pref.setString("refreshToken", "");
-                  pref.setBool("isLogIn", false);
-                  pref.setBool("isLocalAuth", false);
-
-                  Get.toNamed(AppRoute.logIn);
-                },
-
+                onTap: () => sharedPreferenceHelper.logOut(),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

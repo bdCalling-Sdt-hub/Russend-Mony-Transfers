@@ -30,41 +30,28 @@ class TransactionController extends GetxController {
 
   @override
   void onInit() {
-    getIsisLogIn();
+    transactionRepo();
     scrollController.addListener(() {
       scrollControllerCall();
     });
     super.onInit();
   }
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.accessToken =
-          pref.getString("accessToken") ?? "aa";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-
-      transactionRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       print("calling");
-      await transactionRepo(sharedPreferenceHelper.accessToken);
+      await transactionRepo();
     } else {
       print(" not calling");
     }
   }
 
-  Future<void> transactionRepo(String token) async {
+  Future<void> transactionRepo() async {
     print("===================> object");
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
     isLoading.value = true;
 

@@ -92,10 +92,16 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Obx(() => CustomText(text: amountSendController.isLoading.value
-                          ? "%"
-                          : "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %",
-                          color: AppColors.primaryColor),),
+                      Obx(
+                        () => CustomText(
+                            text: amountSendController.isLoading.value
+                                ? " %"
+                                : amountSendController.hiddenFeesModelInfo!
+                                        .data!.attributes!.isActive!
+                                    ? "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %"
+                                    : "0 %",
+                            color: AppColors.primaryColor),
+                      ),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

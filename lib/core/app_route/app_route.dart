@@ -22,7 +22,7 @@ import 'package:money_transfers/view/screen/profile/edit_email/edit_email_screen
 import 'package:money_transfers/view/screen/profile/language/language_screen.dart';
 import 'package:money_transfers/view/screen/profile/legal/legal_screen.dart';
 import 'package:money_transfers/view/screen/profile/profile_info/profile_info.dart';
-import 'package:money_transfers/view/screen/profile/profile_screen.dart';
+import 'package:money_transfers/view/screen/profile/profile_screen/profile_screen.dart';
 import 'package:money_transfers/view/screen/profile/security/security_screen.dart';
 import 'package:money_transfers/view/screen/recipient/amount_send.dart';
 import 'package:money_transfers/view/screen/recipient/payment_method_final.dart';
@@ -119,7 +119,7 @@ class AppRoute {
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: profileInfo, page: () =>  ProfileInfo()),
     GetPage(name: securityScreen, page: () => SecurityScreen()),
-    GetPage(name: languageScreen, page: () => const LanguageScreen()),
+    GetPage(name: languageScreen, page: () => LanguageScreen()),
     GetPage(name: appearanceScreen, page: () => const AppearanceScreen()),
     GetPage(name: legalScreen, page: () => LegalScreen()),
     GetPage(name: transactionHistory, page: () => TransactionHistory()),
@@ -153,7 +153,7 @@ class AppRoute {
     GetPage(name: changeEmailVerify, page: () => ChangeEmailVerification()),
     GetPage(
         name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
-    GetPage(name: resetPasscode, page: () => const ResetPasswordScreen()),
+    GetPage(name: resetPasscode, page: () => ResetPasswordScreen()),
     GetPage(name: deliveryMethodCameroon, page: () => MoneyDeliveryMethodCameroon()),
   ];
 }

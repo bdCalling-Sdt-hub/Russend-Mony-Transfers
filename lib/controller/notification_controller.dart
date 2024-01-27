@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/notification_model.dart';
@@ -11,33 +12,51 @@ import '../services/api_services/api_services.dart';
 class NotificationController extends GetxController {
   NotificationModel? notificationModelInfo;
 
+  RxList notificationList = [].obs ;
+
+
   RxBool isLoading = false.obs;
 
+  int page = 1;
+
+  ScrollController scrollController = ScrollController();
+
+
   NetworkApiService networkApiService = NetworkApiService();
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
 
-  Future<void> getIsisLogIn() async {
-    try {
-      SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
-      SharedPreferences pref = await SharedPreferences.getInstance();
 
-      sharedPreferenceHelper.accessToken = pref.getString("accessToken") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      notificationRepo(sharedPreferenceHelper.accessToken);
-    } catch (e) {
-      print(e.toString());
+  void onInit() {
+    notificationRepo();
+    scrollController.addListener(() {
+      scrollControllerCall();
+    });
+    super.onInit();
+  }
+
+
+  Future<void> scrollControllerCall() async {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      print("calling");
+      await notificationRepo();
+    } else {
+      print(" not calling");
     }
   }
 
-  Future<void> notificationRepo(String token) async {
+
+
+  Future<void> notificationRepo() async {
     print("===================> transactionDetailsRepo");
 
-    Map<String, String> header = {'Authorization': "Bearer $token"};
+    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
     isLoading.value = true;
 
     networkApiService
         .getApi(
-      ApiUrl.notification,
+      "${ApiUrl.notification}?page=$page",
       header,
     )
         .then((apiResponseModel) {
@@ -46,6 +65,11 @@ class NotificationController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         notificationModelInfo = NotificationModel.fromJson(json);
+        for (var item
+        in notificationModelInfo!.data!.attributes!.notificationList!) {
+          notificationList.add(item);
+        }        print(notificationList.length);
+        page = page+1 ;
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

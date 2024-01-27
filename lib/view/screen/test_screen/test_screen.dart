@@ -7,7 +7,6 @@ class TestScreen extends StatelessWidget {
   TestScreen({super.key});
 
   final duration = const Duration(minutes: 10).obs;
-
   Timer? timer;
   RxString time = "0:09:13.000000".obs;
 
@@ -23,7 +22,6 @@ class TestScreen extends StatelessWidget {
       }
     });
   }
-
   String formattedDuration() {
     // Parse the duration string
     List<String> parts = time.value.split(':');

@@ -40,27 +40,19 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
   void initState() {
     super.initState();
 
-    getIsisLogIn();
+    getIsLogIn();
   }
 
-  Future<void> getIsisLogIn() async {
+  Future<void> getIsLogIn() async {
     try {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      sharedPreferenceHelper.refreshToken =
-          pref.getString("refreshToken") ?? "";
-      sharedPreferenceHelper.email = pref.getString("email") ?? "";
-      sharedPreferenceHelper.isLogIn = pref.getBool("isLogIn") ?? false;
-      sharedPreferenceHelper.isLocalAuth = pref.getBool("isLocalAuth") ?? false;
-
-      if (sharedPreferenceHelper.isLocalAuth!) {
+      if (SharedPreferenceHelper.isLocalAuth!) {
         auth.isDeviceSupported().then((bool isSupported) => setState(() {
               localAuthController.supportState = isSupported
                   ? SupportState.supported
                   : SupportState.unsupported;
 
               localAuthController.authenticateWithBiometrics(
-                  mounted, sharedPreferenceHelper.refreshToken);
+                  mounted, SharedPreferenceHelper.refreshToken);
             }));
       }
     } catch (e) {
@@ -117,9 +109,9 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
                           enterPasscodeController.disableKeyboard.value = true;
-                          if (sharedPreferenceHelper.isLogIn!) {
+                          if (SharedPreferenceHelper.isLogIn) {
                             enterPasscodeController.signInWithPasscodeRepo(
-                                sharedPreferenceHelper.email);
+                                SharedPreferenceHelper.email);
                           } else {
                             if (signInController.signInModelInfo == null) {
                               Get.toNamed(AppRoute.logIn);
