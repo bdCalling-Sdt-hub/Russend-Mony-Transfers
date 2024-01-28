@@ -119,7 +119,7 @@ class Languages extends Translations {
           "Refund and Cancellation Policy": "Refund and Cancellation Policy",
           "Create new passcode": "Create new passcode",
           "Confirm passcode": "Confirm passcode",
-          "Log in": "Log in",
+          "Sign In": "Sign In",
           "Create Account": "Create Account",
           "Password": "Password",
           "Enter your email": "Enter your email",
@@ -171,7 +171,7 @@ class Languages extends Translations {
           "Invalid Mobile Number": "Invalid Mobile Number",
           "Password should contain more than 8 characters":
               "Password should contain more than 8 characters",
-          "password do not match": "password do not match",
+          "The password does not match": "The password does not match",
           "data not found": "data not found",
           "Email or password is incorrect, please try again later":
               "Email or password is incorrect, please try again later",
@@ -302,7 +302,7 @@ class Languages extends Translations {
               "Politique de remboursement et d'annulation",
           "Create new passcode": "Créer un nouveau mot de passe",
           "Confirm passcode": "Confirmer le mot de passe",
-          "Log in": "Se connecter",
+          "Sign In": "Se connecter",
           "Create Account": "Créer un compte",
           "Password": "Mot de passe",
           "Enter your email": "Entrer votre Email",
@@ -356,7 +356,7 @@ class Languages extends Translations {
           "Invalid Mobile Number": "Numéro de portable invalide",
           "Password should contain more than 8 characters":
               "Le mot de passe doit contenir plus de 8 caractères",
-          "password do not match": "le mot de passe ne correspond pas",
+          "The password does not match": "Le mot de passe ne correspond pas",
           "data not found": "données introuvables",
           "Email or password is incorrect, please try again later":
               "L'e-mail ou le mot de passe est incorrect, veuillez réessayer plus tard",

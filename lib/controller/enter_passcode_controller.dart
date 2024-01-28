@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/enter_passcode_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,6 +50,7 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setString("refreshToken", enterPasscodeModel.data!.refreshToken!);
         pref.setBool("isLogIn", true);
+        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
         accessToken = enterPasscodeModel.data!.accessToken!;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {

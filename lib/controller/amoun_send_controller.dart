@@ -1,19 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/payment_info_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
 import '../models/hidden_fee_model.dart';
 import '../services/api_services/api_services.dart';
-import '../utils/app_utils.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
@@ -21,7 +18,7 @@ class AmountSendController extends GetxController {
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
-  final duration = const Duration(minutes: 10).obs;
+  final duration = const Duration().obs;
   Timer? timer;
   RxString time = "0:10:00.000000".obs;
   RxString paymentMethod = "Orange Money".obs ;
@@ -138,7 +135,12 @@ class AmountSendController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
+
+        timer?.cancel();
+        duration.value = const Duration(minutes: 10) ;
+
         startTime() ;
+        time.value = "0:10:00.00000";
         Get.toNamed(AppRoute.paymentMethodFinal);
       } else {
         Get.snackbar(
@@ -174,20 +176,11 @@ class AmountSendController extends GetxController {
 
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
-        amountController.clear() ;
-        receiveController.clear() ;
-        firstNameController.clear() ;
-        lastNameController.clear() ;
-        numberController.clear() ;
+
       } else if (apiResponseModel.statusCode == 201) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
-        amountController.clear() ;
-        receiveController.clear() ;
-        firstNameController.clear() ;
-        lastNameController.clear() ;
-        numberController.clear() ;
       } else if (apiResponseModel.statusCode == 401) {
-        var data = jsonDecode(apiResponseModel.responseJson);
+
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -270,7 +263,7 @@ class AmountSendController extends GetxController {
       const addSeconds = 1;
       final seconds = duration.value.inSeconds - addSeconds;
       duration.value = Duration(seconds: seconds);
-      if (time.value != 0) {
+      if (time.value != "0:00:00.000000") {
         time.value = duration.toString();
       } else {
         timer?.cancel();

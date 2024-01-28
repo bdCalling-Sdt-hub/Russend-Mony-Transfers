@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/rich_text/rich_text.dart';
@@ -11,7 +12,9 @@ import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import '../../../core/app_route/app_route.dart';
 
 class TransactionSuccessScreen extends StatelessWidget {
-  const TransactionSuccessScreen({super.key});
+  TransactionSuccessScreen({super.key});
+
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,14 @@ class TransactionSuccessScreen extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () => Get.toNamed(AppRoute.transaction),
+                onTap: () {
+                  Get.offAllNamed(AppRoute.transaction);
+                  amountSendController.amountController.clear();
+                  amountSendController.receiveController.clear();
+                  amountSendController.firstNameController.clear();
+                  amountSendController.lastNameController.clear();
+                  amountSendController.numberController.clear();
+                },
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: CustomText(
@@ -53,23 +63,27 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                      CustomImage(imageSrc: AppIcons.success, size: 110.sp,),
+                      CustomImage(
+                        imageSrc: AppIcons.success,
+                        size: 110.sp,
+                      ),
                       CustomText(
                         text: "Your  order has been received".tr,
                         fontSize: 20.sp,
                         top: 30.h,
                         bottom: 12.h,
                       ),
-
                       TextRichWidget(
-                          secondText: "Cedric William",
+                          secondText:
+                              "${amountSendController.firstNameController.text} ${amountSendController.lastNameController.text}",
                           firstText: "Mobile Money Transfer for ".tr),
                       SizedBox(
                         height: 16.h,
                       ),
                       SuccessfulItem(
                         title: "Amount Sent".tr,
-                        service: "1500 RUB",
+                        service:
+                            "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                       ),
                       SizedBox(
                         height: 8.h,
@@ -83,7 +97,8 @@ class TransactionSuccessScreen extends StatelessWidget {
                       ),
                       SuccessfulItem(
                           title: "You Pay".tr,
-                          service: "1500 RUB",
+                          service:
+                              "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           fontWeight: FontWeight.w700,
                           color: AppColors.primaryColor),
                       SizedBox(
@@ -91,7 +106,8 @@ class TransactionSuccessScreen extends StatelessWidget {
                       ),
                       SuccessfulItem(
                         title: "Amount Received".tr,
-                        service: "12 350 XAF",
+                        service:
+                            "${amountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
                       ),
                       SizedBox(
                         height: 8.h,

@@ -60,6 +60,7 @@ class TransactionController extends GetxController {
         .then((apiResponseModel) {
       isLoading.value = false;
 
+
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 

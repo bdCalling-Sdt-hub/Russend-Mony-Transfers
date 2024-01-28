@@ -6,7 +6,6 @@ import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/laguages.dart';
 import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
-
 import 'services/notification_services.dart';
 
 void main() async{
@@ -27,6 +26,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      ensureScreenSize: true,
       designSize: const Size(393, 852),
       builder: (context, child) {
         return GetMaterialApp(

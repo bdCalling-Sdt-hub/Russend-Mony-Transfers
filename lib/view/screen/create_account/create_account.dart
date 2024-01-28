@@ -35,13 +35,21 @@ class CreateAccount extends StatelessWidget {
         appBar: AppBar(
           leading: Padding(
             padding: EdgeInsets.only(left: 15.w),
-            child: CustomImage(
-                imageSrc: AppIcons.language,
-                imageColor: AppColors.black100,
-                size: 20.sp),
+            child: InkWell(
+              onTap: () => Get.toNamed(AppRoute.languageScreen),
+              child: CustomImage(
+                  imageSrc: AppIcons.language,
+                  imageColor: AppColors.black100,
+                  size: 20.sp),
+            ),
           ),
-          title: CustomText(
-              text: "English".tr, fontSize: 20.sp, fontWeight: FontWeight.w400),
+          title: InkWell(
+            onTap: () => Get.toNamed(AppRoute.languageScreen),
+            child: CustomText(
+                text: "English".tr,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w400),
+          ),
           actions: [
             Row(
               children: [
@@ -121,8 +129,9 @@ class CreateAccount extends StatelessWidget {
                     const Align(
                         alignment: Alignment.center,
                         child: AlreadyHaveAccount()),
-              SizedBox(
-                  height: 16 * h,),
+                    SizedBox(
+                      height: 16 * h,
+                    ),
                   ]),
             ),
           ),

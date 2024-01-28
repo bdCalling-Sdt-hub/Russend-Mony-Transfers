@@ -159,7 +159,7 @@ class CreateAccountAllFiled extends StatelessWidget {
                 value.isNotEmpty) {
               return null;
             } else {
-              return "password do not match".tr;
+              return "The password does not match".tr;
             }
           },
           isPassword: true,

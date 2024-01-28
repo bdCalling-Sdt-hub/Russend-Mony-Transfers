@@ -131,7 +131,7 @@ class AppRoute {
     GetPage(name: settingScreen, page: () => const SettingScreen()),
     GetPage(
         name: transactionSuccessScreen,
-        page: () => const TransactionSuccessScreen()),
+        page: () => TransactionSuccessScreen()),
     GetPage(name: conformPassCode, page: () => ConformPasscodeScreen()),
     GetPage(name: amountSend, page: () => AmountSendScreen()),
     GetPage(name: paymentMethodFinal, page: () => PaymentMethodFinal()),
