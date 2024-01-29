@@ -53,24 +53,25 @@ class CreateAccount extends StatelessWidget {
           actions: [
             Row(
               children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () => Get.toNamed(AppRoute.legalScreen),
-                        child: CustomText(
-                            text: "Legal terms".tr,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w400,
-                            right: 4.w)),
-                    CustomImage(
-                      imageSrc: AppIcons.legalTerms,
-                      imageColor: AppColors.black100,
-                      size: 20.sp,
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    )
-                  ],
+                InkWell(
+                  onTap: () => Get.toNamed(AppRoute.legalScreen),
+                  child: Row(
+                    children: [
+                      CustomText(
+                          text: "Legal terms".tr,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          right: 4.w),
+                      CustomImage(
+                        imageSrc: AppIcons.legalTerms,
+                        imageColor: AppColors.black100,
+                        size: 20.sp,
+                      ),
+                      SizedBox(
+                        width: 15.w,
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

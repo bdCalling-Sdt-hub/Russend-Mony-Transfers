@@ -55,9 +55,7 @@ class NewPasswordScreen extends StatelessWidget {
                   isPassword: true,
                   hintText: "Enter your new password".tr,
                   validator: (value) {
-                    if (value.length < 8) {
-                      return "Password should contain more than 8 characters";
-                    }
+                    return forgetPasswordController.validatePassword(value) ;
                   },
                 ),
                 CustomText(
@@ -76,10 +74,7 @@ class NewPasswordScreen extends StatelessWidget {
                   isPassword: true,
                   hintText: "Confirm your new password".tr,
                   validator: (value) {
-                    if (forgetPasswordController.passwordController.text ==
-                            forgetPasswordController
-                                .confirmPasswordController.text &&
-                        value.isNotEmpty) {
+                    if (forgetPasswordController.passwordController.text == forgetPasswordController.confirmPasswordController.text) {
                       return null;
                     } else {
                       return "password do not match";
@@ -99,7 +94,6 @@ class NewPasswordScreen extends StatelessWidget {
             titleText: "Reset Password".tr,
             buttonRadius: 10.r,
             onPressed: () {
-              Get.toNamed(AppRoute.createSuccessful);
               if (formKey.currentState!.validate()) {
                 ForgetPasswordOtpModel forgetPasswordOtpModel =
                 forgetPasswordController.forgetPasswordOtpInfo!;

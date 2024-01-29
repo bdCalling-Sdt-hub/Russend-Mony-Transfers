@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/models/sign_up_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/app_route/app_route.dart';
 import '../../global/api_url.dart';
 import '../../services/api_services/api_services.dart';
@@ -12,9 +13,10 @@ import '../../services/api_services/api_services.dart';
 class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingSignUpScreen = false.obs;
-  SignUpModel? signUpModelInfo ;
+  SignUpModel? signUpModelInfo;
 
-  RxBool isResend= false.obs ;
+  RxBool isResend = false.obs;
+
   Duration duration = const Duration();
   Timer? timer;
   RxInt time = 60.obs;
@@ -33,6 +35,19 @@ class SignUpController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
+  String? validatePassword(String value) {
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    if (value.isEmpty) {
+      return 'Please enter password'.tr;
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid password'.tr;
+      } else {
+        return null;
+      }
+    }
+  }
+
   Future<void> signUpRepo() async {
     print("===================> signUpRepo");
 
@@ -49,8 +64,7 @@ class SignUpController extends GetxController {
       'Otp': 'OTP ',
     };
 
-
-
+    SharedPreferences pref = await SharedPreferences.getInstance();
 
     networkApiService
         .postApi(ApiUrl.signUp, body, header)
@@ -58,6 +72,8 @@ class SignUpController extends GetxController {
       isLoadingSignUpScreen.value = false;
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.signUpOtp);
+        pref.setString("email", emailController.text);
+
         duration = const Duration(seconds: 60);
         time.value = 60;
         startTime();
@@ -66,74 +82,62 @@ class SignUpController extends GetxController {
         duration = const Duration(seconds: 60);
         time.value = 60;
         startTime();
-
       } else {
-        Utils.snackBarMessage(apiResponseModel.statusCode.toString(), apiResponseModel.message) ;
+        Utils.snackBarMessage(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     });
   }
-
-
 
   Future<void> signUpAuthRepo() async {
     print("===================> signUpAuthRepo");
 
     isLoading.value = true;
 
-
-      var body = {
-        "fullName": nameController.text,
-        "email": emailController.text,
-        "phoneNumber": numberController.text,
-        "password": passwordController.text
-      };
-      print("===================>$body");
-      Map<String, String> header = {
-        'Otp': 'OTP ${otpController.text}',
-      };
-
-
+    var body = {
+      "fullName": nameController.text,
+      "email": emailController.text,
+      "phoneNumber": numberController.text,
+      "password": passwordController.text
+    };
+    print("===================>$body");
+    Map<String, String> header = {
+      'Otp': 'OTP ${otpController.text}',
+    };
 
     networkApiService
-          .postApi(ApiUrl.signUp, body, header)
-          .then((apiResponseModel) {
+        .postApi(ApiUrl.signUp, body, header)
+        .then((apiResponseModel) {
+      isLoading.value = false;
 
-        isLoading.value = false;
-
-
-        if (apiResponseModel.statusCode == 200) {
-
-          var json = jsonDecode(apiResponseModel.responseJson);
-          signUpModelInfo =SignUpModel.fromJson(json);
-          Get.toNamed(AppRoute.passCode);
-          nameController.clear() ;
-          emailController.clear() ;
-          numberController.clear() ;
-          passwordController.clear() ;
-          confirmPasswordController.clear() ;
-
-        } else if (apiResponseModel.statusCode == 201) {
-
-          var json = jsonDecode(apiResponseModel.responseJson);
-          signUpModelInfo = SignUpModel.fromJson(json);
-          Get.toNamed(AppRoute.passCode);
-          nameController.clear() ;
-          emailController.clear() ;
-          numberController.clear() ;
-          passwordController.clear() ;
-          confirmPasswordController.clear() ;
-
-        } else if (apiResponseModel.statusCode == 401) {
-          Utils.snackBarMessage("Error", "OTP is invalid") ;
-        } else if (apiResponseModel.statusCode == 400) {
-          Utils.snackBarMessage("Error", "OTP is invalid") ;
-        } else {
-          Utils.snackBarMessage(apiResponseModel.statusCode.toString(), apiResponseModel.message) ;
-
-        }
-      });
-    }
-
+      if (apiResponseModel.statusCode == 200) {
+        var json = jsonDecode(apiResponseModel.responseJson);
+        signUpModelInfo = SignUpModel.fromJson(json);
+        Get.toNamed(AppRoute.passCode);
+        nameController.clear();
+        emailController.clear();
+        numberController.clear();
+        passwordController.clear();
+        confirmPasswordController.clear();
+      } else if (apiResponseModel.statusCode == 201) {
+        var json = jsonDecode(apiResponseModel.responseJson);
+        signUpModelInfo = SignUpModel.fromJson(json);
+        Get.toNamed(AppRoute.passCode);
+        nameController.clear();
+        emailController.clear();
+        numberController.clear();
+        passwordController.clear();
+        confirmPasswordController.clear();
+      } else if (apiResponseModel.statusCode == 401) {
+        Utils.snackBarMessage("Error".tr, "OTP is invalid".tr);
+      } else if (apiResponseModel.statusCode == 400) {
+        Utils.snackBarMessage("Error".tr, "OTP is invalid".tr);
+      } else {
+        Utils.snackBarMessage(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
+      }
+    });
+  }
 
   ///=============================> Send Again   < =============================
 
@@ -151,10 +155,3 @@ class SignUpController extends GetxController {
     });
   }
 }
-
-
-
-
-
-
-

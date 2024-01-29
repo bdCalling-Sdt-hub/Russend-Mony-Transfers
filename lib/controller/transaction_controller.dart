@@ -19,7 +19,8 @@ class TransactionController extends GetxController {
   TransactionDetailsModel? transactionDetailsModelInfo;
   RxList transactionList = [].obs;
 
-  RxBool isLoading = false.obs;
+  RxBool isMoreLoading = false.obs;
+  RxBool loading = false.obs;
   int page = 1;
 
 
@@ -53,12 +54,16 @@ class TransactionController extends GetxController {
 
     Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
-    isLoading.value = true;
+    isMoreLoading.value = true;
+    if(transactionList.isEmpty) {
+      loading.value = true ;
+    }
 
     networkApiService
         .getApi("${ApiUrl.transaction}?page=$page", header)
         .then((apiResponseModel) {
-      isLoading.value = false;
+      isMoreLoading.value = false;
+      loading.value = false;
 
 
       if (apiResponseModel.statusCode == 200) {
@@ -89,12 +94,12 @@ class TransactionController extends GetxController {
 
     Map<String, String> header = {'Authorization': "Bearer $token"};
 
-    isLoading.value = true;
+    isMoreLoading.value = true;
 
     networkApiService
         .getApi("${ApiUrl.transaction}/$id", header)
         .then((apiResponseModel) {
-      isLoading.value = false;
+      isMoreLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

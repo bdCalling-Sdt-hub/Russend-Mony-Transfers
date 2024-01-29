@@ -75,7 +75,7 @@ class _SelectCountryState extends State<SelectCountry> {
                             itemBuilder: (context, index) {
                               var item = selectCountryController
                                   .countryList!.data!.attributes![index];
-                              return GestureDetector(
+                              return InkWell(
                                 onTap: () {
                                   amountSendController
                                       .countryCode.value = item.countryCode!;

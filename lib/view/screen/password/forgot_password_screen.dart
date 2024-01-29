@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_transfers/controller/forget_password_controller.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
@@ -116,7 +117,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "Already have an account? ".tr,
+                              text: "Don’t have an account? ".tr,
                               style: GoogleFonts.poppins(
                                 color: AppColors.black100,
                                 fontSize: 15.sp,
@@ -127,7 +128,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap =
                                       () => Get.toNamed(AppRoute.createAccount),
-                                text: "Log in".tr,
+                                text: "Sign up".tr,
                                 style: GoogleFonts.poppins(
                                   color: AppColors.primaryColor!,
                                   fontSize: 15.sp,

@@ -25,8 +25,6 @@ class SharedPreferenceHelper {
       isLogIn = pref.getBool("isLogIn") ?? false;
       isLocalAuth = pref.getBool("isLocalAuth") ?? false;
 
-      print("=============================> $localizationLanguageCode") ;
-      print("===========================> $localizationCountryCode") ;
     } catch (e) {
       print(e.toString());
     }
@@ -40,13 +38,17 @@ class SharedPreferenceHelper {
 
       pref.setString("accessToken", "");
       pref.setString("refreshToken", "");
-      pref.setString("email", "");
+      // pref.setString("email", "");
       // pref.setString("languageCode", "");
       // pref.setString("countryCode", "");
       pref.setBool("isLogIn", false);
       pref.setBool("isLocalAuth", false);
 
       Get.offAllNamed(AppRoute.logIn) ;
+      accessToken = "" ;
+      refreshToken = "" ;
+      isLogIn = false ;
+      isLocalAuth = false ;
 
 
     } catch (e) {

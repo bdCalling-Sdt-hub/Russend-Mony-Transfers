@@ -15,7 +15,8 @@ class NotificationController extends GetxController {
   RxList notificationList = [].obs ;
 
 
-  RxBool isLoading = false.obs;
+  RxBool isMoreLoading = false.obs;
+  RxBool loading = false.obs;
 
   int page = 1;
 
@@ -52,7 +53,10 @@ class NotificationController extends GetxController {
 
     Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 
-    isLoading.value = true;
+    isMoreLoading.value = true;
+    if(notificationList.isEmpty) {
+      loading.value = true ;
+    }
 
     networkApiService
         .getApi(
@@ -60,7 +64,8 @@ class NotificationController extends GetxController {
       header,
     )
         .then((apiResponseModel) {
-      isLoading.value = false;
+      isMoreLoading.value = false;
+      loading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

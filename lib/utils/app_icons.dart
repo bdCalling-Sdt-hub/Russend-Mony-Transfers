@@ -50,4 +50,5 @@ class AppIcons {
   static const String kazakhstan = "$basePath/kazakhstan.svg";
   static const String cancelled = "$basePath/cancelled.svg";
   static const String transferred = "$basePath/transferred.png";
+  static const String loadingIcon = "$basePath/loading_icon.png";
 }

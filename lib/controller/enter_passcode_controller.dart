@@ -126,11 +126,11 @@ class EnterPasscodeController extends GetxController {
       } else if (apiResponseModel.statusCode == 401) {
         enterController.clear();
         disableKeyboard.value = false;
-        Utils.toastMessage("passcode is incorrect, please try again later");
+        Utils.toastMessage("passcode is incorrect, please try again later".tr);
       } else if (apiResponseModel.statusCode == 404) {
         disableKeyboard.value = false;
         enterController.clear();
-        Utils.toastMessage("passcode is incorrect, please try again later");
+        Utils.toastMessage("passcode is incorrect, please try again later".tr);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

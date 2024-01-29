@@ -18,10 +18,14 @@ class AmountSendController extends GetxController {
   RxDouble rubRate = 1.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
+  RxBool isRepeat = false.obs;
+
+  RxBool disableButton = false.obs;
+
   final duration = const Duration().obs;
   Timer? timer;
   RxString time = "0:10:00.000000".obs;
-  RxString paymentMethod = "Orange Money".obs ;
+  RxString paymentMethod = "Orange Money".obs;
 
   HiddenFeesModel? hiddenFeesModelInfo;
   PaymentInfoModel? paymentInfoModelInfo;
@@ -46,8 +50,6 @@ class AmountSendController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
-
-
   Future<void> exchangeRates() async {
     print("exchangeRates");
 
@@ -56,16 +58,19 @@ class AmountSendController extends GetxController {
 
       var response = await http.get(url);
 
+      print(response.body);
+
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
 
         var data = jsonData['rates'];
 
         success.value = jsonData["success"];
-        xafRate.value = data["XAF"];
-        rubRate.value = data["RUB"];
+        xafRate.value = double.parse(data["XAF"].toStringAsFixed(2));
+        rubRate.value = double.parse(data["RUB"].toStringAsFixed(2));
 
-
+        print(xafRate);
+        print(rubRate);
       } else {}
     } catch (e) {
       print("error $e");
@@ -79,20 +84,21 @@ class AmountSendController extends GetxController {
   Future<void> hiddenFeeRepo() async {
     print("===================> hiddenFeeRepo");
 
-
-    if(hiddenFeesModelInfo == null) {
-      Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
+    if (hiddenFeesModelInfo == null) {
+      Map<String, String> header = {
+        'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+      };
 
       isLoading.value = true;
 
-
-      networkApiService.getApi(ApiUrl.hiddenFee, header).then((apiResponseModel) {
-
-
+      networkApiService
+          .getApi(ApiUrl.hiddenFee, header)
+          .then((apiResponseModel) {
         isLoading.value = false;
 
         if (apiResponseModel.statusCode == 200) {
           var json = jsonDecode(apiResponseModel.responseJson);
+          print(json);
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
         } else if (apiResponseModel.statusCode == 201) {
           var json = jsonDecode(apiResponseModel.responseJson);
@@ -104,8 +110,6 @@ class AmountSendController extends GetxController {
         }
       });
     }
-
-
   }
 
   ///========================> payment method final Screen <=====================
@@ -129,7 +133,6 @@ class AmountSendController extends GetxController {
     networkApiService
         .getApi(ApiUrl.paymentInfo, header, isHeader: false)
         .then((apiResponseModel) {
-
       isLoadingFinalScreen.value = false;
 
       if (apiResponseModel.statusCode == 200) {
@@ -137,9 +140,9 @@ class AmountSendController extends GetxController {
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
 
         timer?.cancel();
-        duration.value = const Duration(minutes: 10) ;
+        duration.value = const Duration(minutes: 10);
 
-        startTime() ;
+        startTime();
         time.value = "0:10:00.00000";
         Get.toNamed(AppRoute.paymentMethodFinal);
       } else {
@@ -149,7 +152,6 @@ class AmountSendController extends GetxController {
     });
   }
 
-
   Future<void> addTransactionRepo() async {
     print("===================> object");
 
@@ -157,30 +159,38 @@ class AmountSendController extends GetxController {
     var body = {
       "firstName": firstNameController.text,
       "lastName": lastNameController.text,
-      "phoneNumber": "$countryCode${numberController.text}",
+      "phoneNumber": isRepeat.value
+          ? numberController.text
+          : "$countryCode${numberController.text}",
       "amountToSent": amountController.text,
       "ammountToSentCurrency": amountToSentCurrency,
       "amountToReceive": receiveController.text,
       "amountToReceiveCurrency": amountToReceiveCurrency,
       "exchangeRate": xafRate.round().toString(),
-      "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive! ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()! : " ",
-      "paymentMethod":  paymentMethod.value,
+      "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
+          ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()!
+          : "0",
+      "paymentMethod": paymentMethod.value,
       "country": "$countryId",
     };
 
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+    };
 
-    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
+    print(body);
 
     try {
-      var apiResponseModel = await networkApiService.postApi(ApiUrl.allTransactions, body, header);
+      var apiResponseModel =
+          await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
-
+        isRepeat.value = false;
       } else if (apiResponseModel.statusCode == 201) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
+        isRepeat.value = false;
       } else if (apiResponseModel.statusCode == 401) {
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -190,14 +200,13 @@ class AmountSendController extends GetxController {
       print("Error: $error");
       Get.snackbar("Error", "An error occurred during the API call");
     }
-
-
   }
 
   ///=================================================> Amount Send Keyboard <==========================================
 
-
   void youPay(String value, TextEditingController textController) {
+    print("xafRate ====================> ${xafRate.value}");
+    print("rubRate ====================> ${rubRate.value}");
     if (value == 'Forgot') {
       Get.toNamed(AppRoute.resetPasscode);
     } else if (value == '<') {
@@ -212,7 +221,6 @@ class AmountSendController extends GetxController {
         } else {
           receiveController.text = "";
         }
-
       } else {
         receiveController.text = "";
       }
@@ -221,8 +229,19 @@ class AmountSendController extends GetxController {
 
       var amount = double.parse(textController.text);
       var rate = xafRate.value / rubRate.value;
-      var receiveAmount = (rate * amount).round();
-      receiveController.text = receiveAmount.toString();
+
+      // if(hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+      //   rate = rate +  ((rate * hiddenFeesModelInfo!.data!.attributes!.percentage!) / 100 ) ;
+      //
+      // }
+
+      var result = (amount + (amount * 15) / 100);
+
+      var receiveAmount = (rate * result);
+
+      receiveController.text = (receiveAmount).round().toString();
+
+      print("=========================> $rate");
     }
   }
 
@@ -251,12 +270,18 @@ class AmountSendController extends GetxController {
         textController.text += value;
         var amount = double.parse(textController.text);
         var rate = rubRate.value / xafRate.value;
-        var receiveAmount = (rate * amount).round();
-        amountController.text = receiveAmount.toString();
+        if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+          amount = amount /
+              ((hiddenFeesModelInfo!.data!.attributes!.percentage! + 100) /
+                  100);
+        }
+
+        var receiveAmount = (rate * amount);
+
+        amountController.text = (receiveAmount).round().toString();
       }
     }
   }
-
 
   startTime() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -266,11 +291,11 @@ class AmountSendController extends GetxController {
       if (time.value != "0:00:00.000000") {
         time.value = duration.toString();
       } else {
+        disableButton.value = true;
         timer?.cancel();
       }
     });
   }
-
 
   String formattedDuration() {
     // Parse the duration string
@@ -286,9 +311,6 @@ class AmountSendController extends GetxController {
     String formattedDuration =
         "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
 
-
     return formattedDuration;
   }
-
-
 }

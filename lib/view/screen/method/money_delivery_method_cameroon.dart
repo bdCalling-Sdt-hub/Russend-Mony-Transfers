@@ -106,11 +106,9 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Obx(() => CustomText(
-                          text: amountSendController.isLoading.value
-                              ? "%"
-                              : "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %",
-                          color: AppColors.primaryColor)),
+                      const CustomText(
+                          text: "0 %",
+                          color: AppColors.primaryColor),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

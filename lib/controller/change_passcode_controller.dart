@@ -44,6 +44,8 @@ class ChangePasscodeController extends GetxController {
         Get.toNamed(AppRoute.newPasscode);
       } else if (apiResponseModel.statusCode == 404) {
         Utils.toastMessage("passcode not match".tr);
+      }else if (apiResponseModel.statusCode == 400) {
+        Utils.toastMessage("passcode not match".tr);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

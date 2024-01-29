@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';

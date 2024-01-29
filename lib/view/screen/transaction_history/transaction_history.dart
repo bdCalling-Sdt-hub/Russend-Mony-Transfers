@@ -34,7 +34,7 @@ class TransactionHistory extends StatelessWidget {
         extendBody: true,
         backgroundColor: AppColors.background,
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
-        body: Obx(() => transactionController.isLoading.value
+        body: Obx(() => transactionController.isMoreLoading.value
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -123,14 +123,14 @@ class TransactionHistory extends StatelessWidget {
                                               .attributes!
                                               .status ==
                                           "pending"
-                                      ? SizedBox(
-                                          width: 12.w,
-                                          height: 12.h,
-                                          child:
-                                              const CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
-                                        )
+                                      ?  CustomImage(
+                                      imageType: ImageType.png,
+                                      imageSrc: AppIcons
+                                          .loadingIcon,
+                                      size: 20.h,
+                                      imageColor:
+                                      AppColors
+                                          .black100)
                                       : transactionController
                                                   .transactionDetailsModelInfo!
                                                   .data!
@@ -189,14 +189,55 @@ class TransactionHistory extends StatelessWidget {
                                     const CustomImage(imageSrc: AppIcons.reTry),
                               ),
                               GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
+                                    amountSendController.isRepeat.value = true;
                                     amountSendController.amountController.text =
+                                        "";
+
+                                    amountSendController
+                                            .firstNameController.text =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .firstName!;
+                                    amountSendController
+                                            .lastNameController.text =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .lastName!;
+                                    amountSendController.numberController.text =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .phoneNumber!;
+                                    amountSendController.countryId.value =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .country!
+                                            .sId!;
+                                    amountSendController.paymentMethod.value =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .paymentMethod!;
+                                    amountSendController.youPay(
                                         transactionController
                                             .transactionDetailsModelInfo!
                                             .data!
                                             .attributes!
                                             .amountToSent
-                                            .toString();
+                                            .toString(),
+                                        amountSendController.amountController);
+
+                                    await amountSendController.hiddenFeeRepo();
+
                                     Get.toNamed(AppRoute.amountSend);
                                   },
                                   child: CustomText(
@@ -218,11 +259,13 @@ class TransactionHistory extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CustomText(
-                                        text: "Transaction ID".tr,
-                                        color: AppColors.black50,
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w400),
+                                    Flexible(
+                                      child: CustomText(
+                                          text: "Transaction ID".tr,
+                                          color: AppColors.black50,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                     Row(
                                       children: [
                                         CustomText(
@@ -247,7 +290,7 @@ class TransactionHistory extends StatelessWidget {
                                                     .toString());
                                             Clipboard.setData(value);
                                             Utils.snackBarMessage("Copy",
-                                                "Copied to TransactionId");
+                                                "Transaction ID copied to clipboard");
                                           },
                                           icon: Icon(Icons.copy_rounded,
                                               size: 18.h,

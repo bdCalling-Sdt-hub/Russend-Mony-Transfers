@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
@@ -8,20 +9,21 @@ import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'services/notification_services.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SocketServices socketServices = SocketServices();
-  NotificationService notificationService = NotificationService() ;
-  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
-  notificationService.initLocalNotification() ;
+  NotificationService notificationService = NotificationService();
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
+  notificationService.initLocalNotification();
   socketServices.connectToSocket();
-  await sharedPreferenceHelper.getSharedPreferenceData() ;
+  await sharedPreferenceHelper.getSharedPreferenceData();
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,8 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.noTransition,
-          locale: Locale(SharedPreferenceHelper.localizationLanguageCode, SharedPreferenceHelper.localizationCountryCode),
+          locale: Locale(SharedPreferenceHelper.localizationLanguageCode,
+              SharedPreferenceHelper.localizationCountryCode),
           fallbackLocale: const Locale("en", "US"),
           translations: Languages(),
           theme: ThemeData(

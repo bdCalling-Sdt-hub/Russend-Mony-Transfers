@@ -49,7 +49,7 @@ class EditPhoneNumberScreen extends StatelessWidget {
                       borderSide: BorderSide(),
                       borderRadius: BorderRadius.all(Radius.circular(8))),
                 ),
-                initialCountryCode: "BD",
+                initialCountryCode: "CM",
                 // disableLengthCheck: true,
               ),
             ],

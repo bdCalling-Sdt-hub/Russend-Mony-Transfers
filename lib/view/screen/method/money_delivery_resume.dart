@@ -29,7 +29,7 @@ class MoneyDeliveryResume extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 24.h),
           child: CustomButton(titleText: "Back to main menu".tr,buttonRadius: 25.r, onPressed: (){
-            Get.toNamed(AppRoute.transaction);
+            Get.offAllNamed(AppRoute.transaction);
           }),
         ),
       ),

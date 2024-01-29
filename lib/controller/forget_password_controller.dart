@@ -26,6 +26,20 @@ class ForgetPasswordController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
+  String? validatePassword(String value) {
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    if (value.isEmpty) {
+      return 'Please enter password'.tr;
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid password'.tr;
+      } else {
+        return null;
+      }
+    }
+  }
+
+
   Future<void> forgetPasswordRepo() async {
     print("===================> forgetPasswordRepo");
     isLoadingEmailScreen.value = true;
@@ -35,8 +49,6 @@ class ForgetPasswordController extends GetxController {
     print("===================>$body");
 
     Map<String, String> header = {};
-    Get.toNamed(AppRoute.forgotPasswordVerify);
-
     networkApiService
         .postApi(ApiUrl.forgetPassword, body, header, isHeader: false)
         .then((apiResponseModel) {
@@ -50,7 +62,7 @@ class ForgetPasswordController extends GetxController {
         time.value = 60;
         startTime();
       } else if (apiResponseModel.statusCode == 404) {
-        Utils.toastMessage("User does not exist");
+        Utils.toastMessage("User does not exist".tr);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -61,7 +73,7 @@ class ForgetPasswordController extends GetxController {
   Future<void> verifyOtpRepo() async {
     print("===================> object");
 
-    isLoading.value = true;
+    // isLoading.value = true;
 
     var body = {
       "email": emailController.text,

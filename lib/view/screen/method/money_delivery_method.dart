@@ -46,31 +46,30 @@ class MoneyDeliveryMethod extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             amountSendController.paymentMethod.value =
-                                "Orange Money";
+                                "Mobile Money CEMAC";
                             Get.toNamed(AppRoute.recipient);
                           },
                           child: Container(
                             height: 180.h,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: AppColors.primaryColor,
-                                  width: 1.w,
-                                  style: BorderStyle.solid),
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: AppColors.white,
-                            ),
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(
+                            //       color: AppColors.primaryColor,
+                            //       width: 1.w,
+                            //       style: BorderStyle.solid),
+                            //   borderRadius: BorderRadius.circular(10.r),
+                            //   color: AppColors.white,
+                            // ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 20),
+                                  horizontal: 16, vertical: 20),
                               child: Image.asset(
-                                AppImages.orangeMoney,
+                                AppImages.cemac,
                                 fit: BoxFit.fill,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 16.w),
                     ],
                   ),
                 ],
@@ -92,16 +91,9 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Obx(
-                        () => CustomText(
-                            text: amountSendController.isLoading.value
-                                ? " %"
-                                : amountSendController.hiddenFeesModelInfo!
-                                        .data!.attributes!.isActive!
-                                    ? "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage} %"
-                                    : "0 %",
-                            color: AppColors.primaryColor),
-                      ),
+                      const CustomText(
+                          text:"0 %",
+                          color: AppColors.primaryColor),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

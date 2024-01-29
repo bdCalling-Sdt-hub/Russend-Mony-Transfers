@@ -21,6 +21,20 @@ class SignInController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
+  String? validatePassword(String value) {
+    RegExp regex = RegExp(r'^(?=.*?[a-z]).{8,}$');
+    if (value.isEmpty) {
+      return 'Please enter password'.tr;
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid password'.tr;
+      } else {
+        return null;
+      }
+    }
+  }
+
+
   Future<void> signInRepo() async {
     print("===================> object");
 
@@ -54,10 +68,8 @@ class SignInController extends GetxController {
         Get.toNamed(AppRoute.enterPassCode);
         emailController.clear();
       } else if (apiResponseModel.statusCode == 401) {
-        var data = jsonDecode(apiResponseModel.responseJson);
 
-        Utils.toastMessage(data['message'] ??
-            "Email or password is incorrect, please try again later".tr);
+        Utils.toastMessage("EmailOrPasswordIsIncorrectPleaseTryAgainLater".tr);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

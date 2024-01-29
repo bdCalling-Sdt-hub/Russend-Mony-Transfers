@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
@@ -16,6 +17,9 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+
+
+  EnterPasscodeController enterPasscodeController = Get.put(EnterPasscodeController()) ;
 
   @override
   void initState() {
@@ -36,7 +40,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomImage(imageSrc: AppIcons.appIcon,size: 200.h),
-              CustomText(text: "Welcome back, Adrien!".tr,fontSize: 20.sp,fontWeight: FontWeight.w600,top: 18.h)
+              CustomText(text: "${"Welcome back, Adrien!".tr}${enterPasscodeController.enterPasscodeModelInfo!.data!.attributes!.fullName}",fontSize: 20.sp,fontWeight: FontWeight.w600,top: 18.h)
             ],
           ),
         ),

@@ -32,62 +32,68 @@ class CustomKeyboard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GestureDetector(
-              onTap: isForgot
+            TextButton(
+              onPressed: isForgot
                   ? () => keyboardController.onKeyPressed("Forgot", controller)
                   : () {},
               child: isPoint
-                  ? GestureDetector(
-                      onTap: () =>
+                  ? TextButton(
+                onPressed: () =>
                           keyboardController.onKeyPressed(".", controller),
                       child:  Container(
                         width: 60.sp,
                         height: 60.sp,
-                        child: CustomText(
-                          text: '.',
-                          textAlign: TextAlign.center,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
+                        child: Center(
+                          child: CustomText(
+                            text: '.',
+                            textAlign: TextAlign.center,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     )
                   :  Container(
                 width: 60.sp,
                 height: 60.sp,
-                    child: CustomText(
-                        text: "Forgot",
-                        color:
-                            isForgot ? AppColors.black100 : AppColors.background,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Center(
+                      child: CustomText(
+                          text: "Forgot",
+                          color:
+                              isForgot ? AppColors.black100 : AppColors.background,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    ),
                   ),
             ),
-            GestureDetector(
-              onTap: () => keyboardController.onKeyPressed("0", controller),
+            TextButton(
+              onPressed: () => keyboardController.onKeyPressed("0", controller),
               child:  Container(
                 width: 60.sp,
                 height: 60.sp,
-                child: CustomText(
-                  text: '0',
-                  textAlign: TextAlign.center,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
+                child: Center(
+                  child: CustomText(
+                    text: '0',
+                    textAlign: TextAlign.center,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () => keyboardController.onKeyPressed("<", controller),
+            TextButton(
+              onPressed: () => keyboardController.onKeyPressed("<", controller),
               child: Container(
                 width: 60.sp,
                 height: 60.sp,
-                padding: EdgeInsets.only(bottom: 34.sp),
-                
-                child: CustomImage(
-                  imageType: ImageType.png,
-                  imageSrc: AppIcons.cross,
-                  size: 20.sp,
-                  
+                child: Center(
+                  child: CustomImage(
+                    imageType: ImageType.png,
+                    imageSrc: AppIcons.cross,
+                    size: 20.sp,
+
+                  ),
                 ),
               ),
             ),
@@ -101,15 +107,17 @@ class CustomKeyboard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: keys
-          .map((key) => GestureDetector(
-                onTap: () => keyboardController.onKeyPressed(key, controller),
+          .map((key) => TextButton(
+                onPressed: () => keyboardController.onKeyPressed(key, controller),
                 child: Container(
                   width: 60.sp,
                   height: 60.sp,
-                  child: CustomText(
-                    text: key,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
+                  child: Center(
+                    child: CustomText(
+                      text: key,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ))

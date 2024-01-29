@@ -37,61 +37,50 @@ class amountSendCustomKeyboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-              onTap: isForgot
-                  ? () => onTap("Forgot", controller)
-                  : () {},
-              child: isPoint
-                  ? GestureDetector(
-                onTap: () =>
+              child:  TextButton(
+                onPressed:  () =>
                     onTap(".", controller),
                 child:  Container(
                   width: 60.sp,
                   height: 60.sp,
+                  child: Center(
+                    child: CustomText(
+                      text: '.',
+                      textAlign: TextAlign.center,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed:  () => onTap("0", controller),
+              child:  Container(
+                width: 60.sp,
+                height: 60.sp,
+                child: Center(
                   child: CustomText(
-                    text: '.',
+                    text: '0',
                     textAlign: TextAlign.center,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-              )
-                  :  Container(
-                width: 60.sp,
-                height: 60.sp,
-                child: CustomText(
-                  text: "Forgot",
-                  color:
-                  isForgot ? AppColors.black100 : AppColors.background,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
               ),
             ),
-            GestureDetector(
-              onTap: () => onTap("0", controller),
-              child:  Container(
-                width: 60.sp,
-                height: 60.sp,
-                child: CustomText(
-                  text: '0',
-                  textAlign: TextAlign.center,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => onTap("<", controller),
+            TextButton(
+              onPressed:  () => onTap("<", controller),
               child: Container(
                 width: 60.sp,
                 height: 60.sp,
-                padding: EdgeInsets.only(bottom: 34.sp),
+                child: Center(
+                  child: CustomImage(
+                    imageType: ImageType.png,
+                    imageSrc: AppIcons.cross,
+                    size: 20.sp,
 
-                child: CustomImage(
-                  imageType: ImageType.png,
-                  imageSrc: AppIcons.cross,
-                  size: 20.sp,
-
+                  ),
                 ),
               ),
             ),
@@ -105,15 +94,17 @@ class amountSendCustomKeyboard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: keys
-          .map((key) => GestureDetector(
-        onTap: () => onTap(key, controller),
+          .map((key) => TextButton(
+        onPressed: () => onTap(key, controller),
         child: Container(
           width: 60.sp,
           height: 60.sp,
-          child: CustomText(
-            text: key,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w700,
+          child: Center(
+            child: CustomText(
+              text: key,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ))

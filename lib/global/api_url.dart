@@ -5,7 +5,7 @@ class ApiUrl {
 
   ///========================================> exchangeApi <==================================
 
-  static const String exchangeApi = "http://api.exchangeratesapi.io/v1/latest?access_key=1b5a060773c6744333b2898be0a8c826" ;
+  static const String exchangeApi = "http://api.exchangeratesapi.io/v1/latest?access_key=e3f73a368e78b975be3d1048e30b9e8f" ;
 
 
   ///========================================> exchangeApi <==================================
@@ -13,7 +13,7 @@ class ApiUrl {
 
 
 
-  static const String baseUrl = "http://192.168.10.18:3000" ;
+  static const String baseUrl = "http://138.68.81.189:3000" ;
 
 
   static const String signUp = "$baseUrl/api/users/sign-up" ;

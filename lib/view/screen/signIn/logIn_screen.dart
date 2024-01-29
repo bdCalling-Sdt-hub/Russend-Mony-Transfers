@@ -28,13 +28,19 @@ class LogInScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: EdgeInsets.only(left: 15.w),
-          child: CustomImage(
-              imageSrc: AppIcons.language,
-              imageColor: AppColors.black100,
-              size: 20.sp),
+          child: InkWell(
+            onTap: () => Get.toNamed(AppRoute.languageScreen),
+            child: CustomImage(
+                imageSrc: AppIcons.language,
+                imageColor: AppColors.black100,
+                size: 20.sp),
+          ),
         ),
-        title: CustomText(
-            text: "English".tr, fontSize: 20.sp, fontWeight: FontWeight.w400),
+        title: InkWell(
+          onTap: () => Get.toNamed(AppRoute.languageScreen),
+          child: CustomText(
+              text: "English".tr, fontSize: 20.sp, fontWeight: FontWeight.w400),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -53,7 +59,7 @@ class LogInScreen extends StatelessWidget {
                           child: signInController.isLoading.value
                               ? LoadingContainer()
                               : CustomButton(
-                                  titleText: "Log in".tr,
+                                  titleText: "Sign In".tr,
                                   buttonRadius: 12.r,
                                   buttonWidth: double.infinity,
                                   onPressed: () {

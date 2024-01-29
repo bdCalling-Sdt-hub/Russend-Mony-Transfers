@@ -30,6 +30,7 @@ class TransactionSuccessScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Get.offAllNamed(AppRoute.transaction);
+                  amountSendController.isRepeat.value = false ;
                   amountSendController.amountController.clear();
                   amountSendController.receiveController.clear();
                   amountSendController.firstNameController.clear();

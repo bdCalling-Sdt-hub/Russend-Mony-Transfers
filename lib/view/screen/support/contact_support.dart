@@ -15,12 +15,12 @@ class ContactSupport extends StatelessWidget {
   ContactSupport({super.key});
 
   emailTo() async {
-    Uri dialEmail = Uri(scheme: 'mailto', path: "developernaimul00@gmail.com" );
+    Uri dialEmail = Uri(scheme: 'mailto', path: "Support@russend.com" );
     await launchUrl(dialEmail);
   }
 
   whatsAppTo() async {
-    Uri whatsappUrl = Uri.parse("https://wa.me/+881865965581");
+    Uri whatsappUrl = Uri.parse("https://wa.me/message/N3RLUWZ2CUBYO1");
     await launchUrl(whatsappUrl);
   }
 

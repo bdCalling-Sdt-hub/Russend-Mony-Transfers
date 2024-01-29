@@ -7,4 +7,5 @@ class AppImages {
   static const String mtn = "$basePath/mtn.png";
   static const String onBoardImg = "$basePath/onboard_img.png";
   static const String orangeMoney = "$basePath/orange_money.png";
+  static const String cemac = "$basePath/cemac.png";
 }

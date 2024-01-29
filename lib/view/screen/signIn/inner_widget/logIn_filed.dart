@@ -66,9 +66,7 @@ class LogInFiled extends StatelessWidget {
           isPassword: true,
           controller: signInController.passwordController,
           validator: (value) {
-            if (value.isEmpty) {
-              return "Enter your Password".tr;
-            }
+            return signInController.validatePassword(value) ;
           },
           hintText: "Enter your Password".tr,
         ),

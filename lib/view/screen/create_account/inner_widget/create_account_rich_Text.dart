@@ -36,6 +36,10 @@ class CreateAccountTermsConditions extends StatelessWidget {
             ),
           ),
           TextSpan(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Get.toNamed(AppRoute.legalScreen) ;
+              },
             text: 'and'.tr,
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.black100,

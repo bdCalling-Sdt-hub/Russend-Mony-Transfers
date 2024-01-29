@@ -23,9 +23,9 @@ class Languages extends Translations {
           "First Name": "First Name",
           "E-mail Address": "E-mail Address",
           "Register": "Register",
-          "Welcome back, Adrien!": "Welcome back, Adrien!",
+          "Welcome back, Adrien!": "Welcome back ",
           "Recent transaction": "Recent transaction",
-          "You have no recent transaction": "You have no recent transaction",
+          "You have no recent transaction": "You have no recent transactions",
           "Send": "Send",
           "Sent": "Sent",
           "Transaction ID": "Transaction ID",
@@ -171,9 +171,9 @@ class Languages extends Translations {
           "Invalid Mobile Number": "Invalid Mobile Number",
           "Password should contain more than 8 characters":
               "Password should contain more than 8 characters",
-          "The password does not match": "The password does not match",
+          "The password does not match": "Passwords do not match",
           "data not found": "data not found",
-          "Email or password is incorrect, please try again later":
+          "EmailOrPasswordIsIncorrectPleaseTryAgainLater":
               "Email or password is incorrect, please try again later",
           "passcode not match": "passcode not match",
           "By signing up you agree to our ": "By signing up you agree to our ",
@@ -181,7 +181,19 @@ class Languages extends Translations {
           "and": " and ",
           "Conditions": "Conditions",
           "Sign in": "Sign in",
-          "Select the recipient's country": "Select the recipient's country"
+          "Select the recipient's country": "Select the recipient's country",
+          "payment time out, please try again":
+              "payment time out, please try again",
+          "Repeat transfer": "Repeat transfer",
+          "Please enter password": "Please enter password",
+          "Enter valid password": "Password must be at least 8 characters and must contain letters and numbers",
+          "English": "English",
+          "passcode is incorrect, please try again later":
+              "passcode is incorrect, please try again later",
+          "OTP is invalid": "OTP is invalid",
+          "Error": "Error",
+          "User does not exist": "User does not exist",
+          "No notifications": "No notifications",
         },
         'fr_FR': {
           "Transfer money quickly with Russend":
@@ -202,7 +214,7 @@ class Languages extends Translations {
           "First Name": "Prénom",
           "E-mail Address": "Adresse e-mail",
           "Register": "Registre",
-          "Welcome back, Adrien!": "Bon retour Adrien !",
+          "Welcome back, Adrien!": "Content de te revoir ",
           "Recent transaction": "Transaction récente",
           "You have no recent transaction":
               "Vous n'avez aucune transaction récente",
@@ -356,9 +368,10 @@ class Languages extends Translations {
           "Invalid Mobile Number": "Numéro de portable invalide",
           "Password should contain more than 8 characters":
               "Le mot de passe doit contenir plus de 8 caractères",
-          "The password does not match": "Le mot de passe ne correspond pas",
+          "The password does not match":
+              "Les mots de passe ne correspondent pas",
           "data not found": "données introuvables",
-          "Email or password is incorrect, please try again later":
+          "EmailOrPasswordIsIncorrectPleaseTryAgainLater":
               "L'e-mail ou le mot de passe est incorrect, veuillez réessayer plus tard",
           "passcode not match": "le mot de passe ne correspond pas",
           "By signing up you agree to our ":
@@ -368,7 +381,19 @@ class Languages extends Translations {
           "Conditions": "Conditions",
           "Sign in": "Se connecter",
           "Select the recipient's country":
-              "Sélectionnez le pays du destinataire"
+              "Sélectionnez le pays du destinataire",
+          "payment time out, please try again":
+              "délai de paiement expiré, veuillez réessayer",
+          "Repeat transfer": "Répéter le transfert",
+          "Please enter password": "Veuillez entrer le mot de passe",
+          "Enter valid password": "Le mot de passe doit comporter au moins 8 caractères et doit contenir des lettres et des chiffres",
+          "English": "Francais",
+          "passcode is incorrect, please try again later":
+              "Le code d'accès est incorrect, veuillez réessayer plus tard",
+          "OTP is invalid": "L'OTP n'est pas valide",
+          "Error": "Erreur",
+          "User does not exist": "L'utilisateur n'existe pas",
+          "No notifications": "Aucune notification",
         }
       };
 }

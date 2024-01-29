@@ -141,7 +141,7 @@ class AmountSendScreen extends StatelessWidget {
                 ),
                 CustomText(
                   text:
-                      "${amountSendController.hiddenFeesModelInfo!.data!.attributes!.percentage.toString()} RUB",
+                      "0 RUB",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -169,9 +169,6 @@ class AmountSendScreen extends StatelessWidget {
               ],
             ),
             const Divider(),
-            SizedBox(
-              height: 20.h,
-            ),
             Obx(() => amountSendCustomKeyboard(
                 controller: amountSendController.isPay.value
                     ? amountSendController.amountController

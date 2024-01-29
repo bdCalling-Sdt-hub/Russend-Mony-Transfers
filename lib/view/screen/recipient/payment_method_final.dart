@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/screen/recipient/widget/appbar_rich_text.dart';
 import 'package:money_transfers/view/screen/recipient/widget/payment_information.dart';
 import 'package:money_transfers/view/screen/recipient/widget/rich_text.dart';
@@ -68,7 +69,8 @@ class PaymentMethodFinal extends StatelessWidget {
                       children: [
                         PaymentTextRich(
                           firstText:
-                              "To make the payment you should log in your bank app (sberbank online) and send".tr,
+                              "To make the payment you should log in your bank app (sberbank online) and send"
+                                  .tr,
                           secondText:
                               "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           thirdText:
@@ -97,23 +99,23 @@ class PaymentMethodFinal extends StatelessWidget {
                           height: 24.h,
                         ),
                         Obx(() => RichTextWidget(
-                          firstText: "You have ".tr,
-                          secondColor: AppColors.redDark,
-                          secondText: amountSendController.formattedDuration(),
-                          thirdText: " left to make the payment".tr,
-                          textAlign: TextAlign.center,
-                        )),
+                              firstText: "You have ".tr,
+                              secondColor: AppColors.redDark,
+                              secondText:
+                                  amountSendController.formattedDuration(),
+                              thirdText: " left to make the payment".tr,
+                              textAlign: TextAlign.center,
+                            )),
                         SizedBox(
                           height: 8.h,
                         ),
-
                       ],
                     ),
         ),
-
       ),
-      bottomNavigationBar:  Padding(
-        padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w, top: 10.h),
+      bottomNavigationBar: Padding(
+        padding:
+            EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w, top: 10.h),
         child: CustomButton(
             titleText: "I Made the payment".tr,
             buttonRadius: 20.r,
@@ -121,7 +123,11 @@ class PaymentMethodFinal extends StatelessWidget {
             buttonWidth: double.infinity,
             titleSize: 24.sp,
             onPressed: () {
-              amountSendController.addTransactionRepo() ;
+              if (amountSendController.disableButton.value) {
+                Utils.toastMessage("payment time out, please try again".tr);
+              } else {
+                amountSendController.addTransactionRepo();
+              }
               // Get.toNamed(AppRoute.transactionSuccessScreen);
             }),
       ),

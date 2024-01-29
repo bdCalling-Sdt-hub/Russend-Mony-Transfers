@@ -64,6 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         fontSize: 14.sp
       ),
       decoration: InputDecoration(
+        errorMaxLines: 2,
         filled: true,
         prefixIcon: widget.prefixSvgIcon,
         fillColor: widget.fillColor,
