@@ -70,6 +70,7 @@ class SignUpController extends GetxController {
         .postApi(ApiUrl.signUp, body, header)
         .then((apiResponseModel) {
       isLoadingSignUpScreen.value = false;
+      print(apiResponseModel.responseJson) ;
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.signUpOtp);
         pref.setString("email", emailController.text);

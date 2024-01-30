@@ -27,14 +27,16 @@ class OnBoardingScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
-                SizedBox(height: 50.h,),
-
-                Center(
-                  child: CustomImage(imageSrc: AppIcons.splashIcon,size: 180.w),
+                SizedBox(
+                  height: 50.h,
                 ),
-                SizedBox(height: 30.h,),
-
+                Center(
+                  child:
+                      CustomImage(imageSrc: AppIcons.splashIcon, size: 180.w),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
                 CustomText(
                   text: "Transfer money quickly with Russend".tr,
                   color: AppColors.white,
@@ -55,9 +57,11 @@ class OnBoardingScreen extends StatelessWidget {
                   borderWidth: 2.w,
                   onPressed: () => Get.toNamed(AppRoute.createAccount),
                 ),
-                SizedBox(height: 32.h,),
+                SizedBox(
+                  height: 32.h,
+                ),
                 CustomButton(
-                  titleText: "Log in".tr,
+                  titleText: "Sign up".tr,
                   borderColor: AppColors.white,
                   titleColor: AppColors.white,
                   buttonWidth: double.maxFinite,
@@ -65,8 +69,9 @@ class OnBoardingScreen extends StatelessWidget {
                   borderWidth: 3.w,
                   onPressed: () => Get.toNamed(AppRoute.logIn),
                 ),
-                SizedBox(height: 30.h,),
-
+                SizedBox(
+                  height: 30.h,
+                ),
               ],
             ),
           ),

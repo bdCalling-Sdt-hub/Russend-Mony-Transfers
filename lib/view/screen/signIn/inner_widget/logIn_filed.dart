@@ -23,7 +23,7 @@ class LogInFiled extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(
-          text: "Get started with Russend",
+          text: "Get started with Russend".tr,
           fontSize: 20.sp,
           top: 28.h,
           fontWeight: FontWeight.w600,
@@ -32,6 +32,7 @@ class LogInFiled extends StatelessWidget {
             text: "Email".tr,
             fontSize: 14.sp,
             style: true,
+            bottom: 4.h,
             fontWeight: FontWeight.w400,
             textAlign: TextAlign.start,
             top: 27.h),
@@ -58,6 +59,7 @@ class LogInFiled extends StatelessWidget {
             text: "Enter your Password".tr,
             fontSize: 14.sp,
             style: true,
+            bottom: 4.h,
             fontWeight: FontWeight.w400,
             textAlign: TextAlign.start,
             top: 22.h),

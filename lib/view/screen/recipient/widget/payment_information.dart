@@ -19,8 +19,7 @@ class PaymentInformation extends StatelessWidget {
   // String paymentId = "Сбербанк (sberbank)";
   // String number = "+79050048977";
 
-  AmountSendController amountSendController = Get.put(AmountSendController()) ;
-
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,11 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.bankName!.toString(),
+                text:
+                amountSendController.paymentInfoModelInfo?.data != null
+                    ? amountSendController
+                    .paymentInfoModelInfo!.data!.attributes!.bankName!
+                    .toString() : " ",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
@@ -74,7 +77,9 @@ class PaymentInformation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!,
+                text: amountSendController.paymentInfoModelInfo?.data != null
+                    ? amountSendController
+                    .paymentInfoModelInfo!.data!.attributes!.phoneNumber! : " ",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
@@ -82,11 +87,16 @@ class PaymentInformation extends StatelessWidget {
                 bottom: 15.h,
               ),
               IconButton(
-                onPressed: () {
-                  final value = ClipboardData(text: amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!) ;
-                  Clipboard.setData(value) ;
-                  Get.snackbar("Copy", "Copied to ${amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber!}") ;
-                },
+                  onPressed: () {
+                    final value = ClipboardData(
+                        text:amountSendController.paymentInfoModelInfo?.data != null
+                            ? amountSendController.paymentInfoModelInfo!.data!
+                            .attributes!.phoneNumber!: " ");
+                    Clipboard.setData(value);
+                    Get.snackbar("Copy",
+                        "Copied to ${ amountSendController.paymentInfoModelInfo?.data != null
+                            ? amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber! : ""}");
+                  },
                   icon: SvgPicture.asset(AppIcons.copy))
             ],
           ),
@@ -104,7 +114,11 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: amountSendController.paymentInfoModelInfo!.data!.attributes!.name!.toString(),
+                text: amountSendController.paymentInfoModelInfo?.data != null
+                    ? amountSendController
+                        .paymentInfoModelInfo!.data!.attributes!.name!
+                        .toString()
+                    : " ",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
@@ -127,7 +141,10 @@ class PaymentInformation extends StatelessWidget {
           Row(
             children: [
               CustomText(
-                text: "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
+                text:
+                amountSendController.paymentInfoModelInfo?.data != null
+                    ?
+                    "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}" : "",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,

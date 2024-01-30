@@ -40,6 +40,12 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     bottom: 24.h,
                     maxLines: 2,
                   ),
+                  Obx(() => amountSendController.hiddenFeeLoading.value
+                      ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                      : const SizedBox()),
+                  SizedBox(height: 12.h,) ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -47,7 +53,7 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                         onTap: () {
                           amountSendController.paymentMethod.value =
                               "Orange Money";
-                          Get.toNamed(AppRoute.recipient);
+                          amountSendController.hiddenFeeRepo();
                         },
                         child: Container(
                           height: 100.h,
@@ -70,7 +76,8 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                         onTap: () {
                           amountSendController.paymentMethod.value =
                               "MTN Mobile Money";
-                          Get.toNamed(AppRoute.recipient);
+
+                          amountSendController.hiddenFeeRepo();
                         },
                         child: Container(
                           height: 100.h,

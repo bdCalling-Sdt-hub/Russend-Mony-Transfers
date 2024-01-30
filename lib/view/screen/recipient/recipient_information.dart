@@ -16,27 +16,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/app_route/app_route.dart';
 import '../../../helper/shared_preference_helper.dart';
 
-class RecipientInformation extends StatefulWidget {
+class RecipientInformation extends StatelessWidget {
   RecipientInformation({super.key});
-
-  @override
-  State<RecipientInformation> createState() => _RecipientInformationState();
-}
-
-class _RecipientInformationState extends State<RecipientInformation> {
-
 
   AmountSendController amountSendController = Get.put(AmountSendController());
 
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
-
-  @override
-  void initState() {
-    amountSendController.exchangeRates() ;
-    // TODO: implement initState
-    super.initState();
-  }
-
 
   final formKey = GlobalKey<FormState>();
 

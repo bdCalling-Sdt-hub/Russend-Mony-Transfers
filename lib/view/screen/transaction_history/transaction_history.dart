@@ -123,14 +123,11 @@ class TransactionHistory extends StatelessWidget {
                                               .attributes!
                                               .status ==
                                           "pending"
-                                      ?  CustomImage(
-                                      imageType: ImageType.png,
-                                      imageSrc: AppIcons
-                                          .loadingIcon,
-                                      size: 20.h,
-                                      imageColor:
-                                      AppColors
-                                          .black100)
+                                      ? CustomImage(
+                                          imageType: ImageType.png,
+                                          imageSrc: AppIcons.loadingIcon,
+                                          size: 20.h,
+                                          imageColor: AppColors.black100)
                                       : transactionController
                                                   .transactionDetailsModelInfo!
                                                   .data!
@@ -170,6 +167,16 @@ class TransactionHistory extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 24.h),
+                          Obx(() => amountSendController.hiddenFeeLoading.value
+                              ? Column(
+                                  children: [
+                                    const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    SizedBox(height: 12.h),
+                                  ],
+                                )
+                              : const SizedBox()),
                           Divider(height: 1.h, color: AppColors.black50),
                           SizedBox(height: 12.h),
                           Row(
@@ -227,18 +234,16 @@ class TransactionHistory extends StatelessWidget {
                                             .data!
                                             .attributes!
                                             .paymentMethod!;
-                                    amountSendController.youPay(
-                                        transactionController
-                                            .transactionDetailsModelInfo!
-                                            .data!
-                                            .attributes!
-                                            .amountToSent
-                                            .toString(),
-                                        amountSendController.amountController);
 
-                                    await amountSendController.hiddenFeeRepo();
+                                    amountSendController
+                                        .hiddenFeeRepo(isRepeated: true, amount:
+                                    transactionController
+                                        .transactionDetailsModelInfo!
+                                        .data!
+                                        .attributes!
+                                        .amountToSent
+                                        .toString());
 
-                                    Get.toNamed(AppRoute.amountSend);
                                   },
                                   child: CustomText(
                                       text: "Repeat transfer".tr,

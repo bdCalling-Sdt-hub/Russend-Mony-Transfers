@@ -14,11 +14,13 @@ import '../services/api_services/api_services.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
-  RxDouble xafRate = 6.80.obs;
-  RxDouble rubRate = 1.0.obs;
+  RxDouble xafRate = 0.0.obs;
+  RxDouble rubRate = 0.0.obs;
   RxBool success = false.obs;
   RxBool isPay = true.obs;
   RxBool isRepeat = false.obs;
+  RxBool hiddenFeeLoading = false.obs;
+  var exchangeRate = 0.0;
 
   RxBool disableButton = false.obs;
 
@@ -50,27 +52,40 @@ class AmountSendController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
-  Future<void> exchangeRates() async {
+  Future<void> exchangeRates(bool isRepeated, String amount) async {
     print("exchangeRates");
 
     try {
+      hiddenFeeLoading.value = true;
+
       final url = Uri.parse(ApiUrl.exchangeApi);
 
       var response = await http.get(url);
+
+
+      hiddenFeeLoading.value = false;
 
       print(response.body);
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
-
         var data = jsonData['rates'];
-
         success.value = jsonData["success"];
         xafRate.value = double.parse(data["XAF"].toStringAsFixed(2));
         rubRate.value = double.parse(data["RUB"].toStringAsFixed(2));
+        exchangeRate = xafRate.value / rubRate.value;
 
+        exchangeRate = exchangeRate - (exchangeRate * 0.15);
+        print(exchangeRate);
         print(xafRate);
         print(rubRate);
+        youPay(amount, amountController) ;
+
+        if(isRepeated) {
+          Get.toNamed(AppRoute.amountSend);
+        }else {
+          Get.toNamed(AppRoute.recipient);
+        }
       } else {}
     } catch (e) {
       print("error $e");
@@ -81,35 +96,34 @@ class AmountSendController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
-  Future<void> hiddenFeeRepo() async {
+  Future<void> hiddenFeeRepo( {bool isRepeated = false, String amount = "" } ) async {
     print("===================> hiddenFeeRepo");
 
-    if (hiddenFeesModelInfo == null) {
       Map<String, String> header = {
         'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
       };
 
-      isLoading.value = true;
+      hiddenFeeLoading.value = true;
 
       networkApiService
           .getApi(ApiUrl.hiddenFee, header)
-          .then((apiResponseModel) {
-        isLoading.value = false;
+          .then((apiResponseModel) async {
+        hiddenFeeLoading.value = true;
 
         if (apiResponseModel.statusCode == 200) {
           var json = jsonDecode(apiResponseModel.responseJson);
-          print(json);
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
+          await exchangeRates(isRepeated, amount);
+
         } else if (apiResponseModel.statusCode == 201) {
           var json = jsonDecode(apiResponseModel.responseJson);
-
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
+          await exchangeRates(isRepeated, amount);
         } else {
           Get.snackbar(
               apiResponseModel.statusCode.toString(), apiResponseModel.message);
         }
       });
-    }
   }
 
   ///========================> payment method final Screen <=====================
@@ -122,7 +136,6 @@ class AmountSendController extends GetxController {
   // String amountRub = "1500 RUB";
   // String paymentId = "Сбербанк (sberbank)";
   // String number = "+79050048977";
-
   Future<void> paymentInfoRepo() async {
     print("===================> paymentInfoRepo");
 
@@ -135,10 +148,10 @@ class AmountSendController extends GetxController {
         .then((apiResponseModel) {
       isLoadingFinalScreen.value = false;
 
+
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
-
         timer?.cancel();
         duration.value = const Duration(minutes: 10);
 
@@ -168,7 +181,7 @@ class AmountSendController extends GetxController {
       "amountToReceiveCurrency": amountToReceiveCurrency,
       "exchangeRate": xafRate.round().toString(),
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
-          ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()!
+          ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
           : "0",
       "paymentMethod": paymentMethod.value,
       "country": "$countryId",
@@ -186,10 +199,10 @@ class AmountSendController extends GetxController {
 
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
-        isRepeat.value = false;
+        timer?.cancel();
       } else if (apiResponseModel.statusCode == 201) {
         Get.toNamed(AppRoute.transactionSuccessScreen);
-        isRepeat.value = false;
+        timer?.cancel();
       } else if (apiResponseModel.statusCode == 401) {
       } else {
         Get.snackbar(
@@ -228,20 +241,12 @@ class AmountSendController extends GetxController {
       textController.text += value;
 
       var amount = double.parse(textController.text);
-      var rate = xafRate.value / rubRate.value;
 
-      // if(hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-      //   rate = rate +  ((rate * hiddenFeesModelInfo!.data!.attributes!.percentage!) / 100 ) ;
-      //
-      // }
-
-      var result = (amount + (amount * 15) / 100);
-
-      var receiveAmount = (rate * result);
+      var receiveAmount = (exchangeRate * amount);
 
       receiveController.text = (receiveAmount).round().toString();
 
-      print("=========================> $rate");
+      print("=========================> $exchangeRate");
     }
   }
 
@@ -269,14 +274,7 @@ class AmountSendController extends GetxController {
       } else {
         textController.text += value;
         var amount = double.parse(textController.text);
-        var rate = rubRate.value / xafRate.value;
-        if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-          amount = amount /
-              ((hiddenFeesModelInfo!.data!.attributes!.percentage! + 100) /
-                  100);
-        }
-
-        var receiveAmount = (rate * amount);
+        var receiveAmount = (amount / exchangeRate);
 
         amountController.text = (receiveAmount).round().toString();
       }

@@ -39,7 +39,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           hintText: "Enter your Full Name".tr,
           paddingHorizontal: 24.w,
           controller: signUpController.nameController,
-          paddingVertical: 18 * h,
+          paddingVertical: 14 * h,
           fillColor: AppColors.gray80,
           validator: (value) {
             if (value.isEmpty) {
@@ -68,7 +68,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           hintText: "Enter a valid email".tr,
           controller: signUpController.emailController,
           paddingHorizontal: 24.w,
-          paddingVertical: 18 * h,
+          paddingVertical: 14 * h,
           fillColor: AppColors.gray80,
           validator: (value) {
             if (value.contains("@")) {
@@ -106,7 +106,7 @@ class CreateAccountAllFiled extends StatelessWidget {
             fillColor: AppColors.gray80,
             filled: true,
             contentPadding:
-                EdgeInsets.symmetric(horizontal: 4.w, vertical: 18 * h),
+                EdgeInsets.symmetric(horizontal: 4.w, vertical: 14 * h),
             border: const OutlineInputBorder(
                 borderSide: BorderSide(),
                 borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -128,7 +128,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           hintText: "Password".tr,
           controller: signUpController.passwordController,
           paddingHorizontal: 24.w,
-          paddingVertical: 18 * h,
+          paddingVertical: 14 * h,
           validator: (value) {
             return signUpController.validatePassword(value) ;
           },
@@ -149,7 +149,7 @@ class CreateAccountAllFiled extends StatelessWidget {
           hintText: "ConfirmPassword".tr,
           paddingHorizontal: 24.w,
           controller: signUpController.confirmPasswordController,
-          paddingVertical: 18 * h,
+          paddingVertical: 14 * h,
           fillColor: AppColors.gray80,
           validator: (value) {
             if (signUpController.passwordController.text ==

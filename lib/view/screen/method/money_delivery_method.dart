@@ -39,38 +39,30 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     bottom: 24.h,
                     maxLines: 2,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            amountSendController.paymentMethod.value =
-                                "Mobile Money CEMAC";
-                            Get.toNamed(AppRoute.recipient);
-                          },
-                          child: Container(
-                            height: 180.h,
-                            // decoration: BoxDecoration(
-                            //   border: Border.all(
-                            //       color: AppColors.primaryColor,
-                            //       width: 1.w,
-                            //       style: BorderStyle.solid),
-                            //   borderRadius: BorderRadius.circular(10.r),
-                            //   color: AppColors.white,
-                            // ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 20),
-                              child: Image.asset(
-                                AppImages.cemac,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
+                  Obx(() => amountSendController.hiddenFeeLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const SizedBox()),
+                  GestureDetector(
+                    onTap: () {
+                      amountSendController.paymentMethod.value =
+                          "Mobile Money CEMAC";
+
+                      amountSendController.hiddenFeeRepo();
+                    },
+                    child: Container(
+                      height: 180.h,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
+                        child: Image.asset(
+                          AppImages.cemac,
+                          fit: BoxFit.fill,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -92,8 +84,7 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const CustomText(
-                          text:"0 %",
-                          color: AppColors.primaryColor),
+                          text: "0 %", color: AppColors.primaryColor),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

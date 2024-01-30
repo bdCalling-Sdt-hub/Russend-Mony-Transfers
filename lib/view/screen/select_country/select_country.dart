@@ -79,9 +79,7 @@ class _SelectCountryState extends State<SelectCountry> {
                                 onTap: () {
                                   amountSendController
                                       .countryCode.value = item.countryCode!;
-                                  amountSendController
-                                      .countryId.value = item.sId!;
-                                  amountSendController.hiddenFeeRepo();
+                                  amountSendController.countryId.value = item.sId!;
 
                                   if (item.isPaymentAvailable!) {
                                     if (item.paymentGateways!.length == 2) {
