@@ -27,10 +27,10 @@ class PaymentMethodFinal extends StatelessWidget {
         title: PaymentTextRich(
           firstText: "Transfer of ".tr,
           secondText:
-              "${amountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
+              "${AmountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
           thirdText: " to ".tr,
           fourText:
-              "${amountSendController.firstNameController.text} ${amountSendController.lastNameController.text}",
+              "${AmountSendController.firstNameController.text} ${AmountSendController.lastNameController.text}",
           fontSize: 20.sp,
         ),
         actions: [
@@ -72,7 +72,7 @@ class PaymentMethodFinal extends StatelessWidget {
                               "To make the payment you should log in your bank app (sberbank online) and send"
                                   .tr,
                           secondText:
-                              "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
+                              "${AmountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           thirdText:
                               " to the phone number displayed below. After sending the money, click on "
                                   .tr,

@@ -52,8 +52,7 @@ class MoneyDeliveryMethod extends StatelessWidget {
                       amountSendController.hiddenFeeRepo();
                     },
                     child: Container(
-                      height: 180.h,
-                      width: double.infinity,
+                      height: 220.h,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 20),

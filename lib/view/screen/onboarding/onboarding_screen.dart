@@ -61,7 +61,7 @@ class OnBoardingScreen extends StatelessWidget {
                   height: 32.h,
                 ),
                 CustomButton(
-                  titleText: "Sign up".tr,
+                  titleText: "Sign In".tr,
                   borderColor: AppColors.white,
                   titleColor: AppColors.white,
                   buttonWidth: double.maxFinite,

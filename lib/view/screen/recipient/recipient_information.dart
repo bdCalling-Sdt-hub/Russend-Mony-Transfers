@@ -52,7 +52,7 @@ class RecipientInformation extends StatelessWidget {
                   top: 24.h),
               CustomTextField(
                 keyboardType: TextInputType.name,
-                controller: amountSendController.firstNameController,
+                controller: AmountSendController.firstNameController,
                 fillColor: AppColors.gray80,
                 hintText: "Enter the recipient’s First Name".tr,
                 validator: (value) {
@@ -76,7 +76,7 @@ class RecipientInformation extends StatelessWidget {
                   top: 24.h),
               CustomTextField(
                 fillColor: AppColors.gray80,
-                controller: amountSendController.lastNameController,
+                controller: AmountSendController.lastNameController,
                 hintText: "Enter the recipient’s Last Name".tr,
                 keyboardType: TextInputType.name,
                 validator: (value) {
@@ -101,7 +101,7 @@ class RecipientInformation extends StatelessWidget {
               Obx(
                 () => CustomTextField(
                   fillColor: AppColors.gray80,
-                  controller: amountSendController.numberController,
+                  controller: AmountSendController.numberController,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -117,7 +117,7 @@ class RecipientInformation extends StatelessWidget {
                     ),
                   ),
                   prefixSvgIcon: CustomText(
-                      text: amountSendController.countryCode.value,
+                      text: AmountSendController.countryCode.value,
                       color: AppColors.black50,
                       top: 16.h,
                       left: 8.w,

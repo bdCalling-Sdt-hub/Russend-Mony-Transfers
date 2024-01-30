@@ -197,25 +197,27 @@ class TransactionHistory extends StatelessWidget {
                               ),
                               GestureDetector(
                                   onTap: () async {
+                                    AmountSendController.isCancelled.value =
+                                        false;
                                     amountSendController.isRepeat.value = true;
-                                    amountSendController.amountController.text =
+                                    AmountSendController.amountController.text =
                                         "";
 
-                                    amountSendController
+                                    AmountSendController
                                             .firstNameController.text =
                                         transactionController
                                             .transactionDetailsModelInfo!
                                             .data!
                                             .attributes!
                                             .firstName!;
-                                    amountSendController
+                                    AmountSendController
                                             .lastNameController.text =
                                         transactionController
                                             .transactionDetailsModelInfo!
                                             .data!
                                             .attributes!
                                             .lastName!;
-                                    amountSendController.numberController.text =
+                                    AmountSendController.numberController.text =
                                         transactionController
                                             .transactionDetailsModelInfo!
                                             .data!
@@ -235,15 +237,14 @@ class TransactionHistory extends StatelessWidget {
                                             .attributes!
                                             .paymentMethod!;
 
-                                    amountSendController
-                                        .hiddenFeeRepo(isRepeated: true, amount:
-                                    transactionController
-                                        .transactionDetailsModelInfo!
-                                        .data!
-                                        .attributes!
-                                        .amountToSent
-                                        .toString());
-
+                                    amountSendController.hiddenFeeRepo(
+                                        isRepeated: true,
+                                        amount: transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .amountToSent
+                                            .toString());
                                   },
                                   child: CustomText(
                                       text: "Repeat transfer".tr,
@@ -323,7 +324,7 @@ class TransactionHistory extends StatelessWidget {
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Fee".tr,
-                                    value: amountSendController
+                                    value: AmountSendController
                                         .amountController.value.text),
                                 SizedBox(height: 24.h),
                                 RowText(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/rich_text/rich_text.dart';
@@ -8,9 +9,12 @@ import 'package:money_transfers/view/screen/transection/widget/successful_item.d
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
+import '../../../core/app_route/app_route.dart';
 
 class TransactionCancelScreen extends StatelessWidget {
-  const TransactionCancelScreen({super.key});
+  TransactionCancelScreen({super.key});
+
+  AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +30,27 @@ class TransactionCancelScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomText(
-                  text: "Continue".tr,
-                  fontSize: 20,
-                  bottom: 7.h,
-                  fontWeight: FontWeight.w700,
-                  textAlign: TextAlign.right,
-                  color: AppColors.primaryColor,
+                InkWell(
+                  onTap: () {
+                    AmountSendController.isCancelled.value = true ;
+                    Get.offAllNamed(AppRoute.transaction);
+                    amountSendController.isRepeat.value = false ;
+                    AmountSendController.amountController.clear();
+                    AmountSendController.receiveController.clear();
+                    AmountSendController.firstNameController.clear();
+                    AmountSendController.lastNameController.clear();
+                  },
+                  child: CustomText(
+                    text: "Continue".tr,
+                    fontSize: 20,
+                    bottom: 7.h,
+                    fontWeight: FontWeight.w700,
+                    textAlign: TextAlign.right,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ],
             ),
-
             Container(
               width: double.infinity,
               decoration: const BoxDecoration(
@@ -56,15 +70,18 @@ class TransactionCancelScreen extends StatelessWidget {
                       height: 12,
                     ),
                     TextRichWidget(
-                        secondText: "Naimul Hassan",
-                        firstText:
-                            "If you believe your transaction was canceled by mistake, please "
-                                .tr),
-                    const SizedBox(height: 16,),
+                      firstText:
+                      "If you believe your transaction was canceled by mistake, please "
+                          .tr,
+                        secondText: "${AmountSendController.firstNameController.text} ${AmountSendController.lastNameController.text}"
 
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     SuccessfulItem(
                       title: "Amount Sent".tr,
-                      service: "1500 RUB",
+                      service: "${AmountSendController.amountController.text} RUB",
                     ),
                     const SizedBox(
                       height: 8,
@@ -78,7 +95,7 @@ class TransactionCancelScreen extends StatelessWidget {
                     ),
                     SuccessfulItem(
                         title: "You Pay".tr,
-                        service: "1500 RUB",
+                        service: "${AmountSendController.amountController.text} RUB",
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor),
                     const SizedBox(
@@ -86,7 +103,7 @@ class TransactionCancelScreen extends StatelessWidget {
                     ),
                     SuccessfulItem(
                       title: "Amount Received".tr,
-                      service: "12 350 XAF",
+                      service: "${AmountSendController.receiveController.text} XAF",
                     ),
                     const SizedBox(
                       height: 8,

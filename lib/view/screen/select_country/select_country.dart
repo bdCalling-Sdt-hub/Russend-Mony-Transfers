@@ -77,8 +77,9 @@ class _SelectCountryState extends State<SelectCountry> {
                                   .countryList!.data!.attributes![index];
                               return InkWell(
                                 onTap: () {
-                                  amountSendController
-                                      .countryCode.value = item.countryCode!;
+                                  AmountSendController.countryCode.value = item.countryCode!;
+                                  AmountSendController.countryFlag.value = item.countryFlag! ;
+                                  AmountSendController.countryName.value = item.name! ;
                                   amountSendController.countryId.value = item.sId!;
 
                                   if (item.isPaymentAvailable!) {

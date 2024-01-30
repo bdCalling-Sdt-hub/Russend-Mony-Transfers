@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +61,11 @@ class AmountSendScreen extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     autofocus: true,
+                    cursorColor: Colors.transparent,
                     onTap: () => amountSendController.isPay.value = true,
                     keyboardType: TextInputType.none,
                     textAlign: TextAlign.center,
-                    controller: amountSendController.amountController,
+                    controller: AmountSendController.amountController,
                     decoration: InputDecoration(
                         hintText: "0",
                         border: InputBorder.none,
@@ -88,7 +88,9 @@ class AmountSendScreen extends StatelessWidget {
                     onTap: () => amountSendController.isPay.value = false,
                     keyboardType: TextInputType.none,
                     textAlign: TextAlign.center,
-                    controller: amountSendController.receiveController,
+                    cursorColor: Colors.transparent,
+
+                    controller: AmountSendController.receiveController,
                     decoration: InputDecoration(
                         hintText: "0",
                         border: InputBorder.none,
@@ -171,8 +173,8 @@ class AmountSendScreen extends StatelessWidget {
             const Divider(),
             Obx(() => amountSendCustomKeyboard(
                 controller: amountSendController.isPay.value
-                    ? amountSendController.amountController
-                    : amountSendController.receiveController,
+                    ? AmountSendController.amountController
+                    : AmountSendController.receiveController,
                 onTap: amountSendController.isPay.value
                     ? amountSendController.youPay
                     : amountSendController.receiveAmount,

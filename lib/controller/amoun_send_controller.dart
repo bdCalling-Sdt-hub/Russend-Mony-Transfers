@@ -1,28 +1,35 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/payment_info_model.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
 import '../models/hidden_fee_model.dart';
 import '../services/api_services/api_services.dart';
+import '../view/screen/transection/transaction_cancel_screen.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
-  RxDouble xafRate = 0.0.obs;
-  RxDouble rubRate = 0.0.obs;
-  RxBool success = false.obs;
+  RxDouble xafRate = 655.96.obs;
+  RxDouble rubRate = 97.55.obs;
+  static RxBool success = true.obs;
   RxBool isPay = true.obs;
   RxBool isRepeat = false.obs;
   RxBool hiddenFeeLoading = false.obs;
-  var exchangeRate = 0.0;
+  RxDouble exchangeRate = 0.0.obs;
 
   RxBool disableButton = false.obs;
+
+  static RxString countryName = "".obs;
+
+  static RxString countryFlag = "".obs;
 
   final duration = const Duration().obs;
   Timer? timer;
@@ -33,11 +40,12 @@ class AmountSendController extends GetxController {
   PaymentInfoModel? paymentInfoModelInfo;
 
   RxBool isLoading = false.obs;
+  static RxBool isCancelled = false.obs;
   String amountToSentCurrency = "RUB";
 
   String amountToReceiveCurrency = "XAF";
 
-  RxString countryCode = "+237".obs;
+  static RxString countryCode = "+237".obs;
   RxString countryId = "".obs;
   RxBool isLoadingFinalScreen = false.obs;
   RxBool isLoadingFinalScreenButton = false.obs;
@@ -45,50 +53,80 @@ class AmountSendController extends GetxController {
 
   ///========================> amount Send <=====================
 
-  TextEditingController amountController = TextEditingController();
-  TextEditingController receiveController = TextEditingController();
+  static TextEditingController amountController = TextEditingController();
+  static TextEditingController receiveController = TextEditingController();
 
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController numberController = TextEditingController();
+  static TextEditingController firstNameController = TextEditingController();
+  static TextEditingController lastNameController = TextEditingController();
+  static TextEditingController numberController = TextEditingController();
 
   Future<void> exchangeRates(bool isRepeated, String amount) async {
     print("exchangeRates");
 
-    try {
-      hiddenFeeLoading.value = true;
+    if (success.value) {
+      /// <=============================Test Code ==========================>
+      exchangeRate.value = xafRate.value / rubRate.value;
+      if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+        exchangeRate.value =
+            exchangeRate.value - (exchangeRate.value * 0.15);
+      }
 
-      final url = Uri.parse(ApiUrl.exchangeApi);
+      /// <=============================Test Code ==========================>
 
-      var response = await http.get(url);
+      print("exchangeRate=====================> $exchangeRate");
+      print("rubRate=====================> $rubRate");
+      print("xafRate=====================> $xafRate");
 
 
-      hiddenFeeLoading.value = false;
+      if (isRepeated) {
+        Get.toNamed(AppRoute.amountSend);
+        youPay(amount, amountController);
+      } else {
+        Get.toNamed(AppRoute.recipient);
+      }
+    } else {
+      try {
+        hiddenFeeLoading.value = true;
 
-      print(response.body);
+        final url = Uri.parse(ApiUrl.exchangeApi);
 
-      if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        var data = jsonData['rates'];
-        success.value = jsonData["success"];
-        xafRate.value = double.parse(data["XAF"].toStringAsFixed(2));
-        rubRate.value = double.parse(data["RUB"].toStringAsFixed(2));
-        exchangeRate = xafRate.value / rubRate.value;
+        var response = await http.get(url);
 
-        exchangeRate = exchangeRate - (exchangeRate * 0.15);
-        print(exchangeRate);
-        print(xafRate);
-        print(rubRate);
-        youPay(amount, amountController) ;
+        hiddenFeeLoading.value = false;
 
-        if(isRepeated) {
-          Get.toNamed(AppRoute.amountSend);
-        }else {
-          Get.toNamed(AppRoute.recipient);
+        print(response.body);
+        print(response.statusCode);
+
+        if (response.statusCode == 200) {
+          var jsonData = jsonDecode(response.body);
+          var data = jsonData['rates'];
+          success.value = jsonData["success"];
+          xafRate.value = data["XAF"];
+          rubRate.value = data["RUB"];
+          exchangeRate.value = xafRate.value / rubRate.value;
+
+          if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+            exchangeRate.value =
+                exchangeRate.value - (exchangeRate.value * 0.15);
+          }
+
+          print(exchangeRate);
+          print(xafRate);
+          print(rubRate);
+
+          if (isRepeated) {
+            Get.toNamed(AppRoute.amountSend);
+            youPay(amount, amountController);
+          } else {
+            Get.toNamed(AppRoute.recipient);
+          }
+        }else  if (response.statusCode == 429) {
+          Utils.toastMessage("usage_limit_reached") ;
         }
-      } else {}
-    } catch (e) {
-      print("error $e");
+        else {}
+      } catch (e) {
+        print("error $e");
+      }
     }
   }
 
@@ -96,34 +134,43 @@ class AmountSendController extends GetxController {
 
   NetworkApiService networkApiService = NetworkApiService();
 
-  Future<void> hiddenFeeRepo( {bool isRepeated = false, String amount = "" } ) async {
+  Future<void> hiddenFeeRepo(
+      {bool isRepeated = false, String amount = "0"}) async {
     print("===================> hiddenFeeRepo");
 
+    if (hiddenFeesModelInfo != null) {
+      await exchangeRates(isRepeated, amount);
+    } else {
       Map<String, String> header = {
         'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
       };
 
       hiddenFeeLoading.value = true;
 
+      print("hiddenFeeRepo hitting ==================> hiddenFeeRepo") ;
+
       networkApiService
           .getApi(ApiUrl.hiddenFee, header)
           .then((apiResponseModel) async {
-        hiddenFeeLoading.value = true;
+        hiddenFeeLoading.value = false;
+
+        print(apiResponseModel.responseJson);
 
         if (apiResponseModel.statusCode == 200) {
           var json = jsonDecode(apiResponseModel.responseJson);
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
-          await exchangeRates(isRepeated, amount);
-
+          print(hiddenFeesModelInfo);
+          exchangeRates(isRepeated, amount);
         } else if (apiResponseModel.statusCode == 201) {
           var json = jsonDecode(apiResponseModel.responseJson);
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
-          await exchangeRates(isRepeated, amount);
+          exchangeRates(isRepeated, amount);
         } else {
           Get.snackbar(
               apiResponseModel.statusCode.toString(), apiResponseModel.message);
         }
       });
+    }
   }
 
   ///========================> payment method final Screen <=====================
@@ -148,12 +195,11 @@ class AmountSendController extends GetxController {
         .then((apiResponseModel) {
       isLoadingFinalScreen.value = false;
 
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
         timer?.cancel();
-        duration.value = const Duration(minutes: 10);
+        duration.value = const Duration(seconds: 10);
 
         startTime();
         time.value = "0:10:00.00000";
@@ -179,7 +225,7 @@ class AmountSendController extends GetxController {
       "ammountToSentCurrency": amountToSentCurrency,
       "amountToReceive": receiveController.text,
       "amountToReceiveCurrency": amountToReceiveCurrency,
-      "exchangeRate": xafRate.round().toString(),
+      "exchangeRate": exchangeRate.round().toString(),
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
           ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
           : "0",
@@ -242,7 +288,7 @@ class AmountSendController extends GetxController {
 
       var amount = double.parse(textController.text);
 
-      var receiveAmount = (exchangeRate * amount);
+      var receiveAmount = (exchangeRate.value * amount);
 
       receiveController.text = (receiveAmount).round().toString();
 
@@ -274,7 +320,7 @@ class AmountSendController extends GetxController {
       } else {
         textController.text += value;
         var amount = double.parse(textController.text);
-        var receiveAmount = (amount / exchangeRate);
+        var receiveAmount = (amount / exchangeRate.value);
 
         amountController.text = (receiveAmount).round().toString();
       }
@@ -291,6 +337,7 @@ class AmountSendController extends GetxController {
       } else {
         disableButton.value = true;
         timer?.cancel();
+        Get.offAllNamed(AppRoute.transactionCancelScreen);
       }
     });
   }

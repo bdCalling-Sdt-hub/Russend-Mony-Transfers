@@ -16,6 +16,7 @@ import 'package:money_transfers/view/screen/password/create_password_successful/
 import 'package:money_transfers/view/screen/password/forgot_password_screen.dart';
 import 'package:money_transfers/view/screen/phone_number/phone_number.dart';
 import 'package:money_transfers/view/screen/test_screen/test_screen.dart';
+import 'package:money_transfers/view/screen/transection/transaction_cancel_screen.dart';
 import 'package:money_transfers/view/screen/verification/sign_up_verification/sign_up_verification.dart';
 import 'package:money_transfers/view/screen/profile/appearance/appearance_screen.dart';
 import 'package:money_transfers/view/screen/profile/edit_email/edit_email_screen.dart';
@@ -155,5 +156,6 @@ class AppRoute {
         name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
     GetPage(name: resetPasscode, page: () => ResetPasswordScreen()),
     GetPage(name: deliveryMethodCameroon, page: () => MoneyDeliveryMethodCameroon()),
+    GetPage(name: transactionCancelScreen, page: () => TransactionCancelScreen()),
   ];
 }

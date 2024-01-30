@@ -21,6 +21,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  PersonalInfoController personalInfoController =
+  Get.put(PersonalInfoController());
   @override
   void initState() {
     personalInfoController.userDetailsRepo();
@@ -28,8 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
-  PersonalInfoController personalInfoController =
-      Get.put(PersonalInfoController());
+
 
   @override
   Widget build(BuildContext context) {

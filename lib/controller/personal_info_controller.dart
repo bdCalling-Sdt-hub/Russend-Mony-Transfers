@@ -43,6 +43,8 @@ class PersonalInfoController extends GetxController {
         .getApi("${ApiUrl.user}/${SharedPreferenceHelper.id}", header)
         .then((apiResponseModel) {
       isLoading.value = false;
+      print(apiResponseModel.statusCode) ;
+      print(apiResponseModel.responseJson) ;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

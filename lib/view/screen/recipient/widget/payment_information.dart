@@ -144,7 +144,7 @@ class PaymentInformation extends StatelessWidget {
                 text:
                 amountSendController.paymentInfoModelInfo?.data != null
                     ?
-                    "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}" : "",
+                    "${AmountSendController.amountController.text} ${amountSendController.amountToSentCurrency}" : "",
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,

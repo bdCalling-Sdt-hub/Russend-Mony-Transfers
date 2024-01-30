@@ -31,11 +31,11 @@ class TransactionSuccessScreen extends StatelessWidget {
                 onTap: () {
                   Get.offAllNamed(AppRoute.transaction);
                   amountSendController.isRepeat.value = false ;
-                  amountSendController.amountController.clear();
-                  amountSendController.receiveController.clear();
-                  amountSendController.firstNameController.clear();
-                  amountSendController.lastNameController.clear();
-                  amountSendController.numberController.clear();
+                  AmountSendController.amountController.clear();
+                  AmountSendController.receiveController.clear();
+                  AmountSendController.firstNameController.clear();
+                  AmountSendController.lastNameController.clear();
+                  AmountSendController.numberController.clear();
                 },
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -76,7 +76,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                       ),
                       TextRichWidget(
                           secondText:
-                              "${amountSendController.firstNameController.text} ${amountSendController.lastNameController.text}",
+                              "${AmountSendController.firstNameController.text} ${AmountSendController.lastNameController.text}",
                           firstText: "Mobile Money Transfer for ".tr),
                       SizedBox(
                         height: 16.h,
@@ -84,7 +84,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SuccessfulItem(
                         title: "Amount Sent".tr,
                         service:
-                            "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
+                            "${AmountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                       ),
                       SizedBox(
                         height: 8.h,
@@ -99,7 +99,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SuccessfulItem(
                           title: "You Pay".tr,
                           service:
-                              "${amountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
+                              "${AmountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           fontWeight: FontWeight.w700,
                           color: AppColors.primaryColor),
                       SizedBox(
@@ -108,7 +108,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SuccessfulItem(
                         title: "Amount Received".tr,
                         service:
-                            "${amountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
+                            "${AmountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
                       ),
                       SizedBox(
                         height: 8.h,

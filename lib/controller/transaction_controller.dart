@@ -125,6 +125,15 @@ class TransactionController extends GetxController {
   }
 
 
+  String currentDate() {
+    final now = DateTime.now();
+    String formatter = DateFormat('d.MM.yy').format(now);// 28/03/2020
+    return formatter.toString() ;
+  }
+
+
+
+
 
 
 

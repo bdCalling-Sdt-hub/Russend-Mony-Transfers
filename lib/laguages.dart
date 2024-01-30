@@ -194,6 +194,7 @@ class Languages extends Translations {
           "Error": "Error",
           "User does not exist": "User does not exist",
           "No notifications": "No notifications",
+          "Cancelled Transaction": "Cancelled Transaction"
         },
         'fr_FR': {
           "Transfer money quickly with Russend":
@@ -394,6 +395,8 @@ class Languages extends Translations {
           "Error": "Erreur",
           "User does not exist": "L'utilisateur n'existe pas",
           "No notifications": "Aucune notification",
+          "Cancelled Transaction": "Transactions annulées"
+
         }
       };
 }

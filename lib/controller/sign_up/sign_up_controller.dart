@@ -90,6 +90,8 @@ class SignUpController extends GetxController {
     });
   }
 
+
+
   Future<void> signUpAuthRepo() async {
     print("===================> signUpAuthRepo");
 
