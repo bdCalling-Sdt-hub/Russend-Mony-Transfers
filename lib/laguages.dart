@@ -65,15 +65,14 @@ class Languages extends Translations {
           "Phone Number": "Phone Number",
           "Your  order has been received": "Your  order has been received",
           "Amount Sent": "Amount Sent",
-          "You Pay": "You Pay",
           "Amount Received": "Amount Received",
           "Should Arrive": "Should Arrive",
           "Mobile Money Transfer for ": "Mobile Money Transfer for ",
           "Important!": "Important!",
           "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available":
-              "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available.\n",
+              "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available.",
           "If you believe your transaction was canceled by mistake, please ":
-              "If you believe your transaction was canceled by mistake, please If you believe your transaction was canceled by mistake, please ",
+              "Mobile Money Transfer for ",
           "contact us": "contact us",
           "Please enter passcode": "Please enter passcode",
           "Please enter the OTP code": "Please enter the OTP code",
@@ -87,7 +86,7 @@ class Languages extends Translations {
           "0.00 RUB": "0.00 RUB",
           "Should arrive": "Should arrive",
           "In a few minutes": "In a few minutes",
-          "Important": "Important",
+          "Important": "Important!",
           "1-You can make the payment from any russian bank":
               "1-You can make the payment from any russian bank",
           "2-You will get ": "2-You will get ",
@@ -194,7 +193,13 @@ class Languages extends Translations {
           "Error": "Error",
           "User does not exist": "User does not exist",
           "No notifications": "No notifications",
-          "Cancelled Transaction": "Cancelled Transaction"
+          "Cancelled Transaction": "Cancelled Transaction",
+          "Forgot": "Forgot",
+          "To Mobile": "To Mobile:",
+          "XAF": "XAF",
+          "LegalProfile": "Legal",
+          "Cancelled": "Cancelled",
+          "If you believe your transaction was canceled by mistake": "If you believe your transaction was canceled by mistake, please "
         },
 
 
@@ -215,34 +220,34 @@ class Languages extends Translations {
               "Nous avons envoyé un SMS au +7 (913) 137-82-62",
           "YouCanResendTheCodeIn": "  Vous pouvez renvoyer le code dans",
           "Create your account": "Créez votre compte",
-          "Last Name": "Nom de famille",
+          "Last Name": "Nom",
           "First Name": "Prénom",
           "E-mail Address": "Adresse e-mail",
           "Register": "Registre",
-          "Welcome back, Adrien!": "Content de te revoir ",
+          "Welcome back, Adrien!": "Bon retour, ",
           "Recent transaction": "Transaction récente",
           "You have no recent transaction":
               "Vous n'avez aucune transaction récente",
           "Send": "Envoyer",
           "Sent": "Envoyée",
-          "Transaction ID": "identifiant de transaction",
+          "Transaction ID": "Transaction ID",
           "Date": "Date",
           "Rate": "Taux",
           "Fee": "Frais",
           "Recipient": "Destinataire",
-          "Delivery": "Livraison",
-          "Contact support": "Contactez le support",
+          "Delivery": "Methode",
+          "Contact support": "Contactez le service client",
           "Contact Support": "Contactez le support",
           "To help us serve you better, kindly have your transaction ID ready. This unique identifier can be found in your transaction located on your account dashboard.":
-              "Pour nous aider à mieux vous servir, veuillez préparer votre identifiant de transaction. Cet identifiant unique se retrouve dans votre transaction située sur le tableau de bord de votre compte.",
+              "Pour nous aider à mieux vous servir, veuillez préparer votre identifiant de transaction(transaction ID). Cet identifiant unique se retrouve dans votre transaction située sur le menu principal de votre compte.",
           "Notification": "Notification",
           "Select how to deliver money to recipient":
               "Sélectionnez comment remettre l'argent au destinataire",
           "Should arrive in": "Devrait arriver dans",
           " a few minutes": " quelques minutes",
-          " Fee": " Frais",
+          " Fee": " de Frais",
           "The transfers to this country will resume soon":
-              "Les transferts vers ce pays reprendront bientôt",
+              "Le transfert vers ce pays reprendra bientôt",
           "Back to main menu": "Retour au menu principal",
           "Add recipient’s information":
               "Ajouter les informations du destinataire",
@@ -255,8 +260,8 @@ class Languages extends Translations {
           "Mobile number": "Numéro de téléphone",
           "Email": "E-mail",
           "Fingerprint/ Face id to unlock":
-              "Empreinte digitale/identification faciale pour déverrouiller",
-          "Change passcode": "Changer le mot de passe",
+              "Empreinte digitale/Face ID pour déverrouiller",
+          "Change passcode": "Changer le code d'accès",
           "Log out": "Se déconnecter",
           "Dark mode": "Mode sombre",
           "ADRIEN WANDJI NGAHA": "ADRIEN WANDJI NGAHA",
@@ -270,36 +275,36 @@ class Languages extends Translations {
           "Mobile Money Transfer for ": "Transfert d'argent mobile pour ",
           "Important!": "Importante!",
           "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available":
-              "Votre transaction sera disponible dans un délai de 2 à 3 heures ou plus tôt (cela prend généralement quelques minutes). Nous vous enverrons une notification lorsque les fonds seront disponibles.\n",
+              "Votre transaction sera disponible dans un délai de 2 à 3 heures ou plus tôt (cela prend généralement quelques minutes). Nous vous enverrons une notification lorsque les fonds seront disponibles.",
           "If you believe your transaction was canceled by mistake, please ":
-              "Si vous pensez que votre transaction a été annulée par erreur, veuillez Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
+              "Transfert d'argent pour ",
           "contact us": "Contactez-nous",
           "Please enter passcode": "Veuillez entrer le code d'accès",
           "Please enter the OTP code": "Veuillez entrer le code OTP",
           "Confirm": "Confirmer",
           "Create your passcode": "Créez votre code d'accès",
           "Confirm your passcode": "Confirmez votre code d'accès",
-          "You pay": "Tu payes",
-          "Recipient gets": "Le destinataire obtient",
+          "You pay": "Vous payez",
+          "Recipient gets": "Le destinataire recoit",
           "RUB": "RUB",
           "XAF": "XAF",
           "0.00 RUB": "0.00 RUB",
           "Should arrive": "Devrait arriver",
           "In a few minutes": "Dans quelques minutes",
-          "Important": "Importante",
+          "Important": "Importante!",
           "1-You can make the payment from any russian bank":
               "1-Vous pouvez effectuer le paiement depuis n'importe quelle banque russe",
           "2-You will get ": "2-Vous obtiendrez ",
           "10 minutes": "10 minutes",
-          " to make the payment": " effectuer le paiement",
-          "3-If after ": "3-Si après ",
+          " to make the payment": " pour effectuer le paiement",
+          "3-If after ": "3-Si au bout de ",
           " the payment has not been made, the transaction will be automatically canceled":
               " le paiement n'a pas été effectué, la transaction sera automatiquement annulée",
           "Make payment": "Effectuer le paiement",
-          "Transfer of ": "Transfert de ",
+          "Transfer of ": "Dépôt de ",
           "to ": "à ",
           "To make the payment you should log in your bank app (sberbank online) and send":
-              "Pour effectuer le paiement, vous devez vous connecter à votre application bancaire (sberbank online) et envoyer  ",
+              "Pour effectuer le paiement, vous devez vous connecter à votre application bancaire (Ex: sberbank online) et envoyer ",
           " to the phone number displayed below. After sending the money, click on ":
               " au numéro de téléphone affiché ci-dessous. Après avoir envoyé l'argent, cliquez sur ",
           "I made the payment": "j'ai effectué le paiement",
@@ -308,10 +313,10 @@ class Languages extends Translations {
           "Phone Number :": "Numéro de téléphone :",
           "Name :": "Nom :",
           "Amount to send :": "Montant à envoyer :",
-          "I Made the payment": "J'ai effectué le paiement",
-          "You have ": "Tu as ",
-          " left to make the payment": " reste à effectuer le paiement",
-          "Enter your passcode": "Entre ton mot de passe",
+          "I Made the payment": "''J'ai effectué le paiement''",
+          "You have ": "Il vous reste ",
+          " left to make the payment": " pour effectuer le paiement",
+          "Enter your passcode": "Entrez votre code d'accè",
           "Terms of Services": "Conditions de services",
           "Terms of money transfer": "Conditions de transfert d'argent",
           "Personal Data Policy": "Politique de données personnelles",
@@ -349,12 +354,12 @@ class Languages extends Translations {
           "Enter a valid email": "Entrer une adresse e-mail valide",
           "Sign up": "S'inscrire",
           "Reset your passcode by logging in again":
-              "Réinitialisez votre mot de passe en vous reconnectant",
-          "Enter your current passcode": "Entrez votre mot de passe actuel",
-          "Enter your new passcode": "Entrez votre nouveau mot de passe",
-          "Confirm your new passcode": "Confirmez votre nouveau mot de passe",
+              "Réinitialisez votre code d'accès en vous reconnectant",
+          "Enter your current passcode": "Entrez votre code d'accès actuel",
+          "Enter your new passcode": "Entrez votre nouveau d'accès actuel",
+          "Confirm your new passcode": "Confirmez votre nouveau code d'accès",
           "Enter the recipient’s First Name":
-              "Saisissez le prénom du destinataire",
+              "Entrez le prénom du destinataire",
           "Enter the recipient’s Last Name":
               "Entrez le nom de famille du destinataire",
           "Your  order has been cancelled": "Votre commande a été annulée",
@@ -399,7 +404,19 @@ class Languages extends Translations {
           "Error": "Erreur",
           "User does not exist": "L'utilisateur n'existe pas",
           "No notifications": "Aucune notification",
-          "Cancelled Transaction": "Transactions annulées"
+          "Cancelled Transaction": "Transactions annulées",
+          "Forgot": "Oublié!",
+          "To Mobile": "Vers mobile:",
+          "XAF": "FCFA",
+          "LegalProfile": "Légale",
+          "Cancelled": "annulée",
+          "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez "
+
+
+
+
+
+
 
         }
       };

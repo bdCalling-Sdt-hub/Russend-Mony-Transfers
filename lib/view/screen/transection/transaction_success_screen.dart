@@ -97,7 +97,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                         height: 8.h,
                       ),
                       SuccessfulItem(
-                          title: "You Pay".tr,
+                          title: "You pay".tr,
                           service:
                               "${AmountSendController.amountController.text} ${amountSendController.amountToSentCurrency}",
                           fontWeight: FontWeight.w700,
@@ -108,14 +108,14 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SuccessfulItem(
                         title: "Amount Received".tr,
                         service:
-                            "${AmountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
+                            "${AmountSendController.receiveController.text} ${"XAF".tr}",
                       ),
                       SizedBox(
                         height: 8.h,
                       ),
                       SuccessfulItem(
                         title: "Should Arrive".tr,
-                        service: "In a few minutes",
+                        service: "In a few minutes".tr,
                       ),
                     ],
                   ),

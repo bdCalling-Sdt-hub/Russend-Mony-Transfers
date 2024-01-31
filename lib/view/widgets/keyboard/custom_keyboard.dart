@@ -58,7 +58,7 @@ class CustomKeyboard extends StatelessWidget {
                 height: 60.sp,
                     child: Center(
                       child: CustomText(
-                          text: "Forgot",
+                          text: "Forgot".tr,
                           color:
                               isForgot ? AppColors.black100 : AppColors.background,
                           fontSize: 16.sp,

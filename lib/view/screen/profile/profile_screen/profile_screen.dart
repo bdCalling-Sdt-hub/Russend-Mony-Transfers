@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: ProfileScreenItem(icon: AppIcons.language, title: "Language".tr,)),
                       InkWell(
                           onTap: () => Get.toNamed(AppRoute.legalScreen),
-                          child: ProfileScreenItem(icon: AppIcons.legal, title: "Legal".tr,)),
+                          child: ProfileScreenItem(icon: AppIcons.legal, title: "LegalProfile".tr,)),
 
 
 

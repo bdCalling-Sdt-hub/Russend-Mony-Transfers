@@ -105,7 +105,7 @@ class TransactionHistory extends StatelessWidget {
                                   size: 18.h, color: AppColors.black100),
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.amountToReceive} ${transactionController.transactionDetailsModelInfo!.data!.attributes!.amountToReceiveCurrency}",
+                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.amountToReceive} ${"XAF".tr}",
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   left: 4.w),
@@ -334,7 +334,7 @@ class TransactionHistory extends StatelessWidget {
                                 RowText(
                                     title: "Delivery".tr,
                                     value:
-                                        "To mobile: ${transactionController.transactionDetailsModelInfo!.data!.attributes!.phoneNumber}"),
+                                        "${"To Mobile".tr} ${transactionController.transactionDetailsModelInfo!.data!.attributes!.phoneNumber}"),
                               ],
                             ),
                           ),

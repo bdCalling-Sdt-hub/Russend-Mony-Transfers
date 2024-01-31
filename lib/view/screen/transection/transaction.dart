@@ -120,8 +120,8 @@ class _TransactionState extends State<Transaction> {
                               children: [
                                 CustomText(
                                   text: amountSendController.isRepeat.value
-                                      ? "To Mobile: ${AmountSendController.numberController.text}"
-                                      : "To Mobile: ${AmountSendController.countryCode.value}${AmountSendController.numberController.text}",
+                                      ? "${"To Mobile".tr} ${AmountSendController.numberController.text}"
+                                      : "${"To Mobile".tr} ${AmountSendController.countryCode.value}${AmountSendController.numberController.text}",
                                   color: AppColors.black50,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -256,7 +256,7 @@ class _TransactionState extends State<Transaction> {
                                                             .start)),
                                                 CustomText(
                                                     text:
-                                                        "${transactionModel.amountToSent} ${transactionModel.amountToReceiveCurrency}",
+                                                        "${transactionModel.amountToSent} ${"XAF".tr}",
                                                     fontSize: 18.sp,
                                                     fontWeight:
                                                         FontWeight.w600),
@@ -272,14 +272,13 @@ class _TransactionState extends State<Transaction> {
                                               children: [
                                                 CustomText(
                                                     text:
-                                                        "To mobile : ${transactionModel.phoneNumber}",
+                                                        "${"To Mobile".tr} ${transactionModel.phoneNumber}",
                                                     fontSize: 14.sp,
                                                     fontWeight:
                                                         FontWeight.w600,
-                                                    color:
-                                                        AppColors.black50,
-                                                    textAlign:
-                                                        TextAlign.start),
+                                                    color: AppColors.black50,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.start),
                                                 transactionModel.status ==
                                                         "pending"
                                                     ? CustomImage(
@@ -346,7 +345,11 @@ class _TransactionState extends State<Transaction> {
             onPressed: () {
               AmountSendController.isCancelled.value = false ;
               amountSendController.isRepeat.value = false ;
-              AmountSendController.numberController.text ="" ;
+              AmountSendController.numberController.clear() ;
+              AmountSendController.amountController.clear();
+              AmountSendController.receiveController.clear();
+              AmountSendController.firstNameController.clear();
+              AmountSendController.lastNameController.clear();
               Get.toNamed(AppRoute.selectCountry) ;
             }
           ),

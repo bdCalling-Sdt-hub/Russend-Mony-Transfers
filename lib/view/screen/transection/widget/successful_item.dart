@@ -27,7 +27,7 @@ class SuccessfulItem extends StatelessWidget {
       children: [
 
         CustomText(text: title, fontSize: 16.sp, fontWeight:  fontWeight),
-        CustomText(text: service, fontSize: 16.sp, color: color!,)
+        Flexible(child: CustomText(text: service, fontSize: 16.sp, color: color!, overflow: TextOverflow.ellipsis,))
       ],
     );
   }

@@ -93,7 +93,7 @@ class TransactionCancelScreen extends StatelessWidget {
                       height: 8,
                     ),
                     SuccessfulItem(
-                        title: "You Pay".tr,
+                        title: "You pay".tr,
                         service: "${AmountSendController.amountController.text} RUB",
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor),
@@ -102,14 +102,14 @@ class TransactionCancelScreen extends StatelessWidget {
                     ),
                     SuccessfulItem(
                       title: "Amount Received".tr,
-                      service: "${AmountSendController.receiveController.text} XAF",
+                      service: "${AmountSendController.receiveController.text} ${"XAF".tr}",
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     SuccessfulItem(
                       title: "Should Arrive".tr,
-                      service: "Cancelled",
+                      service: "Cancelled".tr,
                       color: AppColors.redMedium,
                     ),
                   ],
@@ -133,7 +133,7 @@ class TransactionCancelScreen extends StatelessWidget {
             TextRichWidget(
               secondText: "contact us".tr,
               firstText:
-                  "If you believe your transaction was canceled by mistake, please "
+                  "If you believe your transaction was canceled by mistake"
                       .tr,
               secondColor: AppColors.primaryColor,
               alignment: TextAlign.start,
