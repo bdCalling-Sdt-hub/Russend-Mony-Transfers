@@ -34,7 +34,6 @@ class TransactionCancelScreen extends StatelessWidget {
                   onTap: () {
                     AmountSendController.isCancelled.value = true ;
                     Get.offAllNamed(AppRoute.transaction);
-                    amountSendController.isRepeat.value = false ;
                     AmountSendController.amountController.clear();
                     AmountSendController.receiveController.clear();
                     AmountSendController.firstNameController.clear();

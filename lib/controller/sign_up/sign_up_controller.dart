@@ -21,6 +21,10 @@ class SignUpController extends GetxController {
   Timer? timer;
   RxInt time = 60.obs;
 
+  RxString countryCode  = "+7".obs ;
+  RxString countryISO = "RU".obs ;
+
+
   TextEditingController nameController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
@@ -36,7 +40,7 @@ class SignUpController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   String? validatePassword(String value) {
-    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     if (value.isEmpty) {
       return 'Please enter password'.tr;
     } else {
@@ -57,7 +61,9 @@ class SignUpController extends GetxController {
       "fullName": nameController.text,
       "email": emailController.text,
       "phoneNumber": numberController.text,
-      "password": passwordController.text
+      "password": passwordController.text,
+      "countryCode": countryCode.value,
+      "countryISO": countryISO.value,
     };
     print("===================>$body");
     Map<String, String> header = {
@@ -71,6 +77,7 @@ class SignUpController extends GetxController {
         .then((apiResponseModel) {
       isLoadingSignUpScreen.value = false;
       print(apiResponseModel.responseJson) ;
+      print(apiResponseModel.statusCode) ;
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.signUpOtp);
         pref.setString("email", emailController.text);
@@ -101,7 +108,9 @@ class SignUpController extends GetxController {
       "fullName": nameController.text,
       "email": emailController.text,
       "phoneNumber": numberController.text,
-      "password": passwordController.text
+      "password": passwordController.text,
+      "countryCode": countryCode.value,
+      "countryISO": countryISO.value,
     };
     print("===================>$body");
     Map<String, String> header = {

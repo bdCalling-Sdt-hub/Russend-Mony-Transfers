@@ -101,6 +101,11 @@ class CreateAccountAllFiled extends StatelessWidget {
               return "Invalid Mobile Number".tr;
             }
           },
+          onChanged: (value){
+            signUpController.countryCode.value = value.countryCode.toString() ;
+            signUpController.countryISO.value = value.countryISOCode.toString() ;
+            print(value) ;
+          },
           decoration: InputDecoration(
             hintText: "Mobile number".tr,
             fillColor: AppColors.gray80,
@@ -111,7 +116,7 @@ class CreateAccountAllFiled extends StatelessWidget {
                 borderSide: BorderSide(),
                 borderRadius: BorderRadius.all(Radius.circular(8))),
           ),
-          initialCountryCode: "CM",
+          initialCountryCode: "RU",
           disableLengthCheck: false,
         ),
         Padding(

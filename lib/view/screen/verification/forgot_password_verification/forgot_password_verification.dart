@@ -63,6 +63,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                   Flexible(
                     flex: 0,
                     child: PinCodeTextField(
+                      autoDisposeControllers: false,
                       controller: forgetPasswordController.otpController,
                       cursorColor: AppColors.black100,
                       // controller: controller.otpController,
@@ -106,6 +107,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                             titleSize: 16.sp,
                             buttonWidth: 220.w,
                             onPressed: () {
+
                               if (formKey.currentState!.validate()) {
                                 forgetPasswordController.verifyOtpRepo();
                               }

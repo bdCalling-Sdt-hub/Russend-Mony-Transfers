@@ -27,7 +27,7 @@ class ForgetPasswordController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   String? validatePassword(String value) {
-    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     if (value.isEmpty) {
       return 'Please enter password'.tr;
     } else {

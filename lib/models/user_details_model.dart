@@ -5,7 +5,7 @@ class UserDetailsModel {
   Data? data;
 
   UserDetailsModel(
-      {this.status, this.statusCode, this.message, this.data});
+      {this.status, this.statusCode, this.message, this.data,});
 
   UserDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -57,11 +57,13 @@ class Attributes {
   String? password;
   Image? image;
   String? role;
-  String? passcode;
   bool? isBlocked;
-  int? iV;
+  String? countryCode;
+  String? countryISO;
   String? createdAt;
   String? updatedAt;
+  int? iV;
+  String? passcode;
 
   Attributes(
       {this.sId,
@@ -71,11 +73,13 @@ class Attributes {
         this.password,
         this.image,
         this.role,
-        this.passcode,
         this.isBlocked,
-        this.iV,
+        this.countryCode,
+        this.countryISO,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.iV,
+        this.passcode});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -85,11 +89,13 @@ class Attributes {
     password = json['password'];
     image = json['image'] != null ? new Image.fromJson(json['image']) : null;
     role = json['role'];
-    passcode = json['passcode'];
     isBlocked = json['isBlocked'];
-    iV = json['__v'];
+    countryCode = json['countryCode'];
+    countryISO = json['countryISO'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    iV = json['__v'];
+    passcode = json['passcode'];
   }
 
   Map<String, dynamic> toJson() {
@@ -103,11 +109,13 @@ class Attributes {
       data['image'] = this.image!.toJson();
     }
     data['role'] = this.role;
-    data['passcode'] = this.passcode;
     data['isBlocked'] = this.isBlocked;
-    data['__v'] = this.iV;
+    data['countryCode'] = this.countryCode;
+    data['countryISO'] = this.countryISO;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    data['passcode'] = this.passcode;
     return data;
   }
 }

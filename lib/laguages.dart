@@ -130,7 +130,7 @@ class Languages extends Translations {
               "Please enter your Email  to reset your password",
           "Please enter the 6-digit code sent to your email ":
               "Please enter the 6-digit code sent to your email ",
-          " to verify your email.": " to verify your email.",
+          " to verify your email.": "  for verification.",
           "Didn’t receive any code? ": "Didn’t receive any code? ",
           "Send Again": "Send Again",
           "Verify": "Verify",
@@ -196,9 +196,13 @@ class Languages extends Translations {
           "No notifications": "No notifications",
           "Cancelled Transaction": "Cancelled Transaction"
         },
+
+
+
+
+
         'fr_FR': {
-          "Transfer money quickly with Russend":
-              "Transférez de l'argent rapidement avec Russend",
+          "Transfer money quickly with Russend": "Transférez de l'argent rapidement avec Russend",
           "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.":
               "Faites l'expérience de transferts d'argent sans tracas avec Max Send ! Envoyez des fonds sans effort à vos amis et à votre famille depuis le confort de votre appareil mobile.",
           "Legal terms": "Termes légaux",
@@ -247,8 +251,8 @@ class Languages extends Translations {
           "Security": "Sécurité",
           "Language": "Langue",
           "Appearance": "Apparence",
-          "Legal": "Légal",
-          "Mobile number": "Numéro de portable",
+          "Legal": "Termes légaux",
+          "Mobile number": "Numéro de téléphone",
           "Email": "E-mail",
           "Fingerprint/ Face id to unlock":
               "Empreinte digitale/identification faciale pour déverrouiller",
@@ -273,8 +277,8 @@ class Languages extends Translations {
           "Please enter passcode": "Veuillez entrer le code d'accès",
           "Please enter the OTP code": "Veuillez entrer le code OTP",
           "Confirm": "Confirmer",
-          "Create your passcode": "Créez votre mot de passe",
-          "Confirm your passcode": "Confirmez votre mot de passe",
+          "Create your passcode": "Créez votre code d'accès",
+          "Confirm your passcode": "Confirmez votre code d'accès",
           "You pay": "Tu payes",
           "Recipient gets": "Le destinataire obtient",
           "RUB": "RUB",
@@ -309,7 +313,7 @@ class Languages extends Translations {
           " left to make the payment": " reste à effectuer le paiement",
           "Enter your passcode": "Entre ton mot de passe",
           "Terms of Services": "Conditions de services",
-          "Terms of money transfer": "Conditions de services",
+          "Terms of money transfer": "Conditions de transfert d'argent",
           "Personal Data Policy": "Politique de données personnelles",
           "Refund and Cancellation Policy":
               "Politique de remboursement et d'annulation",
@@ -326,23 +330,23 @@ class Languages extends Translations {
               "Veuillez entrer votre email pour réinitialiser votre mot de passe",
           "Please enter the 6-digit code sent to your email ":
               "Veuillez saisir le code à 6 chiffres envoyé à votre email ",
-          " to verify your email.": " pour vérifier votre email.",
+          " to verify your email.": " pour vérification.",
           "Didn’t receive any code? ": "Vous n'avez reçu aucun code ? ",
           "Send Again": "nvoyer à nouveau",
           "Verify": "Vérifier",
           "New password": "Nouveau mot de passe",
           "Enter your new password": "Entrez votre nouveau mot de passe",
-          "ConfirmPassword": "Confirmez le mot de passe",
+          "ConfirmPassword": "Confirmez votre mot de passe",
           "Confirm your new password": "Confirmez votre nouveau mot de passe",
           "Your password has been successfully reset.Now your can log in using your new password.":
-              "Votre mot de passe a été réinitialisé avec succès. Vous pouvez désormais vous connecter en utilisant votre nouveau mot de passe..",
+              "Votre mot de passe a été réinitialisé avec succès. Vous pouvez désormais vous connecter en utilisant votre nouveau mot de passe.",
           "Enter your new email": "Entrez votre nouvel email",
           "Save": "Sauvegarder",
           "Enter your new phone number":
               "Entrez votre nouveau numéro de téléphone",
           "Full Name": "Nom et prénom",
           "Enter your Full Name": "Entrez votre nom complet",
-          "Enter a valid email": "Entrer un email valide",
+          "Enter a valid email": "Entrer une adresse e-mail valide",
           "Sign up": "S'inscrire",
           "Reset your passcode by logging in again":
               "Réinitialisez votre mot de passe en vous reconnectant",
@@ -376,10 +380,10 @@ class Languages extends Translations {
               "L'e-mail ou le mot de passe est incorrect, veuillez réessayer plus tard",
           "passcode not match": "le mot de passe ne correspond pas",
           "By signing up you agree to our ":
-              "En vous inscrivant, vous acceptez notre ",
-          "Terms": "Termes",
-          "and": " et ",
-          "Conditions": "Conditions",
+              "En vous inscrivant, vous acceptez nos ",
+          "Terms": "conditions",
+          "and": " ",
+          "Conditions": "générales.",
           "Sign in": "Se connecter",
           "Select the recipient's country":
               "Sélectionnez le pays du destinataire",
@@ -388,7 +392,7 @@ class Languages extends Translations {
           "Repeat transfer": "Répéter le transfert",
           "Please enter password": "Veuillez entrer le mot de passe",
           "Enter valid password": "Le mot de passe doit comporter au moins 8 caractères et doit contenir des lettres et des chiffres",
-          "English": "Francais",
+          "English": "Français",
           "passcode is incorrect, please try again later":
               "Le code d'accès est incorrect, veuillez réessayer plus tard",
           "OTP is invalid": "L'OTP n'est pas valide",

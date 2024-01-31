@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_images.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -52,14 +51,13 @@ class MoneyDeliveryMethod extends StatelessWidget {
                       amountSendController.hiddenFeeRepo();
                     },
                     child: Container(
-                      height: 220.h,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 20),
-                        child: Image.asset(
-                          AppImages.cemac,
-                          fit: BoxFit.fill,
-                        ),
+                      height: 220.sp,
+                      width: 330.sp,
+                      child: Image.asset(
+                        AppImages.cemac,
+                        height: 220.sp,
+                        width: 330.sp,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),

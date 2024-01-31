@@ -345,6 +345,7 @@ class _TransactionState extends State<Transaction> {
             buttonRadius: 25.r,
             onPressed: () {
               AmountSendController.isCancelled.value = false ;
+              amountSendController.isRepeat.value = false ;
               AmountSendController.numberController.text ="" ;
               Get.toNamed(AppRoute.selectCountry) ;
             }

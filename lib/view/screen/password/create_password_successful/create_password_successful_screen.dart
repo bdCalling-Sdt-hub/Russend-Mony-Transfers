@@ -47,7 +47,7 @@ class CreatePasswordSuccessfulScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: CustomButton(
-            titleText: "Log in".tr,
+            titleText: "Sign in".tr,
             buttonRadius: 10.r,
             onPressed: () {
               Get.toNamed(AppRoute.logIn);

@@ -94,8 +94,7 @@ class PaymentInformation extends StatelessWidget {
                             .attributes!.phoneNumber!: " ");
                     Clipboard.setData(value);
                     Get.snackbar("Copy",
-                        "Copied to ${ amountSendController.paymentInfoModelInfo?.data != null
-                            ? amountSendController.paymentInfoModelInfo!.data!.attributes!.phoneNumber! : ""}");
+                        "Copied to clipboard");
                   },
                   icon: SvgPicture.asset(AppIcons.copy))
             ],

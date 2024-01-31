@@ -17,13 +17,13 @@ import '../view/screen/transection/transaction_cancel_screen.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
-  RxDouble xafRate = 655.96.obs;
-  RxDouble rubRate = 97.55.obs;
-  static RxBool success = true.obs;
+  static RxDouble xafRate = 655.96.obs;
+  static RxDouble rubRate = 97.55.obs;
+  static RxBool success = false.obs;
   RxBool isPay = true.obs;
   RxBool isRepeat = false.obs;
   RxBool hiddenFeeLoading = false.obs;
-  RxDouble exchangeRate = 0.0.obs;
+  static RxDouble exchangeRate = 0.0.obs;
 
   RxBool disableButton = false.obs;
 
@@ -65,11 +65,11 @@ class AmountSendController extends GetxController {
 
     if (success.value) {
       /// <=============================Test Code ==========================>
-      exchangeRate.value = xafRate.value / rubRate.value;
-      if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-        exchangeRate.value =
-            exchangeRate.value - (exchangeRate.value * 0.15);
-      }
+      // exchangeRate.value = xafRate.value / rubRate.value;
+      // if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+      //   exchangeRate.value =
+      //       exchangeRate.value - (exchangeRate.value * 0.15);
+      // }
 
       /// <=============================Test Code ==========================>
 
@@ -199,7 +199,7 @@ class AmountSendController extends GetxController {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
         timer?.cancel();
-        duration.value = const Duration(seconds: 10);
+        duration.value = const Duration(minutes: 10);
 
         startTime();
         time.value = "0:10:00.00000";
@@ -244,10 +244,10 @@ class AmountSendController extends GetxController {
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
       if (apiResponseModel.statusCode == 200) {
-        Get.toNamed(AppRoute.transactionSuccessScreen);
+        Get.offAllNamed(AppRoute.transactionSuccessScreen);
         timer?.cancel();
       } else if (apiResponseModel.statusCode == 201) {
-        Get.toNamed(AppRoute.transactionSuccessScreen);
+        Get.offAllNamed(AppRoute.transactionSuccessScreen);
         timer?.cancel();
       } else if (apiResponseModel.statusCode == 401) {
       } else {

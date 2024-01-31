@@ -59,6 +59,7 @@ class SignUpVerification extends StatelessWidget {
                 Flexible(
                   flex: 0,
                   child: PinCodeTextField(
+                    autoDisposeControllers: false,
                     cursorColor: AppColors.black100,
                     controller: signUpController.otpController,
                     appContext: (context),
@@ -128,7 +129,7 @@ class SignUpVerification extends StatelessWidget {
                   ],
                 ),
                 Obx(() => CustomText(
-                    text: "You can resend the code in  ${signUpController.time}",
+                    text: "${"YouCanResendTheCodeIn".tr}  ${signUpController.time}",
                     fontSize: 16.sp,
                     top: 8.h,
                     style: true,

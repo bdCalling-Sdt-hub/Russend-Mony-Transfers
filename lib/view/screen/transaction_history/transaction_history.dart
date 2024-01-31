@@ -324,8 +324,7 @@ class TransactionHistory extends StatelessWidget {
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Fee".tr,
-                                    value: AmountSendController
-                                        .amountController.value.text),
+                                    value: "0 RUB"),
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Recipient".tr,

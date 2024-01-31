@@ -59,7 +59,7 @@ class NewPasswordScreen extends StatelessWidget {
                   },
                 ),
                 CustomText(
-                  text: "Confirm password".tr,
+                  text: "ConfirmPassword".tr,
                   fontSize: 14.r,
                   style: true,
                   fontWeight: FontWeight.w400,
@@ -94,6 +94,7 @@ class NewPasswordScreen extends StatelessWidget {
             titleText: "Reset Password".tr,
             buttonRadius: 10.r,
             onPressed: () {
+
               if (formKey.currentState!.validate()) {
                 ForgetPasswordOtpModel forgetPasswordOtpModel =
                 forgetPasswordController.forgetPasswordOtpInfo!;

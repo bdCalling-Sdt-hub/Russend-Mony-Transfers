@@ -45,7 +45,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
   Future<void> getIsLogIn() async {
     try {
-      if (SharedPreferenceHelper.isLocalAuth!) {
+      if (SharedPreferenceHelper.isLocalAuth) {
         auth.isDeviceSupported().then((bool isSupported) => setState(() {
               localAuthController.supportState = isSupported
                   ? SupportState.supported

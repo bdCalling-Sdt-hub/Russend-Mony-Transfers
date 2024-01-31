@@ -56,7 +56,7 @@ class LogInFiled extends StatelessWidget {
               )),
         ),
         CustomText(
-            text: "Enter your Password".tr,
+            text: "Password".tr,
             fontSize: 14.sp,
             style: true,
             bottom: 4.h,
@@ -70,7 +70,7 @@ class LogInFiled extends StatelessWidget {
           validator: (value) {
             return signInController.validatePassword(value) ;
           },
-          hintText: "Enter your Password".tr,
+          hintText: "Password".tr,
         ),
         Align(
           alignment: Alignment.centerRight,

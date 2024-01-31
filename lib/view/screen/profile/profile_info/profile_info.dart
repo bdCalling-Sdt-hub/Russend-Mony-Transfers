@@ -34,8 +34,8 @@ class ProfileInfo extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : personalInfoController.userDetailsModelInfo == null
                   ? Center(
-            child: Text("data not found".tr),
-          )
+                      child: Text("data not found".tr),
+                    )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -103,18 +103,24 @@ class ProfileInfo extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomText(
-                                    text: personalInfoController
-                                            .userDetailsModelInfo
-                                            ?.data
-                                            ?.attributes
-                                            ?.phoneNumber ??
-                                        "",
+                                    text:
+                                        "${personalInfoController.userDetailsModelInfo?.data?.attributes?.countryCode}${personalInfoController.userDetailsModelInfo?.data?.attributes?.phoneNumber}" ??
+                                            "",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                   IconButton(
-                                      onPressed: () => Get.toNamed(
-                                          AppRoute.changePhoneNumber),
+                                      onPressed: () {
+                                        personalInfoController.numberController
+                                            .text = personalInfoController
+                                                .userDetailsModelInfo
+                                                ?.data
+                                                ?.attributes
+                                                ?.phoneNumber ??
+                                            "";
+
+                                        Get.toNamed(AppRoute.changePhoneNumber);
+                                      },
                                       icon: CustomImage(
                                           imageSrc: AppIcons.edit, size: 18.h))
                                 ],
