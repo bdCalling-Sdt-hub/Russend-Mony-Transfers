@@ -34,7 +34,6 @@ class SignInController extends GetxController {
     }
   }
 
-
   Future<void> signInRepo() async {
     print("===================> object");
 
@@ -58,8 +57,14 @@ class SignInController extends GetxController {
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
-        Get.toNamed(AppRoute.enterPassCode);
+
+        if (SharedPreferenceHelper.isForgotPasscode) {
+          Get.toNamed(AppRoute.passCode);
+        } else {
+          Get.toNamed(AppRoute.enterPassCode);
+        }
         emailController.clear();
+        passwordController.clear();
       } else if (apiResponseModel.statusCode == 201) {
         var json = jsonDecode(apiResponseModel.responseJson);
         signInModelInfo = SignInModel.fromJson(json);
@@ -68,7 +73,6 @@ class SignInController extends GetxController {
         Get.toNamed(AppRoute.enterPassCode);
         emailController.clear();
       } else if (apiResponseModel.statusCode == 401) {
-
         Utils.toastMessage("EmailOrPasswordIsIncorrectPleaseTryAgainLater".tr);
       } else {
         Get.snackbar(

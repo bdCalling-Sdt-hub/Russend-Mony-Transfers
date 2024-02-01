@@ -11,6 +11,7 @@ class SharedPreferenceHelper {
   static String localizationCountryCode = '';
   static bool isLogIn = false;
   static bool isLocalAuth = false;
+  static bool isForgotPasscode = false;
 
   Future<void> getSharedPreferenceData() async {
     try {
@@ -24,6 +25,7 @@ class SharedPreferenceHelper {
       localizationCountryCode = pref.getString("countryCode") ?? "US";
       isLogIn = pref.getBool("isLogIn") ?? false;
       isLocalAuth = pref.getBool("isLocalAuth") ?? false;
+      isForgotPasscode = pref.getBool("isForgotPasscode") ?? false;
 
     } catch (e) {
       print(e.toString());
@@ -38,6 +40,7 @@ class SharedPreferenceHelper {
 
       pref.setString("accessToken", "");
       pref.setString("refreshToken", "");
+      // pref.setString("id", "");
       // pref.setString("email", "");
       // pref.setString("languageCode", "");
       // pref.setString("countryCode", "");

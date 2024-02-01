@@ -1,12 +1,17 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 
-class TextRichWidget extends StatelessWidget {
-  TextRichWidget({
+import '../../../../core/app_route/app_route.dart';
+
+class CancelTextRichWidget extends StatelessWidget {
+  CancelTextRichWidget({
     super.key,
     required this.secondText,
     required this.firstText,
@@ -49,6 +54,8 @@ class TextRichWidget extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => Get.toNamed(AppRoute.contactSupport),
                   text: secondText,
                   style: GoogleFonts.plusJakartaSans(
                     color: secondColor!,
@@ -56,7 +63,7 @@ class TextRichWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                 TextSpan(
+                TextSpan(
                   text: thirdText.isNotEmpty ? thirdText : " ",
                   style: GoogleFonts.plusJakartaSans(
                     color: thirdColor!,

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
@@ -27,6 +29,8 @@ class ConformPasscodeController extends GetxController {
       'Pass-code': 'Pass-code $passcodeToken',
     };
 
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
     networkApiService
         .postApi(ApiUrl.createPasscode, body, header)
         .then((apiResponseModel) {
@@ -34,8 +38,17 @@ class ConformPasscodeController extends GetxController {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         createPasscodeInfo = CreatePasscodeModel.fromJson(json);
+        pref.setString("accessToken", createPasscodeInfo!.data!.accessToken!);
+        pref.setString("refreshToken", createPasscodeInfo!.data!.refreshToken!);
+        pref.setBool("isLogIn", true);
+        pref.setBool("isForgotPasscode", false);
 
-        Get.toNamed(AppRoute.logIn);
+        SharedPreferenceHelper.accessToken = createPasscodeInfo!.data!.accessToken!;
+        SharedPreferenceHelper.refreshToken = createPasscodeInfo!.data!.refreshToken!;
+        SharedPreferenceHelper.id = createPasscodeInfo!.data!.attributes!.sId!;
+        SharedPreferenceHelper.isForgotPasscode = false;
+
+        Get.offAllNamed(AppRoute.transaction);
       } else {
         Get.toNamed(AppRoute.createAccount);
         Get.snackbar("Error", "Some Thing is Wrong");

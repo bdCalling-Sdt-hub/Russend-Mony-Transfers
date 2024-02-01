@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/confrom_passcode_controller.dart';
+import 'package:money_transfers/controller/sign_in_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
@@ -20,6 +22,7 @@ class ConformPasscodeScreen extends StatelessWidget {
       Get.put(ConformPasscodeController());
 
   SignUpController signUpController = Get.put(SignUpController());
+  SignInController signInController = Get.put(SignInController());
 
   CreatePasscodeController createPasscodeController =
       Get.put(CreatePasscodeController());
@@ -71,22 +74,33 @@ class ConformPasscodeScreen extends StatelessWidget {
                         }
                       },
 
-                      onChanged: (controllerLength) {
-                        if (controllerLength.length == 4) {
+                      onChanged: (controllerText) {
+                        if (controllerText.length == 4) {
                           conformPasscodeController.disableKeyboard.value =
                               true;
                           if (createPasscodeController
                                   .passcodeController.text ==
                               conformPasscodeController
                                   .passcodeController.text) {
-                            SignUpModel signUpModel =
-                                signUpController.signUpModelInfo!;
-                            conformPasscodeController.createPasscodeRepo(
-                                signUpModel.data!.passcodeToken!,
-                                signUpModel.data!.attributes!.sId!,
-                                controllerLength);
+                            if (SharedPreferenceHelper.isForgotPasscode) {
+                              var item =
+                                  signInController.signInModelInfo!.data!;
+                              conformPasscodeController.createPasscodeRepo(
+                                  item.passcodeToken!,
+                                  SharedPreferenceHelper.id,
+                                  controllerText);
+                            } else {
+                              SignUpModel signUpModel =
+                                  signUpController.signUpModelInfo!;
+
+                              conformPasscodeController.createPasscodeRepo(
+                                  signUpModel.data!.passcodeToken!,
+                                  signUpModel.data!.attributes!.sId!,
+                                  controllerText);
+                            }
                           } else {
-                            Get.snackbar("passcode", "Passcode not match");
+                            Get.snackbar(
+                                "passcode".tr, "Passcode not match".tr);
                           }
                         }
                       },

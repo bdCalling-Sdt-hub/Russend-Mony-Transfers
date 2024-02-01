@@ -35,6 +35,9 @@ class EnterPasscodeController extends GetxController {
       'Pass-code': 'Pass-code $passcodeToken',
     };
 
+    print("===================>$header");
+
+
     isLoading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -42,6 +45,8 @@ class EnterPasscodeController extends GetxController {
         .postApi(ApiUrl.verifyPasscode, body, header)
         .then((apiResponseModel) {
       isLoading.value = false;
+
+      print("===================>${apiResponseModel.statusCode}");
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

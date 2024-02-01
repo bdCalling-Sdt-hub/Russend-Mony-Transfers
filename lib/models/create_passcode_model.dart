@@ -5,7 +5,7 @@ class CreatePasscodeModel {
   Data? data;
 
   CreatePasscodeModel(
-      {this.status, this.statusCode, this.message, this.data});
+      {this.status, this.statusCode, this.message, this.data,});
 
   CreatePasscodeModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -29,14 +29,18 @@ class CreatePasscodeModel {
 class Data {
   String? type;
   Attributes? attributes;
+  String? accessToken;
+  String? refreshToken;
 
-  Data({this.type, this.attributes});
+  Data({this.type, this.attributes, this.accessToken, this.refreshToken});
 
   Data.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
+    accessToken = json['accessToken'];
+    refreshToken = json['refreshToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +49,8 @@ class Data {
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
+    data['accessToken'] = this.accessToken;
+    data['refreshToken'] = this.refreshToken;
     return data;
   }
 }
@@ -58,6 +64,8 @@ class Attributes {
   Image? image;
   String? role;
   bool? isBlocked;
+  String? countryCode;
+  String? countryISO;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -72,6 +80,8 @@ class Attributes {
         this.image,
         this.role,
         this.isBlocked,
+        this.countryCode,
+        this.countryISO,
         this.createdAt,
         this.updatedAt,
         this.iV,
@@ -86,6 +96,8 @@ class Attributes {
     image = json['image'] != null ? new Image.fromJson(json['image']) : null;
     role = json['role'];
     isBlocked = json['isBlocked'];
+    countryCode = json['countryCode'];
+    countryISO = json['countryISO'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -104,6 +116,8 @@ class Attributes {
     }
     data['role'] = this.role;
     data['isBlocked'] = this.isBlocked;
+    data['countryCode'] = this.countryCode;
+    data['countryISO'] = this.countryISO;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

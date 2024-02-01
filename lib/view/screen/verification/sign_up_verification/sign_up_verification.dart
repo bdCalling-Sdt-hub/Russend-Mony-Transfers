@@ -19,6 +19,7 @@ class SignUpVerification extends StatelessWidget {
   SignUpVerification({super.key});
 
   SignUpController signUpController = Get.put(SignUpController());
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,106 +37,110 @@ class SignUpVerification extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: SizedBox(
             width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomText(
-                  text: "Enter the verification code".tr,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  bottom: 9.h,
-                ),
-                TextRichWidget(
-                    firstText:
-                        "Please enter the 6-digit code sent to your email ".tr,
-                    firstColor: AppColors.black50,
-                    secondText: signUpController.emailController.text,
-                    secondColor: AppColors.black75,
-                    thirdText: " to verify your email.".tr,
-                    thirdColor: AppColors.black50),
-                SizedBox(
-                  height: 24.h,
-                ),
-                Flexible(
-                  flex: 0,
-                  child: PinCodeTextField(
-                    autoDisposeControllers: false,
-                    cursorColor: AppColors.black100,
-                    controller: signUpController.otpController,
-                    appContext: (context),
-                    validator: (value) {
-                      if (value!.length < 6) {
-                        return "Please enter the OTP code.".tr;
-                      } else {}
-                    },
-                    autoFocus: true,
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(8),
-                      fieldHeight: 50.h,
-                      fieldWidth: 46.w,
-                      activeFillColor: AppColors.transparentColor,
-                      selectedFillColor: AppColors.transparentColor,
-                      inactiveFillColor: AppColors.transparentColor,
-                      borderWidth: 0.5.w,
-                      errorBorderColor: AppColors.primaryColor,
-                      selectedColor: AppColors.black100,
-                      activeColor: AppColors.black100,
-                      inactiveColor: AppColors.black100,
-                    ),
-                    length: 6,
-                    keyboardType: TextInputType.number,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    enableActiveFill: true,
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText(
+                    text: "Enter the verification code".tr,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                    bottom: 9.h,
                   ),
-                ),
-                SizedBox(
-                  height: 48.h,
-                ),
-                Obx(() => Center(
-                      child: signUpController.isLoading.value
-                          ? LoadingContainer(width: 200.w,)
-                          : CustomButton(
-                              titleText: "Verify".tr,
-                              buttonWidth: 200.w,
-                              buttonRadius: 10.r,
-                              titleSize: 14.sp,
-                              onPressed: () {
-                                signUpController.signUpAuthRepo();
-                              }),
-                    )),
-                SizedBox(
-                  height: 50.h,
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Obx(() => ResendRichText(
-                              onTap:
-                              signUpController.isResend.value
-                                  ? () {
-                                signUpController
-                                    .signUpRepo();
-                                Utils.snackBarMessage(
-                                    "Resend", "Resend Code");
-                              }
-                                  : () {
-                                Utils.toastMessage(
-                                    "please wait ${signUpController.time}");
-                              },
-                            )))),
-                  ],
-                ),
-                Obx(() => CustomText(
-                    text: "${"YouCanResendTheCodeIn".tr}  ${signUpController.time}",
-                    fontSize: 16.sp,
-                    top: 8.h,
-                    style: true,
-                    color: AppColors.black40,
-                    maxLines: 2)),
-              ],
+                  TextRichWidget(
+                      firstText:
+                          "Please enter the 6-digit code sent to your email ".tr,
+                      firstColor: AppColors.black50,
+                      secondText: signUpController.emailController.text,
+                      secondColor: AppColors.black75,
+                      thirdText: " to verify your email.".tr,
+                      thirdColor: AppColors.black50),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  Flexible(
+                    flex: 0,
+                    child: PinCodeTextField(
+                      autoDisposeControllers: false,
+                      cursorColor: AppColors.black100,
+                      controller: signUpController.otpController,
+                      appContext: (context),
+                      validator: (value) {
+                        if (value!.length < 6) {
+                          return "Please enter the OTP code.".tr;
+                        } else {}
+                      },
+                      autoFocus: true,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(8),
+                        fieldHeight: 50.h,
+                        fieldWidth: 46.w,
+                        activeFillColor: AppColors.transparentColor,
+                        selectedFillColor: AppColors.transparentColor,
+                        inactiveFillColor: AppColors.transparentColor,
+                        borderWidth: 0.5.w,
+                        errorBorderColor: AppColors.primaryColor,
+                        selectedColor: AppColors.black100,
+                        activeColor: AppColors.black100,
+                        inactiveColor: AppColors.black100,
+                      ),
+                      length: 6,
+                      keyboardType: TextInputType.number,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      enableActiveFill: true,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 48.h,
+                  ),
+                  Obx(() => Center(
+                        child: signUpController.isLoading.value
+                            ? LoadingContainer(width: 200.w,)
+                            : CustomButton(
+                                titleText: "Verify".tr,
+                                buttonWidth: 200.w,
+                                buttonRadius: 10.r,
+                                titleSize: 14.sp,
+                                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                                  signUpController.signUpAuthRepo();}
+                                }),
+                      )),
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Obx(() => ResendRichText(
+                                onTap:
+                                signUpController.isResend.value
+                                    ? () {
+                                  signUpController
+                                      .signUpRepo();
+                                  Utils.snackBarMessage(
+                                      "Resend", "Resend Code");
+                                }
+                                    : () {
+                                  Utils.toastMessage(
+                                      "please wait ${signUpController.time}");
+                                },
+                              )))),
+                    ],
+                  ),
+                  Obx(() => CustomText(
+                      text: "${"YouCanResendTheCodeIn".tr}  ${signUpController.time}",
+                      fontSize: 16.sp,
+                      top: 8.h,
+                      style: true,
+                      color: AppColors.black40,
+                      maxLines: 2)),
+                ],
+              ),
             ),
           ),
         ),

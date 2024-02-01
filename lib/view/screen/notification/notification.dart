@@ -60,14 +60,12 @@ class Notification extends StatelessWidget {
                                       .notificationList.length) {
                                 var item = notificationController
                                     .notificationList[index];
-                                var createdAtTime =
-                                    item.createdAt!.split(".")[0];
-                                var date = createdAtTime.split("T")[0];
-                                var time = createdAtTime.split("T")[1];
 
                                 return ListItem(
                                   title: item.message!,
-                                  time: "$date at $time",
+                                  time:
+                                      "${notificationController.getFormattedDate(item.updatedAt)} ${"ago".tr}",
+                                  // time: "$date at $time",
                                 );
                               } else {
                                 return const Center(

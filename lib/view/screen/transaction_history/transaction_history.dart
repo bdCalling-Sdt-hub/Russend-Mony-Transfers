@@ -309,22 +309,24 @@ class TransactionHistory extends StatelessWidget {
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Date".tr,
-                                    value: transactionController
-                                        .transactionDetailsModelInfo!
-                                        .data!
-                                        .attributes!
-                                        .createdAt!
-                                        .split(".")[0]
-                                        .toString()),
+                                    value:
+                                        "${transactionController.historyScreenDateFormat(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")} AT ${transactionController.formattedDuration(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[1].toString() ?? "00:00:00.0000")}"
+
+                                    // value: transactionController
+                                    //     .transactionDetailsModelInfo!
+                                    //     .data!
+                                    //     .attributes!
+                                    //     .createdAt!
+                                    //     .split(".")[0]
+                                    //     .toString()
+                                    ),
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Rate".tr,
                                     value:
                                         "${transactionController.transactionDetailsModelInfo!.data!.attributes!.exchangeRate}"),
                                 SizedBox(height: 24.h),
-                                RowText(
-                                    title: "Fee".tr,
-                                    value: "0 RUB"),
+                                RowText(title: "Fee".tr, value: "0 RUB"),
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Recipient".tr,

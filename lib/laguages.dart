@@ -199,7 +199,12 @@ class Languages extends Translations {
           "XAF": "XAF",
           "LegalProfile": "Legal",
           "Cancelled": "Cancelled",
-          "If you believe your transaction was canceled by mistake": "If you believe your transaction was canceled by mistake, please "
+          "If you believe your transaction was canceled by mistake": "If you believe your transaction was canceled by mistake, please ",
+          "passcode": "passcode",
+          "Passcode not match": "Passcode not match",
+          "ago": "ago",
+          "hours": "hours"
+
         },
 
 
@@ -410,7 +415,12 @@ class Languages extends Translations {
           "XAF": "FCFA",
           "LegalProfile": "Légale",
           "Cancelled": "annulée",
-          "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez "
+          "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
+          "passcode": "mot de passe",
+          "Passcode not match": "Le code d'accès ne correspond pas",
+          "ago": "il y a",
+          "hours": "heures"
+
 
 
 

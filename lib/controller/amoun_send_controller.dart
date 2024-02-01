@@ -199,7 +199,7 @@ class AmountSendController extends GetxController {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
         timer?.cancel();
-        duration.value = const Duration(minutes: 10);
+        duration.value = const Duration(seconds: 10);
 
         startTime();
         time.value = "0:10:00.00000";
@@ -234,10 +234,12 @@ class AmountSendController extends GetxController {
     };
 
     Map<String, String> header = {
-      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}",
+      'Cookie': 'i18next=en'
     };
 
-    print(body);
+    print("==========>body :  $body");
+    print("==========>header :  $header");
 
     try {
       var apiResponseModel =

@@ -121,7 +121,7 @@ class TransactionController extends GetxController {
     DateTime currentTime = DateTime.now();
     // Assuming transactionController.currentTime is a DateTime object
     DateTime originalDate = currentTime;
-    return DateFormat.yMMMM().format(originalDate);
+    return DateFormat.yMMMMd().format(originalDate);
   }
 
 
@@ -130,6 +130,55 @@ class TransactionController extends GetxController {
     String formatter = DateFormat('d.MM.yy').format(now);// 28/03/2020
     return formatter.toString() ;
   }
+
+
+
+
+
+  String historyScreenDateFormat(String date) {
+
+    print(date) ;
+
+    List<String> dateParts = date.split('-');
+
+
+    print("Year: ${dateParts[0]}");
+    print("Month: ${dateParts[1]}");
+    print("Day: ${dateParts[2]}");
+
+    int year = int.parse(dateParts[0]) ;
+
+    int month = int.parse(dateParts[1]) ;
+    int day = int.parse(dateParts[2]) ;
+
+
+    final dateFormat = DateFormat('d MMMM, yyyy', 'en');
+    final currentDate =
+    DateTime(year, month, day); // Replace with your actual date
+    return dateFormat.format(currentDate);
+  }
+
+
+  String formattedDuration(String time) {
+
+    // Parse the duration string
+    List<String> parts = time.split(':');
+    Duration duration = Duration(
+      hours: int.parse(parts[0]),
+      minutes: int.parse(parts[1]),
+      seconds: int.parse(
+          parts[2].split('.')[0]), // Extract seconds without milliseconds
+    );
+
+    // Format the duration as needed
+    String formattedDuration =
+        "${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}";
+
+    return formattedDuration;
+  }
+
+
+
 
 
 

@@ -180,14 +180,13 @@ class _TransactionState extends State<Transaction> {
                                     .transactionList.length) {
                               var transactionModel = transactionController
                                   .transactionList[index];
-                              return Padding(
+                              return Container(
+                                color: Colors.transparent,
                                 padding: EdgeInsets.only(bottom: 24.h),
                                 child: InkWell(
                                   onTap: () {
-                                    transactionController
-                                        .transactionDetailsRepo(
-                                            SharedPreferenceHelper
-                                                .accessToken,
+                                    transactionController.transactionDetailsRepo(
+                                            SharedPreferenceHelper.accessToken,
                                             transactionModel.sId!);
                                   },
                                   child: Row(

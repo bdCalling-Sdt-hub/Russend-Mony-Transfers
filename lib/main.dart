@@ -8,9 +8,13 @@ import 'package:money_transfers/laguages.dart';
 import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'services/notification_services.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('en', null);
   SocketServices socketServices = SocketServices();
   NotificationService notificationService = NotificationService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();

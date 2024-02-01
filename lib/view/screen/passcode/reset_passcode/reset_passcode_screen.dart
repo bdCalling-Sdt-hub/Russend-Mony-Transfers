@@ -35,7 +35,12 @@ class ResetPasswordScreen extends StatelessWidget {
               bottom: 100.h,
             ),
             GestureDetector(
-              onTap: () => sharedPreferenceHelper.logOut(),
+              onTap: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+
+                sharedPreferenceHelper.logOut() ;
+                pref.setBool("isForgotPasscode", true);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

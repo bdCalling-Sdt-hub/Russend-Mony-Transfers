@@ -116,7 +116,6 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                             if (signInController.signInModelInfo == null) {
                               Get.toNamed(AppRoute.logIn);
                             }
-
                             SignInModel signInModel =
                                 signInController.signInModelInfo!;
                             enterPasscodeController.enterPasscodeRepo(

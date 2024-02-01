@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
+import 'package:money_transfers/utils/app_utils.dart';
+import 'package:money_transfers/view/screen/transection/widget/cancel_rich_text.dart';
 import 'package:money_transfers/view/widgets/rich_text/rich_text.dart';
 import 'package:money_transfers/view/screen/transection/widget/successful_item.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
@@ -18,6 +20,7 @@ class TransactionCancelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AmountSendController.firstNameController.text = "dflkdjsfjdslfjsdjfsjlkddsjlk" ;
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.gray,
@@ -27,6 +30,7 @@ class TransactionCancelScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(height: 30.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -42,7 +46,7 @@ class TransactionCancelScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Continue".tr,
                     fontSize: 20,
-                    bottom: 7.h,
+                    bottom: 12.h,
                     fontWeight: FontWeight.w700,
                     textAlign: TextAlign.right,
                     color: AppColors.primaryColor,
@@ -56,7 +60,7 @@ class TransactionCancelScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -75,37 +79,37 @@ class TransactionCancelScreen extends StatelessWidget {
                         secondText: "${AmountSendController.firstNameController.text} ${AmountSendController.lastNameController.text}"
 
                     ),
-                    const SizedBox(
-                      height: 16,
+                    SizedBox(
+                      height: 30.h,
                     ),
                     SuccessfulItem(
                       title: "Amount Sent".tr,
                       service: "${AmountSendController.amountController.text} RUB",
                     ),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: 12.h,
                     ),
                     SuccessfulItem(
                       title: "Fee".tr,
                       service: "0.00 RUB",
                     ),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: 12.h,
                     ),
                     SuccessfulItem(
                         title: "You pay".tr,
                         service: "${AmountSendController.amountController.text} RUB",
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: 12.h,
                     ),
                     SuccessfulItem(
                       title: "Amount Received".tr,
                       service: "${AmountSendController.receiveController.text} ${"XAF".tr}",
                     ),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: 12.h,
                     ),
                     SuccessfulItem(
                       title: "Should Arrive".tr,
@@ -116,21 +120,22 @@ class TransactionCancelScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 24,
+            SizedBox(
+              height: 30.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomText(
                   text: "Important!".tr,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
               ],
             ),
-            TextRichWidget(
+            CancelTextRichWidget(
+
               secondText: "contact us".tr,
               firstText:
                   "If you believe your transaction was canceled by mistake"
