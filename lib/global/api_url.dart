@@ -13,8 +13,8 @@ class ApiUrl {
 
 
 
-  static const String baseUrl = "http://russend.com" ;
-  // static const String baseUrl = "http://192.168.10.18:3000" ;
+  // static const String baseUrl = "http://russend.com" ;
+  static const String baseUrl = "http://192.168.10.18:3000" ;
 
 
   static const String signUp = "$baseUrl/api/users/sign-up" ;
@@ -39,6 +39,7 @@ class ApiUrl {
   static const String paymentInfo = "$baseUrl/api/payment-info" ;
   static const String verifyOldPasscode = "$baseUrl/api/users/verify-old-passcode" ;
   static const String changePasscode = "$baseUrl/api/users/change-passcode" ;
+  static const String confirmTransaction = "$baseUrl/api/transactions/confirm" ;
 
 
 }

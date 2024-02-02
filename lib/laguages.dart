@@ -203,7 +203,11 @@ class Languages extends Translations {
           "passcode": "passcode",
           "Passcode not match": "Passcode not match",
           "ago": "ago",
-          "hours": "hours"
+          "hours": "hours",
+          "if forgot your password please, reset your password": "if forgot your password please, reset your password",
+          "User already exists": "User already exists",
+          "minimum amount 100 RUB": "minimum amount 100 RUB",
+          "maximum amount 150000 RUB": "maximum amount 150000 RUB"
 
         },
 
@@ -419,7 +423,14 @@ class Languages extends Translations {
           "passcode": "mot de passe",
           "Passcode not match": "Le code d'accès ne correspond pas",
           "ago": "il y a",
-          "hours": "heures"
+          "hours": "heures",
+          "if forgot your password please, reset your password": "si vous avez oublié votre mot de passe, veuillez réinitialiser votre mot de passe",
+          "User already exists": "L'utilisateur existe déjà",
+          "minimum amount 100 RUB": "montant minimum 100 RUB",
+          "maximum amount 150000 RUB": "montant maximum 150000 RUB"
+
+
+
 
 
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -22,6 +21,8 @@ class AmountSendScreen extends StatelessWidget {
 
   AmountSendController amountSendController = Get.put(AmountSendController());
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,172 +31,184 @@ class AmountSendScreen extends StatelessWidget {
       appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: CustomText(
-                    text: "You pay".tr,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Expanded(
-                  child: CustomText(
-                    text: "Recipient gets".tr,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black75,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    cursorColor: Colors.transparent,
-                    onTap: () => amountSendController.isPay.value = true,
-                    keyboardType: TextInputType.none,
-                    textAlign: TextAlign.center,
-                    controller: AmountSendController.amountController,
-                    decoration: InputDecoration(
-                        hintText: "0",
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                        hintStyle: TextStyle(
-                          fontSize: 32.sp,
-                          color: AppColors.primaryColor,
-                        )),
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      color: AppColors.primaryColor,
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: CustomText(
+                      text: "You pay".tr,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    onTap: () => amountSendController.isPay.value = false,
-                    keyboardType: TextInputType.none,
-                    textAlign: TextAlign.center,
-                    cursorColor: Colors.transparent,
-
-                    controller: AmountSendController.receiveController,
-                    decoration: InputDecoration(
-                        hintText: "0",
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                        hintStyle: TextStyle(
-                          fontSize: 32.sp,
-                          color: AppColors.black100,
-                        )),
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      color: AppColors.black100,
+                  Expanded(
+                    child: CustomText(
+                      text: "Recipient gets".tr,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black75,
                     ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: CustomText(
-                    text: "RUB".tr,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Expanded(
-                  child: CustomText(
-                    text: "XAF".tr,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black75,
-                  ),
-                )
-              ],
-            ),
-            const Spacer(),
-            const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomText(
-                  text: "Fee".tr,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black50,
-                ),
-                CustomText(
-                  text:
-                      "0 RUB",
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomText(
-                  text: "Should arrive".tr,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black50,
-                ),
-                CustomText(
-                  text: "In a few minutes".tr,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                )
-              ],
-            ),
-            const Divider(),
-            Obx(() => amountSendCustomKeyboard(
-                controller: amountSendController.isPay.value
-                    ? AmountSendController.amountController
-                    : AmountSendController.receiveController,
-                onTap: amountSendController.isPay.value
-                    ? amountSendController.youPay
-                    : amountSendController.receiveAmount,
-                isPoint: true)),
-
-            // amountSendCustomKeyboard(
-            //       isPoint: true, amountSendController.amountController
-            //          ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: CustomButton(
-                onPressed: () {
-                  makePayment.makePaymentSheet(context);
-                },
-                titleText: 'Continue'.tr,
-                titleSize: 14.sp,
-                buttonWidth: 155.w,
-                buttonRadius: 50.r,
+                  )
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 8.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      autofocus: true,
+                      cursorColor: Colors.transparent,
+                      onTap: () => amountSendController.isPay.value = true,
+                      keyboardType: TextInputType.none,
+                      textAlign: TextAlign.center,
+                      controller: AmountSendController.amountController,
+                      validator: (value) {
+                        if (double.parse(value!) > 150000) {
+                          return "maximum amount 150000 RUB".tr;
+                        }
+
+                        if (double.parse(value) < 100) {
+                          return "minimum amount 100 RUB".tr;
+                        }
+                      },
+                      decoration: InputDecoration(
+                          hintText: "0",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                          hintStyle: TextStyle(
+                            fontSize: 32.sp,
+                            color: AppColors.primaryColor,
+                          )),
+                      style: TextStyle(
+                        fontSize: 32.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      onTap: () => amountSendController.isPay.value = false,
+                      keyboardType: TextInputType.none,
+                      textAlign: TextAlign.center,
+                      cursorColor: Colors.transparent,
+                      controller: AmountSendController.receiveController,
+                      decoration: InputDecoration(
+                          hintText: "0",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                          hintStyle: TextStyle(
+                            fontSize: 32.sp,
+                            color: AppColors.black100,
+                          )),
+                      style: TextStyle(
+                        fontSize: 32.sp,
+                        color: AppColors.black100,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: CustomText(
+                      text: "RUB".tr,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Expanded(
+                    child: CustomText(
+                      text: "XAF".tr,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black75,
+                    ),
+                  )
+                ],
+              ),
+              const Spacer(),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomText(
+                    text: "Fee".tr,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black50,
+                  ),
+                  CustomText(
+                    text: "0 RUB",
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomText(
+                    text: "Should arrive".tr,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black50,
+                  ),
+                  CustomText(
+                    text: "In a few minutes".tr,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+              const Divider(),
+              Obx(() => amountSendCustomKeyboard(
+                  controller: amountSendController.isPay.value
+                      ? AmountSendController.amountController
+                      : AmountSendController.receiveController,
+                  onTap: amountSendController.isPay.value
+                      ? amountSendController.youPay
+                      : amountSendController.receiveAmount,
+                  isPoint: true)),
+
+              // amountSendCustomKeyboard(
+              //       isPoint: true, amountSendController.amountController
+              //          ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: CustomButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      makePayment.makePaymentSheet(context);
+                    }
+                  },
+                  titleText: 'Continue'.tr,
+                  titleSize: 14.sp,
+                  buttonWidth: 155.w,
+                  buttonRadius: 50.r,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

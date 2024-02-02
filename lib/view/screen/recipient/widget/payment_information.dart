@@ -24,7 +24,7 @@ class PaymentInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -58,7 +58,7 @@ class PaymentInformation extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
                 textAlign: TextAlign.start,
-                bottom: 15.h,
+                bottom: 12.h,
               ),
             ],
           ),
@@ -84,7 +84,7 @@ class PaymentInformation extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
                 textAlign: TextAlign.start,
-                bottom: 15.h,
+                bottom: 12.h,
               ),
               IconButton(
                   onPressed: () {
@@ -122,7 +122,7 @@ class PaymentInformation extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: AppColors.black100,
                 textAlign: TextAlign.start,
-                bottom: 15.h,
+                bottom: 12.h,
               ),
             ],
           ),

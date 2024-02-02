@@ -1,13 +1,13 @@
-class TransactionModel {
+class AddTransactionModel {
   String? status;
   String? statusCode;
   String? message;
   Data? data;
 
-  TransactionModel(
-      {this.status, this.statusCode, this.message, this.data,});
+  AddTransactionModel(
+      {this.status, this.statusCode, this.message, this.data});
 
-  TransactionModel.fromJson(Map<String, dynamic> json) {
+  AddTransactionModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
@@ -50,38 +50,6 @@ class Data {
 }
 
 class Attributes {
-  List<TransactionList>? transactionList;
-  Pagination? pagination;
-
-  Attributes({this.transactionList, this.pagination});
-
-  Attributes.fromJson(Map<String, dynamic> json) {
-    if (json['transactionList'] != null) {
-      transactionList = <TransactionList>[];
-      json['transactionList'].forEach((v) {
-        transactionList!.add(new TransactionList.fromJson(v));
-      });
-    }
-    pagination = json['pagination'] != null
-        ? new Pagination.fromJson(json['pagination'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.transactionList != null) {
-      data['transactionList'] =
-          this.transactionList!.map((v) => v.toJson()).toList();
-    }
-    if (this.pagination != null) {
-      data['pagination'] = this.pagination!.toJson();
-    }
-    return data;
-  }
-}
-
-class TransactionList {
-  String? sId;
   String? firstName;
   String? lastName;
   String? phoneNumber;
@@ -89,20 +57,21 @@ class TransactionList {
   String? ammountToSentCurrency;
   int? amountToReceive;
   String? amountToReceiveCurrency;
-  num? exchangeRate;
+  int? exchangeRate;
+  int? hiddenFees;
   String? paymentMethod;
-  Country? country;
+  String? country;
   bool? userConfirmation;
   String? status;
+  String? sId;
   String? transactionId;
-  Map? sender;
+  String? sender;
   String? createdAt;
   String? updatedAt;
   int? iV;
 
-  TransactionList(
-      {this.sId,
-        this.firstName,
+  Attributes(
+      {this.firstName,
         this.lastName,
         this.phoneNumber,
         this.amountToSent,
@@ -110,18 +79,19 @@ class TransactionList {
         this.amountToReceive,
         this.amountToReceiveCurrency,
         this.exchangeRate,
+        this.hiddenFees,
         this.paymentMethod,
         this.country,
         this.userConfirmation,
         this.status,
+        this.sId,
         this.transactionId,
         this.sender,
         this.createdAt,
         this.updatedAt,
         this.iV});
 
-  TransactionList.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+  Attributes.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];
     lastName = json['lastName'];
     phoneNumber = json['phoneNumber'];
@@ -130,11 +100,12 @@ class TransactionList {
     amountToReceive = json['amountToReceive'];
     amountToReceiveCurrency = json['amountToReceiveCurrency'];
     exchangeRate = json['exchangeRate'];
+    hiddenFees = json['hiddenFees'];
     paymentMethod = json['paymentMethod'];
-    country =
-    json['country'] != null ? new Country.fromJson(json['country']) : null;
+    country = json['country'];
     userConfirmation = json['userConfirmation'];
     status = json['status'];
+    sId = json['_id'];
     transactionId = json['transactionId'];
     sender = json['sender'];
     createdAt = json['createdAt'];
@@ -144,7 +115,6 @@ class TransactionList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
     data['phoneNumber'] = this.phoneNumber;
@@ -153,65 +123,17 @@ class TransactionList {
     data['amountToReceive'] = this.amountToReceive;
     data['amountToReceiveCurrency'] = this.amountToReceiveCurrency;
     data['exchangeRate'] = this.exchangeRate;
+    data['hiddenFees'] = this.hiddenFees;
     data['paymentMethod'] = this.paymentMethod;
-    if (this.country != null) {
-      data['country'] = this.country!.toJson();
-    }
+    data['country'] = this.country;
     data['userConfirmation'] = this.userConfirmation;
     data['status'] = this.status;
+    data['_id'] = this.sId;
     data['transactionId'] = this.transactionId;
     data['sender'] = this.sender;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
-    return data;
-  }
-}
-
-class Country {
-  String? sId;
-  String? name;
-  String? countryFlag;
-
-  Country({this.sId, this.name, this.countryFlag});
-
-  Country.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
-    countryFlag = json['countryFlag'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['countryFlag'] = this.countryFlag;
-    return data;
-  }
-}
-
-class Pagination {
-  int? totalResults;
-  int? totalPages;
-  int? currentPage;
-  int? limit;
-
-  Pagination(
-      {this.totalResults, this.totalPages, this.currentPage, this.limit});
-
-  Pagination.fromJson(Map<String, dynamic> json) {
-    totalResults = json['totalResults'];
-    totalPages = json['totalPages'];
-    currentPage = json['currentPage'];
-    limit = json['limit'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalResults'] = this.totalResults;
-    data['totalPages'] = this.totalPages;
-    data['currentPage'] = this.currentPage;
-    data['limit'] = this.limit;
     return data;
   }
 }

@@ -74,19 +74,14 @@ class TransactionHistory extends StatelessWidget {
                                     shape: BoxShape.circle,
                                   ),
                                   child: SvgPicture.network(
-                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.country!.countryFlag}"),
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.country?.countryFlag}"),
                                 ),
                               ),
                             ],
                           ),
                           CustomText(
-                              text: transactionController
-                                  .transactionDetailsModelInfo!
-                                  .data!
-                                  .attributes!
-                                  .sender!
-                                  .fullName!
-                                  .toUpperCase(),
+                              text:
+                                  "${transactionController.transactionDetailsModelInfo?.data?.attributes?.sender?.fullName?.toUpperCase()}",
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w400,
                               top: 8.h,
@@ -97,7 +92,7 @@ class TransactionHistory extends StatelessWidget {
                             children: [
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.amountToSent} ${transactionController.transactionDetailsModelInfo!.data!.attributes!.ammountToSentCurrency}",
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.amountToSent} ${transactionController.transactionDetailsModelInfo?.data?.attributes?.ammountToSentCurrency}",
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   right: 4.w),
@@ -105,7 +100,7 @@ class TransactionHistory extends StatelessWidget {
                                   size: 18.h, color: AppColors.black100),
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.amountToReceive} ${"XAF".tr}",
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.amountToReceive} ${"XAF".tr}",
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   left: 4.w),
@@ -161,7 +156,7 @@ class TransactionHistory extends StatelessWidget {
                               ),
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo!.data!.attributes!.status}",
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.status}",
                                   fontSize: 18.sp,
                                   left: 4.w)
                             ],

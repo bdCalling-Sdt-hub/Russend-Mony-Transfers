@@ -13,13 +13,26 @@ import '../../../core/app_route/app_route.dart';
 import '../../widgets/custom_button/custom_button.dart';
 import '../../widgets/image/custom_image.dart';
 
-class PaymentMethodFinal extends StatelessWidget {
+class PaymentMethodFinal extends StatefulWidget {
   PaymentMethodFinal({super.key});
 
+  @override
+  State<PaymentMethodFinal> createState() => _PaymentMethodFinalState();
+}
+
+class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
   AmountSendController amountSendController = Get.put(AmountSendController());
 
   @override
+  void initState() {
+    amountSendController.paymentInfoRepo();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("=======================================> ${AmountSendController.transactionID.value}") ;
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
@@ -59,7 +72,8 @@ class PaymentMethodFinal extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         child: SingleChildScrollView(
-          child: amountSendController.isLoadingFinalScreen.value
+            child: Obx(
+          () => amountSendController.isLoadingFinalScreen.value
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -98,14 +112,15 @@ class PaymentMethodFinal extends StatelessWidget {
                         SizedBox(
                           height: 24.h,
                         ),
-                        Obx(() => RichTextWidget(
+                        Obx(() => amountSendController.isTimer.value ?
+                        RichTextWidget(
                               firstText: "You have ".tr,
                               secondColor: AppColors.redDark,
                               secondText:
                                   amountSendController.formattedDuration(),
                               thirdText: " left to make the payment".tr,
                               textAlign: TextAlign.center,
-                            )),
+                            ) : SizedBox()),
                         SizedBox(
                           height: 30.h,
                         ),
@@ -120,13 +135,15 @@ class PaymentMethodFinal extends StatelessWidget {
                                 Utils.toastMessage(
                                     "payment time out, please try again".tr);
                               } else {
-                                amountSendController.addTransactionRepo();
+
+
+                                amountSendController.confirmTransactionRepo();
                               }
                               // Get.toNamed(AppRoute.transactionSuccessScreen);
                             })
                       ],
                     ),
-        ),
+        )),
       ),
     );
   }

@@ -90,14 +90,24 @@ class NetworkApiService {
   }
 
   Future<ApiResponseModel> patchApi(
-      String url, Map<String, String> body, Map<String, String> header) async {
+      String url, Map<String, String> body, Map<String, String> header,{isBody = true}) async {
     dynamic responseJson;
 
     try {
-      final response = await http
-          .patch(Uri.parse(url), body: body, headers: header)
-          .timeout(const Duration(seconds: 30));
-      responseJson = handleResponse(response);
+
+      if(isBody) {
+        final response = await http
+            .patch(Uri.parse(url), body: body, headers: header)
+            .timeout(const Duration(seconds: 30));
+        responseJson = handleResponse(response);
+      } else{
+        final response = await http
+            .patch(Uri.parse(url), headers: header)
+            .timeout(const Duration(seconds: 30));
+        responseJson = handleResponse(response);
+      }
+
+
     } on SocketException {
       Utils.toastMessage("please, check your internet connection".tr) ;
       return ApiResponseModel(503, "No internet connection".tr, '');
@@ -126,6 +136,9 @@ class NetworkApiService {
       case 404:
       // Get.offAllNamed(AppRoute.logIn);
         return ApiResponseModel(404, "Error".tr, response.body);
+      case 409:
+      // Get.offAllNamed(AppRoute.logIn);
+        return ApiResponseModel(409, "User already exists".tr, response.body);
       default:
         print(response.statusCode) ;
         return ApiResponseModel(500, "Internal Server Error".tr, response.body);

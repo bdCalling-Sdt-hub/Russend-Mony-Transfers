@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_transfers/helper/shared_preference_helper.dart';
+import 'package:money_transfers/models/add_transaction_model.dart';
 import 'package:money_transfers/models/payment_info_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
 
@@ -17,10 +18,16 @@ import '../view/screen/transection/transaction_cancel_screen.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
+
+  AddTransactionModel? addTransactionModel;
+
+  static RxString transactionID = "hhhhhhhhhh".obs;
+
   static RxDouble xafRate = 655.96.obs;
   static RxDouble rubRate = 97.55.obs;
   static RxBool success = false.obs;
   RxBool isPay = true.obs;
+  RxBool isTimer = true.obs;
   RxBool isRepeat = false.obs;
   RxBool hiddenFeeLoading = false.obs;
   static RxDouble exchangeRate = 0.0.obs;
@@ -77,7 +84,6 @@ class AmountSendController extends GetxController {
       print("rubRate=====================> $rubRate");
       print("xafRate=====================> $xafRate");
 
-
       if (isRepeated) {
         Get.toNamed(AppRoute.amountSend);
         youPay(amount, amountController);
@@ -120,10 +126,9 @@ class AmountSendController extends GetxController {
           } else {
             Get.toNamed(AppRoute.recipient);
           }
-        }else  if (response.statusCode == 429) {
-          Utils.toastMessage("usage_limit_reached") ;
-        }
-        else {}
+        } else if (response.statusCode == 429) {
+          Utils.toastMessage("usage_limit_reached");
+        } else {}
       } catch (e) {
         print("error $e");
       }
@@ -147,7 +152,7 @@ class AmountSendController extends GetxController {
 
       hiddenFeeLoading.value = true;
 
-      print("hiddenFeeRepo hitting ==================> hiddenFeeRepo") ;
+      print("hiddenFeeRepo hitting ==================> hiddenFeeRepo");
 
       networkApiService
           .getApi(ApiUrl.hiddenFee, header)
@@ -199,11 +204,14 @@ class AmountSendController extends GetxController {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
         timer?.cancel();
-        duration.value = const Duration(seconds: 10);
 
-        startTime();
-        time.value = "0:10:00.00000";
-        Get.toNamed(AppRoute.paymentMethodFinal);
+        if(isTimer.value) {
+          duration.value = const Duration(minutes: 10);
+          startTime();
+          time.value = "0:10:00.00000";
+        }
+
+        // Get.toNamed(AppRoute.paymentMethodFinal);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -240,17 +248,24 @@ class AmountSendController extends GetxController {
 
     print("==========>body :  $body");
     print("==========>header :  $header");
-
     try {
       var apiResponseModel =
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
       if (apiResponseModel.statusCode == 200) {
-        Get.offAllNamed(AppRoute.transactionSuccessScreen);
-        timer?.cancel();
+        var json = jsonDecode(apiResponseModel.responseJson);
+        addTransactionModel = AddTransactionModel.fromJson(json);
+        print(addTransactionModel);
+        Get.toNamed(AppRoute.paymentMethodFinal);
+        AmountSendController.transactionID.value =
+            addTransactionModel?.data?.attributes?.sId ?? "";
       } else if (apiResponseModel.statusCode == 201) {
-        Get.offAllNamed(AppRoute.transactionSuccessScreen);
-        timer?.cancel();
+        var json = jsonDecode(apiResponseModel.responseJson);
+        addTransactionModel = AddTransactionModel.fromJson(json);
+        print(addTransactionModel);
+        Get.toNamed(AppRoute.paymentMethodFinal);
+        AmountSendController.transactionID.value =
+            addTransactionModel?.data?.attributes?.sId ?? "";
       } else if (apiResponseModel.statusCode == 401) {
       } else {
         Get.snackbar(
@@ -260,6 +275,37 @@ class AmountSendController extends GetxController {
       // Handle any exceptions that might occur during the API call
       print("Error: $error");
       Get.snackbar("Error", "An error occurred during the API call");
+    }
+  }
+
+  Future<void> confirmTransactionRepo() async {
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}",
+      'Cookie': 'i18next=en'
+    };
+
+    Map<String, String> body = {};
+
+    print(
+        "========================>transactionID ${transactionID.value.toString()}");
+
+    var apiResponseModel = await networkApiService.patchApi(
+        "${ApiUrl.confirmTransaction}/${transactionID.value}", body, header,
+        isBody: false);
+
+    print(apiResponseModel.statusCode.toString()) ;
+    print(apiResponseModel.message.toString()) ;
+    print(apiResponseModel.responseJson.toString()) ;
+
+    if (apiResponseModel.statusCode == 200) {
+      Get.offAllNamed(AppRoute.transactionSuccessScreen);
+      timer?.cancel();
+    } else if (apiResponseModel.statusCode == 200) {
+      Get.offAllNamed(AppRoute.transactionSuccessScreen);
+      timer?.cancel();
+    } else {
+      Utils.snackBarMessage(apiResponseModel.statusCode.toString(),
+          apiResponseModel.message.toString());
     }
   }
 
@@ -338,8 +384,14 @@ class AmountSendController extends GetxController {
         time.value = duration.toString();
       } else {
         disableButton.value = true;
+
+
+        Future.delayed(Duration.zero, () async {
+          Get.offAllNamed(AppRoute.transactionCancelScreen);
+        });
+
         timer?.cancel();
-        Get.offAllNamed(AppRoute.transactionCancelScreen);
+
       }
     });
   }

@@ -20,7 +20,6 @@ class TransactionCancelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AmountSendController.firstNameController.text = "dflkdjsfjdslfjsdjfsjlkddsjlk" ;
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.gray,

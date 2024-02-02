@@ -87,16 +87,16 @@ class NotificationController extends GetxController {
     Duration difference = currentDateTime.difference(originalDateTime);
     if (difference.inDays == 0) {
       if (difference.inHours == 0) {
-        return ("${difference.inMinutes} ${"minutes".tr}");
+        return ("${difference.inMinutes} minutes ago");
       } else {
-        return ("${difference.inHours} ${"hours".tr}");
+        return ("${difference.inHours} hours ago");
       }
       return ("${difference.inHours % 24} ${"hours".tr} ${difference.inMinutes % 60} ${"minutes".tr}");
     } else {
       var createdAtTime = dateString.split(".")[0];
       var date = createdAtTime.split("T")[0];
       var time = createdAtTime.split("T")[1];
-      return "${date} $time";
+      return "${date} at $time";
     }
   }
 }

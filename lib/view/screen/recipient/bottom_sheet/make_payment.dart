@@ -89,7 +89,9 @@ class MakePayment {
                       titleSize: 24.sp,
                       buttonWidth: double.infinity,
                       onPressed: () {
-                        amountSendController.paymentInfoRepo() ;
+                        amountSendController.addTransactionRepo();
+                        amountSendController.isTimer.value = true ;
+                        // amountSendController.paymentInfoRepo() ;
                         // Get.toNamed(AppRoute.paymentMethodFinal);
                       }),
                 ),

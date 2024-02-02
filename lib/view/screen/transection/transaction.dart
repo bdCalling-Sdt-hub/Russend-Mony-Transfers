@@ -114,7 +114,9 @@ class _TransactionState extends State<Transaction> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 10.h,),
+                            SizedBox(
+                              height: 10.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -165,173 +167,293 @@ class _TransactionState extends State<Transaction> {
                             ],
                           )
                         : ListView.builder(
-                          controller:
-                              transactionController.scrollController,
-                          itemCount:
-                              transactionController.isMoreLoading.value
-                                  ? transactionController
-                                          .transactionList.length +
-                                      1
-                                  : transactionController
-                                      .transactionList.length,
-                          itemBuilder: (context, index) {
-                            if (index <
-                                transactionController
-                                    .transactionList.length) {
-                              var transactionModel = transactionController
-                                  .transactionList[index];
-                              return Container(
-                                color: Colors.transparent,
-                                padding: EdgeInsets.only(bottom: 24.h),
-                                child: InkWell(
-                                  onTap: () {
-                                    transactionController.transactionDetailsRepo(
-                                            SharedPreferenceHelper.accessToken,
-                                            transactionModel.sId!);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Stack(
+                            controller: transactionController.scrollController,
+                            itemCount: transactionController.isMoreLoading.value
+                                ? transactionController.transactionList.length +
+                                    1
+                                : transactionController.transactionList.length,
+                            itemBuilder: (context, index) {
+                              if (index <
+                                  transactionController
+                                      .transactionList.length) {
+                                var transactionModel = transactionController
+                                    .transactionList[index];
+
+                                return Container(
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  child: InkWell(
+                                    onTap: () {
+
+                                      if( transactionModel.userConfirmation) {
+                                        transactionController
+                                            .transactionDetailsRepo(
+                                            SharedPreferenceHelper
+                                                .accessToken,
+                                            transactionModel.sId);
+                                      } else {
+                                        AmountSendController.transactionID.value = transactionModel.sId ;
+                                        AmountSendController.firstNameController.text = transactionModel.firstName.toString() ;
+                                        AmountSendController.lastNameController.text = transactionModel.lastName.toString() ;
+                                        AmountSendController.numberController.text = transactionModel.phoneNumber.toString() ;
+                                        AmountSendController.amountController.text = transactionModel.amountToSent.toString() ;
+                                        AmountSendController.receiveController.text = transactionModel.amountToReceive.toString() ;
+                                        amountSendController.isTimer.value = false ;
+
+
+                                        print("========================>transactionID ${AmountSendController.transactionID.value}") ;
+
+                                        Get.toNamed(AppRoute.paymentMethodFinal);
+
+                                        // amountSendController.confirmTransactionRepo(transactionModel.s)
+
+
+
+
+
+                                      }
+
+
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Container(
-                                            height: 50.h,
-                                            width: 50.w,
-                                            padding: EdgeInsets.all(4.h),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: AppColors
-                                                        .primaryColor,
-                                                    width: 1.w,
-                                                    style:
-                                                        BorderStyle.solid),
-                                                shape: BoxShape.circle,
-                                                color: AppColors.gray20),
-                                            child: const CustomImage(
-                                                imageSrc: AppIcons.arrow),
-                                          ),
-                                          Positioned(
-                                            bottom: 0,
-                                            right: 0,
-                                            child: Container(
-                                              height: 15.h,
-                                              width: 15.w,
-                                              decoration:
-                                                  const BoxDecoration(
-                                                shape: BoxShape.circle,
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                height: 50.h,
+                                                width: 50.w,
+                                                padding: EdgeInsets.all(4.h),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColors
+                                                            .primaryColor,
+                                                        width: 1.w,
+                                                        style:
+                                                            BorderStyle.solid),
+                                                    shape: BoxShape.circle,
+                                                    color: AppColors.gray20),
+                                                child: const CustomImage(
+                                                    imageSrc: AppIcons.arrow),
                                               ),
-                                              child: SvgPicture.network(
-                                                  "${transactionModel.country!.countryFlag}",
-                                                  fit: BoxFit.fill),
-                                            ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: Container(
+                                                  height: 15.h,
+                                                  width: 15.w,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: SvgPicture.network(
+                                                    "${transactionModel.country?.countryFlag}",
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: Container(
+                                                  height: 50.h,
+                                                  width: 50.w,
+                                                  decoration: BoxDecoration(
+                                                    color: transactionModel
+                                                            .userConfirmation
+                                                        ? AppColors
+                                                            .transparentColor
+                                                        : AppColors.white
+                                                            .withOpacity(0.5),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: Container(
+                                                  height: 15.h,
+                                                  width: 15.w,
+                                                  decoration: BoxDecoration(
+                                                    color: transactionModel
+                                                            .userConfirmation
+                                                        ? AppColors
+                                                            .transparentColor
+                                                        : AppColors.white
+                                                            .withOpacity(0.5),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 8.w),
-                                      Flexible(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                          SizedBox(width: 8.w),
+                                          Flexible(
+                                            child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Flexible(
-                                                    child: CustomText(
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Flexible(
+                                                        child: CustomText(
+                                                            text:
+                                                                "${transactionModel.firstName} ${transactionModel.lastName}",
+                                                            fontSize: 18.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            right: 24.h,
+                                                            color: transactionModel
+                                                                    .userConfirmation
+                                                                ? AppColors
+                                                                    .black100
+                                                                : AppColors
+                                                                    .black100
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                            textAlign: TextAlign
+                                                                .start)),
+                                                    Text(
+                                                      "${transactionModel.amountToSent} ${"XAF".tr}",
+                                                      style: TextStyle(
+                                                          fontSize: 18.sp,
+                                                          color: transactionModel
+                                                                  .userConfirmation
+                                                              ? AppColors
+                                                                  .black100
+                                                              : AppColors
+                                                                  .black100
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                          decoration:
+                                                              transactionModel
+                                                                          .status ==
+                                                                      "cancelled"
+                                                                  ? TextDecoration
+                                                                      .lineThrough
+                                                                  : TextDecoration
+                                                                      .none,
+                                                          decorationThickness:
+                                                              3,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 4.h),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    CustomText(
                                                         text:
-                                                            "${transactionModel.firstName} ${transactionModel.lastName}",
-                                                        fontSize: 18.sp,
+                                                            "${"To Mobile".tr} ${transactionModel.phoneNumber}",
+                                                        fontSize: 14.sp,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        right: 24.h,
-                                                        textAlign: TextAlign
-                                                            .start)),
-                                                CustomText(
-                                                    text:
-                                                        "${transactionModel.amountToSent} ${"XAF".tr}",
-                                                    fontSize: 18.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ],
-                                            ),
-                                            SizedBox(height: 4.h),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                CustomText(
-                                                    text:
-                                                        "${"To Mobile".tr} ${transactionModel.phoneNumber}",
-                                                    fontSize: 14.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color: AppColors.black50,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.start),
-                                                transactionModel.status ==
-                                                        "pending"
-                                                    ? CustomImage(
-                                                        imageType:
-                                                            ImageType.png,
-                                                        imageSrc: AppIcons
-                                                            .loadingIcon,
-                                                        size: 20.h,
-                                                        imageColor: AppColors
-                                                            .black100)
-                                                    : transactionModel.status ==
-                                                            "cancelled"
-                                                        ? CustomImage(
-                                                            imageSrc: AppIcons
-                                                                .cancelled,
-                                                            size: 20.h,
-                                                            imageColor:
-                                                                AppColors
-                                                                    .black100)
-                                                        : transactionModel
+                                                        color: transactionModel
+                                                                .userConfirmation
+                                                            ? AppColors.black100
+                                                                .withOpacity(
+                                                                    0.5)
+                                                            : AppColors.black100
+                                                                .withOpacity(
+                                                                    0.3),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        textAlign:
+                                                            TextAlign.start),
+                                                    transactionModel
+                                                            .userConfirmation
+                                                        ? transactionModel
                                                                     .status ==
-                                                                "transferred"
+                                                                "pending"
                                                             ? CustomImage(
-                                                                imageSrc: AppIcons
-                                                                    .success,
-                                                                size: 20.h,
-                                                                imageColor:
-                                                                    AppColors
-                                                                        .black100)
-                                                            : CustomImage(
-                                                                imageSrc: AppIcons
-                                                                    .transferred,
                                                                 imageType:
                                                                     ImageType
                                                                         .png,
+                                                                imageSrc: AppIcons
+                                                                    .loadingIcon,
                                                                 size: 20.h,
-                                                                imageColor:
-                                                                    AppColors
-                                                                        .black100),
+                                                                imageColor: transactionModel
+                                                                        .userConfirmation
+                                                                    ? AppColors
+                                                                        .black100
+                                                                    : AppColors
+                                                                        .black100
+                                                                        .withOpacity(
+                                                                            0.5),
+                                                              )
+                                                            : transactionModel
+                                                                        .status ==
+                                                                    "cancelled"
+                                                                ? CustomImage(
+                                                                    imageSrc:
+                                                                        AppIcons
+                                                                            .cancelled,
+                                                                    size: 20.h,
+                                                                    imageColor: transactionModel.userConfirmation
+                                                                        ? AppColors
+                                                                            .black100
+                                                                        : AppColors
+                                                                            .black100
+                                                                            .withOpacity(0.5),
+                                                                  )
+                                                                : transactionModel
+                                                                            .status ==
+                                                                        "transferred"
+                                                                    ? CustomImage(
+                                                                        imageSrc: AppIcons
+                                                                            .success,
+                                                                        size: 20
+                                                                            .h,
+                                                                        imageColor: AppColors
+                                                                            .black100)
+                                                                    : CustomImage(
+                                                                        imageSrc:
+                                                                            AppIcons
+                                                                                .transferred,
+                                                                        imageType:
+                                                                            ImageType
+                                                                                .png,
+                                                                        size: 20
+                                                                            .h,
+                                                                        imageColor:
+                                                                            AppColors.black100)
+                                                        : Icon(
+                                                            Icons
+                                                                .privacy_tip_outlined,
+                                                            color: AppColors
+                                                                .black50,
+                                                          ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              );
-                            } else {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                          },
-                        ))),
+                                );
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            },
+                          ))),
               )
             ],
           ),
@@ -339,19 +461,18 @@ class _TransactionState extends State<Transaction> {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.only(bottom: 24.h, left: 20.w, right: 20.w),
           child: CustomButton(
-            titleText: "Send".tr,
-            buttonRadius: 25.r,
-            onPressed: () {
-              AmountSendController.isCancelled.value = false ;
-              amountSendController.isRepeat.value = false ;
-              AmountSendController.numberController.clear() ;
-              AmountSendController.amountController.clear();
-              AmountSendController.receiveController.clear();
-              AmountSendController.firstNameController.clear();
-              AmountSendController.lastNameController.clear();
-              Get.toNamed(AppRoute.selectCountry) ;
-            }
-          ),
+              titleText: "Send".tr,
+              buttonRadius: 25.r,
+              onPressed: () {
+                AmountSendController.isCancelled.value = false;
+                amountSendController.isRepeat.value = false;
+                AmountSendController.numberController.clear();
+                AmountSendController.amountController.clear();
+                AmountSendController.receiveController.clear();
+                AmountSendController.firstNameController.clear();
+                AmountSendController.lastNameController.clear();
+                Get.toNamed(AppRoute.selectCountry);
+              }),
         ),
       ),
     );

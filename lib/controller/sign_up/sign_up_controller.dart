@@ -90,7 +90,10 @@ class SignUpController extends GetxController {
         duration = const Duration(seconds: 60);
         time.value = 60;
         startTime();
-      } else {
+      } else if (apiResponseModel.statusCode == 409) {
+        Utils.snackBarMessage("User already exists".tr, "if forgot your password please, reset your password".tr) ;
+        Get.toNamed(AppRoute.forgotPassword) ;
+      }else {
         Utils.snackBarMessage(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }

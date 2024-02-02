@@ -64,7 +64,7 @@ class Notification extends StatelessWidget {
                                 return ListItem(
                                   title: item.message!,
                                   time:
-                                      "${notificationController.getFormattedDate(item.updatedAt)} ${"ago".tr}",
+                                      "${notificationController.getFormattedDate(item.updatedAt)}",
                                   // time: "$date at $time",
                                 );
                               } else {
