@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/sign_in_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +12,7 @@ import '../services/api_services/api_services.dart';
 
 class SignInController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isSignIn = false.obs;
   SignInModel? signInModelInfo;
 
   TextEditingController emailController = TextEditingController();
@@ -53,24 +53,23 @@ class SignInController extends GetxController {
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
+        isSignIn.value = true ;
         var json = jsonDecode(apiResponseModel.responseJson);
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
 
-        if (SharedPreferenceHelper.isForgotPasscode) {
-          Get.toNamed(AppRoute.passCode);
-        } else {
-          Get.toNamed(AppRoute.enterPassCode);
-        }
+        Get.toNamed(AppRoute.passCode);
+
         emailController.clear();
         passwordController.clear();
       } else if (apiResponseModel.statusCode == 201) {
+        isSignIn.value = true ;
         var json = jsonDecode(apiResponseModel.responseJson);
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
-        Get.toNamed(AppRoute.enterPassCode);
+        Get.toNamed(AppRoute.passCode);
         emailController.clear();
       } else if (apiResponseModel.statusCode == 401) {
         Utils.toastMessage("EmailOrPasswordIsIncorrectPleaseTryAgainLater".tr);

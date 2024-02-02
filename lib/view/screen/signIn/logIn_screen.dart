@@ -75,10 +75,12 @@ class LogInScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CustomText(
-                            text: "Don’t have an account? ".tr,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w400,
+                          Flexible(
+                            child: CustomText(
+                              text: "Don’t have an account? ".tr,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           SizedBox(
                             width: 4.w,
@@ -87,7 +89,7 @@ class LogInScreen extends StatelessWidget {
                               onTap: () => Get.toNamed(AppRoute.createAccount),
                               child: CustomText(
                                 text: "Sign up".tr,
-                                fontSize: 15.sp,
+                                fontSize: 14.sp,
                                 color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w600,
                               ))

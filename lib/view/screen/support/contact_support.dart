@@ -86,7 +86,7 @@ class ContactSupport extends StatelessWidget {
                 ],
               ),
               CustomText(text: "To help us serve you better, kindly have your transaction ID ready. This unique identifier can be found in your transaction located on your account dashboard.".tr,
-                fontSize: 14.sp,color: AppColors.black50,maxLines: 5)
+                fontSize: 14.sp,color: AppColors.black50,maxLines: 7)
             ],
           ),
         ),

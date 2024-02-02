@@ -68,7 +68,7 @@ class Languages extends Translations {
           "Amount Received": "Amount Received",
           "Should Arrive": "Should Arrive",
           "Mobile Money Transfer for ": "Mobile Money Transfer for ",
-          "Important!": "Important!",
+          "Important": "Important!",
           "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available":
               "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available.",
           "If you believe your transaction was canceled by mistake, please ":
@@ -207,7 +207,8 @@ class Languages extends Translations {
           "if forgot your password please, reset your password": "if forgot your password please, reset your password",
           "User already exists": "User already exists",
           "minimum amount 100 RUB": "minimum amount 100 RUB",
-          "maximum amount 150000 RUB": "maximum amount 150000 RUB"
+          "maximum amount 150000 RUB": "maximum amount 150000 RUB",
+          "to" : " to "
 
         },
 
@@ -256,7 +257,7 @@ class Languages extends Translations {
           " a few minutes": " quelques minutes",
           " Fee": " de Frais",
           "The transfers to this country will resume soon":
-              "Le transfert vers ce pays reprendra bientôt",
+              "Les transferts vers ce pays reprendront bientôt",
           "Back to main menu": "Retour au menu principal",
           "Add recipient’s information":
               "Ajouter les informations du destinataire",
@@ -282,7 +283,7 @@ class Languages extends Translations {
           "Amount Received": "Montant reçu",
           "Should Arrive": "Devrait arriver",
           "Mobile Money Transfer for ": "Transfert d'argent mobile pour ",
-          "Important!": "Importante!",
+          "Important": "Important!",
           "Your transaction will be available within 2 to 3 hours or sooner (It usually takes few minutes). We will send you a notification when the funds are available":
               "Votre transaction sera disponible dans un délai de 2 à 3 heures ou plus tôt (cela prend généralement quelques minutes). Nous vous enverrons une notification lorsque les fonds seront disponibles.",
           "If you believe your transaction was canceled by mistake, please ":
@@ -300,7 +301,7 @@ class Languages extends Translations {
           "0.00 RUB": "0.00 RUB",
           "Should arrive": "Devrait arriver",
           "In a few minutes": "Dans quelques minutes",
-          "Important": "Importante!",
+          "Important": "Important!",
           "1-You can make the payment from any russian bank":
               "1-Vous pouvez effectuer le paiement depuis n'importe quelle banque russe",
           "2-You will get ": "2-Vous obtiendrez ",
@@ -322,7 +323,6 @@ class Languages extends Translations {
           "Phone Number :": "Numéro de téléphone :",
           "Name :": "Nom :",
           "Amount to send :": "Montant à envoyer :",
-          "I Made the payment": "''J'ai effectué le paiement''",
           "You have ": "Il vous reste ",
           " left to make the payment": " pour effectuer le paiement",
           "Enter your passcode": "Entrez votre code d'accè",
@@ -417,7 +417,7 @@ class Languages extends Translations {
           "Forgot": "Oublié!",
           "To Mobile": "Vers mobile:",
           "XAF": "FCFA",
-          "LegalProfile": "Légale",
+          "LegalProfile": "Termes légaux",
           "Cancelled": "annulée",
           "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
           "passcode": "mot de passe",
@@ -427,7 +427,9 @@ class Languages extends Translations {
           "if forgot your password please, reset your password": "si vous avez oublié votre mot de passe, veuillez réinitialiser votre mot de passe",
           "User already exists": "L'utilisateur existe déjà",
           "minimum amount 100 RUB": "montant minimum 100 RUB",
-          "maximum amount 150000 RUB": "montant maximum 150000 RUB"
+          "maximum amount 150000 RUB": "montant maximum 150000 RUB",
+          "to" : " à "
+
 
 
 

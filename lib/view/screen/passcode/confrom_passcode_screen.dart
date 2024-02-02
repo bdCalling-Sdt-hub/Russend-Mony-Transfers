@@ -78,11 +78,12 @@ class ConformPasscodeScreen extends StatelessWidget {
                         if (controllerText.length == 4) {
                           conformPasscodeController.disableKeyboard.value =
                               true;
+
                           if (createPasscodeController
                                   .passcodeController.text ==
                               conformPasscodeController
                                   .passcodeController.text) {
-                            if (SharedPreferenceHelper.isForgotPasscode) {
+                            if (signInController.isSignIn.value) {
                               var item =
                                   signInController.signInModelInfo!.data!;
                               conformPasscodeController.createPasscodeRepo(

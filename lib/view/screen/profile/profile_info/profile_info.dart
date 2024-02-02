@@ -104,7 +104,7 @@ class ProfileInfo extends StatelessWidget {
                                 children: [
                                   CustomText(
                                     text:
-                                        "${personalInfoController.userDetailsModelInfo?.data?.attributes?.countryCode}${personalInfoController.userDetailsModelInfo?.data?.attributes?.phoneNumber}" ??
+                                        "${personalInfoController.userDetailsModelInfo?.data?.attributes?.countryCode ?? ""}${personalInfoController.userDetailsModelInfo?.data?.attributes?.phoneNumber}" ??
                                             "",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w400,

@@ -58,7 +58,7 @@ class MakePayment {
                 ),
                 CustomText(
                   text: "1-You can make the payment from any russian bank".tr,
-                  maxLines: 2,
+                  maxLines: 4,
                   textAlign: TextAlign.start,
                   fontSize: 18.sp,
                 ),
@@ -86,7 +86,7 @@ class MakePayment {
                       titleText: "Make payment".tr,
                       buttonRadius: 50.r,
                       buttonHeight: 50.h,
-                      titleSize: 24.sp,
+                      titleSize: 20.sp,
                       buttonWidth: double.infinity,
                       onPressed: () {
                         amountSendController.addTransactionRepo();

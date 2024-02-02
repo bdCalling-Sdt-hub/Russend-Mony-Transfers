@@ -233,7 +233,7 @@ class AmountSendController extends GetxController {
       "ammountToSentCurrency": amountToSentCurrency,
       "amountToReceive": receiveController.text,
       "amountToReceiveCurrency": amountToReceiveCurrency,
-      "exchangeRate": exchangeRate.round().toString(),
+      "exchangeRate": exchangeRate.toStringAsPrecision(3).toString(),
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
           ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
           : "0",
@@ -251,6 +251,10 @@ class AmountSendController extends GetxController {
     try {
       var apiResponseModel =
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
+
+      print(apiResponseModel.statusCode) ;
+      print(apiResponseModel.message) ;
+      print(apiResponseModel.responseJson) ;
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);

@@ -28,6 +28,7 @@ class SelectCountryController extends GetxController {
           .then((apiResponseModel) {
         isLoading.value = false;
 
+        print(apiResponseModel.responseJson) ;
         if (apiResponseModel.statusCode == 200) {
           var json = jsonDecode(apiResponseModel.responseJson);
           countryList = CountryListModel.fromJson(json);

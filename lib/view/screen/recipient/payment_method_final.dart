@@ -41,7 +41,7 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
           firstText: "Transfer of ".tr,
           secondText:
               "${AmountSendController.receiveController.text} ${amountSendController.amountToReceiveCurrency}",
-          thirdText: " to ".tr,
+          thirdText: "to".tr,
           fourText:
               "${AmountSendController.firstNameController.text} ${AmountSendController.lastNameController.text}",
           fontSize: 20.sp,
@@ -91,7 +91,7 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
                               " to the phone number displayed below. After sending the money, click on "
                                   .tr,
                           fourText: "I made the payment".tr,
-                          maxLines: 6,
+                          maxLines: 10,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w400,
                         ),
@@ -125,11 +125,11 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
                           height: 30.h,
                         ),
                         CustomButton(
-                            titleText: "I Made the payment".tr,
+                            titleText: "I made the payment".tr,
                             buttonRadius: 20.r,
                             titleColor: AppColors.white85,
                             buttonWidth: double.infinity,
-                            titleSize: 24.sp,
+                            titleSize: 20.sp,
                             onPressed: () {
                               if (amountSendController.disableButton.value) {
                                 Utils.toastMessage(

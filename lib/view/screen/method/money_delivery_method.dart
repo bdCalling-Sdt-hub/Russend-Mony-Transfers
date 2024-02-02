@@ -70,10 +70,13 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(text: "Should arrive in".tr),
-                      CustomText(
-                          text: " a few minutes".tr,
-                          color: AppColors.primaryColor),
+                      CustomText(text: "Should arrive in".tr, fontSize: 14.sp,),
+                      Flexible(
+                        child: CustomText(
+                            text: " a few minutes".tr,
+                            fontSize: 14.sp,
+                            color: AppColors.primaryColor),
+                      ),
                     ],
                   ),
                   Row(

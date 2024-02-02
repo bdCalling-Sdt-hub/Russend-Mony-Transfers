@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
@@ -30,7 +31,7 @@ class TransactionSuccessScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Get.offAllNamed(AppRoute.transaction);
-                  amountSendController.isRepeat.value = false ;
+                  amountSendController.isRepeat.value = false;
                   AmountSendController.amountController.clear();
                   AmountSendController.receiveController.clear();
                   AmountSendController.firstNameController.clear();
@@ -66,6 +67,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                       ),
                       CustomImage(
                         imageSrc: AppIcons.success,
+                        imageColor: AppColors.primaryColor,
                         size: 110.sp,
                       ),
                       CustomText(
@@ -73,6 +75,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                         fontSize: 20.sp,
                         top: 30.h,
                         bottom: 12.h,
+                        maxLines: 3,
                       ),
                       TextRichWidget(
                           secondText:
@@ -113,9 +116,36 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SizedBox(
                         height: 8.h,
                       ),
-                      SuccessfulItem(
-                        title: "Should Arrive".tr,
-                        service: "In a few minutes".tr,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Should Arrive".tr,
+                              style: GoogleFonts.poppins(
+                                color: AppColors.black100,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: " ",
+                              style: GoogleFonts.plusJakartaSans(
+                                color: AppColors.black100,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "In a few minutes".tr,
+                              style: GoogleFonts.plusJakartaSans(
+                                color: AppColors.black100,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.start,
                       ),
                     ],
                   ),
@@ -128,7 +158,7 @@ class TransactionSuccessScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CustomText(
-                    text: "Important!".tr,
+                    text: "Important".tr,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
