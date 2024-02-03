@@ -156,7 +156,7 @@ class TransactionHistory extends StatelessWidget {
                               ),
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.status}",
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.status}".tr,
                                   fontSize: 18.sp,
                                   left: 4.w)
                             ],

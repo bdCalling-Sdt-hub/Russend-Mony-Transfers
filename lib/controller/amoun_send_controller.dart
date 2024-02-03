@@ -110,10 +110,15 @@ class AmountSendController extends GetxController {
           xafRate.value = data["XAF"];
           rubRate.value = data["RUB"];
           exchangeRate.value = xafRate.value / rubRate.value;
+          print("=======================> exchangeRate $exchangeRate");
+
 
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
             exchangeRate.value =
-                exchangeRate.value - (exchangeRate.value * 0.15);
+                exchangeRate.value - (exchangeRate.value * (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
+            print("=======================> add hidden free plus $exchangeRate");
+            print("=======================>free ${exchangeRate * hiddenFeesModelInfo!.data!.attributes!.percentage! / 100}");
+
           }
 
           print(exchangeRate);
@@ -233,7 +238,7 @@ class AmountSendController extends GetxController {
       "ammountToSentCurrency": amountToSentCurrency,
       "amountToReceive": receiveController.text,
       "amountToReceiveCurrency": amountToReceiveCurrency,
-      "exchangeRate": exchangeRate.toStringAsPrecision(3).toString(),
+      "exchangeRate": "1 Rub = ${exchangeRate.toStringAsPrecision(3).toString()} XAF",
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
           ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
           : "0",

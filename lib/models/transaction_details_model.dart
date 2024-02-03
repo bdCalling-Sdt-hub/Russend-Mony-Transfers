@@ -55,7 +55,7 @@ class Attributes {
   String? ammountToSentCurrency;
   int? amountToReceive;
   String? amountToReceiveCurrency;
-  num? exchangeRate;
+  String? exchangeRate;
   String? paymentMethod;
   Country? country;
   String? status;

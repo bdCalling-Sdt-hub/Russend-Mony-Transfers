@@ -27,7 +27,6 @@ class Languages extends Translations {
           "Recent transaction": "Recent transaction",
           "You have no recent transaction": "You have no recent transactions",
           "Send": "Send",
-          "Sent": "Sent",
           "Transaction ID": "Transaction ID",
           "Date": "Date",
           "Rate": "Rate",
@@ -198,7 +197,6 @@ class Languages extends Translations {
           "To Mobile": "To Mobile:",
           "XAF": "XAF",
           "LegalProfile": "Legal",
-          "Cancelled": "Cancelled",
           "If you believe your transaction was canceled by mistake": "If you believe your transaction was canceled by mistake, please ",
           "passcode": "passcode",
           "Passcode not match": "Passcode not match",
@@ -208,7 +206,14 @@ class Languages extends Translations {
           "User already exists": "User already exists",
           "minimum amount 100 RUB": "minimum amount 100 RUB",
           "maximum amount 150000 RUB": "maximum amount 150000 RUB",
-          "to" : " to "
+          "to" : " to ",
+          "pending" : "Pending",
+          "Sent" : "Sent",
+          "Cancelled" : "Cancelled",
+          "accepted" : "accepted",
+          "transferred" : "transferred",
+          "cancelled" : "cancelled",
+
 
         },
 
@@ -239,7 +244,6 @@ class Languages extends Translations {
           "You have no recent transaction":
               "Vous n'avez aucune transaction récente",
           "Send": "Envoyer",
-          "Sent": "Envoyée",
           "Transaction ID": "Transaction ID",
           "Date": "Date",
           "Rate": "Taux",
@@ -252,7 +256,7 @@ class Languages extends Translations {
               "Pour nous aider à mieux vous servir, veuillez préparer votre identifiant de transaction(transaction ID). Cet identifiant unique se retrouve dans votre transaction située sur le menu principal de votre compte.",
           "Notification": "Notification",
           "Select how to deliver money to recipient":
-              "Sélectionnez comment remettre l'argent au destinataire",
+              "Sélectionnez comment envoyer l'argent au destinataire",
           "Should arrive in": "Devrait arriver dans",
           " a few minutes": " quelques minutes",
           " Fee": " de Frais",
@@ -288,7 +292,7 @@ class Languages extends Translations {
               "Votre transaction sera disponible dans un délai de 2 à 3 heures ou plus tôt (cela prend généralement quelques minutes). Nous vous enverrons une notification lorsque les fonds seront disponibles.",
           "If you believe your transaction was canceled by mistake, please ":
               "Transfert d'argent pour ",
-          "contact us": "Contactez-nous",
+          "contact us": "nous contactez",
           "Please enter passcode": "Veuillez entrer le code d'accès",
           "Please enter the OTP code": "Veuillez entrer le code OTP",
           "Confirm": "Confirmer",
@@ -418,7 +422,6 @@ class Languages extends Translations {
           "To Mobile": "Vers mobile:",
           "XAF": "FCFA",
           "LegalProfile": "Termes légaux",
-          "Cancelled": "annulée",
           "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
           "passcode": "mot de passe",
           "Passcode not match": "Le code d'accès ne correspond pas",
@@ -428,7 +431,13 @@ class Languages extends Translations {
           "User already exists": "L'utilisateur existe déjà",
           "minimum amount 100 RUB": "montant minimum 100 RUB",
           "maximum amount 150000 RUB": "montant maximum 150000 RUB",
-          "to" : " à "
+          "to" : " à ",
+          "pending" : "En cours",
+          "Sent" : "Envoyer",
+          "Cancelled" : "Annulée",
+          "accepted" : "accepté",
+          "transferred" : "transféré",
+          "cancelled" : "Annulée",
 
 
 
