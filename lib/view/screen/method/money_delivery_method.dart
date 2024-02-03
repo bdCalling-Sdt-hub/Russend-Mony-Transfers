@@ -34,7 +34,7 @@ class MoneyDeliveryMethod extends StatelessWidget {
                 children: [
                   CustomText(
                     text: "Select how to deliver money to recipient".tr,
-                    fontSize: 26.sp,
+                    fontSize: 22.sp,
                     bottom: 24.h,
                     maxLines: 4,
                   ),

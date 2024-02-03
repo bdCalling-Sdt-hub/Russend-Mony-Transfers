@@ -23,7 +23,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 3), () => Get.offAllNamed(AppRoute.transaction));
+    Timer(const Duration(milliseconds: 1500), () => Get.offAllNamed(AppRoute.transaction));
     super.initState();
   }
 

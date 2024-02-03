@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_images.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -36,7 +35,7 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                 children: [
                   CustomText(
                     text: "Select how to deliver money to recipient".tr,
-                    fontSize: 26.sp,
+                    fontSize: 22.sp,
                     bottom: 24.h,
                     maxLines: 4,
                   ),
