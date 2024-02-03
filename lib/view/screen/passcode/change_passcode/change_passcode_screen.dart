@@ -40,6 +40,7 @@ class ChangePasscode extends StatelessWidget {
                   text: "Enter your current passcode".tr,
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
+                  maxLines: 2,
                   bottom: 44.h,
                 ),
                 Flexible(

@@ -42,7 +42,7 @@ class OnBoardingScreen extends StatelessWidget {
                   color: AppColors.white,
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w700,
-                  maxLines: 2,
+                  maxLines: 4,
                   left: 20.w,
                   right: 20.w,
                 ),

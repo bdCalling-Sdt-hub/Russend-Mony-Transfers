@@ -107,7 +107,6 @@ class ForgotPasswordVerification extends StatelessWidget {
                             titleSize: 16.sp,
                             buttonWidth: 220.w,
                             onPressed: () {
-
                               if (formKey.currentState!.validate()) {
                                 forgetPasswordController.verifyOtpRepo();
                               }
@@ -123,9 +122,15 @@ class ForgotPasswordVerification extends StatelessWidget {
                           child: Align(
                               alignment: Alignment.center,
                               child: Obx(() => ResendRichText(
+                                    color:
+                                        forgetPasswordController.isResend.value
+                                            ? AppColors.primaryColor
+                                            : AppColors.gray,
                                     onTap:
                                         forgetPasswordController.isResend.value
                                             ? () {
+                                                forgetPasswordController
+                                                    .isResend.value = false;
                                                 forgetPasswordController
                                                     .forgetPasswordRepo();
                                                 Utils.snackBarMessage(
@@ -133,7 +138,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                                               }
                                             : () {
                                                 Utils.toastMessage(
-                                                    "please wait ${forgetPasswordController.time}");
+                                                    "please wait ${forgetPasswordController.formattedDuration()}");
                                               },
                                   )))),
                     ],
@@ -141,7 +146,7 @@ class ForgotPasswordVerification extends StatelessWidget {
                   Obx(
                     () => CustomText(
                         text:
-                            "${"YouCanResendTheCodeIn".tr}   ${forgetPasswordController.time}",
+                            "${"YouCanResendTheCodeIn".tr}   ${forgetPasswordController.formattedDuration()}",
                         fontSize: 16.sp,
                         top: 8.h,
                         style: true,

@@ -74,71 +74,77 @@ class _TransactionState extends State<Transaction> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomText(text: "Recent transaction".tr, fontSize: 26.sp),
-              Obx(() => AmountSendController.isCancelled.value
-                  ? Container(
-                      height: 120,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 16.h),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.primaryColor,
-                            width: 1.w,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: AppColors.white50,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 8.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomText(
-                              text: "Cancelled Transaction".tr,
-                              fontSize: 16.sp,
-                            ),
-                            Row(
-                              children: [
-                                SvgPicture.network(
-                                  AmountSendController.countryFlag.value,
-                                  height: 24.sp,
-                                  width: 24.sp,
-                                ),
-                                SizedBox(
-                                  width: 8.w,
-                                ),
-                                CustomText(
-                                  text: AmountSendController.countryName.value,
-                                  color: AppColors.black50,
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomText(
-                                  text: amountSendController.isRepeat.value
-                                      ? "${"To Mobile".tr} ${AmountSendController.numberController.text}"
-                                      : "${"To Mobile".tr} ${AmountSendController.countryCode.value}${AmountSendController.numberController.text}",
-                                  color: AppColors.black50,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                CustomText(
-                                  text: transactionController.currentDate(),
-                                  color: AppColors.black50,
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  : const SizedBox()),
+
+              ///<=================================== user Cancel ================================================ >
+
+              // Obx(() => AmountSendController.isCancelled.value
+              //     ? Container(
+              //         height: 120,
+              //         width: double.infinity,
+              //         margin: EdgeInsets.only(top: 16.h),
+              //         decoration: BoxDecoration(
+              //           border: Border.all(
+              //               color: AppColors.primaryColor,
+              //               width: 1.w,
+              //               style: BorderStyle.solid),
+              //           borderRadius: BorderRadius.circular(10.r),
+              //           color: AppColors.white50,
+              //         ),
+              //         child: Padding(
+              //           padding: EdgeInsets.symmetric(
+              //               horizontal: 12.w, vertical: 8.h),
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               CustomText(
+              //                 text: "Cancelled Transaction".tr,
+              //                 fontSize: 16.sp,
+              //               ),
+              //               Row(
+              //                 children: [
+              //                   SvgPicture.network(
+              //                     AmountSendController.countryFlag.value,
+              //                     height: 24.sp,
+              //                     width: 24.sp,
+              //                   ),
+              //                   SizedBox(
+              //                     width: 8.w,
+              //                   ),
+              //                   CustomText(
+              //                     text: AmountSendController.countryName.value,
+              //                     color: AppColors.black50,
+              //                   )
+              //                 ],
+              //               ),
+              //               SizedBox(
+              //                 height: 10.h,
+              //               ),
+              //               Row(
+              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //                 children: [
+              //                   CustomText(
+              //                     text: amountSendController.isRepeat.value
+              //                         ? "${"To Mobile".tr} ${AmountSendController.numberController.text}"
+              //                         : "${"To Mobile".tr} ${AmountSendController.countryCode.value}${AmountSendController.numberController.text}",
+              //                     color: AppColors.black50,
+              //                     maxLines: 1,
+              //                     overflow: TextOverflow.ellipsis,
+              //                   ),
+              //                   CustomText(
+              //                     text: transactionController.currentDate(),
+              //                     color: AppColors.black50,
+              //                   )
+              //                 ],
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //       )
+              //     : const SizedBox()),
+
+              ///<=================================== user Cancel ================================================ >
+
               CustomText(
                 text: transactionController.formattedDate(),
                 // Use the formatted date here
@@ -183,36 +189,46 @@ class _TransactionState extends State<Transaction> {
                                   padding: EdgeInsets.symmetric(vertical: 12.h),
                                   child: InkWell(
                                     onTap: () {
-
-                                      if( transactionModel.userConfirmation) {
+                                      if (transactionModel.userConfirmation) {
                                         transactionController
                                             .transactionDetailsRepo(
-                                            SharedPreferenceHelper
-                                                .accessToken,
-                                            transactionModel.sId);
+                                                SharedPreferenceHelper
+                                                    .accessToken,
+                                                transactionModel.sId);
                                       } else {
-                                        AmountSendController.transactionID.value = transactionModel.sId ;
-                                        AmountSendController.firstNameController.text = transactionModel.firstName.toString() ;
-                                        AmountSendController.lastNameController.text = transactionModel.lastName.toString() ;
-                                        AmountSendController.numberController.text = transactionModel.phoneNumber.toString() ;
-                                        AmountSendController.amountController.text = transactionModel.amountToSent.toString() ;
-                                        AmountSendController.receiveController.text = transactionModel.amountToReceive.toString() ;
-                                        amountSendController.isTimer.value = false ;
+                                        AmountSendController.transactionID
+                                            .value = transactionModel.sId;
+                                        AmountSendController
+                                                .firstNameController.text =
+                                            transactionModel.firstName
+                                                .toString();
+                                        AmountSendController
+                                                .lastNameController.text =
+                                            transactionModel.lastName
+                                                .toString();
+                                        AmountSendController
+                                                .numberController.text =
+                                            transactionModel.phoneNumber
+                                                .toString();
+                                        AmountSendController
+                                                .amountController.text =
+                                            transactionModel.amountToSent
+                                                .toString();
+                                        AmountSendController
+                                                .receiveController.text =
+                                            transactionModel.amountToReceive
+                                                .toString();
+                                        amountSendController.isTimer.value =
+                                            false;
 
+                                        print(
+                                            "========================>transactionID ${AmountSendController.transactionID.value}");
 
-                                        print("========================>transactionID ${AmountSendController.transactionID.value}") ;
-
-                                        Get.toNamed(AppRoute.paymentMethodFinal);
+                                        Get.toNamed(
+                                            AppRoute.paymentMethodFinal);
 
                                         // amountSendController.confirmTransactionRepo(transactionModel.s)
-
-
-
-
-
                                       }
-
-
                                     },
                                     child: Container(
                                       child: Row(
@@ -323,7 +339,7 @@ class _TransactionState extends State<Transaction> {
                                                             textAlign: TextAlign
                                                                 .start)),
                                                     Text(
-                                                      "${transactionModel.amountToSent} ${"XAF".tr}",
+                                                      "${transactionModel.amountToReceive} ${"XAF".tr}",
                                                       style: TextStyle(
                                                           fontSize: 18.sp,
                                                           color: transactionModel

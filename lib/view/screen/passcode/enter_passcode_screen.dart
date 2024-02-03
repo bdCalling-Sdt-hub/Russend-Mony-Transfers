@@ -81,6 +81,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                   fontWeight: FontWeight.w600,
                   bottom: 24.h,
                   top: 100.h,
+                  maxLines: 2,
                 ),
                 Flexible(
                   flex: 0,

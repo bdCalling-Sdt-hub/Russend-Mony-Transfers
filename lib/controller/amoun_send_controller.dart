@@ -283,6 +283,8 @@ class AmountSendController extends GetxController {
   }
 
   Future<void> confirmTransactionRepo() async {
+
+
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}",
       'Cookie': 'i18next=en'
@@ -304,7 +306,7 @@ class AmountSendController extends GetxController {
     if (apiResponseModel.statusCode == 200) {
       Get.offAllNamed(AppRoute.transactionSuccessScreen);
       timer?.cancel();
-    } else if (apiResponseModel.statusCode == 200) {
+    } else if (apiResponseModel.statusCode == 201) {
       Get.offAllNamed(AppRoute.transactionSuccessScreen);
       timer?.cancel();
     } else {

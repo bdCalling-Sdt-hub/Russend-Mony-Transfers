@@ -116,37 +116,24 @@ class TransactionSuccessScreen extends StatelessWidget {
                       SizedBox(
                         height: 8.h,
                       ),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Should Arrive".tr,
-                              style: GoogleFonts.poppins(
-                                color: AppColors.black100,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: " ",
-                              style: GoogleFonts.plusJakartaSans(
-                                color: AppColors.black100,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "In a few minutes".tr,
-                              style: GoogleFonts.plusJakartaSans(
-                                color: AppColors.black100,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         CustomText(
+                           text: "Should Arrive".tr,
+                           fontSize: 16.sp,
+                           textAlign: TextAlign.start,
+                         ),
+                         Expanded(
+                           child: CustomText(
+                             text: "In a few minutes".tr,
+                             fontSize: 16.sp,
+                             textAlign: TextAlign.end,
+                           
+                           ),
+                         ),
+                       ],
+                     )
                     ],
                   ),
                 ),

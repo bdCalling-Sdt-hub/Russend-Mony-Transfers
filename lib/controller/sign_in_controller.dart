@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/sign_in_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,6 +59,7 @@ class SignInController extends GetxController {
         signInModelInfo = SignInModel.fromJson(json);
         pref.setString("email", emailController.text);
         pref.setString("id", signInModelInfo!.data!.attributes!.sId!);
+        SharedPreferenceHelper.id = signInModelInfo!.data!.attributes!.sId!;
 
         Get.toNamed(AppRoute.passCode);
 

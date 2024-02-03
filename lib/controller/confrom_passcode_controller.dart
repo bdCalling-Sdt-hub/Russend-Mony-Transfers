@@ -34,17 +34,25 @@ class ConformPasscodeController extends GetxController {
     networkApiService
         .postApi(ApiUrl.createPasscode, body, header)
         .then((apiResponseModel) {
+      print(apiResponseModel.responseJson);
+
+      print(apiResponseModel.statusCode.toString());
+      print(apiResponseModel.message.toString());
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         createPasscodeInfo = CreatePasscodeModel.fromJson(json);
         pref.setString("accessToken", createPasscodeInfo!.data!.accessToken!);
         pref.setString("refreshToken", createPasscodeInfo!.data!.refreshToken!);
+        pref.setString("id", createPasscodeInfo!.data!.attributes!.sId!);
         pref.setBool("isLogIn", true);
         pref.setBool("isForgotPasscode", false);
 
-        SharedPreferenceHelper.accessToken = createPasscodeInfo!.data!.accessToken!;
-        SharedPreferenceHelper.refreshToken = createPasscodeInfo!.data!.refreshToken!;
+
+        SharedPreferenceHelper.accessToken =
+            createPasscodeInfo!.data!.accessToken!;
+        SharedPreferenceHelper.refreshToken =
+            createPasscodeInfo!.data!.refreshToken!;
         SharedPreferenceHelper.id = createPasscodeInfo!.data!.attributes!.sId!;
         SharedPreferenceHelper.isForgotPasscode = false;
 

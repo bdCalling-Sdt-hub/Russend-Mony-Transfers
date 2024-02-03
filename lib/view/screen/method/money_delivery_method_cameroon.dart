@@ -38,7 +38,7 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     text: "Select how to deliver money to recipient".tr,
                     fontSize: 26.sp,
                     bottom: 24.h,
-                    maxLines: 2,
+                    maxLines: 4,
                   ),
                   Obx(() => amountSendController.hiddenFeeLoading.value
                       ? const Center(

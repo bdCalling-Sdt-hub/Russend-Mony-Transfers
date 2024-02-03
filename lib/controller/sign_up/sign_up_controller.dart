@@ -17,13 +17,13 @@ class SignUpController extends GetxController {
 
   RxBool isResend = false.obs;
 
-  Duration duration = const Duration();
+  final duration = const Duration().obs;
   Timer? timer;
-  RxInt time = 60.obs;
+  RxString time = "0:03:00.000000".obs;
 
-  RxString countryCode  = "+7".obs ;
-  RxString countryISO = "RU".obs ;
+  RxString countryCode = "+7".obs;
 
+  RxString countryISO = "RU".obs;
 
   TextEditingController nameController = TextEditingController();
 
@@ -72,35 +72,38 @@ class SignUpController extends GetxController {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
 
+
+
     networkApiService
         .postApi(ApiUrl.signUp, body, header)
         .then((apiResponseModel) {
       isLoadingSignUpScreen.value = false;
-      print(apiResponseModel.responseJson) ;
-      print(apiResponseModel.statusCode) ;
+      print(apiResponseModel.responseJson);
+      print(apiResponseModel.statusCode);
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.signUpOtp);
         pref.setString("email", emailController.text);
+        timer?.cancel();
 
-        duration = const Duration(seconds: 60);
-        time.value = 60;
+        duration.value = const Duration(minutes: 3);
+        time.value = "0:03:00.00000";
         startTime();
       } else if (apiResponseModel.statusCode == 201) {
         Get.toNamed(AppRoute.signUpOtp);
-        duration = const Duration(seconds: 60);
-        time.value = 60;
+        timer?.cancel();
+        duration.value = const Duration(minutes: 3);
+        time.value = "0:03:00.00000";
         startTime();
       } else if (apiResponseModel.statusCode == 409) {
-        Utils.snackBarMessage("User already exists".tr, "if forgot your password please, reset your password".tr) ;
-        Get.toNamed(AppRoute.forgotPassword) ;
-      }else {
+        Utils.snackBarMessage("User already exists".tr,
+            "if forgot your password please, reset your password".tr);
+        Get.toNamed(AppRoute.forgotPassword);
+      } else {
         Utils.snackBarMessage(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     });
   }
-
-
 
   Future<void> signUpAuthRepo() async {
     print("===================> signUpAuthRepo");
@@ -159,14 +162,45 @@ class SignUpController extends GetxController {
   startTime() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       const addSeconds = 1;
-      final seconds = duration.inSeconds - addSeconds;
-      duration = Duration(seconds: seconds);
-      if (time.value != 0) {
-        time.value = seconds;
+      final seconds = duration.value.inSeconds - addSeconds;
+      duration.value = Duration(seconds: seconds);
+      if (time.value != "0:00:00.000000") {
+        time.value = duration.toString();
       } else {
         isResend.value = true;
         timer?.cancel();
       }
     });
   }
+
+  String formattedDuration() {
+    // Parse the duration string
+    List<String> parts = time.value.split(':');
+    Duration duration = Duration(
+      hours: int.parse(parts[0]),
+      minutes: int.parse(parts[1]),
+      seconds: int.parse(
+          parts[2].split('.')[0]), // Extract seconds without milliseconds
+    );
+
+    // Format the duration as needed
+    String formattedDuration =
+        "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+
+    return formattedDuration;
+  }
+
+// startTime() {
+//   timer = Timer.periodic(const Duration(seconds: 1), (_) {
+//     const addSeconds = 1;
+//     final seconds = duration.inSeconds - addSeconds;
+//     duration = Duration(seconds: seconds);
+//     if (time.value != 0) {
+//       time.value = seconds;
+//     } else {
+//       isResend.value = true;
+//       timer?.cancel();
+//     }
+//   });
+// }
 }

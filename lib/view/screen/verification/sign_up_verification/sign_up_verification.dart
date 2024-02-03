@@ -23,8 +23,10 @@ class SignUpVerification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     signUpController.isLoading.value = false;
+
+
+
     ScreenUtil.init(context);
     return SafeArea(
       top: false,
@@ -50,7 +52,8 @@ class SignUpVerification extends StatelessWidget {
                   ),
                   TextRichWidget(
                       firstText:
-                          "Please enter the 6-digit code sent to your email ".tr,
+                          "Please enter the 6-digit code sent to your email "
+                              .tr,
                       firstColor: AppColors.black50,
                       secondText: signUpController.emailController.text,
                       secondColor: AppColors.black75,
@@ -97,15 +100,18 @@ class SignUpVerification extends StatelessWidget {
                   ),
                   Obx(() => Center(
                         child: signUpController.isLoading.value
-                            ? LoadingContainer(width: 200.w,)
+                            ? LoadingContainer(
+                                width: 200.w,
+                              )
                             : CustomButton(
                                 titleText: "Verify".tr,
                                 buttonWidth: 200.w,
                                 buttonRadius: 10.r,
                                 titleSize: 14.sp,
                                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                                  signUpController.signUpAuthRepo();}
+                                  if (formKey.currentState!.validate()) {
+                                    signUpController.signUpAuthRepo();
+                                  }
                                 }),
                       )),
                   SizedBox(
@@ -117,23 +123,28 @@ class SignUpVerification extends StatelessWidget {
                           child: Align(
                               alignment: Alignment.center,
                               child: Obx(() => ResendRichText(
-                                onTap:
-                                signUpController.isResend.value
-                                    ? () {
-                                  signUpController
-                                      .signUpRepo();
-                                  Utils.snackBarMessage(
-                                      "Resend", "Resend Code");
-                                }
-                                    : () {
-                                  Utils.toastMessage(
-                                      "please wait ${signUpController.time}");
-                                },
-                              )))),
+                                    color: signUpController.isResend.value
+                                        ? AppColors.primaryColor
+                                        : AppColors.gray,
+                                    onTap: signUpController.isResend.value
+                                        ? () {
+                                            signUpController.isResend.value =
+                                                false;
+
+                                            signUpController.signUpRepo();
+                                            Utils.snackBarMessage(
+                                                "Resend", "Resend Code");
+                                          }
+                                        : () {
+                                            Utils.toastMessage(
+                                                "please wait ${signUpController.formattedDuration()}");
+                                          },
+                                  )))),
                     ],
                   ),
                   Obx(() => CustomText(
-                      text: "${"YouCanResendTheCodeIn".tr}  ${signUpController.time}",
+                      text:
+                          "${"YouCanResendTheCodeIn".tr}  ${signUpController.formattedDuration()}",
                       fontSize: 16.sp,
                       top: 8.h,
                       style: true,

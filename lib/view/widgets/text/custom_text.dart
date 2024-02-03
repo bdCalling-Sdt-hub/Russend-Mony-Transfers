@@ -6,7 +6,7 @@ import 'package:money_transfers/utils/app_colors.dart';
 class CustomText extends StatelessWidget {
   const CustomText(
       {super.key,
-      this.maxLines,
+      this.maxLines = 5,
       this.textAlign = TextAlign.center,
       this.left = 0,
       this.right = 0,
@@ -28,7 +28,7 @@ class CustomText extends StatelessWidget {
   final Color color;
   final String text;
   final TextAlign textAlign;
-  final int? maxLines;
+  final int maxLines;
   final TextOverflow overflow;
   final bool style;
 

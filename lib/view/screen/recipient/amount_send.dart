@@ -65,9 +65,11 @@ class AmountSendScreen extends StatelessWidget {
                     child: TextFormField(
                       autofocus: true,
                       cursorColor: Colors.transparent,
+                      showCursor: false,
                       onTap: () => amountSendController.isPay.value = true,
                       keyboardType: TextInputType.none,
                       textAlign: TextAlign.center,
+
                       controller: AmountSendController.amountController,
                       validator: (value) {
                         if (double.parse(value!) > 150000) {

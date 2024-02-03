@@ -11,10 +11,13 @@ import '../text/custom_text.dart';
 class ResendRichText extends StatelessWidget {
   ResendRichText({
     super.key,
-    required this.onTap
+    required this.onTap,
+    this.color = AppColors.primaryColor ,
   });
 
   Function() onTap ;
+
+  Color color ;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class ResendRichText extends StatelessWidget {
               },
               text: "Send Again".tr,
               style: GoogleFonts.plusJakartaSans(
-                color: AppColors.primaryColor!,
+                color: color,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
               ))

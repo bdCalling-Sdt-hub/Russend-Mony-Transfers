@@ -67,6 +67,7 @@ class TransactionCancelScreen extends StatelessWidget {
                     CustomText(
                       text: "Your  order has been cancelled".tr,
                       fontSize: 20,
+                      maxLines: 3,
                     ),
                     const SizedBox(
                       height: 12,

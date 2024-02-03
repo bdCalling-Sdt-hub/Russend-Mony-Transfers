@@ -15,9 +15,10 @@ class ForgetPasswordController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxBool isResend = false.obs;
-  Duration duration = const Duration();
+  final duration = const Duration().obs;
   Timer? timer;
-  RxInt time = 60.obs;
+  RxString time = "0:03:00.000000".obs;
+
 
   TextEditingController emailController = TextEditingController();
   TextEditingController otpController = TextEditingController();
@@ -58,8 +59,9 @@ class ForgetPasswordController extends GetxController {
         var json = jsonDecode(apiResponseModel.responseJson);
 
         Get.toNamed(AppRoute.forgotPasswordVerify);
-        duration = const Duration(seconds: 60);
-        time.value = 60;
+        timer?.cancel();
+        duration.value = const Duration(minutes: 3);
+        time.value = "0:03:00.000000";
         startTime();
       } else if (apiResponseModel.statusCode == 404) {
         Utils.toastMessage("User does not exist".tr);
@@ -138,17 +140,49 @@ class ForgetPasswordController extends GetxController {
 
   ///=============================> Send Again   < =============================
 
+
   startTime() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       const addSeconds = 1;
-      final seconds = duration.inSeconds - addSeconds;
-      duration = Duration(seconds: seconds);
-      if (time.value != 0) {
-        time.value = seconds;
+      final seconds = duration.value.inSeconds - addSeconds;
+      duration.value = Duration(seconds: seconds);
+      if (time.value != "0:00:00.000000") {
+        time.value = duration.toString();
       } else {
         isResend.value = true;
         timer?.cancel();
       }
     });
   }
+
+  String formattedDuration() {
+    // Parse the duration string
+    List<String> parts = time.value.split(':');
+    Duration duration = Duration(
+      hours: int.parse(parts[0]),
+      minutes: int.parse(parts[1]),
+      seconds: int.parse(
+          parts[2].split('.')[0]), // Extract seconds without milliseconds
+    );
+
+    // Format the duration as needed
+    String formattedDuration =
+        "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+
+    return formattedDuration;
+  }
+
+  // startTime() {
+  //   timer = Timer.periodic(const Duration(seconds: 1), (_) {
+  //     const addSeconds = 1;
+  //     final seconds = duration.inSeconds - addSeconds;
+  //     duration = Duration(seconds: seconds);
+  //     if (time.value != 0) {
+  //       time.value = seconds;
+  //     } else {
+  //       isResend.value = true;
+  //       timer?.cancel();
+  //     }
+  //   });
+  // }
 }

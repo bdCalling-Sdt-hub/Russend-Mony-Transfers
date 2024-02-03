@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/user_details_model.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/api_url.dart';
@@ -35,20 +37,32 @@ class PersonalInfoController extends GetxController {
   Future<void> userDetailsRepo() async {
     print("===================> userDetailsRepo");
 
-    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+    };
 
+    print(header) ;
     isLoading.value = true;
 
     networkApiService
         .getApi("${ApiUrl.user}/${SharedPreferenceHelper.id}", header)
         .then((apiResponseModel) {
       isLoading.value = false;
-      print(apiResponseModel.statusCode) ;
-      print(apiResponseModel.responseJson) ;
+      print(apiResponseModel.statusCode);
+      print(apiResponseModel.responseJson);
+      print(SharedPreferenceHelper.id);
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         userDetailsModelInfo = UserDetailsModel.fromJson(json);
+      } else if (apiResponseModel.statusCode == 401) {
+        Utils.snackBarMessage(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        Get.offAllNamed(AppRoute.logIn);
+      } else if (apiResponseModel.statusCode == 404) {
+        Utils.snackBarMessage(
+            apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        Get.offAllNamed(AppRoute.logIn);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -62,14 +76,15 @@ class PersonalInfoController extends GetxController {
 
   TextEditingController numberController = TextEditingController();
 
-
   Future<void> editNumberRepo() async {
     print("===================> editNumberRepo");
 
     var body = {
       "phoneNumber": "${countryCode.value}${numberController.text}",
     };
-    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+    };
     networkApiService
         .putApi(ApiUrl.user, body, header)
         .then((apiResponseModel) {

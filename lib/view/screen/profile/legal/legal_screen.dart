@@ -43,6 +43,7 @@ class LegalScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Terms of Services".tr,
                     fontSize: 18.sp,
+                    textAlign: TextAlign.start,
                     color: AppColors.primaryColor,
                   )),
               const SizedBox(
@@ -53,6 +54,7 @@ class LegalScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Terms of money transfer".tr,
                     fontSize: 18.sp,
+                    textAlign: TextAlign.start,
                     color: AppColors.primaryColor,
                   )),
               const SizedBox(
@@ -63,6 +65,8 @@ class LegalScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Personal Data Policy".tr,
                     fontSize: 18.sp,
+                    textAlign: TextAlign.start,
+
                     color: AppColors.primaryColor,
                   )),
               const SizedBox(
@@ -74,6 +78,7 @@ class LegalScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Refund and Cancellation Policy".tr,
                     fontSize: 18.sp,
+                    textAlign: TextAlign.start,
                     color: AppColors.primaryColor,
                   )),
               SizedBox(

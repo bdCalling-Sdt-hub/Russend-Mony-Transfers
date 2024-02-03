@@ -83,7 +83,30 @@ class SecurityScreen extends StatelessWidget {
                 ],
               ),
               InkWell(
-                onTap: () => sharedPreferenceHelper.logOut(),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Are you sure"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                sharedPreferenceHelper.logOut() ;
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Yes")),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("No")),
+                        ],
+                      );
+                    },
+                  );
+                },
+                // onTap: () => sharedPreferenceHelper.logOut(),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
