@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/services/notification_services.dart';
+import 'package:money_transfers/utils/app_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -12,7 +15,6 @@ class SocketServices {
 
   NotificationService notificationService = NotificationService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
-
 
   void connectToSocket() {
     socket = io.io(
@@ -32,6 +34,23 @@ class SocketServices {
     socket.on('user-notification::${SharedPreferenceHelper.id}', (data) {
       print("================> get Data on socket: $data");
       notificationService.showNotification(data);
+    });
+
+    socket.on('blocked-user::${SharedPreferenceHelper.id}', (data) {
+      // print("================> get Data on socket: $data");
+      //
+      // print(data);
+      // print(data.runtimeType);
+
+      print(data['statusCode'].toString());
+      print(data['message'].toString());
+
+      if (data['statusCode'] == 1000) {
+        sharedPreferenceHelper.logOut() ;
+        // Get.offAllNamed(AppRoute.logIn);
+        Utils.toastMessage(data['message']);
+      }
+      // notificationService.showNotification(data);
     });
   }
 }

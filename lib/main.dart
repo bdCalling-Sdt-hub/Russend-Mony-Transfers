@@ -11,16 +11,16 @@ import 'services/notification_services.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('en', null);
+
   SocketServices socketServices = SocketServices();
   NotificationService notificationService = NotificationService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
+  await sharedPreferenceHelper.getSharedPreferenceData();
   notificationService.initLocalNotification();
   socketServices.connectToSocket();
-  await sharedPreferenceHelper.getSharedPreferenceData();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
