@@ -39,7 +39,9 @@ class TransactionHistory extends StatelessWidget {
                 child: CircularProgressIndicator(),
               )
             : transactionController.transactionDetailsModelInfo == null
-                ? const SizedBox()
+                ? const Center(
+                    child: Text("No Data found"),
+                  )
                 : SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(bottom: 24.h),
@@ -156,7 +158,8 @@ class TransactionHistory extends StatelessWidget {
                               ),
                               CustomText(
                                   text:
-                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.status}".tr,
+                                      "${transactionController.transactionDetailsModelInfo?.data?.attributes?.status}"
+                                          .tr,
                                   fontSize: 18.sp,
                                   left: 4.w)
                             ],
@@ -305,7 +308,7 @@ class TransactionHistory extends StatelessWidget {
                                 RowText(
                                     title: "Date".tr,
                                     value:
-                                        "${transactionController.historyScreenDateFormat(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")} AT ${transactionController.formattedDuration(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[1].toString() ?? "00:00:00.0000")}"
+                                        "${transactionController.historyScreenDateFormat(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")} AT ${transactionController.formattedDuration(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[1].toString() ?? "00:00:00.0000", transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")}"
 
                                     // value: transactionController
                                     //     .transactionDetailsModelInfo!

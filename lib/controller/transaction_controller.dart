@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/transaction_details_model.dart';
 import 'package:money_transfers/models/transaction_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
@@ -131,10 +130,6 @@ class TransactionController extends GetxController {
 
     List<String> dateParts = date.split('-');
 
-    print("Year: ${dateParts[0]}");
-    print("Month: ${dateParts[1]}");
-    print("Day: ${dateParts[2]}");
-
     int year = int.parse(dateParts[0]);
 
     int month = int.parse(dateParts[1]);
@@ -164,38 +159,34 @@ class TransactionController extends GetxController {
   //   return formattedDuration;
   // }
 
+  String formattedDuration(String time, String date) {
+    List<String> dateParts = date.split('-');
 
+    int year = int.parse(dateParts[0]);
 
-  String formattedDuration(String globalTime) {
-    List<String> parts = globalTime.split(':');
+    int month = int.parse(dateParts[1]);
+    int day = int.parse(dateParts[2]);
+
+    // Parse the duration string
+    List<String> parts = time.split(':');
     Duration duration = Duration(
       hours: int.parse(parts[0]),
       minutes: int.parse(parts[1]),
       seconds: int.parse(
-          parts[2].split('.')[0]), // Extract seconds without milliseconds
+        parts[2].split('.')[0], // Extract seconds without milliseconds
+      ),
     );
 
-    // Apply the time zone offset
-    String timeZone = DateTime.now().timeZoneName;
+    final utcTime =
+        DateTime.utc(year, month, day, duration.inHours, duration.inMinutes);
+    final localTime = utcTime.toLocal();
 
-    int timeZoneHour = 0;
-    int timeZoneMinutes = 0;
-    if (timeZone.contains(":")) {
-      timeZoneHour = int.parse(timeZone.split(":")[0]);
-      timeZoneMinutes = int.parse(timeZone.split(":")[1]);
-    } else {
-      timeZoneHour = int.parse(timeZone);
-
-    }
-
-    duration = duration + Duration(hours: timeZoneHour);
-
+    print("===========================>localTime $localTime");
     // Format the duration as needed with AM/PM
-    String period = duration.inHours >= 12 ? 'PM' : 'AM';
-    int formattedHours =
-        duration.inHours % 12 == 0 ? 12 : duration.inHours % 12;
+    String period = localTime.hour >= 12 ? 'PM' : 'AM';
+    int formattedHours = localTime.hour % 12 == 0 ? 12 : localTime.hour % 12;
     String formattedDuration =
-        "$formattedHours:${(duration.inMinutes % 60).toString().padLeft(2, '0')} $period";
+        "$formattedHours:${(localTime.minute).toString().padLeft(2, '0')} $period";
 
     return formattedDuration;
   }
