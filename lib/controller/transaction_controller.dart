@@ -12,7 +12,6 @@ import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
 import 'package:intl/intl.dart';
 
-
 class TransactionController extends GetxController {
   TransactionModel? transactionModelInfo;
 
@@ -22,7 +21,6 @@ class TransactionController extends GetxController {
   RxBool isMoreLoading = false.obs;
   RxBool loading = false.obs;
   int page = 1;
-
 
   ScrollController scrollController = ScrollController();
 
@@ -38,7 +36,6 @@ class TransactionController extends GetxController {
     super.onInit();
   }
 
-
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
@@ -52,11 +49,13 @@ class TransactionController extends GetxController {
   Future<void> transactionRepo() async {
     print("===================> object");
 
-    Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+    };
 
     isMoreLoading.value = true;
-    if(transactionList.isEmpty) {
-      loading.value = true ;
+    if (transactionList.isEmpty) {
+      loading.value = true;
     }
 
     networkApiService
@@ -65,7 +64,7 @@ class TransactionController extends GetxController {
       isMoreLoading.value = false;
       loading.value = false;
 
-      print(apiResponseModel.responseJson) ;
+      print(apiResponseModel.responseJson);
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -78,8 +77,7 @@ class TransactionController extends GetxController {
         }
 
         print(transactionList.length);
-        page = page+1 ;
-
+        page = page + 1;
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -115,9 +113,6 @@ class TransactionController extends GetxController {
     });
   }
 
-
-
-
   String formattedDate() {
     DateTime currentTime = DateTime.now();
     // Assuming transactionController.currentTime is a DateTime object
@@ -125,45 +120,54 @@ class TransactionController extends GetxController {
     return DateFormat.yMMMMd().format(originalDate);
   }
 
-
   String currentDate() {
     final now = DateTime.now();
-    String formatter = DateFormat('d.MM.yy').format(now);// 28/03/2020
-    return formatter.toString() ;
+    String formatter = DateFormat('d.MM.yy').format(now); // 28/03/2020
+    return formatter.toString();
   }
 
-
-
-
-
   String historyScreenDateFormat(String date) {
-
-    print(date) ;
+    print(date);
 
     List<String> dateParts = date.split('-');
-
 
     print("Year: ${dateParts[0]}");
     print("Month: ${dateParts[1]}");
     print("Day: ${dateParts[2]}");
 
-    int year = int.parse(dateParts[0]) ;
+    int year = int.parse(dateParts[0]);
 
-    int month = int.parse(dateParts[1]) ;
-    int day = int.parse(dateParts[2]) ;
-
+    int month = int.parse(dateParts[1]);
+    int day = int.parse(dateParts[2]);
 
     final dateFormat = DateFormat('d MMMM, yyyy', 'en');
     final currentDate =
-    DateTime(year, month, day); // Replace with your actual date
+        DateTime(year, month, day); // Replace with your actual date
     return dateFormat.format(currentDate);
   }
 
+  // String formattedDuration(String time) {
+  //
+  //   // Parse the duration string
+  //   List<String> parts = time.split(':');
+  //   Duration duration = Duration(
+  //     hours: int.parse(parts[0]),
+  //     minutes: int.parse(parts[1]),
+  //     seconds: int.parse(
+  //         parts[2].split('.')[0]), // Extract seconds without milliseconds
+  //   );
+  //
+  //   // Format the duration as needed
+  //   String formattedDuration =
+  //       "${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}";
+  //
+  //   return formattedDuration;
+  // }
 
-  String formattedDuration(String time) {
 
-    // Parse the duration string
-    List<String> parts = time.split(':');
+
+  String formattedDuration(String globalTime) {
+    List<String> parts = globalTime.split(':');
     Duration duration = Duration(
       hours: int.parse(parts[0]),
       minutes: int.parse(parts[1]),
@@ -171,20 +175,28 @@ class TransactionController extends GetxController {
           parts[2].split('.')[0]), // Extract seconds without milliseconds
     );
 
-    // Format the duration as needed
+    // Apply the time zone offset
+    String timeZone = DateTime.now().timeZoneName;
+
+    int timeZoneHour = 0;
+    int timeZoneMinutes = 0;
+    if (timeZone.contains(":")) {
+      timeZoneHour = int.parse(timeZone.split(":")[0]);
+      timeZoneMinutes = int.parse(timeZone.split(":")[1]);
+    } else {
+      timeZoneHour = int.parse(timeZone);
+
+    }
+
+    duration = duration + Duration(hours: timeZoneHour);
+
+    // Format the duration as needed with AM/PM
+    String period = duration.inHours >= 12 ? 'PM' : 'AM';
+    int formattedHours =
+        duration.inHours % 12 == 0 ? 12 : duration.inHours % 12;
     String formattedDuration =
-        "${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}";
+        "$formattedHours:${(duration.inMinutes % 60).toString().padLeft(2, '0')} $period";
 
     return formattedDuration;
   }
-
-
-
-
-
-
-
-
-
-
 }
