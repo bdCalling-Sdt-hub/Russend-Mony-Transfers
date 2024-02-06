@@ -220,6 +220,13 @@ class _TransactionState extends State<Transaction> {
                                                 .toString();
                                         amountSendController.isTimer.value =
                                             false;
+                                        amountSendController
+                                            .isConfirmation.value = true;
+                                        amountSendController.confirmTimer(
+                                            transactionController
+                                                    .transactionList[index]
+                                                    .createdAt ??
+                                                "00:00:00.0000");
 
                                         print(
                                             "========================>transactionID ${AmountSendController.transactionID.value}");
@@ -480,6 +487,9 @@ class _TransactionState extends State<Transaction> {
               titleText: "Send".tr,
               buttonRadius: 25.r,
               onPressed: () {
+                amountSendController.isConfirmation.value = false;
+                amountSendController.timer?.cancel();
+                amountSendController.time.value = "0:10:00.00000";
                 AmountSendController.isCancelled.value = false;
                 amountSendController.isRepeat.value = false;
                 AmountSendController.numberController.clear();

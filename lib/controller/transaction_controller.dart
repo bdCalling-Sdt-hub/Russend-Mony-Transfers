@@ -160,6 +160,9 @@ class TransactionController extends GetxController {
   // }
 
   String formattedDuration(String time, String date) {
+
+    print('=========================> time $time') ;
+    print('=========================> date $date') ;
     List<String> dateParts = date.split('-');
 
     int year = int.parse(dateParts[0]);
@@ -177,8 +180,7 @@ class TransactionController extends GetxController {
       ),
     );
 
-    final utcTime =
-        DateTime.utc(year, month, day, duration.inHours, duration.inMinutes);
+    final utcTime = DateTime.utc(year, month, day,duration.inHours%60 ,duration.inMinutes%60 ,duration.inSeconds%60);
     final localTime = utcTime.toLocal();
 
     print("===========================>localTime $localTime");

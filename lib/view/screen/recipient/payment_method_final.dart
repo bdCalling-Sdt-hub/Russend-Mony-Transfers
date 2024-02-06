@@ -32,7 +32,8 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
 
   @override
   Widget build(BuildContext context) {
-    print("=======================================> ${AmountSendController.transactionID.value}") ;
+    print(
+        "=======================================> ${AmountSendController.transactionID.value}");
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
@@ -112,15 +113,13 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
                         SizedBox(
                           height: 24.h,
                         ),
-                        Obx(() => amountSendController.isTimer.value ?
                         RichTextWidget(
-                              firstText: "You have ".tr,
-                              secondColor: AppColors.redDark,
-                              secondText:
-                                  amountSendController.formattedDuration(),
-                              thirdText: " left to make the payment".tr,
-                              textAlign: TextAlign.center,
-                            ) : SizedBox()),
+                          firstText: "You have ".tr,
+                          secondColor: AppColors.redDark,
+                          secondText: amountSendController.formattedDuration(),
+                          thirdText: " left to make the payment".tr,
+                          textAlign: TextAlign.center,
+                        ),
                         SizedBox(
                           height: 30.h,
                         ),
@@ -135,8 +134,6 @@ class _PaymentMethodFinalState extends State<PaymentMethodFinal> {
                                 Utils.toastMessage(
                                     "payment time out, please try again".tr);
                               } else {
-
-
                                 amountSendController.confirmTransactionRepo();
                               }
                               // Get.toNamed(AppRoute.transactionSuccessScreen);

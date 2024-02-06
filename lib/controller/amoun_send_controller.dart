@@ -28,6 +28,7 @@ class AmountSendController extends GetxController {
   static RxBool success = false.obs;
   RxBool isPay = true.obs;
   RxBool isTimer = true.obs;
+  RxBool isConfirmation = false.obs;
   RxBool isRepeat = false.obs;
   RxBool hiddenFeeLoading = false.obs;
   static RxDouble exchangeRate = 0.0.obs;
@@ -112,13 +113,14 @@ class AmountSendController extends GetxController {
           exchangeRate.value = xafRate.value / rubRate.value;
           print("=======================> exchangeRate $exchangeRate");
 
-
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-            exchangeRate.value =
-                exchangeRate.value - (exchangeRate.value * (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
-            print("=======================> add hidden free plus $exchangeRate");
-            print("=======================>free ${exchangeRate * hiddenFeesModelInfo!.data!.attributes!.percentage! / 100}");
-
+            exchangeRate.value = exchangeRate.value -
+                (exchangeRate.value *
+                    (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
+            print(
+                "=======================> add hidden free plus $exchangeRate");
+            print(
+                "=======================>free ${exchangeRate * hiddenFeesModelInfo!.data!.attributes!.percentage! / 100}");
           }
 
           print(exchangeRate);
@@ -208,15 +210,16 @@ class AmountSendController extends GetxController {
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
-        timer?.cancel();
 
-        if(isTimer.value) {
+        if (isConfirmation.value) {
+        } else {
+          timer?.cancel();
           duration.value = const Duration(minutes: 10);
           startTime();
           time.value = "0:10:00.00000";
         }
 
-        // Get.toNamed(AppRoute.paymentMethodFinal);
+        Get.toNamed(AppRoute.paymentMethodFinal);
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
@@ -238,7 +241,8 @@ class AmountSendController extends GetxController {
       "ammountToSentCurrency": amountToSentCurrency,
       "amountToReceive": receiveController.text,
       "amountToReceiveCurrency": amountToReceiveCurrency,
-      "exchangeRate": "1 Rub = ${exchangeRate.toStringAsPrecision(3).toString()} XAF",
+      "exchangeRate":
+          "1 Rub = ${exchangeRate.toStringAsPrecision(3).toString()} XAF",
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
           ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
           : "0",
@@ -257,9 +261,9 @@ class AmountSendController extends GetxController {
       var apiResponseModel =
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
-      print(apiResponseModel.statusCode) ;
-      print(apiResponseModel.message) ;
-      print(apiResponseModel.responseJson) ;
+      print(apiResponseModel.statusCode);
+      print(apiResponseModel.message);
+      print(apiResponseModel.responseJson);
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -288,8 +292,6 @@ class AmountSendController extends GetxController {
   }
 
   Future<void> confirmTransactionRepo() async {
-
-
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}",
       'Cookie': 'i18next=en'
@@ -304,9 +306,9 @@ class AmountSendController extends GetxController {
         "${ApiUrl.confirmTransaction}/${transactionID.value}", body, header,
         isBody: false);
 
-    print(apiResponseModel.statusCode.toString()) ;
-    print(apiResponseModel.message.toString()) ;
-    print(apiResponseModel.responseJson.toString()) ;
+    print(apiResponseModel.statusCode.toString());
+    print(apiResponseModel.message.toString());
+    print(apiResponseModel.responseJson.toString());
 
     if (apiResponseModel.statusCode == 200) {
       Get.offAllNamed(AppRoute.transactionSuccessScreen);
@@ -396,13 +398,11 @@ class AmountSendController extends GetxController {
       } else {
         disableButton.value = true;
 
-
         Future.delayed(Duration.zero, () async {
           Get.offAllNamed(AppRoute.transactionCancelScreen);
         });
 
         timer?.cancel();
-
       }
     });
   }
@@ -422,5 +422,39 @@ class AmountSendController extends GetxController {
         "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
 
     return formattedDuration;
+  }
+
+  confirmTimer(String gobalDate) {
+    final currentDate = DateTime.now();
+
+    final parsedDate = DateTime.parse(gobalDate);
+
+    print("==============================>currentDate $currentDate");
+    print("==============================>parsedDate $parsedDate");
+
+
+
+    final difference = currentDate.difference(parsedDate);
+    print("==============================>difference $difference");
+
+    final remainingTime = Duration(minutes: 10) - difference;
+
+    if (isConfirmation.value) {
+      timer?.cancel();
+      duration.value = Duration(
+          minutes: remainingTime.inMinutes,
+          seconds: remainingTime.inSeconds % 60);
+      startTime();
+      time.value = "0:10:00.00000";
+    }
+
+    ;
+    print("==============================>dateTime $gobalDate");
+    print("==============================>difference $difference");
+    print("==============================>remainingDuration $remainingTime");
+    print(
+        "==============================>remainingDuration inMinutes ${remainingTime.inMinutes}");
+    print(
+        "==============================>remainingDuration  inSeconds ${remainingTime.inSeconds % 60}");
   }
 }
