@@ -10,9 +10,11 @@ import 'package:money_transfers/utils/app_colors.dart';
 import 'services/notification_services.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await initializeDateFormatting('en', null);
 
   SocketServices socketServices = SocketServices();

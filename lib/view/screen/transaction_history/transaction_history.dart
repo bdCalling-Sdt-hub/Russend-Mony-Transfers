@@ -326,9 +326,7 @@ class TransactionHistory extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     CustomText(text:"Date".tr,color: AppColors.black50,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 24.w),
-                                    Flexible(child: CustomText(text:DateTimeConverter.formatDate(transactionController.transactionDetailsModelInfo?.data?.attributes!.createdAt??DateTime.now(),),fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 1)),
-
-
+                                    Flexible(child: CustomText(text:DateTimeConverter.convertUtcToLocal(transactionController.transactionDetailsModelInfo?.data?.attributes!.createdAt),fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 2)),
                                   ],
                                 ),
 
