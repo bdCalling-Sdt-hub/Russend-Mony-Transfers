@@ -379,10 +379,11 @@ class _TransactionState extends State<Transaction> {
                                                           .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
+
                                                   children: [
                                                     CustomText(
                                                         text:
-                                                            "${"To Mobile".tr} ${transactionModel.phoneNumber}",
+                                                            "${"To Mobile".tr} ",
                                                         fontSize: 14.sp,
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -398,6 +399,26 @@ class _TransactionState extends State<Transaction> {
                                                             .ellipsis,
                                                         textAlign:
                                                             TextAlign.start),
+                                                    Flexible(child:CustomText(
+                                                        text:
+                                                        "${transactionModel.phoneNumber}",
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                        FontWeight.w600,
+                                                        maxLines: 1,
+                                                        color: transactionModel
+                                                            .userConfirmation
+                                                            ? AppColors.black100
+                                                            .withOpacity(
+                                                            0.5)
+                                                            : AppColors.black100
+                                                            .withOpacity(
+                                                            0.3),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        textAlign:
+                                                        TextAlign.start),),
+
                                                     transactionModel
                                                             .userConfirmation
                                                         ? transactionModel
