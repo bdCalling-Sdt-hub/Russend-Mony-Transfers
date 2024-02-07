@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
@@ -53,12 +54,13 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     child: Container(
                       height: 220.sp,
                       width: 330.sp,
-                      child: Image.asset(
-                        AppImages.cemac,
-                        height: 220.sp,
-                        width: 330.sp,
-                        fit: BoxFit.fill,
-                      ),
+                     child:SvgPicture.asset(AppImages.cemac),
+                  //     child: Image.asset(
+                  //       AppImages.cemac,
+                  //       height: 220.sp,
+                  //       width: 330.sp,
+                  //       fit: BoxFit.fill,
+                  //     ),
                     ),
                   ),
                 ],
