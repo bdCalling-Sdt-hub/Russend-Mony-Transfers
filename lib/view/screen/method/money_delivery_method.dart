@@ -54,13 +54,13 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     child: Container(
                       height: 220.sp,
                       width: 330.sp,
-                     child:SvgPicture.asset(AppImages.cemac),
-                  //     child: Image.asset(
-                  //       AppImages.cemac,
-                  //       height: 220.sp,
-                  //       width: 330.sp,
-                  //       fit: BoxFit.fill,
-                  //     ),
+                   //  child:SvgPicture.asset(AppImages.cemac),
+                      child: Image.asset(
+                        AppImages.cemac,
+                        height: 220.sp,
+                        width: 330.sp,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ],
