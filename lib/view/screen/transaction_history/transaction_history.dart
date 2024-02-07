@@ -17,6 +17,8 @@ import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/row_text/row_text.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
+import '../../../helper/date_time_converter.dart';
+
 class TransactionHistory extends StatelessWidget {
   TransactionHistory({super.key});
 
@@ -305,19 +307,32 @@ class TransactionHistory extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(height: 24.h),
-                                RowText(
-                                    title: "Date".tr,
-                                    value:
-                                        "${transactionController.historyScreenDateFormat(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")} AT ${transactionController.formattedDuration(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[1].toString() ?? "00:00:00.0000", transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")}"
+                                // RowText(
+                                //     title: "Date".tr,
+                                //     value:
+                                //         "${transactionController.historyScreenDateFormat(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")} AT ${transactionController.formattedDuration(transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[1].toString() ?? "00:00:00.0000", transactionController.transactionDetailsModelInfo?.data?.attributes?.createdAt?.split("T")[0].toString() ?? "2023-01-01")}"
+                                //
+                                //     // value: transactionController
+                                //     //     .transactionDetailsModelInfo!
+                                //     //     .data!
+                                //     //     .attributes!
+                                //     //     .createdAt!
+                                //     //     .split(".")[0]
+                                //     //     .toString()
+                                //     ),
 
-                                    // value: transactionController
-                                    //     .transactionDetailsModelInfo!
-                                    //     .data!
-                                    //     .attributes!
-                                    //     .createdAt!
-                                    //     .split(".")[0]
-                                    //     .toString()
-                                    ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomText(text:"Date".tr,color: AppColors.black50,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 24.w),
+                                    Flexible(child: CustomText(text:DateTimeConverter.formatDate(transactionController.transactionDetailsModelInfo?.data?.attributes!.createdAt??DateTime.now(),),fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 1)),
+
+
+                                  ],
+                                ),
+
+
                                 SizedBox(height: 24.h),
                                 RowText(
                                     title: "Rate".tr,

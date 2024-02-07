@@ -61,7 +61,7 @@ class Attributes {
   String? status;
   String? transactionId;
   Sender? sender;
-  String? createdAt;
+  DateTime? createdAt;
   String? updatedAt;
   int? iV;
 
@@ -101,7 +101,7 @@ class Attributes {
     transactionId = json['transactionId'];
     sender =
     json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
-    createdAt = json['createdAt'];
+    createdAt = json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]);
     updatedAt = json['updatedAt'];
     iV = json['__v'];
   }
