@@ -213,6 +213,7 @@ class Languages extends Translations {
           "accepted" : "accepted",
           "transferred" : "transferred",
           "cancelled" : "cancelled",
+          "Delete Account" : "Delete Account",
 
 
         },
@@ -438,6 +439,8 @@ class Languages extends Translations {
           "accepted" : "accepté",
           "transferred" : "transféré",
           "cancelled" : "Annulée",
+          "Delete Account" : "Supprimer le compte",
+
 
 
 

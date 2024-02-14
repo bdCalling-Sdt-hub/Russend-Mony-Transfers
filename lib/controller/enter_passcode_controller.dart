@@ -25,18 +25,12 @@ class EnterPasscodeController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> enterPasscodeRepo(String passcodeToken) async {
-    print("===================> enterPasscodeRepo");
-
     var body = {
       "passcode": enterController.text,
     };
-    print("===================>$body");
     Map<String, String> header = {
       'Pass-code': 'Pass-code $passcodeToken',
     };
-
-    print("===================>$header");
-
 
     isLoading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -46,8 +40,6 @@ class EnterPasscodeController extends GetxController {
         .then((apiResponseModel) {
       isLoading.value = false;
 
-      print("===================>${apiResponseModel.statusCode}");
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         enterPasscodeModelInfo = EnterPasscodeModel.fromJson(json);
@@ -55,7 +47,8 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setString("refreshToken", enterPasscodeModel.data!.refreshToken!);
         pref.setBool("isLogIn", true);
-        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
+        SharedPreferenceHelper.accessToken =
+            enterPasscodeModel.data!.accessToken!;
         accessToken = enterPasscodeModel.data!.accessToken!;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {
@@ -85,13 +78,10 @@ class EnterPasscodeController extends GetxController {
   }
 
   Future<void> signInWithPasscodeRepo(String email) async {
-    print("===================> signInWithPasscodeRepo");
-
     var body = {
       "email": email,
       "passcode": enterController.text,
     };
-    print("===================>$body");
     Map<String, String> header = {};
 
     isLoading.value = true;

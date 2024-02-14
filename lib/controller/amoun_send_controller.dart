@@ -69,8 +69,6 @@ class AmountSendController extends GetxController {
   static TextEditingController numberController = TextEditingController();
 
   Future<void> exchangeRates(bool isRepeated, String amount) async {
-    print("exchangeRates");
-
     if (success.value) {
       /// <=============================Test Code ==========================>
       // exchangeRate.value = xafRate.value / rubRate.value;
@@ -80,10 +78,6 @@ class AmountSendController extends GetxController {
       // }
 
       /// <=============================Test Code ==========================>
-
-      print("exchangeRate=====================> $exchangeRate");
-      print("rubRate=====================> $rubRate");
-      print("xafRate=====================> $xafRate");
 
       if (isRepeated) {
         Get.toNamed(AppRoute.amountSend);
@@ -101,9 +95,6 @@ class AmountSendController extends GetxController {
 
         hiddenFeeLoading.value = false;
 
-        print(response.body);
-        print(response.statusCode);
-
         if (response.statusCode == 200) {
           var jsonData = jsonDecode(response.body);
           var data = jsonData['rates'];
@@ -111,21 +102,12 @@ class AmountSendController extends GetxController {
           xafRate.value = data["XAF"];
           rubRate.value = data["RUB"];
           exchangeRate.value = xafRate.value / rubRate.value;
-          print("=======================> exchangeRate $exchangeRate");
 
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
             exchangeRate.value = exchangeRate.value -
                 (exchangeRate.value *
                     (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
-            print(
-                "=======================> add hidden free plus $exchangeRate");
-            print(
-                "=======================>free ${exchangeRate * hiddenFeesModelInfo!.data!.attributes!.percentage! / 100}");
           }
-
-          print(exchangeRate);
-          print(xafRate);
-          print(rubRate);
 
           if (isRepeated) {
             Get.toNamed(AppRoute.amountSend);
@@ -148,8 +130,6 @@ class AmountSendController extends GetxController {
 
   Future<void> hiddenFeeRepo(
       {bool isRepeated = false, String amount = "0"}) async {
-    print("===================> hiddenFeeRepo");
-
     if (hiddenFeesModelInfo != null) {
       await exchangeRates(isRepeated, amount);
     } else {
@@ -159,19 +139,14 @@ class AmountSendController extends GetxController {
 
       hiddenFeeLoading.value = true;
 
-      print("hiddenFeeRepo hitting ==================> hiddenFeeRepo");
-
       networkApiService
           .getApi(ApiUrl.hiddenFee, header)
           .then((apiResponseModel) async {
         hiddenFeeLoading.value = false;
 
-        print(apiResponseModel.responseJson);
-
         if (apiResponseModel.statusCode == 200) {
           var json = jsonDecode(apiResponseModel.responseJson);
           hiddenFeesModelInfo = HiddenFeesModel.fromJson(json);
-          print(hiddenFeesModelInfo);
           exchangeRates(isRepeated, amount);
         } else if (apiResponseModel.statusCode == 201) {
           var json = jsonDecode(apiResponseModel.responseJson);
@@ -196,8 +171,6 @@ class AmountSendController extends GetxController {
   // String paymentId = "Сбербанк (sberbank)";
   // String number = "+79050048977";
   Future<void> paymentInfoRepo() async {
-    print("===================> paymentInfoRepo");
-
     Map<String, String> header = {};
 
     isLoadingFinalScreen.value = true;
@@ -209,6 +182,7 @@ class AmountSendController extends GetxController {
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
+
         paymentInfoModelInfo = PaymentInfoModel.fromJson(json);
 
         if (isConfirmation.value) {
@@ -228,8 +202,6 @@ class AmountSendController extends GetxController {
   }
 
   Future<void> addTransactionRepo() async {
-    print("===================> object");
-
     ///=========================================> main Code <============================================
     var body = {
       "firstName": firstNameController.text,
@@ -255,27 +227,20 @@ class AmountSendController extends GetxController {
       'Cookie': 'i18next=en'
     };
 
-    print("==========>body :  $body");
-    print("==========>header :  $header");
     try {
       var apiResponseModel =
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
 
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.message);
-      print(apiResponseModel.responseJson);
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         addTransactionModel = AddTransactionModel.fromJson(json);
-        print(addTransactionModel);
         Get.toNamed(AppRoute.paymentMethodFinal);
         AmountSendController.transactionID.value =
             addTransactionModel?.data?.attributes?.sId ?? "";
       } else if (apiResponseModel.statusCode == 201) {
         var json = jsonDecode(apiResponseModel.responseJson);
         addTransactionModel = AddTransactionModel.fromJson(json);
-        print(addTransactionModel);
+
         Get.toNamed(AppRoute.paymentMethodFinal);
         AmountSendController.transactionID.value =
             addTransactionModel?.data?.attributes?.sId ?? "";
@@ -299,16 +264,9 @@ class AmountSendController extends GetxController {
 
     Map<String, String> body = {};
 
-    print(
-        "========================>transactionID ${transactionID.value.toString()}");
-
     var apiResponseModel = await networkApiService.patchApi(
         "${ApiUrl.confirmTransaction}/${transactionID.value}", body, header,
         isBody: false);
-
-    print(apiResponseModel.statusCode.toString());
-    print(apiResponseModel.message.toString());
-    print(apiResponseModel.responseJson.toString());
 
     if (apiResponseModel.statusCode == 200) {
       Get.offAllNamed(AppRoute.transactionSuccessScreen);
@@ -325,8 +283,6 @@ class AmountSendController extends GetxController {
   ///=================================================> Amount Send Keyboard <==========================================
 
   void youPay(String value, TextEditingController textController) {
-    print("xafRate ====================> ${xafRate.value}");
-    print("rubRate ====================> ${rubRate.value}");
     if (value == 'Forgot') {
       Get.toNamed(AppRoute.resetPasscode);
     } else if (value == '<') {
@@ -352,8 +308,6 @@ class AmountSendController extends GetxController {
       var receiveAmount = (exchangeRate.value * amount);
 
       receiveController.text = (receiveAmount).round().toString();
-
-      print("=========================> $exchangeRate");
     }
   }
 
@@ -429,13 +383,7 @@ class AmountSendController extends GetxController {
 
     final parsedDate = DateTime.parse(gobalDate);
 
-    print("==============================>currentDate $currentDate");
-    print("==============================>parsedDate $parsedDate");
-
-
-
     final difference = currentDate.difference(parsedDate);
-    print("==============================>difference $difference");
 
     final remainingTime = Duration(minutes: 10) - difference;
 
@@ -447,14 +395,5 @@ class AmountSendController extends GetxController {
       startTime();
       time.value = "0:10:00.00000";
     }
-
-    ;
-    print("==============================>dateTime $gobalDate");
-    print("==============================>difference $difference");
-    print("==============================>remainingDuration $remainingTime");
-    print(
-        "==============================>remainingDuration inMinutes ${remainingTime.inMinutes}");
-    print(
-        "==============================>remainingDuration  inSeconds ${remainingTime.inSeconds % 60}");
   }
 }

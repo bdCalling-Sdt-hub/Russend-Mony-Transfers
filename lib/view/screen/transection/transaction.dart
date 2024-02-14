@@ -38,10 +38,7 @@ class _TransactionState extends State<Transaction> {
   @override
   void initState() {
     sharedPreferenceHelper.getSharedPreferenceData();
-
-    Timer(const Duration(seconds: 3), () {
-      socketServices.connectToSocket();
-    });
+    socketServices.connectToSocket();
     // TODO: implement initState
     super.initState();
   }
@@ -379,7 +376,6 @@ class _TransactionState extends State<Transaction> {
                                                           .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
-
                                                   children: [
                                                     CustomText(
                                                         text:
@@ -399,26 +395,29 @@ class _TransactionState extends State<Transaction> {
                                                             .ellipsis,
                                                         textAlign:
                                                             TextAlign.start),
-                                                    Flexible(child:CustomText(
-                                                        text:
-                                                        "${transactionModel.phoneNumber}",
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                        FontWeight.w600,
-                                                        maxLines: 1,
-                                                        color: transactionModel
-                                                            .userConfirmation
-                                                            ? AppColors.black100
-                                                            .withOpacity(
-                                                            0.5)
-                                                            : AppColors.black100
-                                                            .withOpacity(
-                                                            0.3),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                        TextAlign.start),),
-
+                                                    Flexible(
+                                                      child: CustomText(
+                                                          text:
+                                                              "${transactionModel.phoneNumber}",
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          maxLines: 1,
+                                                          color: transactionModel
+                                                                  .userConfirmation
+                                                              ? AppColors
+                                                                  .black100
+                                                                  .withOpacity(
+                                                                      0.5)
+                                                              : AppColors
+                                                                  .black100
+                                                                  .withOpacity(
+                                                                      0.3),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.start),
+                                                    ),
                                                     transactionModel
                                                             .userConfirmation
                                                         ? transactionModel

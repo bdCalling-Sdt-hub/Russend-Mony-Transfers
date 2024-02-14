@@ -42,12 +42,10 @@ class ForgetPasswordController extends GetxController {
 
 
   Future<void> forgetPasswordRepo() async {
-    print("===================> forgetPasswordRepo");
     isLoadingEmailScreen.value = true;
     var body = {
       "email": emailController.text,
     };
-    print("===================>$body");
 
     Map<String, String> header = {};
     networkApiService
@@ -73,7 +71,6 @@ class ForgetPasswordController extends GetxController {
   }
 
   Future<void> verifyOtpRepo() async {
-    print("===================> object");
 
     // isLoading.value = true;
 
@@ -81,7 +78,6 @@ class ForgetPasswordController extends GetxController {
       "email": emailController.text,
       "otp": otpController.text,
     };
-    print("===================>$body");
 
     Map<String, String> header = {};
 
@@ -106,14 +102,12 @@ class ForgetPasswordController extends GetxController {
   }
 
   Future<void> resetPasswordRepo(String forgetPasswordToken) async {
-    print("===================> object");
     isLoading.value = true;
 
     var body = {
       "email": emailController.text,
       "password": passwordController.text,
     };
-    print("===================>$body");
 
     Map<String, String> header = {
       'Forget-password': 'Forget-password $forgetPasswordToken',

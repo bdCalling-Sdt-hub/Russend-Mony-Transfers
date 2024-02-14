@@ -38,15 +38,12 @@ class TransactionController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      print("calling");
       await transactionRepo();
     } else {
-      print(" not calling");
     }
   }
 
   Future<void> transactionRepo() async {
-    print("===================> object");
 
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
@@ -63,7 +60,6 @@ class TransactionController extends GetxController {
       isMoreLoading.value = false;
       loading.value = false;
 
-      print(apiResponseModel.responseJson);
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -75,7 +71,6 @@ class TransactionController extends GetxController {
           transactionList.add(item);
         }
 
-        print(transactionList.length);
         page = page + 1;
       } else {
         Get.snackbar(
@@ -85,7 +80,6 @@ class TransactionController extends GetxController {
   }
 
   Future<void> transactionDetailsRepo(String token, String id) async {
-    print("===================> transactionDetailsRepo");
 
     transactionDetailsModelInfo = null;
     Get.toNamed(AppRoute.transactionHistory);
@@ -126,7 +120,6 @@ class TransactionController extends GetxController {
   }
 
   String historyScreenDateFormat(String date) {
-    print(date);
 
     List<String> dateParts = date.split('-');
 
@@ -161,8 +154,7 @@ class TransactionController extends GetxController {
 
   String formattedDuration(String time, String date) {
 
-    print('=========================> time $time') ;
-    print('=========================> date $date') ;
+
     List<String> dateParts = date.split('-');
 
     int year = int.parse(dateParts[0]);
@@ -183,7 +175,6 @@ class TransactionController extends GetxController {
     final utcTime = DateTime.utc(year, month, day,duration.inHours%60 ,duration.inMinutes%60 ,duration.inSeconds%60);
     final localTime = utcTime.toLocal();
 
-    print("===========================>localTime $localTime");
     // Format the duration as needed with AM/PM
     String period = localTime.hour >= 12 ? 'PM' : 'AM';
     int formattedHours = localTime.hour % 12 == 0 ? 12 : localTime.hour % 12;

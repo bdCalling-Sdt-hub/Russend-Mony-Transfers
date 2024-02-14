@@ -23,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   PersonalInfoController personalInfoController =
-  Get.put(PersonalInfoController());
+      Get.put(PersonalInfoController());
   @override
   void initState() {
     personalInfoController.userDetailsRepo();
@@ -82,74 +82,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           top: 16.h,
                           bottom: 24.h),
                       Divider(height: 1.h, color: AppColors.black50),
-
                       InkWell(
-                        onTap: () => Get.toNamed(AppRoute.profileInfo),
-                          child: ProfileScreenItem(icon: AppIcons.profile, title: "Personal info".tr,)),
+                          onTap: () => Get.toNamed(AppRoute.profileInfo),
+                          child: ProfileScreenItem(
+                            icon: AppIcons.profile,
+                            title: "Personal info".tr,
+                          )),
                       InkWell(
                           onTap: () => Get.toNamed(AppRoute.securityScreen),
-                          child: ProfileScreenItem(icon: AppIcons.security, title: "Security".tr,)),
+                          child: ProfileScreenItem(
+                            icon: AppIcons.security,
+                            title: "Security".tr,
+                          )),
                       InkWell(
                           onTap: () => Get.toNamed(AppRoute.languageScreen),
-                          child: ProfileScreenItem(icon: AppIcons.language, title: "Language".tr,)),
+                          child: ProfileScreenItem(
+                            icon: AppIcons.language,
+                            title: "Language".tr,
+                          )),
                       InkWell(
                           onTap: () => Get.toNamed(AppRoute.legalScreen),
-                          child: ProfileScreenItem(icon: AppIcons.legal, title: "LegalProfile".tr,)),
-
-
-
-                      // ListView.builder(
-                      //   shrinkWrap: true,
-                      //   physics: const NeverScrollableScrollPhysics(),
-                      //   itemCount: personalInfoController.profile.length,
-                      //   itemBuilder: (context, index) {
-                      //     var profile = personalInfoController.profile;
-                      //     return Column(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         InkWell(
-                      //           onTap: () {
-                      //             if (profile[index]["title"] ==
-                      //                 "Personal info".tr) {
-                      //               Get.toNamed(AppRoute.profileInfo);
-                      //             } else if (profile[index]["title"] ==
-                      //                 "Security".tr) {
-                      //               Get.toNamed(AppRoute.securityScreen);
-                      //             } else if (profile[index]["title"] ==
-                      //                 "Language".tr) {
-                      //               Get.toNamed(AppRoute.languageScreen);
-                      //             }
-                      //             // else if(profile[index]["title"] == "Appearance".tr){
-                      //             //   Get.toNamed(AppRoute.appearanceScreen);
-                      //             // }
-                      //             else if (profile[index]["title"] ==
-                      //                 "Legal".tr) {
-                      //               Get.toNamed(AppRoute.legalScreen);
-                      //             }
-                      //           },
-                      //           child: Padding(
-                      //             padding: EdgeInsets.symmetric(
-                      //                 horizontal: 20.w, vertical: 16.h),
-                      //             child: Row(
-                      //               children: [
-                      //                 CustomImage(
-                      //                     imageSrc: "${profile[index]["icon"]}",
-                      //                     size: 28.h,
-                      //                     imageColor: AppColors.primaryColor),
-                      //                 CustomText(
-                      //                     text: "${profile[index]["title"]}".tr,
-                      //                     fontSize: 18.sp,
-                      //                     fontWeight: FontWeight.w400,
-                      //                     left: 16.w)
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         Divider(height: 1.h, color: AppColors.black50)
-                      //       ],
-                      //     );
-                      //   },
-                      // ),
+                          child: ProfileScreenItem(
+                            icon: AppIcons.legal,
+                            title: "LegalProfile".tr,
+                          )),
                       SizedBox(height: 42.h),
                     ],
                   ),

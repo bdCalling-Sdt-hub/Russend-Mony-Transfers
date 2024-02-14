@@ -110,18 +110,24 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
                           enterPasscodeController.disableKeyboard.value = true;
-                          if (SharedPreferenceHelper.isLogIn) {
-                            enterPasscodeController.signInWithPasscodeRepo(
-                                SharedPreferenceHelper.email);
-                          } else {
-                            if (signInController.signInModelInfo == null) {
-                              Get.toNamed(AppRoute.logIn);
-                            }
-                            SignInModel signInModel =
-                                signInController.signInModelInfo!;
-                            enterPasscodeController.enterPasscodeRepo(
-                                signInModel.data!.passcodeToken!);
-                          }
+
+                          enterPasscodeController.signInWithPasscodeRepo(
+                              SharedPreferenceHelper.email);
+
+
+                          // if (SharedPreferenceHelper.isLogIn) {
+                          //   enterPasscodeController.signInWithPasscodeRepo(
+                          //       SharedPreferenceHelper.email);
+                          // } else {
+                          //
+                          //   if (signInController.signInModelInfo == null) {
+                          //     Get.toNamed(AppRoute.logIn);
+                          //   }
+                          //   SignInModel signInModel =
+                          //       signInController.signInModelInfo!;
+                          //   enterPasscodeController.enterPasscodeRepo(
+                          //       signInModel.data!.passcodeToken!);
+                          // }
                         }
                       },
                       pinTheme: PinTheme(

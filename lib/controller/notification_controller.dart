@@ -35,15 +35,12 @@ class NotificationController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      print("calling");
       await notificationRepo();
     } else {
-      print(" not calling");
     }
   }
 
   Future<void> notificationRepo() async {
-    print("===================> transactionDetailsRepo");
 
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
@@ -70,7 +67,6 @@ class NotificationController extends GetxController {
             in notificationModelInfo!.data!.attributes!.notificationList!) {
           notificationList.add(item);
         }
-        print(notificationList.length);
         page = page + 1;
       } else {
         Get.snackbar(

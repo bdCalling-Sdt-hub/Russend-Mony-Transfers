@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/services/notification_services.dart';
 import 'package:money_transfers/utils/app_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../global/api_url.dart';

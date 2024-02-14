@@ -22,12 +22,10 @@ class ChangePasscodeController extends GetxController {
 
 
   Future<void> changePasscodeRepo() async {
-    print("===================> changePasscodeRepo");
     isLoading.value = true;
     var body = {
       "passcode": enterPasscodeController.text,
     };
-    print("===================>$body");
 
     Map<String, String> header = {'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"};
 

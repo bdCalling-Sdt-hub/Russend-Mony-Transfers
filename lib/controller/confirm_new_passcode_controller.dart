@@ -27,7 +27,6 @@ class ConfirmPasscodeController extends GetxController {
 
 
   Future<void> changePasscodeRepo() async {
-    print("===================> changePasscodeRepo");
     isLoading.value = true;
     var body = {
       "newPasscode": confirmPasscodeController.text,

@@ -35,22 +35,18 @@ class PersonalInfoController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
 
   Future<void> userDetailsRepo() async {
-    print("===================> userDetailsRepo");
 
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
     };
 
-    print(header) ;
     isLoading.value = true;
 
     networkApiService
         .getApi("${ApiUrl.user}/${SharedPreferenceHelper.id}", header)
         .then((apiResponseModel) {
       isLoading.value = false;
-      print(apiResponseModel.statusCode);
-      print(apiResponseModel.responseJson);
-      print(SharedPreferenceHelper.id);
+
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -77,7 +73,6 @@ class PersonalInfoController extends GetxController {
   TextEditingController numberController = TextEditingController();
 
   Future<void> editNumberRepo() async {
-    print("===================> editNumberRepo");
 
     var body = {
       "phoneNumber": "${countryCode.value}${numberController.text}",

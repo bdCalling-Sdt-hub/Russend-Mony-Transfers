@@ -18,7 +18,6 @@ class LegalController extends GetxController {
     contentModelInfo = null;
     Get.to(ContentScreen());
 
-    print("===================> termsOfMoneyTransferRepo");
 
     Map<String, String> header = {};
 
@@ -41,7 +40,6 @@ class LegalController extends GetxController {
   }
 
   Future<void> termsOfServiceRepo() async {
-    print("===================> termsOfServiceRepo");
 
     contentModelInfo = null;
 
@@ -68,7 +66,6 @@ class LegalController extends GetxController {
   }
 
   Future<void> personDataPolicyRepo() async {
-    print("===================> personDataPolicyRepo");
 
     contentModelInfo = null;
 
@@ -95,7 +92,6 @@ class LegalController extends GetxController {
   }
 
   Future<void> refundAndCancellationPolicyRepo() async {
-    print("===================> refundAndCancellationPolicyRepo");
     contentModelInfo = null;
 
     Get.to(ContentScreen());

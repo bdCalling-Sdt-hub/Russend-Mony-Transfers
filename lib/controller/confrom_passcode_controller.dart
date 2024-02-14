@@ -56,6 +56,7 @@ class ConformPasscodeController extends GetxController {
         SharedPreferenceHelper.id = createPasscodeInfo!.data!.attributes!.sId!;
         SharedPreferenceHelper.isForgotPasscode = false;
 
+
         Get.offAllNamed(AppRoute.transaction);
       } else {
         Get.toNamed(AppRoute.createAccount);

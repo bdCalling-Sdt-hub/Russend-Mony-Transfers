@@ -70,7 +70,7 @@ class LogInFiled extends StatelessWidget {
           validator: (value) {
             return signInController.validatePassword(value) ;
           },
-          hintText: "Password".tr,
+          hintText: "Enter your Password".tr,
         ),
         Align(
           alignment: Alignment.centerRight,

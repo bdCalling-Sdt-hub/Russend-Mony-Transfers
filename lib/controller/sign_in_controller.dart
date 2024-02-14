@@ -36,14 +36,12 @@ class SignInController extends GetxController {
   }
 
   Future<void> signInRepo() async {
-    print("===================> object");
 
     isLoading.value = true;
     var body = {
       "email": emailController.text,
       "password": passwordController.text
     };
-    print("===================>$body");
     Map<String, String> header = {};
 
     SharedPreferences pref = await SharedPreferences.getInstance();

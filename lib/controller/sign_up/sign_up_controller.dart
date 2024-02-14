@@ -53,8 +53,6 @@ class SignUpController extends GetxController {
   }
 
   Future<void> signUpRepo() async {
-    print("===================> signUpRepo");
-
     isLoadingSignUpScreen.value = true;
 
     var body = {
@@ -65,21 +63,16 @@ class SignUpController extends GetxController {
       "countryCode": countryCode.value,
       "countryISO": countryISO.value,
     };
-    print("===================>$body");
     Map<String, String> header = {
       'Otp': 'OTP ',
     };
 
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-
-
     networkApiService
         .postApi(ApiUrl.signUp, body, header)
         .then((apiResponseModel) {
       isLoadingSignUpScreen.value = false;
-      print(apiResponseModel.responseJson);
-      print(apiResponseModel.statusCode);
       if (apiResponseModel.statusCode == 200) {
         Get.toNamed(AppRoute.signUpOtp);
         pref.setString("email", emailController.text);
@@ -106,8 +99,6 @@ class SignUpController extends GetxController {
   }
 
   Future<void> signUpAuthRepo() async {
-    print("===================> signUpAuthRepo");
-
     isLoading.value = true;
 
     var body = {
@@ -118,7 +109,6 @@ class SignUpController extends GetxController {
       "countryCode": countryCode.value,
       "countryISO": countryISO.value,
     };
-    print("===================>$body");
     Map<String, String> header = {
       'Otp': 'OTP ${otpController.text}',
     };

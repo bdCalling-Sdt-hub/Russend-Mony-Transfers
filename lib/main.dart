@@ -22,7 +22,7 @@ void main() async {
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
   await sharedPreferenceHelper.getSharedPreferenceData();
   notificationService.initLocalNotification();
-  socketServices.connectToSocket();
+  SharedPreferenceHelper.isLogIn ? socketServices.connectToSocket() : null;
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());

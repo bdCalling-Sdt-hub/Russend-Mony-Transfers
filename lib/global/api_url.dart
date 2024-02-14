@@ -13,7 +13,7 @@ class ApiUrl {
 
 
 
-  static const String baseUrl = "http://russend.com" ;
+  static const String baseUrl = "https://russend.com" ;
   // static const String baseUrl = "http://192.168.10.18:3000" ;
 
 
