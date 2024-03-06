@@ -18,8 +18,6 @@ class EnterPasscodeController extends GetxController {
 
   EnterPasscodeModel? enterPasscodeModelInfo;
 
-  String accessToken = "";
-
   TextEditingController enterController = TextEditingController();
 
   NetworkApiService networkApiService = NetworkApiService();
@@ -49,7 +47,7 @@ class EnterPasscodeController extends GetxController {
         pref.setBool("isLogIn", true);
         SharedPreferenceHelper.accessToken =
             enterPasscodeModel.data!.accessToken!;
-        accessToken = enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.isLogIn = true ;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -58,7 +56,8 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setString("refreshToken", enterPasscodeModel.data!.refreshToken!);
         pref.setBool("isLogIn", true);
-        accessToken = enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
+        SharedPreferenceHelper.isLogIn = true ;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 401) {
         disableKeyboard.value = false;
@@ -102,7 +101,9 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setBool("isLogIn", true);
 
-        accessToken = enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
+        SharedPreferenceHelper.isLogIn = true ;
+
 
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {
@@ -115,7 +116,10 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setBool("isLogIn", true);
 
-        accessToken = enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
+        SharedPreferenceHelper.isLogIn = true ;
+
+
 
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 401) {

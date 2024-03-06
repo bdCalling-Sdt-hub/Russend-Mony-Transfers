@@ -114,20 +114,6 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                           enterPasscodeController.signInWithPasscodeRepo(
                               SharedPreferenceHelper.email);
 
-
-                          // if (SharedPreferenceHelper.isLogIn) {
-                          //   enterPasscodeController.signInWithPasscodeRepo(
-                          //       SharedPreferenceHelper.email);
-                          // } else {
-                          //
-                          //   if (signInController.signInModelInfo == null) {
-                          //     Get.toNamed(AppRoute.logIn);
-                          //   }
-                          //   SignInModel signInModel =
-                          //       signInController.signInModelInfo!;
-                          //   enterPasscodeController.enterPasscodeRepo(
-                          //       signInModel.data!.passcodeToken!);
-                          // }
                         }
                       },
                       pinTheme: PinTheme(

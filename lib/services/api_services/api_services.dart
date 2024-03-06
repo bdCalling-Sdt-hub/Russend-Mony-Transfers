@@ -128,7 +128,7 @@ class NetworkApiService {
       case 201:
         return ApiResponseModel(201, 'Success'.tr, response.body);
       case 401:
-        // Get.offAllNamed(AppRoute.logIn);
+        Get.offAllNamed(AppRoute.logIn);
         return ApiResponseModel(401, "Unauthorized".tr, response.body);
       case 400:
       // Get.offAllNamed(AppRoute.logIn);
