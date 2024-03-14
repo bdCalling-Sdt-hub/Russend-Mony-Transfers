@@ -7,8 +7,8 @@ class SharedPreferenceHelper {
   static String refreshToken = '';
   static String email = '';
   static String id = '';
-  static String localizationLanguageCode = '';
-  static String localizationCountryCode = '';
+  static String localizationLanguageCode = 'en';
+  static String localizationCountryCode = 'US';
   static bool isLogIn = false;
   static bool isLocalAuth = false;
   static bool isForgotPasscode = false;
