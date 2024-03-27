@@ -11,6 +11,8 @@ import 'services/notification_services.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:uuid/uuid.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String uuid = Uuid().v4();
+    print('Generated UUID: $uuid');
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
