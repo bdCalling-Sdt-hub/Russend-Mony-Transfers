@@ -126,27 +126,25 @@ class RecipientInformation extends StatelessWidget {
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400),
                 ),
+              ),
+              SizedBox(height: 30.h,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomButton(
+                      titleText: "Continue".tr,
+                      buttonRadius: 50.r,
+                      buttonHeight: 56,
+                      buttonWidth: 155.w,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          Get.toNamed(AppRoute.amountSend);
+                        }
+                      }),
+                ],
               )
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            CustomButton(
-                titleText: "Continue".tr,
-                buttonRadius: 50.r,
-                buttonHeight: 56,
-                buttonWidth: 155.w,
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    Get.toNamed(AppRoute.amountSend);
-                  }
-                }),
-          ],
         ),
       ),
     );
