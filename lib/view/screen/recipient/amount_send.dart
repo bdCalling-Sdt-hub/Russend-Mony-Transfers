@@ -69,16 +69,16 @@ class AmountSendScreen extends StatelessWidget {
                       onTap: () => amountSendController.isPay.value = true,
                       keyboardType: TextInputType.none,
                       textAlign: TextAlign.center,
-
                       controller: AmountSendController.amountController,
                       validator: (value) {
-                        if (double.parse(value!) > 150000) {
-                          return "maximum amount 150000 RUB".tr;
+                        if (double.parse(value!) > 5500) {
+                          return "maximum amount 5500 RUB".tr;
                         }
 
-                        if (double.parse(value) < 100) {
-                          return "minimum amount 100 RUB".tr;
+                        if (double.parse(value) < 700) {
+                          return "minimum amount 700 RUB".tr;
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                           hintText: "0",

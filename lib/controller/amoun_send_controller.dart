@@ -103,12 +103,18 @@ class AmountSendController extends GetxController {
           rubRate.value = data["RUB"];
           exchangeRate.value = xafRate.value / rubRate.value;
 
+          print(exchangeRate);
+
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
             exchangeRate.value = exchangeRate.value -
                 (exchangeRate.value *
                     (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
           }
 
+          print(xafRate);
+          print(rubRate);
+          print(exchangeRate);
+          print(hiddenFeesModelInfo!.data!.attributes!.percentage!);
           if (isRepeated) {
             Get.toNamed(AppRoute.amountSend);
             youPay(amount, amountController);
@@ -291,8 +297,7 @@ class AmountSendController extends GetxController {
             textController.text.substring(0, textController.text.length - 1);
         if (textController.text.isNotEmpty) {
           var amount = double.parse(textController.text);
-          var rate = xafRate.value / rubRate.value;
-          var receiveAmount = (rate * amount).round();
+          var receiveAmount = (exchangeRate * amount).round();
           receiveController.text = receiveAmount.toString();
         } else {
           receiveController.text = "";
@@ -319,14 +324,10 @@ class AmountSendController extends GetxController {
         textController.text =
             textController.text.substring(0, textController.text.length - 1);
 
-        if (textController.text.isNotEmpty) {
-          var amount = double.parse(textController.text);
-          var rate = rubRate.value / xafRate.value;
-          var receiveAmount = (rate * amount).round();
-          amountController.text = receiveAmount.toString();
-        } else {
-          amountController.text = "";
-        }
+        var amount = double.parse(textController.text);
+        var receiveAmount = (amount / exchangeRate.value);
+
+        amountController.text = (receiveAmount).round().toString();
       } else {
         amountController.text = "";
       }
