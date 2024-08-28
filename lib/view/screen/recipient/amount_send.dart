@@ -71,8 +71,8 @@ class AmountSendScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       controller: AmountSendController.amountController,
                       validator: (value) {
-                        if (double.parse(value!) > 5500) {
-                          return "maximum amount 5500 RUB".tr;
+                        if (double.parse(value!) > 55000) {
+                          return "maximum amount 55000 RUB".tr;
                         }
 
                         if (double.parse(value) < 700) {
