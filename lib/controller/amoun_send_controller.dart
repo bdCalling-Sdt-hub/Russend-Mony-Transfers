@@ -84,13 +84,11 @@ class AmountSendController extends GetxController {
         if (countryName.value == "Cameroon") {
           exchangeRate.value = exchangeRate.value -
               (exchangeRate.value *
-                  (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! /
-                      100));
+                  (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! / 100));
         } else {
           exchangeRate.value = exchangeRate.value -
               (exchangeRate.value *
-                  (hiddenFeesModelInfo!
-                      .data!.attributes!.otherCountriesFree! /
+                  (hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree! /
                       100));
         }
       }
@@ -102,7 +100,6 @@ class AmountSendController extends GetxController {
         print(hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree!);
         print(hiddenFeesModelInfo!.data!.attributes!.cameroonFee!);
       }
-
 
       if (isRepeated) {
         Get.toNamed(AppRoute.amountSend);

@@ -1,15 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-class DateTimeConverter{
+class DateTimeConverter {
+  static String formatDate(DateTime? date) {
+    return DateFormat('dd MMM yyyy \'at\' HH:mm z').format(date!);
+  }
 
-static  String formatDate(DateTime? date) {
-  return DateFormat('dd MMM yyyy \'at\' HH:mm z').format(date!);
-}
-
-
-
-static String bangladeshTimeZone = 'America/Toronto';
+  static String bangladeshTimeZone = 'America/Toronto';
 
 // Function to convert international time to local time in Bangladesh
 // static String convertToLocalTime(String internationalTime) {
@@ -24,34 +21,29 @@ static String bangladeshTimeZone = 'America/Toronto';
 //   return bangladeshDateTime.toString();
 // }
 
-static  String convertToLocalTime(DateTime time) {
-  var locations = tz.timeZoneDatabase.locations;
-  // => 429
-  // => "Africa/Abidjan"
+  static String convertToLocalTime(DateTime time) {
+    var locations = tz.timeZoneDatabase.locations;
+    // => 429
+    // => "Africa/Abidjan"
     // Convert to the Bangladesh timezone
-    tz.TZDateTime bangladeshDateTime = tz.TZDateTime.from(
-        time, tz.getLocation(locations.keys.first));
+    tz.TZDateTime bangladeshDateTime =
+        tz.TZDateTime.from(time, tz.getLocation(locations.keys.first));
     // Format the local time
-  String formattedDateTime =
-  DateFormat('dd MMM yyyy \'at\' HH:mm z').format(bangladeshDateTime);
+    String formattedDateTime =
+        DateFormat('dd MMM yyyy \'at\' HH:mm z').format(bangladeshDateTime);
 
-  return formattedDateTime;
+    return formattedDateTime;
   }
 
- static String getTimeZone(DateTime dateTime) {
+  static String getTimeZone(DateTime dateTime) {
     tz.Location? timeZone = tz.getLocation(dateTime.timeZoneName);
     return timeZone.name;
   }
 
-
- static String convertUtcToLocal(DateTime? utcDateTime) {
-
+  static String convertUtcToLocal(DateTime? utcDateTime) {
     DateTime localDateTime = utcDateTime!.toLocal();
     // return DateFormat.yMMMd().add_jm().format(localDateTime);
 
     return DateFormat('dd MMM yyyy \'At\' HH:mm z').format(localDateTime);
- }
-
-
-
+  }
 }

@@ -47,12 +47,6 @@ import '../../view/screen/verification/forgot_password_verification/forgot_passw
 class AppRoute {
   static const String test = "/test_screen.dart";
 
-
-
-
-
-
-
   static const String splashScreen = "/splash_screen";
   static const String onboardScreen = "/onboard_screen";
   static const String phoneNumber = "/phone_Number";
@@ -100,15 +94,13 @@ class AppRoute {
   static const String changeEmailVerify = "/change_email_verification.dart";
   static const String changePhoneNumber = "/edit_phone_number.dart";
   static const String resetPasscode = "/reset_passcode_screen.dart";
-  static const String deliveryMethodCameroon = "/money_delivery_method_cameroon.dart";
+  static const String deliveryMethodCameroon =
+      "/money_delivery_method_cameroon.dart";
 
   static List<GetPage> routes = [
     GetPage(name: test, page: () => TestScreen()),
-
-
-
     GetPage(name: splashScreen, page: () => const SplashScreen()),
-    GetPage(name: onboardScreen, page: () =>  const OnBoardingScreen()),
+    GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
     GetPage(name: phoneNumber, page: () => const PhoneNumber()),
     GetPage(name: signUpOtp, page: () => SignUpVerification()),
     GetPage(name: createAccount, page: () => CreateAccount()),
@@ -118,7 +110,7 @@ class AppRoute {
     GetPage(name: transaction, page: () => const Transaction()),
     GetPage(name: notification, page: () => Notification()),
     GetPage(name: profile, page: () => const ProfileScreen()),
-    GetPage(name: profileInfo, page: () =>  ProfileInfo()),
+    GetPage(name: profileInfo, page: () => ProfileInfo()),
     GetPage(name: securityScreen, page: () => SecurityScreen()),
     GetPage(name: languageScreen, page: () => LanguageScreen()),
     GetPage(name: appearanceScreen, page: () => const AppearanceScreen()),
@@ -131,8 +123,7 @@ class AppRoute {
     GetPage(name: moneyDeliveryResume, page: () => const MoneyDeliveryResume()),
     GetPage(name: settingScreen, page: () => const SettingScreen()),
     GetPage(
-        name: transactionSuccessScreen,
-        page: () => TransactionSuccessScreen()),
+        name: transactionSuccessScreen, page: () => TransactionSuccessScreen()),
     GetPage(name: conformPassCode, page: () => ConformPasscodeScreen()),
     GetPage(name: amountSend, page: () => AmountSendScreen()),
     GetPage(name: paymentMethodFinal, page: () => PaymentMethodFinal()),
@@ -140,8 +131,7 @@ class AppRoute {
     GetPage(name: changePasscode, page: () => ChangePasscode()),
     GetPage(name: newPasscode, page: () => NewPasscodeScreen()),
     GetPage(
-        name: changeConformPasscode,
-        page: () => ChangeConformPasscodeScreen()),
+        name: changeConformPasscode, page: () => ChangeConformPasscodeScreen()),
     GetPage(name: logIn, page: () => LogInScreen()),
     GetPage(name: forgotPassword, page: () => ForgotPasswordScreen()),
     GetPage(
@@ -152,10 +142,12 @@ class AppRoute {
         page: () => const CreatePasswordSuccessfulScreen()),
     GetPage(name: editEmail, page: () => const EditEmailScreen()),
     GetPage(name: changeEmailVerify, page: () => ChangeEmailVerification()),
-    GetPage(
-        name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
+    GetPage(name: changePhoneNumber, page: () => EditPhoneNumberScreen()),
     GetPage(name: resetPasscode, page: () => ResetPasswordScreen()),
-    GetPage(name: deliveryMethodCameroon, page: () => MoneyDeliveryMethodCameroon()),
-    GetPage(name: transactionCancelScreen, page: () => TransactionCancelScreen()),
+    GetPage(
+        name: deliveryMethodCameroon,
+        page: () => MoneyDeliveryMethodCameroon()),
+    GetPage(
+        name: transactionCancelScreen, page: () => TransactionCancelScreen()),
   ];
 }

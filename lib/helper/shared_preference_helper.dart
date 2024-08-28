@@ -27,15 +27,12 @@ class SharedPreferenceHelper {
       isLogIn = pref.getBool("isLogIn") ?? false;
       isLocalAuth = pref.getBool("isLocalAuth") ?? false;
       isForgotPasscode = pref.getBool("isForgotPasscode") ?? false;
-
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
     }
   }
-
-
 
   Future<void> logOut() async {
     try {
@@ -50,22 +47,15 @@ class SharedPreferenceHelper {
       pref.setBool("isLogIn", false);
       pref.setBool("isLocalAuth", false);
 
-      Get.offAllNamed(AppRoute.logIn) ;
-      accessToken = "" ;
-      refreshToken = "" ;
-      isLogIn = false ;
-      isLocalAuth = false ;
-
-
+      Get.offAllNamed(AppRoute.logIn);
+      accessToken = "";
+      refreshToken = "";
+      isLogIn = false;
+      isLocalAuth = false;
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
     }
   }
-
-
-
-
-
 }
