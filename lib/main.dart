@@ -8,7 +8,6 @@ import 'package:money_transfers/laguages.dart';
 import 'package:money_transfers/services/socket_services.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'services/notification_services.dart';
-import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:uuid/uuid.dart';
@@ -35,8 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String uuid = Uuid().v4();
-    print('Generated UUID: $uuid');
+    String uuid = const Uuid().v4();
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/notification_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';
@@ -24,6 +23,7 @@ class NotificationController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
+  @override
   void onInit() {
     notificationRepo();
     scrollController.addListener(() {
@@ -36,12 +36,10 @@ class NotificationController extends GetxController {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       await notificationRepo();
-    } else {
-    }
+    } else {}
   }
 
   Future<void> notificationRepo() async {
-
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
     };
@@ -87,12 +85,11 @@ class NotificationController extends GetxController {
       } else {
         return ("${difference.inHours} hours ago");
       }
-      return ("${difference.inHours % 24} ${"hours".tr} ${difference.inMinutes % 60} ${"minutes".tr}");
     } else {
       var createdAtTime = dateString.split(".")[0];
       var date = createdAtTime.split("T")[0];
       var time = createdAtTime.split("T")[1];
-      return "${date} at $time";
+      return "$date at $time";
     }
   }
 }

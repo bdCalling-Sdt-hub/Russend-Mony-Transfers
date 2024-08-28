@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:money_transfers/controller/amoun_send_controller.dart';
-import 'package:money_transfers/utils/app_colors.dart';
 
 import '../../../../utils/app_icons.dart';
 import '../../../widgets/image/custom_image.dart';

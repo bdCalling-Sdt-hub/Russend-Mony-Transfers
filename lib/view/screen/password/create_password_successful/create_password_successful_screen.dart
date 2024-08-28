@@ -6,8 +6,6 @@ import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../../core/app_route/app_route.dart';
 import '../../../../utils/app_colors.dart';
-import '../../../widgets/app_bar/custom_app_bar.dart';
-import '../../../widgets/back/back.dart';
 import '../../../widgets/custom_button/custom_button.dart';
 
 class CreatePasswordSuccessfulScreen extends StatelessWidget {

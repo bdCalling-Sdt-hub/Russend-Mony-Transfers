@@ -6,7 +6,6 @@ import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/user_details_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/api_url.dart';
 import '../services/api_services/api_services.dart';

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:money_transfers/controller/create_passcode_controller.dart';
 import 'package:money_transfers/controller/sign_up/sign_up_controller.dart';
 import 'package:money_transfers/core/app_route/app_route.dart';
-import 'package:money_transfers/models/sign_up_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -62,6 +61,7 @@ class CreatePasscodeScreen extends StatelessWidget {
                         } else {
                           // return "Please enter passcode".tr;
                         }
+                        return null;
                       },
                       autoFocus: true,
                       showCursor: false,

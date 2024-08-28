@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -72,7 +71,9 @@ class ForgotPasswordVerification extends StatelessWidget {
                       validator: (value) {
                         if (value!.length < 6) {
                           return "Please enter the OTP code.".tr;
-                        } else {}
+                        } else {
+                          return null ;
+                        }
                       },
                       autoFocus: true,
                       pinTheme: PinTheme(

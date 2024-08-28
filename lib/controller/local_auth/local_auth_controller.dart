@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +29,6 @@ class LocalAuthController extends GetxController {
 
   Future<void> authenticateWithBiometrics(bool mounted, String token) async {
     bool authenticated = false;
-    print("======================> authenticateWithBiometrics");
 
     try {
       isAuthenticating.value = true;
@@ -46,7 +44,6 @@ class LocalAuthController extends GetxController {
       isAuthenticating.value = false;
       authorized.value = 'Authenticating';
     } on PlatformException catch (e) {
-      print(e);
       isAuthenticating.value = false;
       authorized.value = 'Error - ${e.message}';
 
@@ -61,7 +58,6 @@ class LocalAuthController extends GetxController {
   }
 
   Future<void> localAuthRepo(String refreshToken) async {
-    print("===================> localAuthRepo");
 
     Map<String, String> header = {
       'Refresh-token': "Refresh-token $refreshToken"

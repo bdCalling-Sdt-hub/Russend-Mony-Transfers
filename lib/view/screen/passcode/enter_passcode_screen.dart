@@ -5,12 +5,9 @@ import 'package:local_auth/local_auth.dart';
 import 'package:money_transfers/controller/enter_passcode_controller.dart';
 import 'package:money_transfers/controller/keyboard_controller.dart';
 import 'package:money_transfers/controller/sign_in_controller.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
-import 'package:money_transfers/models/sign_in_model.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/local_auth/local_auth_controller.dart';
 import '../../../helper/shared_preference_helper.dart';
@@ -104,6 +101,7 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
                         } else {
                           // return "Please enter passcode".tr;
                         }
+                        return null;
                       },
                       autoFocus: true,
                       showCursor: false,
@@ -113,7 +111,6 @@ class _EnterPasscodeScreenState extends State<EnterPasscodeScreen> {
 
                           enterPasscodeController.signInWithPasscodeRepo(
                               SharedPreferenceHelper.email);
-
                         }
                       },
                       pinTheme: PinTheme(

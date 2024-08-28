@@ -6,7 +6,6 @@ import 'package:money_transfers/models/forget_password_otp_model.dart';
 import 'package:money_transfers/view/widgets/loading_container/loading_container.dart';
 
 import '../../../../controller/forget_password_controller.dart';
-import '../../../../core/app_route/app_route.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_button/custom_button.dart';
 import '../../../widgets/custom_text_field/custom_text_field.dart';

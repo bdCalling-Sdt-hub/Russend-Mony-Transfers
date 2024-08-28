@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
@@ -21,10 +22,8 @@ class ConformPasscodeController extends GetxController {
 
   Future<void> createPasscodeRepo(
       String passcodeToken, String clientId, String passcode) async {
-    print("===================> object");
 
     var body = {"passcode": passcodeController.text, "clientId": clientId};
-    print("===================>$body");
     Map<String, String> header = {
       'Pass-code': 'Pass-code $passcodeToken',
     };
@@ -34,10 +33,13 @@ class ConformPasscodeController extends GetxController {
     networkApiService
         .postApi(ApiUrl.createPasscode, body, header)
         .then((apiResponseModel) {
-      print(apiResponseModel.responseJson);
+      if (kDebugMode) {
+        print(apiResponseModel.responseJson);
+        print(apiResponseModel.statusCode.toString());
+        print(apiResponseModel.message.toString());
+      }
 
-      print(apiResponseModel.statusCode.toString());
-      print(apiResponseModel.message.toString());
+
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
-import 'package:money_transfers/controller/recipent_information_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
 import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
@@ -11,7 +10,6 @@ import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/custom_text_field/custom_text_field.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/app_route/app_route.dart';
 import '../../../helper/shared_preference_helper.dart';
@@ -59,6 +57,7 @@ class RecipientInformation extends StatelessWidget {
                   if (value.isEmpty) {
                     return "Enter the recipient’s First Name".tr;
                   }
+                  return null;
                 },
                 suffixIcon: Padding(
                     padding: EdgeInsets.all(14.w),
@@ -83,6 +82,7 @@ class RecipientInformation extends StatelessWidget {
                   if (value.isEmpty) {
                     return "Enter the recipient’s Last Name".tr;
                   }
+                  return null;
                 },
                 suffixIcon: Padding(
                     padding: EdgeInsets.all(14.w),
@@ -107,6 +107,7 @@ class RecipientInformation extends StatelessWidget {
                     if (value.isEmpty) {
                       return "Enter phone number".tr;
                     }
+                    return null;
                   },
                   suffixIcon: Padding(
                     padding: EdgeInsets.all(8.h),

@@ -141,7 +141,7 @@ class NetworkApiService {
         return ApiResponseModel(409, "User already exists".tr, response.body);
       default:
         print(response.statusCode) ;
-        return ApiResponseModel(500, "Internal Server Error".tr, response.body);
+        return ApiResponseModel(response.statusCode, "Internal Server Error".tr, response.body);
     }
   }
 }

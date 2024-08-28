@@ -13,7 +13,6 @@ import 'package:money_transfers/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:money_transfers/view/widgets/back/back.dart';
 import 'package:money_transfers/view/widgets/image/custom_image.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SecurityScreen extends StatelessWidget {
   SecurityScreen({super.key});

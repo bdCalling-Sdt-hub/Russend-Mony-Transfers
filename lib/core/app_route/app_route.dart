@@ -108,14 +108,14 @@ class AppRoute {
 
 
     GetPage(name: splashScreen, page: () => const SplashScreen()),
-    GetPage(name: onboardScreen, page: () =>  OnBoardingScreen()),
+    GetPage(name: onboardScreen, page: () =>  const OnBoardingScreen()),
     GetPage(name: phoneNumber, page: () => const PhoneNumber()),
     GetPage(name: signUpOtp, page: () => SignUpVerification()),
     GetPage(name: createAccount, page: () => CreateAccount()),
     GetPage(name: passCode, page: () => CreatePasscodeScreen()),
     GetPage(name: welcomeScreen, page: () => const WelcomeScreen()),
     GetPage(name: emptyTransaction, page: () => const EmptyTransaction()),
-    GetPage(name: transaction, page: () => Transaction()),
+    GetPage(name: transaction, page: () => const Transaction()),
     GetPage(name: notification, page: () => Notification()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: profileInfo, page: () =>  ProfileInfo()),

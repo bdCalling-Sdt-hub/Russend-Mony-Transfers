@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +14,6 @@ import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
 import '../models/hidden_fee_model.dart';
 import '../services/api_services/api_services.dart';
-import '../view/screen/transection/transaction_cancel_screen.dart';
 
 class AmountSendController extends GetxController {
   // RxInt amount = 0.obs;
@@ -103,7 +102,9 @@ class AmountSendController extends GetxController {
           rubRate.value = data["RUB"];
           exchangeRate.value = xafRate.value / rubRate.value;
 
-          print(exchangeRate);
+          if (kDebugMode) {
+            print(exchangeRate);
+          }
 
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
             exchangeRate.value = exchangeRate.value -
@@ -111,10 +112,13 @@ class AmountSendController extends GetxController {
                     (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
           }
 
-          print(xafRate);
-          print(rubRate);
-          print(exchangeRate);
-          print(hiddenFeesModelInfo!.data!.attributes!.percentage!);
+          if (kDebugMode) {
+            print(xafRate);
+            print(rubRate);
+            print(exchangeRate);
+            print(hiddenFeesModelInfo!.data!.attributes!.percentage!);
+          }
+
           if (isRepeated) {
             Get.toNamed(AppRoute.amountSend);
             youPay(amount, amountController);
@@ -125,7 +129,9 @@ class AmountSendController extends GetxController {
           Utils.toastMessage("usage_limit_reached");
         } else {}
       } catch (e) {
-        print("error $e");
+        if (kDebugMode) {
+          print("error $e");
+        }
       }
     }
   }
@@ -257,7 +263,6 @@ class AmountSendController extends GetxController {
       }
     } catch (error) {
       // Handle any exceptions that might occur during the API call
-      print("Error: $error");
       Get.snackbar("Error", "An error occurred during the API call");
     }
   }
@@ -386,7 +391,7 @@ class AmountSendController extends GetxController {
 
     final difference = currentDate.difference(parsedDate);
 
-    final remainingTime = Duration(minutes: 10) - difference;
+    final remainingTime = const Duration(minutes: 10) - difference;
 
     if (isConfirmation.value) {
       timer?.cancel();

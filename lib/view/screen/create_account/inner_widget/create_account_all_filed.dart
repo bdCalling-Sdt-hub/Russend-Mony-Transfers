@@ -10,7 +10,6 @@ import '../../../../controller/sign_up/sign_up_controller.dart';
 import '../../../../utils/app_icons.dart';
 import '../../../widgets/custom_text_field/custom_text_field.dart';
 import '../../../widgets/image/custom_image.dart';
-import '../../../widgets/text/custom_text.dart';
 
 class CreateAccountAllFiled extends StatelessWidget {
   CreateAccountAllFiled({super.key});
@@ -45,6 +44,7 @@ class CreateAccountAllFiled extends StatelessWidget {
             if (value.isEmpty) {
               return "Enter your Full Name".tr;
             }
+            return null;
           },
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 18.w),
@@ -100,6 +100,7 @@ class CreateAccountAllFiled extends StatelessWidget {
             if (value!.number.isEmpty) {
               return "Invalid Mobile Number".tr;
             }
+            return null;
           },
           onChanged: (value){
             signUpController.countryCode.value = value.countryCode.toString() ;

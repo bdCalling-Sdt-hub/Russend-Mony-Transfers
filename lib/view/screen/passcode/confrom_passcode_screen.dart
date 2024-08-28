@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/confrom_passcode_controller.dart';
 import 'package:money_transfers/controller/sign_in_controller.dart';
-import 'package:money_transfers/core/app_route/app_route.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/utils/app_colors.dart';
-import 'package:money_transfers/view/widgets/custom_button/custom_button.dart';
 import 'package:money_transfers/view/widgets/text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -72,6 +70,7 @@ class ConformPasscodeScreen extends StatelessWidget {
                         } else {
                           // return "Please enter passcode".tr;
                         }
+                        return null;
                       },
 
                       onChanged: (controllerText) {

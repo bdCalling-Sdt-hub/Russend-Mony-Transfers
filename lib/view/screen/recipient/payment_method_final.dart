@@ -9,7 +9,6 @@ import 'package:money_transfers/view/screen/recipient/widget/appbar_rich_text.da
 import 'package:money_transfers/view/screen/recipient/widget/payment_information.dart';
 import 'package:money_transfers/view/screen/recipient/widget/rich_text.dart';
 
-import '../../../core/app_route/app_route.dart';
 import '../../widgets/custom_button/custom_button.dart';
 import '../../widgets/image/custom_image.dart';
 

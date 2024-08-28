@@ -16,6 +16,8 @@ class EnterPasscodeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool disableKeyboard = false.obs;
 
+  int tryNumber = 1;
+
   EnterPasscodeModel? enterPasscodeModelInfo;
 
   TextEditingController enterController = TextEditingController();
@@ -47,7 +49,7 @@ class EnterPasscodeController extends GetxController {
         pref.setBool("isLogIn", true);
         SharedPreferenceHelper.accessToken =
             enterPasscodeModel.data!.accessToken!;
-        SharedPreferenceHelper.isLogIn = true ;
+        SharedPreferenceHelper.isLogIn = true;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -56,8 +58,9 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setString("refreshToken", enterPasscodeModel.data!.refreshToken!);
         pref.setBool("isLogIn", true);
-        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
-        SharedPreferenceHelper.isLogIn = true ;
+        SharedPreferenceHelper.accessToken =
+            enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.isLogIn = true;
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 401) {
         disableKeyboard.value = false;
@@ -101,9 +104,9 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setBool("isLogIn", true);
 
-        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
-        SharedPreferenceHelper.isLogIn = true ;
-
+        SharedPreferenceHelper.accessToken =
+            enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.isLogIn = true;
 
         Get.toNamed(AppRoute.welcomeScreen);
       } else if (apiResponseModel.statusCode == 201) {
@@ -116,16 +119,20 @@ class EnterPasscodeController extends GetxController {
         pref.setString("accessToken", enterPasscodeModel.data!.accessToken!);
         pref.setBool("isLogIn", true);
 
-        SharedPreferenceHelper.accessToken = enterPasscodeModel.data!.accessToken! ;
-        SharedPreferenceHelper.isLogIn = true ;
-
-
+        SharedPreferenceHelper.accessToken =
+            enterPasscodeModel.data!.accessToken!;
+        SharedPreferenceHelper.isLogIn = true;
 
         Get.toNamed(AppRoute.welcomeScreen);
-      } else if (apiResponseModel.statusCode == 401) {
+      } else if (apiResponseModel.statusCode == 406) {
         enterController.clear();
         disableKeyboard.value = false;
         Utils.toastMessage("passcode is incorrect, please try again later".tr);
+        if (tryNumber > 2) {
+          Get.toNamed(AppRoute.logIn);
+        }
+
+        tryNumber++ ;
       } else if (apiResponseModel.statusCode == 404) {
         disableKeyboard.value = false;
         enterController.clear();

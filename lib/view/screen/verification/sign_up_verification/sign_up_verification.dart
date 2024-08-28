@@ -72,7 +72,9 @@ class SignUpVerification extends StatelessWidget {
                       validator: (value) {
                         if (value!.length < 6) {
                           return "Please enter the OTP code.".tr;
-                        } else {}
+                        } else {
+                          return null ;
+                        }
                       },
                       autoFocus: true,
                       pinTheme: PinTheme(

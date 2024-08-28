@@ -1,7 +1,5 @@
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class DateTimeConverter{
 
@@ -28,9 +26,8 @@ static String bangladeshTimeZone = 'America/Toronto';
 
 static  String convertToLocalTime(DateTime time) {
   var locations = tz.timeZoneDatabase.locations;
-  print(locations.length); // => 429
-  print(locations.keys.first); // => "Africa/Abidjan"
-  print(locations.keys.last);
+  // => 429
+  // => "Africa/Abidjan"
     // Convert to the Bangladesh timezone
     tz.TZDateTime bangladeshDateTime = tz.TZDateTime.from(
         time, tz.getLocation(locations.keys.first));
@@ -43,7 +40,7 @@ static  String convertToLocalTime(DateTime time) {
 
  static String getTimeZone(DateTime dateTime) {
     tz.Location? timeZone = tz.getLocation(dateTime.timeZoneName);
-    return timeZone.name ?? 'Unknown';
+    return timeZone.name;
   }
 
 

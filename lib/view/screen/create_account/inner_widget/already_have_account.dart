@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/app_route/app_route.dart';
 import '../../../../utils/app_colors.dart';
-import '../../../widgets/text/custom_text.dart';
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({super.key});
@@ -31,7 +30,7 @@ class AlreadyHaveAccount extends StatelessWidget {
                 ..onTap = () => Get.toNamed(AppRoute.logIn),
               text: "Sign In".tr,
               style: GoogleFonts.poppins(
-                color: AppColors.primaryColor!,
+                color: AppColors.primaryColor,
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
               ))

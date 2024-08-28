@@ -1,9 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../../../utils/app_icons.dart';
 import '../../../widgets/image/custom_image.dart';
 import '../../../widgets/text/custom_text.dart';
 

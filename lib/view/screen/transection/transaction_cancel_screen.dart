@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:money_transfers/controller/amoun_send_controller.dart';
 import 'package:money_transfers/utils/app_colors.dart';
 import 'package:money_transfers/utils/app_icons.dart';
-import 'package:money_transfers/utils/app_utils.dart';
 import 'package:money_transfers/view/screen/transection/widget/cancel_rich_text.dart';
 import 'package:money_transfers/view/widgets/rich_text/rich_text.dart';
 import 'package:money_transfers/view/screen/transection/widget/successful_item.dart';

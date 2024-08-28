@@ -54,7 +54,6 @@ class ForgetPasswordController extends GetxController {
       isLoadingEmailScreen.value = false;
 
       if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
 
         Get.toNamed(AppRoute.forgotPasswordVerify);
         timer?.cancel();
@@ -118,7 +117,6 @@ class ForgetPasswordController extends GetxController {
       isLoading.value = false;
 
       if (apiResponseModel.statusCode == 200) {
-        var json = jsonDecode(apiResponseModel.responseJson);
         emailController.clear();
         otpController.clear();
         passwordController.clear();

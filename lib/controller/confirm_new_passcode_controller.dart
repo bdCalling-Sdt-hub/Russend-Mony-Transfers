@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/controller/change_passcode_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
