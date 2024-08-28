@@ -107,6 +107,9 @@ class AmountSendController extends GetxController {
           }
 
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+            if (countryName.value == "Cameroon") {
+              print("call Cameroon");
+            }
             exchangeRate.value = exchangeRate.value -
                 (exchangeRate.value *
                     (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));

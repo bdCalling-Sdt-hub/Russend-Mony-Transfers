@@ -77,6 +77,8 @@ class _SelectCountryState extends State<SelectCountry> {
                                   AmountSendController.countryName.value = item.name! ;
                                   amountSendController.countryId.value = item.sId!;
 
+                                  print("item.name ${item.name!}") ;
+
                                   if (item.isPaymentAvailable!) {
                                     if (item.paymentGateways!.length == 2) {
                                       Get.toNamed(
