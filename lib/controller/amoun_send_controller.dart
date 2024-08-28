@@ -78,6 +78,32 @@ class AmountSendController extends GetxController {
 
       /// <=============================Test Code ==========================>
 
+      exchangeRate.value = xafRate.value / rubRate.value;
+
+      if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
+        if (countryName.value == "Cameroon") {
+          exchangeRate.value = exchangeRate.value -
+              (exchangeRate.value *
+                  (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! /
+                      100));
+        } else {
+          exchangeRate.value = exchangeRate.value -
+              (exchangeRate.value *
+                  (hiddenFeesModelInfo!
+                      .data!.attributes!.otherCountriesFree! /
+                      100));
+        }
+      }
+
+      if (kDebugMode) {
+        print(xafRate);
+        print(rubRate);
+        print(exchangeRate);
+        print(hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree!);
+        print(hiddenFeesModelInfo!.data!.attributes!.cameroonFee!);
+      }
+
+
       if (isRepeated) {
         Get.toNamed(AppRoute.amountSend);
         youPay(amount, amountController);
@@ -108,18 +134,25 @@ class AmountSendController extends GetxController {
 
           if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
             if (countryName.value == "Cameroon") {
-              print("call Cameroon");
+              exchangeRate.value = exchangeRate.value -
+                  (exchangeRate.value *
+                      (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! /
+                          100));
+            } else {
+              exchangeRate.value = exchangeRate.value -
+                  (exchangeRate.value *
+                      (hiddenFeesModelInfo!
+                              .data!.attributes!.otherCountriesFree! /
+                          100));
             }
-            exchangeRate.value = exchangeRate.value -
-                (exchangeRate.value *
-                    (hiddenFeesModelInfo!.data!.attributes!.percentage! / 100));
           }
 
           if (kDebugMode) {
             print(xafRate);
             print(rubRate);
             print(exchangeRate);
-            print(hiddenFeesModelInfo!.data!.attributes!.percentage!);
+            print(hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree!);
+            print(hiddenFeesModelInfo!.data!.attributes!.cameroonFee!);
           }
 
           if (isRepeated) {
@@ -231,7 +264,10 @@ class AmountSendController extends GetxController {
       "exchangeRate":
           "1 Rub = ${exchangeRate.toStringAsPrecision(3).toString()} XAF",
       "hiddenFees": hiddenFeesModelInfo!.data!.attributes!.isActive!
-          ? hiddenFeesModelInfo!.data!.attributes!.percentage.toString()
+          ? countryName.value == "Cameroon"
+              ? hiddenFeesModelInfo!.data!.attributes!.cameroonFee.toString()
+              : hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree
+                  .toString()
           : "0",
       "paymentMethod": paymentMethod.value,
       "country": "$countryId",
