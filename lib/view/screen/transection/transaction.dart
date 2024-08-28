@@ -38,8 +38,16 @@ class _TransactionState extends State<Transaction> {
   void initState() {
     sharedPreferenceHelper.getSharedPreferenceData();
     socketServices.connectToSocket();
+    transactionController.startTimer();
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    transactionController.start = 0;
+    transactionController.timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -508,6 +516,7 @@ class _TransactionState extends State<Transaction> {
               onPressed: () {
                 amountSendController.isConfirmation.value = false;
                 amountSendController.timer?.cancel();
+                // transactionController.timer?.cancel();
                 amountSendController.time.value = "0:10:00.00000";
                 AmountSendController.isCancelled.value = false;
                 amountSendController.isRepeat.value = false;

@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
@@ -26,6 +28,35 @@ class TransactionController extends GetxController {
   NetworkApiService networkApiService = NetworkApiService();
   SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
+  int start = 0;
+  Timer? timer;
+
+  String time = "00:30";
+
+  void startTimer() {
+    timer?.cancel(); // Cancel any existing timer
+    start = 30; // Reset the start value
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (start > 0) {
+        start--;
+        final minutes = (start ~/ 60).toString().padLeft(2, '0');
+        final seconds = (start % 60).toString().padLeft(2, '0');
+
+        time = "$minutes:$seconds";
+        if (kDebugMode) {
+          print(time);
+        }
+
+        update();
+      } else {
+        page = 1 ;
+        await transactionRepo(isUpdate: true);
+        start = 30;
+        update();
+      }
+    });
+  }
+
   @override
   void onInit() {
     transactionRepo();
@@ -39,16 +70,16 @@ class TransactionController extends GetxController {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       await transactionRepo();
-    } else {
-    }
+    } else {}
   }
 
-  Future<void> transactionRepo() async {
-
+  Future<void> transactionRepo({isUpdate = false}) async {
     Map<String, String> header = {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
     };
 
+
+    print("call") ;
     isMoreLoading.value = true;
     if (transactionList.isEmpty) {
       loading.value = true;
@@ -60,9 +91,12 @@ class TransactionController extends GetxController {
       isMoreLoading.value = false;
       loading.value = false;
 
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
+
+        if (isUpdate) {
+          transactionList.clear();
+        }
 
         transactionModelInfo = TransactionModel.fromJson(json);
 
@@ -80,7 +114,6 @@ class TransactionController extends GetxController {
   }
 
   Future<void> transactionDetailsRepo(String token, String id) async {
-
     transactionDetailsModelInfo = null;
     Get.toNamed(AppRoute.transactionHistory);
 
@@ -120,7 +153,6 @@ class TransactionController extends GetxController {
   }
 
   String historyScreenDateFormat(String date) {
-
     List<String> dateParts = date.split('-');
 
     int year = int.parse(dateParts[0]);
@@ -153,8 +185,6 @@ class TransactionController extends GetxController {
   // }
 
   String formattedDuration(String time, String date) {
-
-
     List<String> dateParts = date.split('-');
 
     int year = int.parse(dateParts[0]);
@@ -172,7 +202,8 @@ class TransactionController extends GetxController {
       ),
     );
 
-    final utcTime = DateTime.utc(year, month, day,duration.inHours%60 ,duration.inMinutes%60 ,duration.inSeconds%60);
+    final utcTime = DateTime.utc(year, month, day, duration.inHours % 60,
+        duration.inMinutes % 60, duration.inSeconds % 60);
     final localTime = utcTime.toLocal();
 
     // Format the duration as needed with AM/PM
