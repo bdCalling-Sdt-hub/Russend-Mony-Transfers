@@ -53,7 +53,7 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     child: Container(
                       height: 220.sp,
                       width: 330.sp,
-                   //  child:SvgPicture.asset(AppImages.cemac),
+                      //  child:SvgPicture.asset(AppImages.cemac),
                       child: Image.asset(
                         AppImages.cemac,
                         height: 220.sp,
@@ -71,7 +71,10 @@ class MoneyDeliveryMethod extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(text: "Should arrive in".tr, fontSize: 14.sp,),
+                      CustomText(
+                        text: "Should arrive in".tr,
+                        fontSize: 14.sp,
+                      ),
                       Flexible(
                         child: CustomText(
                             text: " a few minutes".tr,

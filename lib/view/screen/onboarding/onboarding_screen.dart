@@ -31,7 +31,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Center(
                   child:
-                       CustomImage(imageSrc: AppIcons.splashIcon, size: 180.w),
+                      CustomImage(imageSrc: AppIcons.splashIcon, size: 180.w),
                 ),
                 SizedBox(
                   height: 30.h,

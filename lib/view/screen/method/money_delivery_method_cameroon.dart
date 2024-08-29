@@ -41,10 +41,12 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                   ),
                   Obx(() => amountSendController.hiddenFeeLoading.value
                       ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                          child: CircularProgressIndicator(),
+                        )
                       : const SizedBox()),
-                  SizedBox(height: 12.h,) ,
+                  SizedBox(
+                    height: 12.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -113,8 +115,7 @@ class MoneyDeliveryMethodCameroon extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const CustomText(
-                          text: "0 %",
-                          color: AppColors.primaryColor),
+                          text: "0 %", color: AppColors.primaryColor),
                       CustomText(text: " Fee".tr),
                     ],
                   ),

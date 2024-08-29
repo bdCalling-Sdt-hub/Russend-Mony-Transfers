@@ -21,7 +21,6 @@ class NewPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
@@ -54,7 +53,7 @@ class NewPasswordScreen extends StatelessWidget {
                   isPassword: true,
                   hintText: "Enter your new password".tr,
                   validator: (value) {
-                    return forgetPasswordController.validatePassword(value) ;
+                    return forgetPasswordController.validatePassword(value);
                   },
                 ),
                 CustomText(
@@ -73,7 +72,9 @@ class NewPasswordScreen extends StatelessWidget {
                   isPassword: true,
                   hintText: "Confirm your new password".tr,
                   validator: (value) {
-                    if (forgetPasswordController.passwordController.text == forgetPasswordController.confirmPasswordController.text) {
+                    if (forgetPasswordController.passwordController.text ==
+                        forgetPasswordController
+                            .confirmPasswordController.text) {
                       return null;
                     } else {
                       return "password do not match";
@@ -90,17 +91,16 @@ class NewPasswordScreen extends StatelessWidget {
         child: Obx(() => forgetPasswordController.isLoading.value
             ? LoadingContainer()
             : CustomButton(
-            titleText: "Reset Password".tr,
-            buttonRadius: 10.r,
-            onPressed: () {
-
-              if (formKey.currentState!.validate()) {
-                ForgetPasswordOtpModel forgetPasswordOtpModel =
-                forgetPasswordController.forgetPasswordOtpInfo!;
-                forgetPasswordController.resetPasswordRepo(
-                    forgetPasswordOtpModel.data!.forgetPasswordToken!);
-              }
-            })),
+                titleText: "Reset Password".tr,
+                buttonRadius: 10.r,
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    ForgetPasswordOtpModel forgetPasswordOtpModel =
+                        forgetPasswordController.forgetPasswordOtpInfo!;
+                    forgetPasswordController.resetPasswordRepo(
+                        forgetPasswordOtpModel.data!.forgetPasswordToken!);
+                  }
+                })),
       ),
     );
   }

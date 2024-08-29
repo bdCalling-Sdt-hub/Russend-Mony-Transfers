@@ -184,7 +184,8 @@ class Languages extends Translations {
               "payment time out, please try again",
           "Repeat transfer": "Repeat transfer",
           "Please enter password": "Please enter password",
-          "Enter valid password": "Password must be at least 8 characters and must contain letters and numbers",
+          "Enter valid password":
+              "Password must be at least 8 characters and must contain letters and numbers",
           "English": "English",
           "passcode is incorrect, please try again later":
               "passcode is incorrect, please try again later",
@@ -197,33 +198,29 @@ class Languages extends Translations {
           "To Mobile": "To Mobile:",
           "XAF": "XAF",
           "LegalProfile": "Legal",
-          "If you believe your transaction was canceled by mistake": "If you believe your transaction was canceled by mistake, please ",
+          "If you believe your transaction was canceled by mistake":
+              "If you believe your transaction was canceled by mistake, please ",
           "passcode": "passcode",
           "Passcode not match": "Passcode not match",
           "ago": "ago",
           "hours": "hours",
-          "if forgot your password please, reset your password": "if forgot your password please, reset your password",
+          "if forgot your password please, reset your password":
+              "if forgot your password please, reset your password",
           "User already exists": "User already exists",
           "minimum amount 100 RUB": "minimum amount 100 RUB",
           "maximum amount 150000 RUB": "maximum amount 150000 RUB",
-          "to" : " to ",
-          "pending" : "Pending",
-          "Sent" : "Sent",
-          "Cancelled" : "Cancelled",
-          "accepted" : "accepted",
-          "transferred" : "transferred",
-          "cancelled" : "cancelled",
-          "Delete Account" : "Delete Account",
-
-
+          "to": " to ",
+          "pending": "Pending",
+          "Sent": "Sent",
+          "Cancelled": "Cancelled",
+          "accepted": "accepted",
+          "transferred": "transferred",
+          "cancelled": "cancelled",
+          "Delete Account": "Delete Account",
         },
-
-
-
-
-
         'fr_FR': {
-          "Transfer money quickly with Russend": "Transférez de l'argent rapidement avec Russend",
+          "Transfer money quickly with Russend":
+              "Transférez de l'argent rapidement avec Russend",
           "Experience hassle-free money transfers with Maxsend! Send funds effortlessly to friends and familly all from the convenience of your mobile device.":
               "Faites l'expérience de transferts d'argent sans tracas avec Max Send ! Envoyez des fonds sans effort à vos amis et à votre famille depuis le confort de votre appareil mobile.",
           "Legal terms": "Termes légaux",
@@ -410,7 +407,8 @@ class Languages extends Translations {
               "délai de paiement expiré, veuillez réessayer",
           "Repeat transfer": "Répéter le transfert",
           "Please enter password": "Veuillez entrer le mot de passe",
-          "Enter valid password": "Le mot de passe doit comporter au moins 8 caractères et doit contenir des lettres et des chiffres",
+          "Enter valid password":
+              "Le mot de passe doit comporter au moins 8 caractères et doit contenir des lettres et des chiffres",
           "English": "Français",
           "passcode is incorrect, please try again later":
               "Le code d'accès est incorrect, veuillez réessayer plus tard",
@@ -423,36 +421,25 @@ class Languages extends Translations {
           "To Mobile": "Vers mobile:",
           "XAF": "FCFA",
           "LegalProfile": "Termes légaux",
-          "If you believe your transaction was canceled by mistake": "Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
+          "If you believe your transaction was canceled by mistake":
+              "Si vous pensez que votre transaction a été annulée par erreur, veuillez ",
           "passcode": "mot de passe",
           "Passcode not match": "Le code d'accès ne correspond pas",
           "ago": "il y a",
           "hours": "heures",
-          "if forgot your password please, reset your password": "si vous avez oublié votre mot de passe, veuillez réinitialiser votre mot de passe",
+          "if forgot your password please, reset your password":
+              "si vous avez oublié votre mot de passe, veuillez réinitialiser votre mot de passe",
           "User already exists": "L'utilisateur existe déjà",
           "minimum amount 100 RUB": "montant minimum 100 RUB",
           "maximum amount 150000 RUB": "montant maximum 150000 RUB",
-          "to" : " à ",
-          "pending" : "En cours",
-          "Sent" : "Envoyer",
-          "Cancelled" : "Annulée",
-          "accepted" : "accepté",
-          "transferred" : "transféré",
-          "cancelled" : "Annulée",
-          "Delete Account" : "Supprimer le compte",
-
-
-
-
-
-
-
-
-
-
-
-
-
+          "to": " à ",
+          "pending": "En cours",
+          "Sent": "Envoyer",
+          "Cancelled": "Annulée",
+          "accepted": "accepté",
+          "transferred": "transféré",
+          "cancelled": "Annulée",
+          "Delete Account": "Supprimer le compte",
         }
       };
 }

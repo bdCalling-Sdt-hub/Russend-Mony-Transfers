@@ -67,7 +67,7 @@ class CreatePasscodeScreen extends StatelessWidget {
                       showCursor: false,
                       onChanged: (controllerLength) {
                         if (controllerLength.length == 4) {
-                         Get.toNamed(AppRoute.conformPassCode) ;
+                          Get.toNamed(AppRoute.conformPassCode);
                         }
                       },
                       keyboardType: TextInputType.none,

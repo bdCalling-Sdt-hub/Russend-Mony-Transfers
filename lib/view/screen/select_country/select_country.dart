@@ -19,7 +19,6 @@ class SelectCountry extends StatefulWidget {
 }
 
 class _SelectCountryState extends State<SelectCountry> {
-
   AmountSendController amountSendController = Get.put(AmountSendController());
 
   SelectCountryController selectCountryController =
@@ -72,12 +71,16 @@ class _SelectCountryState extends State<SelectCountry> {
                                   .countryList!.data!.attributes![index];
                               return InkWell(
                                 onTap: () {
-                                  AmountSendController.countryCode.value = item.countryCode!;
-                                  AmountSendController.countryFlag.value = item.countryFlag! ;
-                                  AmountSendController.countryName.value = item.name! ;
-                                  amountSendController.countryId.value = item.sId!;
+                                  AmountSendController.countryCode.value =
+                                      item.countryCode!;
+                                  AmountSendController.countryFlag.value =
+                                      item.countryFlag!;
+                                  AmountSendController.countryName.value =
+                                      item.name!;
+                                  amountSendController.countryId.value =
+                                      item.sId!;
 
-                                  print("item.name ${item.name!}") ;
+                                  print("item.name ${item.name!}");
 
                                   if (item.isPaymentAvailable!) {
                                     if (item.paymentGateways!.length == 2) {

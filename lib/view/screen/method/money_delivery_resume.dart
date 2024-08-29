@@ -21,16 +21,22 @@ class MoneyDeliveryResume extends StatelessWidget {
         backgroundColor: AppColors.background,
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 24.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Center(
-            child: CustomText(text: "The transfers to this country will resume soon".tr,fontSize: 26.sp,maxLines: 3),
+            child: CustomText(
+                text: "The transfers to this country will resume soon".tr,
+                fontSize: 26.sp,
+                maxLines: 3),
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 24.h),
-          child: CustomButton(titleText: "Back to main menu".tr,buttonRadius: 25.r, onPressed: (){
-            Get.offAllNamed(AppRoute.transaction);
-          }),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+          child: CustomButton(
+              titleText: "Back to main menu".tr,
+              buttonRadius: 25.r,
+              onPressed: () {
+                Get.offAllNamed(AppRoute.transaction);
+              }),
         ),
       ),
     );

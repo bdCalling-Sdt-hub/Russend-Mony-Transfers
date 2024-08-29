@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,12 +7,13 @@ import '../../../widgets/text/custom_text.dart';
 class ListItem extends StatelessWidget {
   ListItem({
     super.key,
-     required this.title,
-     required this.time,
+    required this.title,
+    required this.time,
   });
 
-  String title ;
-  String time ;
+  String title;
+
+  String time;
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,7 @@ class AddTransactionModel {
   String? message;
   Data? data;
 
-  AddTransactionModel(
-      {this.status, this.statusCode, this.message, this.data});
+  AddTransactionModel({this.status, this.statusCode, this.message, this.data});
 
   AddTransactionModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -72,24 +71,24 @@ class Attributes {
 
   Attributes(
       {this.firstName,
-        this.lastName,
-        this.phoneNumber,
-        this.amountToSent,
-        this.ammountToSentCurrency,
-        this.amountToReceive,
-        this.amountToReceiveCurrency,
-        this.exchangeRate,
-        this.hiddenFees,
-        this.paymentMethod,
-        this.country,
-        this.userConfirmation,
-        this.status,
-        this.sId,
-        this.transactionId,
-        this.sender,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+      this.lastName,
+      this.phoneNumber,
+      this.amountToSent,
+      this.ammountToSentCurrency,
+      this.amountToReceive,
+      this.amountToReceiveCurrency,
+      this.exchangeRate,
+      this.hiddenFees,
+      this.paymentMethod,
+      this.country,
+      this.userConfirmation,
+      this.status,
+      this.sId,
+      this.transactionId,
+      this.sender,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];

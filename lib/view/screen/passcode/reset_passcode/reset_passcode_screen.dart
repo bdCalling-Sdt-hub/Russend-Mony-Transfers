@@ -15,7 +15,7 @@ import '../../../widgets/back/back.dart';
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
 
-  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper() ;
+  SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ResetPasswordScreen extends StatelessWidget {
               onTap: () async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
 
-                sharedPreferenceHelper.logOut() ;
+                sharedPreferenceHelper.logOut();
                 pref.setBool("isForgotPasscode", true);
               },
               child: Row(
