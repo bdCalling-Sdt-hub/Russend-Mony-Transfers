@@ -63,7 +63,7 @@ class Attributes {
 
   Attributes.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    otherCountriesFree = json['otherCountriesFree'];
+    otherCountriesFree = json['percentage'];
     cameroonFee = json['cameroonFee'];
     isActive = json['isActive'];
     createdAt = json['createdAt'];
