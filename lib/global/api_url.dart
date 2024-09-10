@@ -6,8 +6,9 @@ class ApiUrl {
 
   ///========================================> exchangeApi <==================================
 
-  // static const String baseUrl = "https://russend.com" ;
-  static const String baseUrl = "http://167.71.230.59:3000";
+  static const String baseUrl = "https://russend.com";
+
+  // static const String baseUrl = "http://167.71.230.59:3000";
 
   static const String signUp = "$baseUrl/api/users/sign-up";
 
