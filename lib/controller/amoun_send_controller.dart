@@ -79,18 +79,17 @@ class AmountSendController extends GetxController {
       /// <=============================Test Code ==========================>
 
       exchangeRate.value = xafRate.value / rubRate.value;
+      print(exchangeRate);
 
-      if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-        if (countryName.value == "Cameroon") {
-          exchangeRate.value = exchangeRate.value -
-              (exchangeRate.value *
-                  (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! / 100));
-        } else {
-          exchangeRate.value = exchangeRate.value -
-              (exchangeRate.value *
-                  (hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree! /
-                      100));
-        }
+      if (countryName.value == "Cameroon") {
+        exchangeRate.value = exchangeRate.value -
+            (exchangeRate.value *
+                (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! / 100));
+      } else {
+        exchangeRate.value = exchangeRate.value -
+            (exchangeRate.value *
+                (hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree! /
+                    100));
       }
 
       if (kDebugMode) {
@@ -99,6 +98,7 @@ class AmountSendController extends GetxController {
         print(exchangeRate);
         print(hiddenFeesModelInfo!.data!.attributes!.otherCountriesFree!);
         print(hiddenFeesModelInfo!.data!.attributes!.cameroonFee!);
+        print(hiddenFeesModelInfo!.data!.attributes!.isActive!);
       }
 
       if (isRepeated) {
@@ -129,19 +129,17 @@ class AmountSendController extends GetxController {
             print(exchangeRate);
           }
 
-          if (hiddenFeesModelInfo!.data!.attributes!.isActive!) {
-            if (countryName.value == "Cameroon") {
-              exchangeRate.value = exchangeRate.value -
-                  (exchangeRate.value *
-                      (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! /
-                          100));
-            } else {
-              exchangeRate.value = exchangeRate.value -
-                  (exchangeRate.value *
-                      (hiddenFeesModelInfo!
-                              .data!.attributes!.otherCountriesFree! /
-                          100));
-            }
+          if (countryName.value == "Cameroon") {
+            exchangeRate.value = exchangeRate.value -
+                (exchangeRate.value *
+                    (hiddenFeesModelInfo!.data!.attributes!.cameroonFee! /
+                        100));
+          } else {
+            exchangeRate.value = exchangeRate.value -
+                (exchangeRate.value *
+                    (hiddenFeesModelInfo!
+                            .data!.attributes!.otherCountriesFree! /
+                        100));
           }
 
           if (kDebugMode) {
