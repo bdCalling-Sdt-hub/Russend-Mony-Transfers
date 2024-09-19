@@ -249,6 +249,7 @@ class AmountSendController extends GetxController {
     var body = {
       "firstName": firstNameController.text,
       "lastName": lastNameController.text,
+      "countryName": countryName.value,
       "phoneNumber": isRepeat.value
           ? numberController.text
           : "$countryCode${numberController.text}",

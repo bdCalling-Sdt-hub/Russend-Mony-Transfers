@@ -4,8 +4,12 @@ class TransactionDetailsModel {
   String? message;
   Data? data;
 
-  TransactionDetailsModel(
-      {this.status, this.statusCode, this.message, this.data,});
+  TransactionDetailsModel({
+    this.status,
+    this.statusCode,
+    this.message,
+    this.data,
+  });
 
   TransactionDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -59,6 +63,7 @@ class Attributes {
   String? paymentMethod;
   Country? country;
   String? status;
+  String? countryName;
   String? transactionId;
   Sender? sender;
   DateTime? createdAt;
@@ -67,26 +72,28 @@ class Attributes {
 
   Attributes(
       {this.sId,
-        this.firstName,
-        this.lastName,
-        this.phoneNumber,
-        this.amountToSent,
-        this.ammountToSentCurrency,
-        this.amountToReceive,
-        this.amountToReceiveCurrency,
-        this.exchangeRate,
-        this.paymentMethod,
-        this.country,
-        this.status,
-        this.transactionId,
-        this.sender,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+      this.firstName,
+      this.lastName,
+      this.phoneNumber,
+      this.amountToSent,
+      this.ammountToSentCurrency,
+      this.amountToReceive,
+      this.amountToReceiveCurrency,
+      this.exchangeRate,
+      this.paymentMethod,
+      this.country,
+      this.status,
+      this.transactionId,
+      this.sender,
+      this.countryName,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     firstName = json['firstName'];
+    countryName = json['countryName'] ?? " ";
     lastName = json['lastName'];
     phoneNumber = json['phoneNumber'];
     amountToSent = json['amountToSent'];
@@ -96,12 +103,13 @@ class Attributes {
     exchangeRate = json['exchangeRate'];
     paymentMethod = json['paymentMethod'];
     country =
-    json['country'] != null ? new Country.fromJson(json['country']) : null;
+        json['country'] != null ? new Country.fromJson(json['country']) : null;
     status = json['status'];
     transactionId = json['transactionId'];
     sender =
-    json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
-    createdAt = json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]);
+        json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
+    createdAt =
+        json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]);
     updatedAt = json['updatedAt'];
     iV = json['__v'];
   }

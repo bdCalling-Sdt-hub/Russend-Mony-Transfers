@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/sign_in_model.dart';
@@ -16,9 +17,9 @@ class SignInController extends GetxController {
   RxBool isSignIn = false.obs;
   SignInModel? signInModelInfo;
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: kDebugMode ? "testing.client@gmail.com" : "");
 
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController(text: kDebugMode ? "helloclient" : "");
 
   NetworkApiService networkApiService = NetworkApiService();
 

@@ -235,6 +235,12 @@ class TransactionHistory extends StatelessWidget {
                                             .data!
                                             .attributes!
                                             .paymentMethod!;
+                                    AmountSendController.countryName.value =
+                                        transactionController
+                                            .transactionDetailsModelInfo!
+                                            .data!
+                                            .attributes!
+                                            .countryName!;
 
                                     amountSendController.hiddenFeeRepo(
                                         isRepeated: true,
@@ -322,13 +328,30 @@ class TransactionHistory extends StatelessWidget {
 
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CustomText(text:"Date".tr,color: AppColors.black50,fontSize: 18.sp,fontWeight: FontWeight.w400,right: 24.w),
-                                    Flexible(child: CustomText(text:DateTimeConverter.convertUtcToLocal(transactionController.transactionDetailsModelInfo?.data?.attributes!.createdAt),fontSize: 18.sp,fontWeight: FontWeight.w400,right: 4.w,maxLines: 2)),
+                                    CustomText(
+                                        text: "Date".tr,
+                                        color: AppColors.black50,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w400,
+                                        right: 24.w),
+                                    Flexible(
+                                        child: CustomText(
+                                            text: DateTimeConverter
+                                                .convertUtcToLocal(
+                                                    transactionController
+                                                        .transactionDetailsModelInfo
+                                                        ?.data
+                                                        ?.attributes!
+                                                        .createdAt),
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w400,
+                                            right: 4.w,
+                                            maxLines: 2)),
                                   ],
                                 ),
-
 
                                 SizedBox(height: 24.h),
                                 RowText(

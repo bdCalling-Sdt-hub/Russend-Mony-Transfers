@@ -8,7 +8,7 @@ class ApiUrl {
 
   static const String baseUrl = "https://russend.com";
 
-  // static const String baseUrl = "http://167.71.230.59:3000";
+  // static const String baseUrl = "http://192.168.10.137:3000";
 
   static const String signUp = "$baseUrl/api/users/sign-up";
 

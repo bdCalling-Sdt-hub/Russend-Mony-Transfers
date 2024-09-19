@@ -139,6 +139,9 @@ class RecipientInformation extends StatelessWidget {
                       buttonWidth: 155.w,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          AmountSendController.amountController.clear();
+                          AmountSendController.receiveController.clear();
+
                           Get.toNamed(AppRoute.amountSend);
                         }
                       }),
