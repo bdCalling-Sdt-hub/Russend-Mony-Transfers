@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_transfers/utils/app_utils.dart';
@@ -122,11 +123,18 @@ class NetworkApiService {
   }
 
   dynamic handleResponse(http.Response response) {
+
+    if (kDebugMode) {
+      print("statusCode ==================>${response.statusCode}");
+      print("body ==================>${response.body}");
+    }
+
+
     switch (response.statusCode) {
       case 200:
         return ApiResponseModel(200, 'Success'.tr, response.body);
       case 201:
-        return ApiResponseModel(201, 'Success'.tr, response.body);
+        return ApiResponseModel(200, 'Success'.tr, response.body);
       case 401:
         Get.offAllNamed(AppRoute.logIn);
         return ApiResponseModel(401, "Unauthorized".tr, response.body);

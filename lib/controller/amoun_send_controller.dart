@@ -9,6 +9,7 @@ import 'package:money_transfers/helper/shared_preference_helper.dart';
 import 'package:money_transfers/models/add_transaction_model.dart';
 import 'package:money_transfers/models/payment_info_model.dart';
 import 'package:money_transfers/utils/app_utils.dart';
+import 'package:win32/win32.dart';
 
 import '../core/app_route/app_route.dart';
 import '../global/api_url.dart';
@@ -30,6 +31,7 @@ class AmountSendController extends GetxController {
   RxBool isConfirmation = false.obs;
   RxBool isRepeat = false.obs;
   RxBool hiddenFeeLoading = false.obs;
+  bool isMakePaymentIsLoading = false;
   static RxDouble exchangeRate = 0.0.obs;
 
   RxBool disableButton = false.obs;
@@ -66,6 +68,9 @@ class AmountSendController extends GetxController {
   static TextEditingController firstNameController = TextEditingController();
   static TextEditingController lastNameController = TextEditingController();
   static TextEditingController numberController = TextEditingController();
+
+
+  static AmountSendController get instance => Get.put(AmountSendController());
 
   Future<void> exchangeRates(bool isRepeated, String amount) async {
     if (success.value) {
@@ -245,6 +250,11 @@ class AmountSendController extends GetxController {
   }
 
   Future<void> addTransactionRepo() async {
+    isMakePaymentIsLoading = true;
+    update();
+
+    print("safkjdsfdklsfj");
+
     ///=========================================> main Code <============================================
     var body = {
       "firstName": firstNameController.text,
@@ -277,6 +287,8 @@ class AmountSendController extends GetxController {
     try {
       var apiResponseModel =
           await networkApiService.postApi(ApiUrl.allTransactions, body, header);
+      isMakePaymentIsLoading = false;
+      update();
 
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
@@ -291,15 +303,19 @@ class AmountSendController extends GetxController {
         Get.toNamed(AppRoute.paymentMethodFinal);
         AmountSendController.transactionID.value =
             addTransactionModel?.data?.attributes?.sId ?? "";
-      } else if (apiResponseModel.statusCode == 401) {
       } else {
+        print("safkjdsfdklsfj");
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
     } catch (error) {
+      print("error ============+> $error");
       // Handle any exceptions that might occur during the API call
       Get.snackbar("Error", "An error occurred during the API call");
     }
+
+    isMakePaymentIsLoading = false;
+    update();
   }
 
   Future<void> confirmTransactionRepo() async {

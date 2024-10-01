@@ -52,12 +52,12 @@ class Attributes {
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  int? amountToSent;
+  num? amountToSent;
   String? ammountToSentCurrency;
-  int? amountToReceive;
+  num? amountToReceive;
   String? amountToReceiveCurrency;
   String? exchangeRate;
-  int? hiddenFees;
+  num? hiddenFees;
   String? paymentMethod;
   String? country;
   bool? userConfirmation;
@@ -67,7 +67,7 @@ class Attributes {
   String? sender;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   Attributes(
       {this.firstName,

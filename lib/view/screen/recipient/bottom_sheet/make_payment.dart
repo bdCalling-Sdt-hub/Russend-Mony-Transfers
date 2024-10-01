@@ -12,8 +12,7 @@ import '../../../widgets/text/custom_text.dart';
 
 class MakePayment {
   makePaymentSheet(BuildContext context) {
-
-    AmountSendController amountSendController = Get.put(AmountSendController()) ;
+    AmountSendController amountSendController = Get.put(AmountSendController());
 
     return showModalBottomSheet(
       backgroundColor: Colors.white,
@@ -80,19 +79,23 @@ class MakePayment {
                 SizedBox(
                   height: 16.h,
                 ),
-                Center(
-                  child: CustomButton(
-                      titleText: "Make payment".tr,
-                      buttonRadius: 50.r,
-                      buttonHeight: 50.h,
-                      titleSize: 20.sp,
-                      buttonWidth: double.infinity,
-                      onPressed: () {
-                        amountSendController.addTransactionRepo();
-                        amountSendController.isTimer.value = true ;
-                        // amountSendController.paymentInfoRepo() ;
-                        // Get.toNamed(AppRoute.paymentMethodFinal);
-                      }),
+                GetBuilder<AmountSendController>(
+                  builder: (controller) => Center(
+                    child: controller.isMakePaymentIsLoading
+                        ? const CircularProgressIndicator()
+                        : CustomButton(
+                            titleText: "Make payment".tr,
+                            buttonRadius: 50.r,
+                            buttonHeight: 50.h,
+                            titleSize: 20.sp,
+                            buttonWidth: double.infinity,
+                            onPressed: () {
+                              amountSendController.addTransactionRepo();
+                              amountSendController.isTimer.value = true;
+                              // amountSendController.paymentInfoRepo() ;
+                              // Get.toNamed(AppRoute.paymentMethodFinal);
+                            }),
+                  ),
                 ),
                 SizedBox(
                   height: 16.h,

@@ -85,9 +85,9 @@ class TransactionList {
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  int? amountToSent;
+  num? amountToSent;
   String? ammountToSentCurrency;
-  int? amountToReceive;
+  num? amountToReceive;
   String? amountToReceiveCurrency;
   String? exchangeRate;
   String? paymentMethod;
@@ -98,7 +98,7 @@ class TransactionList {
   Map? sender;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   TransactionList(
       {this.sId,
@@ -191,10 +191,10 @@ class Country {
 }
 
 class Pagination {
-  int? totalResults;
-  int? totalPages;
-  int? currentPage;
-  int? limit;
+  num? totalResults;
+  num? totalPages;
+  num? currentPage;
+  num? limit;
 
   Pagination(
       {this.totalResults, this.totalPages, this.currentPage, this.limit});
