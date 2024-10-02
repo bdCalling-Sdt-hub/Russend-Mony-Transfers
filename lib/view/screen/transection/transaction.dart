@@ -194,11 +194,10 @@ class _TransactionState extends State<Transaction> {
                                   child: InkWell(
                                     onTap: () {
                                       if (transactionModel.userConfirmation) {
-                                        transactionController
-                                            .transactionDetailsRepo(
-                                                SharedPreferenceHelper
-                                                    .accessToken,
-                                                transactionModel.sId);
+                                        Get.toNamed(AppRoute.transactionHistory,
+                                            parameters: {
+                                              "id": transactionModel.sId
+                                            });
                                       } else {
                                         AmountSendController.transactionID
                                             .value = transactionModel.sId;

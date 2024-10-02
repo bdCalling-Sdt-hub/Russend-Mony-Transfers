@@ -62,7 +62,7 @@ class Attributes {
   String? countryISO;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
   String? passcode;
 
   Attributes(

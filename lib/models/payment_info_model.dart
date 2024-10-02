@@ -53,7 +53,7 @@ class Attributes {
   String? phoneNumber;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   Attributes(
       {this.sId,

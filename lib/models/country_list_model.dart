@@ -57,7 +57,7 @@ class Attributes {
   String? countryFlag;
   List<PaymentGateways>? paymentGateways;
   bool? isPaymentAvailable;
-  int? iV;
+  num? iV;
   String? createdAt;
   String? updatedAt;
 

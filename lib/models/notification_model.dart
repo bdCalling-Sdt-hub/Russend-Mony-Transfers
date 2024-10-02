@@ -86,7 +86,7 @@ class NotificationList {
   String? receiver;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   NotificationList(
       {this.sId,
@@ -127,10 +127,10 @@ class NotificationList {
 }
 
 class Pagination {
-  int? totalResults;
-  int? totalPages;
-  int? currentPage;
-  int? limit;
+  num? totalResults;
+  num? totalPages;
+  num? currentPage;
+  num? limit;
 
   Pagination(
       {this.totalResults, this.totalPages, this.currentPage, this.limit});

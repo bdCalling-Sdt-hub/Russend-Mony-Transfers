@@ -20,6 +20,7 @@ class TransactionController extends GetxController {
   RxList transactionList = [].obs;
 
   RxBool isMoreLoading = false.obs;
+  RxBool historyDetailsLoading = false.obs;
   RxBool loading = false.obs;
   int page = 1;
 
@@ -49,7 +50,7 @@ class TransactionController extends GetxController {
 
         update();
       } else {
-        page = 1 ;
+        page = 1;
         await transactionRepo(isUpdate: true);
         start = 30;
         update();
@@ -78,8 +79,7 @@ class TransactionController extends GetxController {
       'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
     };
 
-
-    print("call") ;
+    print("call");
     isMoreLoading.value = true;
     if (transactionList.isEmpty) {
       loading.value = true;
@@ -113,19 +113,18 @@ class TransactionController extends GetxController {
     });
   }
 
-  Future<void> transactionDetailsRepo(String token, String id) async {
+  Future<void> transactionDetailsRepo(String id) async {
+    Map<String, String> header = {
+      'Authorization': "Bearer ${SharedPreferenceHelper.accessToken}"
+    };
+
+    historyDetailsLoading.value = true;
+
     transactionDetailsModelInfo = null;
-    Get.toNamed(AppRoute.transactionHistory);
-
-    Map<String, String> header = {'Authorization': "Bearer $token"};
-
-    isMoreLoading.value = true;
 
     networkApiService
         .getApi("${ApiUrl.transaction}/$id", header)
         .then((apiResponseModel) {
-      isMoreLoading.value = false;
-
       if (apiResponseModel.statusCode == 200) {
         var json = jsonDecode(apiResponseModel.responseJson);
         transactionDetailsModelInfo = TransactionDetailsModel.fromJson(json);
@@ -136,6 +135,9 @@ class TransactionController extends GetxController {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
+
+      historyDetailsLoading.value = false;
+      update();
     });
   }
 

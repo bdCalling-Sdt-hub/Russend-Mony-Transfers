@@ -45,12 +45,12 @@ class Data {
 
 class Attributes {
   String? sId;
-  int? otherCountriesFree;
-  int? cameroonFee;
+  num? otherCountriesFree;
+  num? cameroonFee;
   bool? isActive;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   Attributes(
       {this.sId,

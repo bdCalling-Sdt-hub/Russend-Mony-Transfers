@@ -18,13 +18,26 @@ import 'package:money_transfers/view/widgets/text/custom_text.dart';
 
 import '../../../helper/date_time_converter.dart';
 
-class TransactionHistory extends StatelessWidget {
+class TransactionHistory extends StatefulWidget {
   TransactionHistory({super.key});
 
+  @override
+  State<TransactionHistory> createState() => _TransactionHistoryState();
+}
+
+class _TransactionHistoryState extends State<TransactionHistory> {
   AmountSendController amountSendController = Get.put(AmountSendController());
 
   TransactionController transactionController =
       Get.put(TransactionController());
+
+  final String id = Get.parameters['id'] ?? "";
+
+  @override
+  void initState() {
+    transactionController.transactionDetailsRepo(id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +48,7 @@ class TransactionHistory extends StatelessWidget {
         extendBody: true,
         backgroundColor: AppColors.background,
         appBar: CustomAppBar(appBarContent: Back(onTap: () => Get.back())),
-        body: Obx(() => transactionController.isMoreLoading.value
+        body: Obx(() => transactionController.historyDetailsLoading.value
             ? const Center(
                 child: CircularProgressIndicator(),
               )

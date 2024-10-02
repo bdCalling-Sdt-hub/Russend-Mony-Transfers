@@ -72,7 +72,7 @@ class Attributes {
   bool? isBlocked;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
   String? passcode;
 
   Attributes(
